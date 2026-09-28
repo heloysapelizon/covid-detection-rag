@@ -1,4 +1,4 @@
 """Allow `python -m transcribe <dataset>`."""
-from .transcriber import main
+from .main import main
 
 raise SystemExit(main())

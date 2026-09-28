@@ -1,132 +1,79 @@
-"""Transcribe one audio file, and the command-line entry point.
-
-    python -m transcribe covid_vaccine_videos
-    python -m transcribe covid_vaccine_videos.json
-    python -m transcribe data/youtube/disinformation_dozen.json
-
-A bare name is looked up in data/youtube/. Progress is checkpointed after every
-video, so re-running the same dataset resumes where it stopped.
-"""
 from __future__ import annotations
 
-import argparse
-import shutil
-import sys
+import time
 from pathlib import Path
 
+import pandas as pd
 from faster_whisper import WhisperModel
 
-from .checkpoint import checkpoint_path_for, load_checkpoint
-from .config import DATA_DIR, LANG_PROBABILITY_MIN, MODEL_SIZE, TARGET_LANGUAGE
-from .dataset import load_dataset
-from .model import load_model
-from .output import build_enriched, print_summary, save_enriched
-from .runner import run
+from .audio import download_audio
+from .whisper import transcribe_audio
+from .data import save_checkpoint
 
 
-def transcribe_audio(model: WhisperModel, wav_path: Path) -> tuple[str, str, dict]:
-    """Transcribe one WAV file.
+def run(
+    model: WhisperModel,
+    dataset: list[dict],
+    results: dict,
+    checkpoint_file: Path,
+    limit: int | None = None,
+) -> dict:
+    """Transcribe every dataset video absent from `results`.
 
-    Returns (text, status, meta) where meta carries the detected language and
-    probability for auditing which videos were dropped and why.
-
-    Language is detected before transcription, so non-target audio costs a
-    detection pass rather than full inference.
+    Checkpoints after each video and deletes each audio file immediately, so disk
+    use stays flat and an interrupt loses at most one video's work. Returns the
+    updated results dict (also mutated in place).
     """
-    try:
-        segments, info = model.transcribe(
-            str(wav_path),
-            beam_size=5,
-            vad_filter=True,
-            vad_parameters={"min_silence_duration_ms": 500},
-        )
-        meta = {
-            "language": info.language,
-            "language_probability": round(info.language_probability, 3),
-            "duration_s": round(info.duration, 1),
-        }
+    todo = [d for d in dataset if d["video_id"] not in results]
+    if limit is not None:
+        todo = todo[:limit]
 
-        if info.language != TARGET_LANGUAGE:
-            return "", f"skipped_language ({info.language})", meta
-        if info.language_probability < LANG_PROBABILITY_MIN:
-            return "", f"skipped_language_uncertain ({info.language_probability:.2f})", meta
+    if not todo:
+        print("Nothing to do — every video is already in the checkpoint.")
+        return results
 
-        # segments is a generator; consuming it is what actually runs inference.
-        text = " ".join(seg.text.strip() for seg in segments).strip()
-        return text, ("ok" if text else "empty"), meta
+    print(f"{len(todo)} video(s) to process "
+          f"({len(results)} already done of {len(dataset)}).\n")
 
-    except Exception as e:
-        return "", f"transcribe_error: {type(e).__name__}", {}
+    start = time.time()
+    for n, d in enumerate(todo, 1):
+        vid = d["video_id"]
+        print(f"[{n}/{len(todo)}] {d.get('title', '')[:60]}")
 
+        wav, status = download_audio(vid)
+        if wav is None:
+            results[vid] = {"transcript": "", "transcript_status": status, "meta": {}}
+            print(f"    -> {status}")
+        else:
+            text, status, meta = transcribe_audio(model, wav)
+            results[vid] = {
+                "transcript": text,
+                "transcript_status": status,
+                "meta": meta,
+            }
+            wav.unlink(missing_ok=True)
+            print(f"    -> {status}  ({len(text.split())} words, "
+                  f"{meta.get('duration_s', 0):.0f}s audio)")
 
-# --------------------------------------------------------------------------
-# Command line
-# --------------------------------------------------------------------------
+        save_checkpoint(checkpoint_file, results)
 
-def list_datasets() -> None:
-    names = sorted(
-        p.name for p in DATA_DIR.glob("*.json")
-        if not p.name.startswith("transcripts_checkpoint")
-    )
-    print(f"Datasets in {DATA_DIR}:")
-    for n in names:
-        print(f"  {n}")
+        if n % 10 == 0 and n < len(todo):
+            rate = (time.time() - start) / n
+            print(f"\n  --- {n}/{len(todo)} done, "
+                  f"~{(len(todo) - n) * rate / 60:.0f} min remaining ---\n")
 
-
-def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(
-        prog="python -m transcribe",
-        description="Transcribe a collected video dataset with Whisper.",
-    )
-    parser.add_argument("dataset", nargs="?",
-                        help="dataset name or path (e.g. covid_vaccine_videos)")
-    parser.add_argument("--model", default=MODEL_SIZE,
-                        help=f"Whisper model size (default: {MODEL_SIZE})")
-    parser.add_argument("--limit", type=int, default=None,
-                        help="stop after N videos this run")
-    parser.add_argument("--list", action="store_true",
-                        help="list available datasets and exit")
-    parser.add_argument("--summary-only", action="store_true",
-                        help="rebuild output from the checkpoint without transcribing")
-    return parser
+    print(f"\nFinished {len(todo)} video(s) in {(time.time() - start) / 60:.1f} min.")
+    return results
 
 
-def main(argv: list[str] | None = None) -> int:
-    parser = build_parser()
-    args = parser.parse_args(argv)
+def print_summary(enriched: list[dict]) -> None:
+    """Print usable-transcript counts and the status breakdown."""
+    df = pd.DataFrame(enriched)
+    ok = df[df["transcript_status"] == "ok"]
 
-    if args.list:
-        list_datasets()
-        return 0
-
-    if not args.dataset:
-        parser.print_usage()
-        print("\nerror: a dataset is required (or use --list)", file=sys.stderr)
-        return 2
-
-    if not shutil.which("ffmpeg"):
-        print("ffmpeg not found on PATH — install it with: brew install ffmpeg",
-              file=sys.stderr)
-        return 1
-
-    try:
-        dataset_path, dataset = load_dataset(args.dataset)
-    except (FileNotFoundError, ValueError) as e:
-        print(f"error: {e}", file=sys.stderr)
-        return 1
-
-    checkpoint_file = checkpoint_path_for(dataset_path)
-    results = load_checkpoint(checkpoint_file)
-
-    print(f"Dataset:    {dataset_path}  ({len(dataset)} videos)")
-    print(f"Checkpoint: {checkpoint_file}  ({len(results)} done)")
-
-    if not args.summary_only:
-        model = load_model(args.model)
-        results = run(model, dataset, results, checkpoint_file, limit=args.limit)
-
-    enriched = build_enriched(dataset, results)
-    json_path, csv_path = save_enriched(enriched, dataset_path)
-    print(f"\nSaved:\n  {json_path}\n  {csv_path}")
-    print_summary(enriched)
-    return 0
+    print(f"\nUsable transcripts: {len(ok)}/{len(df)}")
+    if len(ok):
+        words = ok["transcript"].str.count(r"\S+")
+        print(f"Median transcript length: {words.median():.0f} words")
+    print("\nStatus breakdown:")
+    print(df["transcript_status"].value_counts().to_string())
