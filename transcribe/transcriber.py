@@ -17,14 +17,24 @@ def run(
     results: dict,
     checkpoint_file: Path,
     limit: int | None = None,
+    resegment: bool = False,
 ) -> dict:
     """Transcribe every dataset video absent from `results`.
 
     Checkpoints after each video and deletes each audio file immediately, so disk
     use stays flat and an interrupt loses at most one video's work. Returns the
     updated results dict (also mutated in place).
+
+    With resegment, videos already transcribed before segments were stored
+    (status "ok" but no "segments") are processed again.
     """
-    todo = [d for d in dataset if d["video_id"] not in results]
+    def pending(vid: str) -> bool:
+        r = results.get(vid)
+        if r is None:
+            return True
+        return resegment and r.get("transcript_status") == "ok" and "segments" not in r
+
+    todo = [d for d in dataset if pending(d["video_id"])]
     if limit is not None:
         todo = todo[:limit]
 
@@ -42,17 +52,19 @@ def run(
 
         wav, status = download_audio(vid)
         if wav is None:
-            results[vid] = {"transcript": "", "transcript_status": status, "meta": {}}
+            results[vid] = {"transcript": "", "transcript_status": status,
+                            "meta": {}, "segments": []}
             print(f"    -> {status}")
         else:
-            text, status, meta = transcribe_audio(model, wav)
+            text, status, meta, segments = transcribe_audio(model, wav)
             results[vid] = {
                 "transcript": text,
                 "transcript_status": status,
                 "meta": meta,
+                "segments": segments,
             }
             wav.unlink(missing_ok=True)
-            print(f"    -> {status}  ({len(text.split())} words, "
+            print(f"    -> {status}  ({len(text.split())} words, {len(segments)} segments, "
                   f"{meta.get('duration_s', 0):.0f}s audio)")
 
         save_checkpoint(checkpoint_file, results)

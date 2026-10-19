@@ -2,6 +2,7 @@
     python -m transcribe covid_vaccine_videos
     python -m transcribe covid_vaccine_videos.json
     python -m transcribe data/youtube/disinformation_dozen.json
+    python -m transcribe covid_vaccine_videos --resegment   # add timed segments to old results
 
 Progress is checkpointed after every video, so re-running the same dataset resumes where it stopped.
 
@@ -38,6 +39,8 @@ def build_parser() -> argparse.ArgumentParser:
                         help="stop after N videos this run")
     parser.add_argument("--list", action="store_true",
                         help="list available datasets and exit")
+    parser.add_argument("--resegment", action="store_true",
+                        help="re-run videos transcribed before timed segments were stored")
     parser.add_argument("--summary-only", action="store_true",
                         help="rebuild output from the checkpoint without transcribing")
     return parser
@@ -78,7 +81,8 @@ def main(argv: list[str] | None = None) -> int:
             return 1
 
         model = load_model(args.model)
-        results = run(model, dataset, results, checkpoint_file, limit=args.limit)
+        results = run(model, dataset, results, checkpoint_file,
+                      limit=args.limit, resegment=args.resegment)
 
     enriched = build_enriched(dataset, results)
     json_path, csv_path = save_enriched(enriched, dataset_path)

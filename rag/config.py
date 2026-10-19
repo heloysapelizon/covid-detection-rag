@@ -16,7 +16,10 @@ DATASET_NAME = "covid_vaccine_videos_transcribed"
 #   Ollama       ollama serve                                  (port 11434)
 #   llama.cpp    llama-server -m model.gguf -c 8192 --port 8080
 LLAMA_URL = "http://localhost:11434"
-LLAMA_MODEL = "qwen2.5:7b"   # Ollama needs a real name; llama-server ignores it
+# Ollama needs a real model name; llama-server ignores it.
+# 14b scores 11/12 on tests/stance_eval.py vs 9/12 for 7b — but still only 2/5 on
+# whole videos, so verdicts are candidates for review, not final labels.
+LLAMA_MODEL = "qwen2.5:14b"
 REQUEST_TIMEOUT_S = 300      # local generation can be slow
 TEMPERATURE = 0.0            # deterministic: this is classification, not writing
 

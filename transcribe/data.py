@@ -138,6 +138,7 @@ def build_enriched(dataset: list[dict], results: dict) -> list[dict]:
         row["transcript_status"] = r.get("transcript_status", "not_processed")
         row["detected_language"] = r.get("meta", {}).get("language", "")
         row["audio_duration_s"] = r.get("meta", {}).get("duration_s")
+        row["segments"] = r.get("segments", [])
         enriched.append(row)
     return enriched
 
@@ -158,6 +159,7 @@ def save_enriched(
     csv_path = out_dir / f"{stem}.csv"
 
     _write_json(json_path, enriched)
-    _write_csv(csv_path, enriched)
+    # Segments are nested lists and stay JSON-only; the CSV is for inspection.
+    _write_csv(csv_path, [{k: v for k, v in r.items() if k != "segments"} for r in enriched])
 
     return json_path, csv_path

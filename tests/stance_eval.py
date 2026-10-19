@@ -12,6 +12,65 @@ and a model that passes still needs checking on them.
     python tests/stance_eval.py qwen2.5:14b      # try another Ollama model
 
 Not part of the experiment: this measures the classifier, it does not produce data.
+
+---------------------------------------------------------------------------
+Findings so far (qwen2.5:7b, temperature 0, reproduced 13 days apart)
+---------------------------------------------------------------------------
+One-pass adjudication (claim + evidence together):  9/12
+    asserting 6/6   denying 3/6
+It flags "The vaccine does not make you magnetic; it contains no metals" as
+FAKE_NEWS — topic overlap is read as assertion.
+
+Four attempts to fix this by prompting, all on the same 12 pairs:
+
+  1. Stance asked in isolation (no evidence shown)      6/12  (asserting 0/6)
+  2. Same, with all few-shot examples removed          6/12  (asserting 0/6)
+  3. Neutral-topic control sentences (cats, printers)   4/6   — and the errors
+     were "neutral", not "denying"
+  4. Reframed as grammatical polarity, explicitly
+     instructing that accuracy is irrelevant           7/12  (positive 1/6)
+
+Control 3 is the diagnosis: the denying bias appears only on COVID content. Asked
+about cats, the model reasons correctly ("presents the claim that cats are mammals
+as a fact"). Asked about vaccines, it answers a question nobody posed — "is this
+statement true?" — and reports "denying" because the statement is false. Even
+framed as pure grammar, "The mRNA vaccine permanently alters your DNA" (no negation
+words at all) comes back negative.
+
+So the failure is not prompt wording. A 7B model's safety training on COVID claims
+overrides the instruction to report the speaker's position.
+
+---------------------------------------------------------------------------
+Model comparison, same 12 pairs
+---------------------------------------------------------------------------
+    qwen2.5:7b    9/12   asserting 6/6   denying 3/6
+    qwen2.5:14b  11/12   asserting 6/6   denying 5/6
+    MNLI cross-encoder (nli-deberta-v3-small, 70 MB)   7/8 on a subset,
+        including 4/4 denials
+
+The cross-encoder is the interesting result: a small trained classifier beats a
+7B generative model here, because entailment is a classification task with no
+instruction for safety training to override.
+
+---------------------------------------------------------------------------
+Why clean-sentence scores overstate real performance
+---------------------------------------------------------------------------
+qwen2.5:14b scores 11/12 here but only 2/5 on whole videos:
+
+    London Real graphene     PASS  8 windows flagged (correct, true positive)
+    Premier Health           PASS  0 flagged
+    CNBC microchip debunk    FAIL  18 of 39 windows flagged
+    CBS fact-check           FAIL  flagged "Will it cause females to be sterile?"
+    Florida Medical "Myth #1" FAIL flagged "a belief that they were actually
+                                   going to implant vaccination microchips"
+
+The flagged phrases are the lesson. Real speech constantly quotes, asks about and
+describes myths in order to reject them — a journalist's question and a doctor's
+"some people believe X" both read as assertions to the model. Minimal pairs contain
+no reported speech, so they miss the dominant real-world failure mode entirely.
+
+Any eval used to justify a model choice must therefore include real transcript
+windows, not just constructed sentences.
 """
 from __future__ import annotations
 

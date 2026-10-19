@@ -127,18 +127,35 @@ python tests/stance_eval.py              # the configured model
 python tests/stance_eval.py qwen2.5:14b  # compare another
 ```
 
-Measured on this corpus, `qwen2.5:7b` scores **6/6 on assertions but 3/6 on
-denials** — it flags "The vaccine does not make you magnetic; it contains no metals"
-as FAKE_NEWS. The failure is one-directional: the model keys on topic, so
-*debunking content gets flagged as misinformation*. On real transcripts that means
-CNBC's microchip explainer is flagged for the sentence "There's no chip or anything
-like that."
+| Model | Clean pairs | Whole videos |
+|---|---|---|
+| `qwen2.5:7b` | 9/12 (denials 3/6) | — |
+| `qwen2.5:14b` | 11/12 (denials 5/6) | **2/5** |
+| MNLI cross-encoder (70 MB) | 7/8 (denials 4/4) | — |
 
-Run the eval before trusting any verdicts. A model below ~6/6 on denials will
-mislabel the fact-checkers in this dataset, which is the worst possible error here —
-it inverts the result. The pipeline guards the rule it can (a reported stance of
-`denying` or `neutral` overrides a FAKE_NEWS verdict), but that only helps when the
-model reports stance honestly.
+The failure is one-directional: models key on *topic*, so **debunking content gets
+flagged as misinformation** — the worst possible error here, since it inverts the
+result on the fact-checking videos this dataset is full of.
+
+Two findings worth carrying forward:
+
+A 70 MB trained entailment classifier beats a 7B generative model, because
+entailment is a classification task with no instruction for safety training to
+override. Asked about cats and printers the 7B model reasons about stance correctly;
+asked about vaccines it answers "is this true?" instead, and reports the statement
+is false. Even reframed as pure grammatical polarity, it labels "The mRNA vaccine
+permanently alters your DNA" — which contains no negation at all — as negative.
+
+**Clean-sentence scores overstate real performance.** `qwen2.5:14b` goes from 11/12
+on minimal pairs to 2/5 on whole videos, flagging a journalist's question ("Will it
+cause females to be sterile?") and a doctor's description ("a belief that they were
+going to implant microchips"). Real speech quotes and describes myths constantly;
+constructed pairs contain no reported speech, so they miss the dominant failure mode.
+
+Treat retrieval as sound and the verdict as a *candidate* needing review. The
+pipeline guards what it can — a reported stance of `denying` or `neutral` overrides
+a FAKE_NEWS verdict — but that only helps when the model reports stance honestly,
+and `qwen2.5:14b` reports `asserting` on nearly everything.
 
 Everything runs on your machine: embeddings via sentence-transformers, generation via
 llama.cpp. No transcript leaves the host.

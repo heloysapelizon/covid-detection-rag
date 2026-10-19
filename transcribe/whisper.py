@@ -12,7 +12,13 @@ from pathlib import Path
 
 from faster_whisper import WhisperModel
 
-from .config import COMPUTE_TYPE, DEVICE, LANG_PROBABILITY_MIN, MODEL_SIZE
+from .config import (
+    COMPUTE_TYPE,
+    DEVICE,
+    LANG_PROBABILITY_MIN,
+    MODEL_SIZE,
+    WORD_TIMESTAMPS,
+)
 
 
 def load_model(
@@ -34,10 +40,17 @@ def load_model(
     return model
 
 
-def transcribe_audio(model: WhisperModel, wav_path: Path) -> tuple[str, str, dict]:
+def transcribe_audio(
+    model: WhisperModel,
+    wav_path: Path,
+    word_timestamps: bool = WORD_TIMESTAMPS,
+) -> tuple[str, str, dict, list[dict]]:
     """Transcribe one WAV file.
 
-    Returns (text, status, meta) where meta carries the detected language and
+    Returns (text, status, meta, segments). segments is a list of
+    {"start", "end", "text"} in seconds (plus "words" when word_timestamps is set),
+    preserving where each passage is spoken so a flagged claim can be traced back
+    to the video. text is the segments joined, kept for convenience. meta carries the detected language and
     probability for auditing which videos were dropped and why.
 
     Language is detected before transcription, so non-target audio costs a
@@ -49,6 +62,7 @@ def transcribe_audio(model: WhisperModel, wav_path: Path) -> tuple[str, str, dic
             beam_size=5,
             vad_filter=True,
             vad_parameters={"min_silence_duration_ms": 500},
+            word_timestamps=word_timestamps,
         )
         meta = {
             "language": info.language,
@@ -59,13 +73,26 @@ def transcribe_audio(model: WhisperModel, wav_path: Path) -> tuple[str, str, dic
         # The dataset is English-only: anything else is dropped here rather than
         # transcribed, so non-English audio costs only a detection pass.
         if info.language != "en":
-            return "", f"skipped_language ({info.language})", meta
+            return "", f"skipped_language ({info.language})", meta, []
         if info.language_probability < LANG_PROBABILITY_MIN:
-            return "", f"skipped_language_uncertain ({info.language_probability:.2f})", meta
+            return "", f"skipped_language_uncertain ({info.language_probability:.2f})", meta, []
 
         # segments is a generator; consuming it is what actually runs inference.
-        text = " ".join(seg.text.strip() for seg in segments).strip()
-        return text, ("ok" if text else "empty"), meta
+        out: list[dict] = []
+        for seg in segments:
+            piece = seg.text.strip()
+            if not piece:
+                continue
+            entry = {"start": round(seg.start, 2), "end": round(seg.end, 2), "text": piece}
+            if word_timestamps and seg.words:
+                entry["words"] = [
+                    {"start": round(w.start, 2), "end": round(w.end, 2), "word": w.word.strip()}
+                    for w in seg.words
+                ]
+            out.append(entry)
+
+        text = " ".join(s["text"] for s in out).strip()
+        return text, ("ok" if text else "empty"), meta, out
 
     except Exception as e:
-        return "", f"transcribe_error: {type(e).__name__}", {}
+        return "", f"transcribe_error: {type(e).__name__}", {}, []
