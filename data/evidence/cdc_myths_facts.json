@@ -1,0 +1,72 @@
+{
+  "source": "Myths and Facts about COVID-19 Vaccines",
+  "publisher": "Centers for Disease Control and Prevention (CDC)",
+  "url": "https://www.cdc.gov/coronavirus/2019-ncov/vaccines/facts.html",
+  "updated": "2021-07-07",
+  "retrieved": "2026-10-05",
+  "passages": [
+    {
+      "id": "CDC-SOURCES",
+      "topic": "evaluating vaccine information",
+      "claim_addressed": "How do I know which COVID-19 vaccine information sources are accurate?",
+      "verdict": "guidance",
+      "text": "Accurate vaccine information is critical and can help stop common myths and rumors. It can be difficult to know which sources of information you can trust. Before considering vaccine information on the Internet, check that the information comes from a credible source and is updated on a regular basis."
+    },
+    {
+      "id": "CDC-MAGNETIC",
+      "topic": "magnetism, metals, electromagnetic fields",
+      "claim_addressed": "Can receiving a COVID-19 vaccine cause you to be magnetic?",
+      "verdict": "false",
+      "text": "No. Receiving a COVID-19 vaccine will not make you magnetic, including at the site of vaccination which is usually your arm. COVID-19 vaccines do not contain ingredients that can produce an electromagnetic field at the site of your injection. All COVID-19 vaccines are free from metals."
+    },
+    {
+      "id": "CDC-SHEDDING",
+      "topic": "vaccine shedding",
+      "claim_addressed": "Do any of the COVID-19 vaccines authorized for use in the United States shed or release any of their components?",
+      "verdict": "false",
+      "text": "No. Vaccine shedding is the term used to describe the release or discharge of any of the vaccine components in or outside of the body. Vaccine shedding can only occur when a vaccine contains a weakened version of the virus. None of the vaccines authorized for use in the U.S. contain a live virus. mRNA and viral vector vaccines are the two types of currently authorized COVID-19 vaccines available."
+    },
+    {
+      "id": "CDC-FERTILITY",
+      "topic": "fertility, pregnancy, placenta",
+      "claim_addressed": "Is it safe for me to get a COVID-19 vaccine if I would like to have a baby one day?",
+      "verdict": "false",
+      "text": "Yes, you may get a COVID-19 vaccine if you are trying to become pregnant now or want to get pregnant in the future. There is currently no evidence that COVID-19 vaccination causes any problems with pregnancy, including the development of the placenta. In addition, there is no evidence that female or male fertility problems are a side effect of any vaccine, including COVID-19 vaccines."
+    },
+    {
+      "id": "CDC-DNA",
+      "topic": "DNA alteration, genetic material, cell nucleus",
+      "claim_addressed": "Will a COVID-19 vaccine alter my DNA?",
+      "verdict": "false",
+      "text": "No. COVID-19 vaccines do not change or interact with your DNA in any way. Both mRNA and viral vector COVID-19 vaccines deliver instructions (genetic material) to our cells to start building protection against the virus that causes COVID-19. However, the material never enters the nucleus of the cell, which is where our DNA is kept."
+    },
+    {
+      "id": "CDC-VIRAL-TEST",
+      "topic": "testing positive after vaccination",
+      "claim_addressed": "Will getting a COVID-19 vaccine cause me to test positive for COVID-19 on a viral test?",
+      "verdict": "false",
+      "text": "No. None of the authorized and recommended COVID-19 vaccines cause you to test positive on viral tests, which are used to see if you have a current infection. If your body develops an immune response to vaccination, which is the goal, you may test positive on some antibody tests. Antibody tests indicate you had a previous infection and that you may have some level of protection against the virus."
+    },
+    {
+      "id": "CDC-MANDATE",
+      "topic": "federal mandates, vaccination records",
+      "claim_addressed": "Can CDC mandate that I get a COVID-19 vaccine?",
+      "verdict": "false",
+      "text": "No. The federal government does not mandate (require) vaccination for people. Additionally, CDC does not maintain or monitor a person's vaccination records. Whether a state or local government or employer, for example, can require or mandate COVID-19 vaccination is a matter of state or other applicable law."
+    },
+    {
+      "id": "CDC-GIVES-COVID",
+      "topic": "live virus, getting sick from the vaccine",
+      "claim_addressed": "Can a COVID-19 vaccine make me sick with COVID-19?",
+      "verdict": "false",
+      "text": "No. None of the authorized COVID-19 vaccines in the United States contain the live virus that causes COVID-19. This means that a COVID-19 vaccine cannot make you sick with COVID-19. COVID-19 vaccines teach our immune systems how to recognize and fight the virus that causes COVID-19. Sometimes this process can cause symptoms, such as fever. These symptoms are normal and are signs that the body is building protection against the virus that causes COVID-19."
+    },
+    {
+      "id": "CDC-MENSTRUAL",
+      "topic": "menstrual cycle, proximity to vaccinated people",
+      "claim_addressed": "Can being near someone who received a COVID-19 vaccine affect my menstrual cycle?",
+      "verdict": "false",
+      "text": "No. Your menstrual cycle cannot be affected by being near someone who received a COVID-19 vaccine. Many things can affect menstrual cycles, including stress, changes in your schedule, problems with sleep, and changes in diet or exercise. Infections may also affect menstrual cycles."
+    }
+  ]
+}

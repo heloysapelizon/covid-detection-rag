@@ -1,15 +1,7 @@
-"""Everything that talks to the YouTube Data API v3.
+""" gathers call of YouTube Data API v3
 
-The external boundary of the collection pipeline, and the only part that needs the
-network or an API key. Isolated here so a quota or credentials problem stays in one
-module, and so the filtering and storage layers can be used without it.
-
-Quota, against a free budget of 10,000 units/day:
     search.list  100 units per call (up to 50 results)
     videos.list    1 unit per call  (up to 50 ids)
-
-Scraping youtube.com is deliberately not an option: it violates YouTube's Terms of
-Service, breaks whenever the markup changes, and gets IPs blocked.
 """
 from __future__ import annotations
 
