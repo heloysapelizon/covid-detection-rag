@@ -311,34 +311,66 @@ Expect `Indexed 2488 evidence passage(s)`. If it reports a different number, the
 has changed and the documented parameter values were measured against a
 different one.
 
-### 3. Get the model
+### 3-4. Start the model
+
+One command per model. **Run one at a time** — all three backends talk to the
+same `LLAMA_URL`, so two servers on port 8080 would conflict, and the four runs
+are sequential anyway.
+
+#### Local: gpt-oss-20b (llama.cpp)
 
 ```bash
-# a Q4_K_M GGUF of Qwen2.5-14B-Instruct, ~9 GB
-huggingface-cli download Qwen/Qwen2.5-14B-Instruct-GGUF \
-    qwen2.5-14b-instruct-q4_k_m.gguf --local-dir ./models
+llama-server -hf ggml-org/gpt-oss-20b-GGUF:MXFP4 \
+    -c 8192 --port 8080 --host 127.0.0.1 --jinja
 ```
 
-Any instruction-tuned model served over an OpenAI-compatible endpoint works. The
-figures in `docs/` are for `qwen2.5:14b` at Q4_K_M; a different model needs the
-stance and gate behaviour re-checked, since those are the failure modes the
-prompt is built around (`docs/adjudication-experiments.md`).
+`-hf` downloads and caches on first use (~12 GB). `ggml-org` is the llama.cpp
+team's own repo, and **MXFP4 is gpt-oss's native 4-bit format** — the model was
+trained in it, so this is not a lossy requantization the way a community
+`Q4_K_M` conversion would be.
 
-### 4. Start llama-server
+`--jinja` is **required here**: gpt-oss uses the harmony response format, and
+without its own chat template the reasoning preamble leaks into the content and
+breaks JSON parsing.
+
+#### Local: Gemma 4 12B (llama.cpp)
 
 ```bash
-llama-server \
-    -m ./models/qwen2.5-14b-instruct-q4_k_m.gguf \
-    -c 8192 \
-    --port 8080 \
-    --host 127.0.0.1
+llama-server -hf google/gemma-4-12B-it-qat-q4_0-gguf \
+    -c 8192 --port 8080 --host 127.0.0.1
 ```
 
-Keep it in its own terminal. `-c 8192` matters: the prompt carries up to ~11
-evidence passages, and a smaller context silently truncates the evidence block.
+~7 GB. This is Google's **QAT** (quantization-aware trained) release, which
+holds quality at 4 bits far better than post-hoc quantization — the right choice
+when the model itself is what you are measuring. The repo also ships an
+`mmproj-*` file for vision; it is not needed, this pipeline passes only text.
 
-**On GPU**, add `-ngl 99` to offload all layers. Throughput drives the total run
-time. Measured on CPU (M2 Pro, qwen2.5:14b Q4_K_M) over 42-window smoke tests:
+#### Remote: Qwen3.6-27B and gpt-oss-120b (OpenRouter)
+
+No server to start. Set the key once:
+
+```bash
+echo 'OPENROUTER_API_KEY=sk-or-v1-...' >> .env     # .env is gitignored
+```
+
+Then select the model per run (see step 7).
+
+#### Notes that apply to both local models
+
+`-c 8192` matters: the prompt carries up to ~11 evidence passages, and a smaller
+context silently truncates the evidence block. **On GPU** add `-ngl 99` to
+offload all layers; this is typically an order of magnitude faster than CPU.
+
+Keep the server in its own terminal.
+
+**gpt-oss is a reasoning model** — it emits chain-of-thought before its answer.
+Verify this on the step-7 smoke test rather than discovering it at hour four: if
+verdicts come back as `ERROR`, the GBNF grammar is fighting the reasoning trace,
+and `--jinja` (above) or a lower reasoning effort is the fix. Reasoning tokens
+also make it slower per window than 20B suggests, so trust the preflight
+estimate on your own machine over the table below.
+
+Measured on CPU (M2 Pro, qwen2.5:14b Q4_K_M) over 42-window smoke tests:
 
 | run | s/window | 1,588 windows |
 |---|---|---|
@@ -346,9 +378,13 @@ time. Measured on CPU (M2 Pro, qwen2.5:14b Q4_K_M) over 42-window smoke tests:
 | with web fallback | 28.4 | ~12.5 h |
 
 The web fallback is slower because the ~40% of windows that trigger it pay a
-search round-trip plus a second adjudication. Preflight prints the estimate for
-whichever backend you select. GPU offload is typically an order of magnitude
-faster.
+search round-trip plus a second adjudication. A remote run is bounded by rate
+limits rather than hours of local compute.
+
+Figures in `docs/` were all measured on `qwen2.5:14b` via Ollama. A different
+model needs the stance and gate behaviour re-checked, since those are the
+failure modes the prompt is built around
+(`docs/adjudication-experiments.md`).
 
 ### 5. Point the pipeline at it
 
@@ -397,26 +433,62 @@ Expect:
 
 ### 7. Smoke-test, then run
 
-**The planned final run is llama.cpp + Tavily.** Both differ from the machine
-the development measurements were taken on (Ollama, JSON mode, no web), so run
-the smoke test here first — it is the only check that the grammar path works.
+**Smoke-test each model before its full run.** Every figure in `docs/` was
+measured on Ollama with JSON mode and no web, so for all four models here both
+the output constraint and the fallback are untested paths. `--limit 3` costs
+minutes and is the only check that the chain works end to end.
 
 ```bash
-# 1. smoke-test the chain, with the backend you will actually use
-python tests/run_experiment.py --limit 3 --web tavily
-
-# 2. clear the cache so the real run fetches fresh evidence
-#    (the run itself also accepts --clear-cache)
 mkdir -p data/results
-python tests/run_experiment.py --web tavily --clear-cache 2>&1 \
-    | tee data/results/test_run_tavily.log
 ```
 
-For a corpus-only run (no web evidence, cleaner headline figure) drop `--web`:
+#### 1. gpt-oss-20b — local, llama.cpp
 
 ```bash
-python tests/run_experiment.py 2>&1 | tee data/results/test_run_none.log
+export LLAMA_MODEL=gpt-oss-20b          # label only; llama-server serves its GGUF
+python tests/run_experiment.py --limit 3 --web tavily
+python tests/run_experiment.py --web tavily --clear-cache 2>&1 \
+    | tee data/results/test_run_gpt-oss-20b_tavily.log
 ```
+
+#### 2. Gemma 4 12B — local, llama.cpp
+
+```bash
+export LLAMA_MODEL=gemma-4-12b
+python tests/run_experiment.py --limit 3 --web tavily
+python tests/run_experiment.py --web tavily --clear-cache 2>&1 \
+    | tee data/results/test_run_gemma-4-12b_tavily.log
+```
+
+#### 3. Qwen3.6-27B — remote, OpenRouter
+
+```bash
+export LLM_SERVER=openrouter LLAMA_MODEL=qwen/qwen3.6-27b
+python tests/run_experiment.py --limit 3 --web tavily
+python tests/run_experiment.py --web tavily --clear-cache 2>&1 \
+    | tee data/results/test_run_qwen-qwen3.6-27b_tavily.log
+```
+
+#### 4. gpt-oss-120b — remote, OpenRouter
+
+```bash
+export LLM_SERVER=openrouter LLAMA_MODEL=openai/gpt-oss-120b
+python tests/run_experiment.py --limit 3 --web tavily
+python tests/run_experiment.py --web tavily --clear-cache 2>&1 \
+    | tee data/results/test_run_openai-gpt-oss-120b_tavily.log
+```
+
+Drop `--web tavily` for a corpus-only run — the cleaner headline figure, since
+web evidence is not licence-vetted and has no ground truth.
+
+**Always pass `LLAMA_MODEL` explicitly.** llama-server ignores it and serves
+whatever GGUF it was started with, but the run metadata and the default results
+filename both come from it: left at its default, two local runs would be
+recorded as `qwen2.5:14b` and the second would silently resume from the first.
+`unset LLM_SERVER` before a local run, or it will keep pointing at OpenRouter.
+
+Each model writes its own `data/results/test_run_<model>_<web>.json`, so the
+eight runs cannot overwrite one another.
 
 **Budget.** At the measured trigger rate (35-40% of windows) the 119-video run
 costs roughly 560-650 Tavily credits of the free tier's 1,000, so it fits in one
@@ -516,13 +588,23 @@ corpus's licence, DOI and authorship screening.
 
 ### 8. Score
 
+Scoring runs automatically at the end of every run. `--score` re-scores saved
+results without re-running the model, and rewrites the summary file — but it
+finds the file the same way a run names it, so **the same `LLAMA_MODEL` and
+`--web` must be set**:
+
 ```bash
-python tests/run_experiment.py --score                    # corpus-only run
-python tests/run_experiment.py --score --web duckduckgo   # the web run
+# re-score one model's web run
+LLM_SERVER=openrouter LLAMA_MODEL=qwen/qwen3.6-27b \
+    python tests/run_experiment.py --score --web tavily
+
+# or point at the file directly, which needs no environment at all
+python tests/run_experiment.py --score \
+    --out data/results/test_run_qwen-qwen3.6-27b_tavily.json
 ```
 
-Scoring runs automatically at the end of a run; `--score` re-scores saved
-results without re-running the model, and rewrites the summary file.
+`--out` is the safer form when comparing models: it cannot silently score the
+wrong file because `LLAMA_MODEL` was left over from a previous run.
 
 Prints (and writes to `..._summary.txt`) the run's configuration line, the
 confusion matrix, precision, recall, F1 and accuracy, plus every false
@@ -541,7 +623,13 @@ are per video and the pipeline decides per window, so the join rule is stated in
 | `unrecognised verdict '' in ['REJECT']` | grammar disabled with a large evidence block — you are on Ollama; unset `LLM_SERVER` to use llama.cpp |
 | `Index is stale: N passages no longer exist` | passages changed since the index was built; re-run `--build-index` |
 | every verdict `NO_EVIDENCE` | index empty or wrong corpus — check `--build-index` reported 2488 |
-| run much slower than estimated | no GPU offload; add `-ngl 99` to `llama-server` |
+| run much slower than estimated | no GPU offload; add `-ngl 99` to `llama-server`. gpt-oss is also a reasoning model, so it spends tokens before answering |
+| `OPENROUTER_API_KEY not set` | no key in the environment or `.env`; see step 3-4 |
+| `API key rejected (HTTP 401)` | key wrong or the account has no credit |
+| `'<model>' is not offered by the provider` | wrong `LLAMA_MODEL` id — check it against openrouter.ai/models |
+| every verdict `ERROR` on gpt-oss | the grammar is fighting the reasoning trace; make sure `--jinja` is passed to `llama-server` |
+| results from two models in one file | `LLAMA_MODEL` left at its default, so both runs resolved to the same filename; set it explicitly per run |
+| `does not look like an experiment results file` | `--out` points at prompt A/B output; use `tests/score_prompt_ab.py` for that |
 
 ## Layout
 

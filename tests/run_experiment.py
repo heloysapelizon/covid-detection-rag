@@ -286,6 +286,16 @@ def score(out: Path, summary_path: Path | None = None) -> None:
               f"chunk={st.get('CHUNK_WORDS')}/{st.get('CHUNK_STRIDE')} "
               f"grammar={st.get('USE_GRAMMAR')}")
         print(f"     corpus={meta.get('corpus_passages')} passages\n")
+    bad = [k for k, r in done.items()
+           if not isinstance(r, dict) or "label_fake_news" not in r]
+    if bad:
+        print(f"{out} does not look like an experiment results file: "
+              f"{len(bad)} of {len(done)} entries have no 'label_fake_news' "
+              f"(first: {bad[0]!r}).")
+        print("Experiment runs are written by this script; prompt A/B results "
+              "are scored with tests/score_prompt_ab.py.")
+        return
+
     tp = sum(1 for r in done.values()
              if r["label_fake_news"] and r["predicted_fake_news"])
     fp = sum(1 for r in done.values()
