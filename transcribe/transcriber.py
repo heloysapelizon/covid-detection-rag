@@ -6,6 +6,7 @@ from pathlib import Path
 import pandas as pd
 from faster_whisper import WhisperModel
 
+from .config import is_usable, TRANSCRIBE_MAX_S
 from .audio import download_audio
 from .whisper import transcribe_audio
 from .data import save_checkpoint
@@ -18,6 +19,7 @@ def run(
     checkpoint_file: Path,
     limit: int | None = None,
     resegment: bool = False,
+    max_transcribe_s: int = TRANSCRIBE_MAX_S,
 ) -> dict:
     """Transcribe every dataset video absent from `results`.
 
@@ -32,7 +34,7 @@ def run(
         r = results.get(vid)
         if r is None:
             return True
-        return resegment and r.get("transcript_status") == "ok" and "segments" not in r
+        return resegment and is_usable(r.get("transcript_status")) and "segments" not in r
 
     todo = [d for d in dataset if pending(d["video_id"])]
     if limit is not None:
@@ -50,13 +52,19 @@ def run(
         vid = d["video_id"]
         print(f"[{n}/{len(todo)}] {d.get('title', '')[:60]}")
 
-        wav, status = download_audio(vid)
+        wav, dl_status = download_audio(vid, transcribe_max_s=max_transcribe_s)
         if wav is None:
-            results[vid] = {"transcript": "", "transcript_status": status,
+            results[vid] = {"transcript": "", "transcript_status": dl_status,
                             "meta": {}, "segments": []}
-            print(f"    -> {status}")
+            print(f"    -> {dl_status}")
         else:
             text, status, meta, segments = transcribe_audio(model, wav)
+            # A capped download must not be reported as a complete transcript.
+            # transcribe_audio returns its own "ok", which would otherwise
+            # overwrite the "ok_capped (...)" note and lose the record that this
+            # transcript covers only the first part of the video.
+            if status == "ok" and dl_status.startswith("ok_capped"):
+                status = dl_status
             results[vid] = {
                 "transcript": text,
                 "transcript_status": status,
@@ -81,7 +89,7 @@ def run(
 def print_summary(enriched: list[dict]) -> None:
     """Print usable-transcript counts and the status breakdown."""
     df = pd.DataFrame(enriched)
-    ok = df[df["transcript_status"] == "ok"]
+    ok = df[df["transcript_status"].apply(is_usable)]
 
     print(f"\nUsable transcripts: {len(ok)}/{len(df)}")
     if len(ok):

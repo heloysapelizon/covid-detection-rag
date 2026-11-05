@@ -1,0 +1,1282 @@
+[
+ {
+  "video_id": "UijQ-6jhVuc",
+  "channel": "Doctor Mike Hansen",
+  "title": "Doctor Dies After Getting COVID Vaccine? Post Vaccine Deaths",
+  "window": 14,
+  "window_text": "not just drugs that can cause this, but also certain foods, herbal remedies, and one vaccine, the MMR vaccine. The risk of ITP occurring within six weeks after getting the MMR vaccination is increased. However, the attributable risk of thrombocytopenia within six weeks after MMR vaccination remains overall low at one in 25,000 vaccinated children. Now complications or long-term consequences of ITP in this age group are rare. For the majority of children less than six years of age, the illness is self-limiting. Vaccines stimulate the immune system, and in theory could, in rare cases, cause it to mistakenly identify some of a patient's own cells as enemy invaders that should be destroyed. But with that said, millions of various vaccinations are given every year, and clusters of thrombocytopenia don't occur. In regarding the COVID vaccine, millions of doses have",
+  "candidates": [
+   {
+    "id": "vaccines-10-01444#Discussion:2",
+    "similarity": 0.8271,
+    "source_file": "vaccines-10-01444.pdf",
+    "text": "ITP is not new and has been documented in relation to various other vaccines, such as MMR, inﬂuenza, hepatitis B, polio, pneumococcal vaccines, etc. [52]. Most studies reported the occurrence of throm"
+   },
+   {
+    "id": "vaccines-10-01444#Introduction:3",
+    "similarity": 0.7659,
+    "source_file": "vaccines-10-01444.pdf",
+    "text": "Amongst drugs, almost half of the cases are attributed to vaccines, with the measles-mumps-rubella (MMR) vaccine being the most common culprit [5]. With the recent outbreak of the COVID-19 pandemic an"
+   },
+   {
+    "id": "vaccines-10-01444#Discussion:3",
+    "similarity": 0.7396,
+    "source_file": "vaccines-10-01444.pdf",
+    "text": "of receiving the vaccine and more than 90% of these cases were self-limiting, with only a few progressing to chronic thrombocytopenia [53,54]. With the advent of COVID-19 vaccines, it has become chall"
+   }
+  ],
+  "relevant_evidence": [
+   "immune thrombocytopenia"
+  ],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "blood_clots",
+  "expect_addresses": "yes"
+ },
+ {
+  "video_id": "xGHs0u0VzoA",
+  "channel": "ImmunizeOrg",
+  "title": "How are mRNA and protein-based COVID-19 vaccines different?",
+  "window": 1,
+  "window_text": "the spike protein found on the surface of the SARS-CoV-2 virus, but they do so in different ways. The messenger RNA or mRNA vaccines, including the Pfizer-BioNTech COVID-19 vaccine, Comernity, and the Moderna COVID-19 vaccines, SpikeVax, and MNEC spike, are lipid nanoparticle formulated nucleoside modified mRNA vaccines that encode the pre-fusion spike glycoprotein of the virus that causes COVID-19. To speak simply, these vaccines contain a messenger RNA recipe for a harmless piece of the spike protein found on the surface of SARS-CoV-2. The messenger RNA is enclosed in fatty bubbles that enable it to enter our cells where our own cellular machinery temporarily makes the spike protein pieces from the mRNA before that mRNA is broken down and discarded from the body. Messenger RNA is not able to enter the nucleus of the cell where our genes are located",
+  "candidates": [
+   {
+    "id": "ijms-22-10791-v2#Introduction:2",
+    "similarity": 0.7853,
+    "source_file": "ijms-22-10791-v2.pdf",
+    "text": "of several vaccines against SARS-CoV-2. Meanwhile, the European Medicines Agency (EMA) has approved four vaccines on the basis of randomized, blinded, and controlled trials: two messenger RNA-based va"
+   },
+   {
+    "id": "vaccines-09-00467-v2#Vaccines_2021,_9,_467:3",
+    "similarity": 0.7745,
+    "source_file": "vaccines-09-00467-v2.pdf",
+    "text": "Moderna utilize synthetic mRNA encoding the sequence of the coronavirus’s signature spike protein (S-protein) that is then encapsulated within a lipid vesicle nanoparticle. (II) Viral vector vaccines "
+   },
+   {
+    "id": "ijms-22-10791-v2#Introduction:3",
+    "similarity": 0.7602,
+    "source_file": "ijms-22-10791-v2.pdf",
+    "text": "encode the spike protein antigen of SARS-CoV-2 encapsulated in lipid nanoparticles and two adenoviral vector-based vaccines, i.e., ChAdOx1 nCoV-19 (AZD1222; AstraZeneca), a recombinant chimpanzee aden"
+   }
+  ],
+  "relevant_evidence": [
+   "spike protein"
+  ],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "general",
+  "expect_addresses": "yes"
+ },
+ {
+  "video_id": "vOvl3vZZsYY",
+  "channel": "KTVB",
+  "title": "Can the COVID-19 vaccine cause changes in a woman's menstrual cycle?",
+  "window": 0,
+  "window_text": "And since the vaccine rollout began, we've heard about a number of different side effects. Most of them minor and here's another one some people are talking about online. Well, ladies, that is changes in the menstrual cycle. Now in some cities, some women have reported noticing a change in their period after getting the vaccine, but I checked with some medical experts in the area, including Doctor Steven Nemerson, who is the chief clinical officer for Saint Alphonsus about this. And they all tell me they haven't heard of any cases here, but Doctor Nemerson says he has heard secondhand stories about this happening. Doctor Nemerson wants to emphasize that the vaccine is not harmful to a woman's ability to have a baby or to their reproductive system.",
+  "candidates": [
+   {
+    "id": "kwac011#COVID-19_and_Fertility:7",
+    "similarity": 0.6895,
+    "source_file": "kwac011.pdf",
+    "text": "cycles and heavy bleeding after vaccination and that breakthrough bleeding was common among individuals taking gender-affirming hormones or long-acting reversible contraception, and among postmenopaus"
+   },
+   {
+    "id": "kwac011#One_hypothesized_mechanism_by_which_COVID-19_vac-:1",
+    "similarity": 0.6773,
+    "source_file": "kwac011.pdf",
+    "text": "and vaginal bleeding after vaccination have contributed to skepticism of vaccine safety and concerns about fertility. An association between COVID-19 vaccination and menstrual irregularities theoretic"
+   },
+   {
+    "id": "kwac011#One_hypothesized_mechanism_by_which_COVID-19_vac-:0",
+    "similarity": 0.6687,
+    "source_file": "kwac011.pdf",
+    "text": "cination could influence female fertility is via changes in menstrual cycles. Although we and others have found in our studies no adverse associations of female COVID-19 vaccination with fertility (14"
+   }
+  ],
+  "relevant_evidence": [
+   "heavy bleeding after vaccination"
+  ],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "infertility",
+  "expect_addresses": "yes"
+ },
+ {
+  "video_id": "umHRAaS4Xlo",
+  "channel": "Global News",
+  "title": "Myocarditis: Pfizer COVID-19 vaccine possibly linked to cases of heart",
+  "window": 1,
+  "window_text": "a few cases have been reported. We currently do not see any higher rates than would be expected in the general population, but it is something that we need to continuously monitor. An overview of seven cases in healthy American males age 14 to 19 appeared in the journal Pediatrics. The authors want increased awareness and monitoring. It says all cases in this report occurred after the second vaccine dose. Fortunately, none of our patients was critically ill and each was discharged home. The American Centers for Disease Control first noted reactions in late May and launched an investigation. Very rare. We have vaccinated millions of people, millions of kids, and this is only a small signal. A handful of cases that have occurred in the United States. In Israel, 275 cases of myocarditis have been reported out of roughly",
+  "candidates": [
+   {
+    "id": "clinpract-16-00077#Introduction:8",
+    "similarity": 0.8392,
+    "source_file": "clinpract-16-00077.pdf",
+    "text": "three cases per 100,000 administered doses— and most affected individuals experience a complete recovery [1]. In the studied cohort of children aged 5–11 years, no cases of myocarditis were observed, "
+   },
+   {
+    "id": "clinpract-16-00077#Special_Populations:0",
+    "similarity": 0.8099,
+    "source_file": "clinpract-16-00077.pdf",
+    "text": "Available data on special populations remain limited; however, existing studies suggest that myocarditis following mRNA vaccination is extremely rare among children, particularly those aged 5–11 years"
+   },
+   {
+    "id": "vaccines-10-01316#Discussion:10",
+    "similarity": 0.7977,
+    "source_file": "vaccines-10-01316.pdf",
+    "text": "adolescents aged 12–17 years was 1.22/1000 hospitalizations from 2010 to 2019 [33]. In a national study in Finland, the overall incidence of myocarditis in children aged ≤15 years was 1.95/100,000 per"
+   }
+  ],
+  "relevant_evidence": [
+   "most affected individuals experience a complete recovery"
+  ],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "myocarditis",
+  "expect_addresses": "yes"
+ },
+ {
+  "video_id": "qPvC6hd1KBg",
+  "channel": "Wellstar MCG Health Medical Center",
+  "title": "COVID-19 Vaccine FAQ - Is it better to get natural immunity rather tha",
+  "window": 0,
+  "window_text": "Is it better to get natural immunity to COVID-19 rather than immunity from a vaccine? No, it's actually not better to get the natural disease and develop natural immunity from the disease. This is for multiple reasons. One of those is that the immunity developed to COVID-19 can be highly variable. Some people may test positive but never actually go on to develop the clinically apparent disease and therefore not develop the long-lasting immunity that one can achieve from vaccination. In this case, vaccination actually produces more reliable and longer lasting immunity than some people may obtain with the disease. Plus, the disease itself has serious side effects and potential long-term complications that can be avoided by getting vaccinated. In this case, vaccination is safer and it's highly effective at preventing serious disease and complications from COVID-19.",
+  "candidates": [
+   {
+    "id": "clinpract-16-00077#Risk–Benefit_Evaluation:1",
+    "similarity": 0.7167,
+    "source_file": "clinpract-16-00077.pdf",
+    "text": "adults, while Sritharan et al. demonstrated that vaccinated patients had lower hospitalization and mortality rates after COVID-19 infection [20,22]. The substantially lower morbidity and mortality amo"
+   },
+   {
+    "id": "fendo-15-1356938#Moreover,_the_IgG_produced_by_indirect_vaccination_during:6",
+    "similarity": 0.7017,
+    "source_file": "fendo-15-1356938.pdf",
+    "text": "autoimmune diseases than others when vaccinated with nucleic acid vaccines (55, 56). This will require future studies to be conducted to determine whether there are any long-term side effects associat"
+   },
+   {
+    "id": "vaccines-11-01693#Conclusions:0",
+    "similarity": 0.6988,
+    "source_file": "vaccines-11-01693.pdf",
+    "text": "The ﬁndings emphasized the signiﬁcance of considering vaccination and infection history in designing effective COVID-19 control strategies. The evidence showed that reduced infection rates were associ"
+   }
+  ],
+  "relevant_evidence": [
+   "Natural infection poses risks of severe acute illness and long-term"
+  ],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "natural_immunity",
+  "expect_addresses": "yes"
+ },
+ {
+  "video_id": "GtqyTBPhbMA",
+  "channel": "Sharjah24 News",
+  "title": "How AstraZeneca COVID-19 vaccine causes blood clots",
+  "window": 2,
+  "window_text": "cluster together, resulting in blood clots. The BBC points out that vaccine-induced clots like these have been linked to just 73 deaths out of nearly 50 million doses of AstraZeneca given in the UK, while AstraZeneca said the vaccine is thought to have saved more than a million lives around the world and prevented 50 million cases of COVID. The clots are more likely to occur because of a COVID infection than the vaccine, according to a spokesperson for the company.",
+  "candidates": [
+   {
+    "id": "vaccines-09-00467-v2#Serious_Adverse_Side_Effects_of_COVID-19_Vaccines:1",
+    "similarity": 0.7218,
+    "source_file": "vaccines-09-00467-v2.pdf",
+    "text": "[38], (3) 1 case out of 15,181 in the vaccine group, and 1 case out of 15,170 in the placebo group, for the mRNA-based vaccine [40]. A total of 37 blot clots, including 22 pulmonary embolus cases (PE)"
+   },
+   {
+    "id": "IDR-S315727#Regulatory_Agency)_reported_13_patients_with_allergic:1",
+    "similarity": 0.6686,
+    "source_file": "IDR-S315727.pdf",
+    "text": "after vaccination were elderly patients with underlying health conditions and, consequently, these deaths did not suggest a direct vaccine cause. However, the evaluation of the vaccines’ adverse effec"
+   },
+   {
+    "id": "vaccines-09-00467-v2#Serious_Adverse_Side_Effects_of_COVID-19_Vaccines:2",
+    "similarity": 0.6471,
+    "source_file": "vaccines-09-00467-v2.pdf",
+    "text": "embolus cases (PE) and 5 deep vein thrombosis (DVT), have been reported for the Oxford-AstraZeneca vaccine among 17 million people in the EU and Britain [43]; see discussion for recent contributions. "
+   }
+  ],
+  "relevant_evidence": [
+   "have been reported for the Oxford-AstraZeneca vaccine"
+  ],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "blood_clots",
+  "expect_addresses": "yes"
+ },
+ {
+  "video_id": "Wtd0Hj00g_E",
+  "channel": "Unbiased Science",
+  "title": "Do mRNA vaccines alter our DNA?! #mrna",
+  "window": 2,
+  "window_text": "all the rest of the virus families make what's called an acute infection, and then they're gone. That's because they aren't messing with our DNA. RNA does not make DNA, and it gets degraded pretty quickly, usually within a day, I would say for the most part. I don't know the precise numbers, but it's a short-lived molecule, and that's how it's designed to be. And really, this makes RNA vaccines much safer, in my view.",
+  "candidates": [
+   {
+    "id": "s41392-022-00950-y#After_over_30_years_of_research,_mRNA_vaccines_have_become_a:3",
+    "similarity": 0.6816,
+    "source_file": "s41392-022-00950-y.pdf",
+    "text": "in the virus genome. In the future, the mRNA technology platform will enable preventing and managing infectious diseases as well as treating other disorders. Due to its advantages, such as a quick dev"
+   },
+   {
+    "id": "cureus-0017-00000098208#Introduction_And_Background:0",
+    "similarity": 0.6644,
+    "source_file": "cureus-0017-00000098208.pdf",
+    "text": "The rapid development and deployment of COVID-19 vaccines marked a turning point in the global response to the pandemic [1]. Among these, messenger RNA (mRNA) vaccines have been widely administered du"
+   },
+   {
+    "id": "vaccines-09-00989-v2#Meta-Analysis_Results:3",
+    "similarity": 0.6489,
+    "source_file": "vaccines-09-00989-v2.pdf",
+    "text": "events) were classiﬁed using the US Food and Drug Administration’s Toxicity Grading Scale [31]. The risk of serious adverse event occurrence after at least one dose was greater for mRNA vaccines [OR ="
+   }
+  ],
+  "relevant_evidence": [
+   "inserts its mRNA into the cytoplasm (not in the nucleus)"
+  ],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "general",
+  "expect_addresses": "yes"
+ },
+ {
+  "video_id": "0RixG3Bus0Q",
+  "channel": "UConn Pharmacy",
+  "title": "Does the COVID-19 Vaccine Cause Infertility?",
+  "window": 4,
+  "window_text": "Health England examining the incidence of stillbirths from April 2020 to June 2020, the risk of having a stillbirth has not changed. Still not convinced? There's no evidence of infertility as an adverse effect of the COVID-19 vaccine from the FDA reviews of the vaccine. Every female participant of childbearing potential was screened for pregnancy before each vaccination and a woman would be discontinued from the study with a positive pregnancy test. Throughout the study beginning in April and ending on November 14, 2020, there were a total of 23 pregnancies in the study groups from the phase 3 clinical trials. 12 of these pregnancies were from the vaccine cohort. Of all these pregnancies that occurred after vaccination, the only adverse effects were reported in the placebo group. By looking at it three different ways, we believe that the risk",
+  "candidates": [
+   {
+    "id": "pbio.3001506#May_24,_2022.4:3",
+    "similarity": 0.8068,
+    "source_file": "pbio.3001506.pdf",
+    "text": "women and pregnancies continue to be impacted by the ongoing COVID-19 pandemic and by vaccine hesitancy. In the absence of complete clinical trial data, many women are choosing to vaccinate during pre"
+   },
+   {
+    "id": "dead036#The_risk_of_miscarriage_following:11",
+    "similarity": 0.799,
+    "source_file": "dead036.pdf",
+    "text": "limited to observational evidence with varied reporting, high heterogeneity and risk of bias across included studies, which may limit the generalizability and conﬁdence in our ﬁndings. WIDER IMPLICATI"
+   },
+   {
+    "id": "dead036#Implications_for_clinical_practice:6",
+    "similarity": 0.795,
+    "source_file": "dead036.pdf",
+    "text": "pregnancy live birth among pregnancy women who received COVID-19 vaccine. 846 Rimmer et al. Downloaded from academic.oup.com/humrep/article/38/5/840/7043098 by PUC PORTO ALEGRE user on 31 October 2026"
+   }
+  ],
+  "relevant_evidence": [
+   "women and pregnancies continue to be impacted by the ongoing"
+  ],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "infertility",
+  "expect_addresses": "yes"
+ },
+ {
+  "video_id": "ArtNg2LD1Ds",
+  "channel": "AP Archive",
+  "title": "FDA expert on weighing risk of heart inflammation",
+  "window": 1,
+  "window_text": "into our consideration of boosters is that the rates after a third dose, a booster dose, appear to be lower than after the second dose and in fact much closer to the rates after the first dose. The rate of myocarditis in men somewhere in the age of 18 to 24 is probably somewhere between 1 in 5,000 and 1 in 10,000 with Moderna. The exact number, I can't tell you but it depends on what study you're using. Myocarditis sounds like a scary word. It is but myocarditis has a range from mild which is basically something that is almost a laboratory abnormality to something that's really bad that you're an intensive care unit for. These cases, 98% of these were the really mild form where the most common things given to people were pain medicines like acetaminophen or",
+  "candidates": [
+   {
+    "id": "clc-45-691#Abstract:3",
+    "similarity": 0.7545,
+    "source_file": "clc-45-691.pdf",
+    "text": "catalogued. Mean age was 26.7 years and male to female ratio was 14:1. For 86.9% of patients, myocarditis occurred after the second dose. Average time to onset and length of hospitalization were 3.7 a"
+   },
+   {
+    "id": "vaccines-10-01316#Vaccines_2022,_10,_1316.2:2",
+    "similarity": 0.6969,
+    "source_file": "vaccines-10-01316.pdf",
+    "text": "relative to the second and ﬁrst doses, Figure S5: Male and female relative risk incidence of myocarditis or pericarditis. Author Contributions: Conceptualization and study design, M.L. and B.Y.; liter"
+   },
+   {
+    "id": "clc-45-691#Four:0",
+    "similarity": 0.6857,
+    "source_file": "clc-45-691.pdf",
+    "text": "studies contained histopathologic evidence for myocarditis.16,21,45,60 The average age of the patients with myocarditis was 26.7 years, with the youngest patient at 12 years and the oldest at 71 years"
+   }
+  ],
+  "relevant_evidence": [
+   "particularly after the second dose"
+  ],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "myocarditis",
+  "expect_addresses": "yes"
+ },
+ {
+  "video_id": "6DdIUUPm3ug",
+  "channel": "Doctor Mike",
+  "title": "The Problem With \"Natural\" Immunity",
+  "window": 0,
+  "window_text": "By getting the vaccine as a healthy person, I believe that's better than having natural immunity. And that doesn't mean that by getting the vaccine, you have a better response or a stronger response. In fact, many times actually getting the disease will give you a better response. But do you know what you have to do in order to get that response? Like get the virus in you? Correct, which means you have to have all the potential risks of having severe disease, death, and largely we've forgotten how serious these viruses and bacteria are, where in the 20s, in the 50s, in the 80s, the deadliness of those diseases has been largely forgotten. One of the vaccines we give to children is called haemophilus influenza. That causes meningitis. We don't see that anymore. The residents that were trained",
+  "candidates": [
+   {
+    "id": "vaccines-11-01693#Vaccines_2023,_11,_1693.9:0",
+    "similarity": 0.7013,
+    "source_file": "vaccines-11-01693.pdf",
+    "text": "11 of 13 been previously infected. However, older adults and those who are immunosuppressed should be considered for an extra booster vaccine [26–28]. It is crucial to emphasize that relying solely on"
+   },
+   {
+    "id": "s41598-023-47043#Conclusions:0",
+    "similarity": 0.6708,
+    "source_file": "s41598-023-47043.pdf",
+    "text": "Our findings suggest that the risk of infection (and of developing severe disease) is affected not only by age and comorbidities but also by personal history of immunity-conferring events and by the v"
+   },
+   {
+    "id": "clc-45-691#While:1",
+    "similarity": 0.668,
+    "source_file": "clc-45-691.pdf",
+    "text": "the benefits of vaccination clearly outweighed the risks by preventing more than 11 000 COVID‐19 cases, 560 hospitalizations, 138 intensive care unit admissions, and 6 deaths per million doses of vacc"
+   }
+  ],
+  "relevant_evidence": [
+   "Natural infection poses risks of severe acute illness and long-term"
+  ],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "natural_immunity",
+  "expect_addresses": "yes"
+ },
+ {
+  "video_id": "Ozysm76UNaY",
+  "channel": "Global News",
+  "title": "AstraZeneca COVID-19 shot has \"possible link\" to blood clots: EMA",
+  "window": 2,
+  "window_text": "be offered an alternative shot if one is available. At the end of March, 79 reports of serious blood clots had been recorded in the UK with 19 fatalities. That's after 20 million doses were administered. From these reports, the risk of this type of rare blood clot is about four people in a million who receive the vaccine. In those rare circumstances, the Oxford AstraZeneca shot seemed to trigger an autoimmune response leading to aggressive blood clots and in some cases bleeding in the brain. The risks are very low, but they exist. Health Canada adjusted the vaccine labeling back in March, noting the rare events. Doctors say for the vast majority, the shot is safe. It's extremely important for them to take the first vaccine that's offered to them in Canada. In Europe, adverse reactions occurred more often",
+  "candidates": [
+   {
+    "id": "vaccines-09-00467-v2#Serious_Adverse_Side_Effects_of_COVID-19_Vaccines:1",
+    "similarity": 0.7034,
+    "source_file": "vaccines-09-00467-v2.pdf",
+    "text": "[38], (3) 1 case out of 15,181 in the vaccine group, and 1 case out of 15,170 in the placebo group, for the mRNA-based vaccine [40]. A total of 37 blot clots, including 22 pulmonary embolus cases (PE)"
+   },
+   {
+    "id": "vaccines-09-00467-v2#Vaccines_2021,_9,_467.2:12",
+    "similarity": 0.6808,
+    "source_file": "vaccines-09-00467-v2.pdf",
+    "text": "cases have been reported as rare events for the Oxford-AstraZeneca vaccine, causing a temporary suspension of this vaccine’s use in many countries and age-speciﬁc rollout in others. However, to date, "
+   },
+   {
+    "id": "vaccines-09-00467-v2#Serious_Adverse_Side_Effects_of_COVID-19_Vaccines:2",
+    "similarity": 0.6759,
+    "source_file": "vaccines-09-00467-v2.pdf",
+    "text": "embolus cases (PE) and 5 deep vein thrombosis (DVT), have been reported for the Oxford-AstraZeneca vaccine among 17 million people in the EU and Britain [43]; see discussion for recent contributions. "
+   }
+  ],
+  "relevant_evidence": [
+   "have been reported for the Oxford-AstraZeneca vaccine"
+  ],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "blood_clots",
+  "expect_addresses": "yes"
+ },
+ {
+  "video_id": "v-NEr3KCug8",
+  "channel": "TED-Ed",
+  "title": "How the COVID-19 vaccines were created so quickly - Kaitlyn Sadtler an",
+  "window": 7,
+  "window_text": "that viral protein that will then stick around to defend against future COVID-19 infections. And since this particular protein is likely to be found in most COVID variants, these antibodies should reduce the threat of catching new strains. This approach offers significant advantages over previous vaccines. Traditional vaccines contain weakened versions of live viruses or amputated sections of a virus, both of which require time-intensive research to prepare and unique chemical treatments to safely inject. But mRNA vaccines don't actually contain any viral particles, so they don't have to be built from scratch to safely adjust each virus. In fact, every mRNA vaccine could have roughly the same list of ingredients. Imagine a reliable, robustly tested vaccine that can treat any disease by swapping out a single component. To treat a new illness, researchers would identify the right viral protein,",
+  "candidates": [
+   {
+    "id": "s41392-022-00950-y#After_over_30_years_of_research,_mRNA_vaccines_have_become_a:1",
+    "similarity": 0.8242,
+    "source_file": "s41392-022-00950-y.pdf",
+    "text": "vaccine platforms as a means to prevent and treat several infectious diseases, and a new generation of vaccines has progressively reached the public and gained increasing attention. At the moment, COV"
+   },
+   {
+    "id": "s41392-022-00950-y#After_over_30_years_of_research,_mRNA_vaccines_have_become_a:2",
+    "similarity": 0.8128,
+    "source_file": "s41392-022-00950-y.pdf",
+    "text": "a key role in limiting the spread of the current pandemic. mRNA vaccines, unlike traditional vaccines, may enable adjustment of antigen design and even allow combining sequences from several variants "
+   },
+   {
+    "id": "IDR-S315727#This_method_utilizes_lipid_nanoparticles_(LNPs)_with:1",
+    "similarity": 0.7883,
+    "source_file": "IDR-S315727.pdf",
+    "text": "generate a protein that safely prompts an immune response.9 mRNA-based vaccines have the greatest potential for rapid development because of their synthetic nature that circumvents the need for cell c"
+   }
+  ],
+  "relevant_evidence": [
+   "spike protein"
+  ],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "general",
+  "expect_addresses": "yes"
+ },
+ {
+  "video_id": "VZ3Lbhgyeyw",
+  "channel": "Department of Health and Human Services",
+  "title": "Does the COVID-19 Vaccine Cause Infertility? Joseph M. Gobern, MD, MBA",
+  "window": 3,
+  "window_text": "research in animal models that looked at vaccine given prior to pregnancy, which does not impair the ability to become pregnancy and or the outcomes of pregnancy. What we have been able to see and very reassuring is that when people receive the vaccine, particularly those prior to pregnancy or achieving pregnancy, we have successful pregnancies with no adverse events that exceed those that are on the national average. That includes no increase in miscarriages, no increase adverse outcomes associated with the vaccine. Unfortunately, COVID disease itself has a much more grim prognosis when someone gets COVID disease and pregnancy, their risk for severe disease, for hospitalization, for going to an ICU and ending up on mechanical ventilation or even death is much higher than someone who is not vaccinated. So as far as we're aware to date, the COVID",
+  "candidates": [
+   {
+    "id": "dead036#Implications_for_clinical_practice:7",
+    "similarity": 0.8545,
+    "source_file": "dead036.pdf",
+    "text": "better-quality studies at a population level. Considering the increased risk of miscarriage and other adverse pregnancy outcomes associated with COVID-19 infection in pregnancy (Stock et al., 2022), v"
+   },
+   {
+    "id": "dead036#Some_authors_have_raised_concerns_about_the_potential_cross-:3",
+    "similarity": 0.8511,
+    "source_file": "dead036.pdf",
+    "text": "pregnant women with COVID-19, it is critical to maximize prevention efforts by encouraging vaccine uptake and promoting its safety during pregnancy (Royal College of Obstetricians & Gynaecologists, 20"
+   },
+   {
+    "id": "dead036#The_risk_of_miscarriage_following:12",
+    "similarity": 0.8487,
+    "source_file": "dead036.pdf",
+    "text": "associated with an increase in the risk of miscarriage or reduced rates of ongoing pregnancy or live birth among women of reproductive age. The current evidence remains limited and larger population s"
+   }
+  ],
+  "relevant_evidence": [
+   "What is the risk of miscarriage among pregnant women who received any of the COVID-19 vacc"
+  ],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "infertility",
+  "expect_addresses": "yes"
+ },
+ {
+  "video_id": "qFR3TlR0SmI",
+  "channel": "CBS Austin",
+  "title": "Study reveals new heart health concerns from COVID vaccine",
+  "window": 4,
+  "window_text": "we've been able to evaluate and primarily there was a great study out of the Nordic countries that studied 23 million children and young adults and they found that the people who had the young the least amount of myocarditis were the unvaccinated and as you increase the number of vaccine doses or you use Moderna versus Pfizer your risk just kept stepping up in terms of your risk for myocarditis once again in a disease state that is that is really very mild for healthy children and young adults you know initially this topic was so rare when we first heard about this myocarditis and the links you know to the vaccine but what does the data reveal now so there was a study out of Lancet that showed and looked at all these children who had been harmed",
+  "candidates": [
+   {
+    "id": "clinpract-16-00077#Introduction:8",
+    "similarity": 0.8275,
+    "source_file": "clinpract-16-00077.pdf",
+    "text": "three cases per 100,000 administered doses— and most affected individuals experience a complete recovery [1]. In the studied cohort of children aged 5–11 years, no cases of myocarditis were observed, "
+   },
+   {
+    "id": "vaccines-10-01316#Discussion:10",
+    "similarity": 0.8,
+    "source_file": "vaccines-10-01316.pdf",
+    "text": "adolescents aged 12–17 years was 1.22/1000 hospitalizations from 2010 to 2019 [33]. In a national study in Finland, the overall incidence of myocarditis in children aged ≤15 years was 1.95/100,000 per"
+   },
+   {
+    "id": "clinpract-16-00077#Special_Populations:0",
+    "similarity": 0.7939,
+    "source_file": "clinpract-16-00077.pdf",
+    "text": "Available data on special populations remain limited; however, existing studies suggest that myocarditis following mRNA vaccination is extremely rare among children, particularly those aged 5–11 years"
+   }
+  ],
+  "relevant_evidence": [
+   "higher incidence of myocarditis associated with Moderna compared to Pfizer"
+  ],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "myocarditis",
+  "expect_addresses": "yes"
+ },
+ {
+  "video_id": "mIzuuYB6GrI",
+  "channel": "13News Now",
+  "title": "Is Natural Immunity As Effective as COVID-19 Vaccine?",
+  "window": 0,
+  "window_text": "Well, as we head into the holiday season, about 40% of Virginians remain unvaccinated against COVID-19. One reason people have given for not getting the shot is they've already had the virus, but is that enough to protect you? Sarah Hammond talked to a medical expert. It's a debate some people are still having. Does contracting COVID-19 provide enough immunity to protect you from getting it again, or does the vaccine still offer more protection? Dr. Rebecca Sensenig with Riverside Health System says yes, getting COVID-19 does provide some protection from reinfection. The problem with natural infection is that the immunity really varies from person to person. It can depend on a whole bunch of different factors, so how severe their illness was, whether they have any immunocompromising conditions, whether they're on certain medication. She says we still don't know",
+  "candidates": [
+   {
+    "id": "s41541-022-00594-7#Furthermore,:0",
+    "similarity": 0.7822,
+    "source_file": "s41541-022-00594-7.pdf",
+    "text": "the lower risk of infection remained among individuals with a previous SARS-CoV-2 infection and unvaccinated. This ﬁnding is consistent with a systematic review which revealed that the natural immunit"
+   },
+   {
+    "id": "vaccines-11-01693#Vaccines_2023,_11,_1693.9:1",
+    "similarity": 0.764,
+    "source_file": "vaccines-11-01693.pdf",
+    "text": "a policy is not advisable. Natural infection poses risks of severe acute illness and long-term post-acute symptoms (Long COVID), particularly in vulnerable individuals and those with underlying health"
+   },
+   {
+    "id": "s41541-022-00594-7#The_humoral_response_elicited_by_post-infection_vaccination:3",
+    "similarity": 0.746,
+    "source_file": "s41541-022-00594-7.pdf",
+    "text": "although there were still knowledge gaps on the underlying mechanism14. When we compared individuals who were previously infected but did not receive vaccination with fully vaccinated individuals with"
+   }
+  ],
+  "relevant_evidence": [
+   "the lower risk of infection remained among individuals with a previous SARS-CoV-2 infection"
+  ],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "natural_immunity",
+  "expect_addresses": "yes"
+ },
+ {
+  "video_id": "Ozysm76UNaY",
+  "channel": "Global News",
+  "title": "AstraZeneca COVID-19 shot has \"possible link\" to blood clots: EMA",
+  "window": 1,
+  "window_text": "Gammancing explains the findings. The demand for COVID-19 vaccines hasn't changed, but rollouts are being adjusted now that a link has been confirmed between the Oxford AstraZeneca jab and very rare blood clots. We are not advising a stop to any vaccination for any individual in any age group. We are advising a preference for one vaccine over another The UK's expert advisory panel says healthy people under 30 should be offered an alternative shot if one is available. At the end of March, 79 reports of serious blood clots had been recorded in the UK with 19 fatalities. That's after 20 million doses were administered. From these reports, the risk of this type of rare blood clot is about four people in a million who receive the vaccine. In those rare circumstances, the Oxford AstraZeneca shot seemed to trigger",
+  "candidates": [
+   {
+    "id": "vaccines-09-00467-v2#Serious_Adverse_Side_Effects_of_COVID-19_Vaccines:1",
+    "similarity": 0.7021,
+    "source_file": "vaccines-09-00467-v2.pdf",
+    "text": "[38], (3) 1 case out of 15,181 in the vaccine group, and 1 case out of 15,170 in the placebo group, for the mRNA-based vaccine [40]. A total of 37 blot clots, including 22 pulmonary embolus cases (PE)"
+   },
+   {
+    "id": "vaccines-09-00467-v2#Serious_Adverse_Side_Effects_of_COVID-19_Vaccines:2",
+    "similarity": 0.686,
+    "source_file": "vaccines-09-00467-v2.pdf",
+    "text": "embolus cases (PE) and 5 deep vein thrombosis (DVT), have been reported for the Oxford-AstraZeneca vaccine among 17 million people in the EU and Britain [43]; see discussion for recent contributions. "
+   },
+   {
+    "id": "vaccines-09-00467-v2#Vaccines_2021,_9,_467.2:12",
+    "similarity": 0.6755,
+    "source_file": "vaccines-09-00467-v2.pdf",
+    "text": "cases have been reported as rare events for the Oxford-AstraZeneca vaccine, causing a temporary suspension of this vaccine’s use in many countries and age-speciﬁc rollout in others. However, to date, "
+   }
+  ],
+  "relevant_evidence": [
+   "causing a temporary suspension of this vaccine"
+  ],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "blood_clots",
+  "expect_addresses": "yes"
+ },
+ {
+  "video_id": "_PrUE69QZvA",
+  "channel": "Lakeridge Health",
+  "title": "Are the COVID-19 vaccines safe?",
+  "window": 0,
+  "window_text": "COVID-19 vaccines are very safe so the two vaccines that have been approved by Health Canada are the mRNA vaccines produced by Pfizer and Moderna. Health Canada has a robust process to review the safety as well as the efficacy how well these vaccines work and we can be confident that those reviews have not shown any significant adverse reactions to the vaccine. So the current vaccines have side effects that are relatively mild after receiving the vaccination including things like fatigue, headaches, sore arm which are all expected and these occur quite frequently after the vaccine. There are some other side effects that are somewhat less common tend to occur more after the second dose of the vaccine and these would be things like fever. There's been quite a bit of media about the risk of anaphylaxis with these",
+  "candidates": [
+   {
+    "id": "vaccines-09-00467-v2#Vaccines_2021,_9,_467.1:0",
+    "similarity": 0.7631,
+    "source_file": "vaccines-09-00467-v2.pdf",
+    "text": "10 of 21 (a) (b) Figure 2. Efﬁcacy of different COVID-19 vaccines (a) after the ﬁrst and (b) second doses. The administration of mRNA-based vaccine was associated with a greater number of side effects"
+   },
+   {
+    "id": "clc-45-691#Administration:1",
+    "similarity": 0.7344,
+    "source_file": "clc-45-691.pdf",
+    "text": "vaccines have been administered to millions of people around the world, playing a major role in decreasing the transmissibility and mortality from COVID‐19 among the vaccinated.2 While the vaccines ha"
+   },
+   {
+    "id": "vaccines-09-00467-v2#Serious_Adverse_Side_Effects_of_COVID-19_Vaccines:0",
+    "similarity": 0.717,
+    "source_file": "vaccines-09-00467-v2.pdf",
+    "text": "Only three studies reported anaphylactic shock as an adverse effect of COVID-19 vaccines—(1) 1 out of 84 vaccine cases for the inactivated vaccine [30]; (2) 1 case out of 2063 vaccinated for the adeno"
+   }
+  ],
+  "relevant_evidence": [
+   "the benefits of COVID‐19 vaccination at preventing severe COVID‐19 infections cannot be emphasized enough"
+  ],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "general",
+  "expect_addresses": "yes"
+ },
+ {
+  "video_id": "DQxMIJCvanc",
+  "channel": "Dr. Jen Caudle",
+  "title": "Does the COVID Vaccine Cause Infertility? Why Are Some Reluctant to Ge",
+  "window": 10,
+  "window_text": "sort of this claim, saying that there is no evidence that the COVID vaccine causes problems with fertility. I mean, honestly, let me say that again, actually, because this is something a lot of people, a lot of my followers have been very concerned about. There is no evidence that the COVID vaccine causes problems with fertility. I mean, their theories can be created, you know, they sound good when you hear them, but when you try to put real data behind it, it's difficult. And by the way, these rumors are about the mRNA vaccines. If you're worried about that, get the J&J vaccine. That's sort of an older-fashioned one. It's on the market. You prefer a more traditional shot. That's all. Thanks for all your work. Keep out there. Keep making noise. Thank you.",
+  "candidates": [
+   {
+    "id": "pbio.3001506#Introduction:8",
+    "similarity": 0.7807,
+    "source_file": "pbio.3001506.pdf",
+    "text": "most highly cited reasons for COVID19 vaccine hesitancy in reproductive age and pregnant women [16–18]. Meanwhile, public health recommendations for pregnant women in particular continue to evolve wit"
+   },
+   {
+    "id": "kwac011#One_hypothesized_mechanism_by_which_COVID-19_vac-:0",
+    "similarity": 0.7479,
+    "source_file": "kwac011.pdf",
+    "text": "cination could influence female fertility is via changes in menstrual cycles. Although we and others have found in our studies no adverse associations of female COVID-19 vaccination with fertility (14"
+   },
+   {
+    "id": "kwac011#Data_on_the_association_between_COVID-19_vaccination_and:0",
+    "similarity": 0.7315,
+    "source_file": "kwac011.pdf",
+    "text": "fertility are still limited but do not indicate a harmful association. Although pregnant individuals were ineligible for the initial COVID-19 vaccine trials, the rate of unintended pregnancies occurri"
+   }
+  ],
+  "relevant_evidence": [
+   "women and pregnancies continue to be impacted by the ongoing"
+  ],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "infertility",
+  "expect_addresses": "yes"
+ },
+ {
+  "video_id": "o3Kh99pZnn4",
+  "channel": "The National Desk",
+  "title": "COVID vaccine linked to heart problems",
+  "window": 5,
+  "window_text": "myocarditis once again in a disease state that is that is really very mild for healthy children and young adults you know initially this topic was so rare when we first heard about this myocarditis and the links you know to the vaccine but what does the data reveal now so there was a study out of Lancet that showed and looked at all these children who had been harmed by the vaccine and received and had myocarditis secondary to the vaccine and they looked at them 90 days out and a lot of things remain normal except their cardiac MRI which showed and continued inflammation and possible scarring of the heart itself 90 days out further studies a new study released by Yale said that they're still having free-floating spike protein which is what that vaccine asked the body",
+  "candidates": [
+   {
+    "id": "clinpract-16-00077#Introduction:8",
+    "similarity": 0.8543,
+    "source_file": "clinpract-16-00077.pdf",
+    "text": "three cases per 100,000 administered doses— and most affected individuals experience a complete recovery [1]. In the studied cohort of children aged 5–11 years, no cases of myocarditis were observed, "
+   },
+   {
+    "id": "clinpract-16-00077#Special_Populations:0",
+    "similarity": 0.8018,
+    "source_file": "clinpract-16-00077.pdf",
+    "text": "Available data on special populations remain limited; however, existing studies suggest that myocarditis following mRNA vaccination is extremely rare among children, particularly those aged 5–11 years"
+   },
+   {
+    "id": "clinpract-16-00077#Interpretation_of_Findings:0",
+    "similarity": 0.8004,
+    "source_file": "clinpract-16-00077.pdf",
+    "text": "Across multinational studies, mRNA vaccine-associated myocarditis is rare, generally mild, and self-limiting, with highest risk in the young male demographic (16–24 years) and a lower incidence in com"
+   }
+  ],
+  "relevant_evidence": [
+   "most affected individuals experience a complete recovery"
+  ],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "myocarditis",
+  "expect_addresses": "yes"
+ },
+ {
+  "video_id": "jpx2rhuIieQ",
+  "channel": "Joe Rogan Interview Vault",
+  "title": "Joe Rogan on Corona Virus Vaccine Conspiracy.",
+  "window": 5,
+  "window_text": "antibody level tested. But again, that's another long history thing is people who don't get sick while everyone else has been accused of witchcraft and sorcerers in the past and sometimes hunted down and killed. You know, in the times of smallpox, the groups of people that were into cleanliness, that was a real problem for them. I did do nasal swabs to see if I had any antibodies. I did do that and I didn't. Well, that won't tell you antibodies. That just, that's a PCR, that would be your PCR test or your rapid, which one did you do? The one that goes? The rapid antigen test. But that's only gonna tell you if you've got active in your nose, what you wanna know is if you're immune system. Again, there's a good use for antibodies sometimes. It's",
+  "candidates": [
+   {
+    "id": "cdc_108736_DS1#COVID-19:5",
+    "similarity": 0.6431,
+    "source_file": "cdc_108736_DS1.pdf",
+    "text": "are used to see if you have a current infection.​ If your body develops an immune response to vaccination, which is the goal, you may test positive on some antibody tests. Antibody tests indicate you "
+   },
+   {
+    "id": "vaccines-11-01693#Demographic_Characteristics_of_Study_Participants:4",
+    "similarity": 0.6091,
+    "source_file": "vaccines-11-01693.pdf",
+    "text": "based on the duration since the last vaccination and vice versa, plus infection. Subsequently, antibody testing was performed, as illustrated in Figure 1. Baseline demographics and characteristics of "
+   },
+   {
+    "id": "vaccines-11-01693#Discussion:0",
+    "similarity": 0.5786,
+    "source_file": "vaccines-11-01693.pdf",
+    "text": "This study presented ﬁndings from serosurveys conducted on individuals who willingly underwent blood tests to assess the antibody response to SARS-CoV-2 antigens, including total RBD Ig and total anti"
+   }
+  ],
+  "relevant_evidence": [
+   "the lower risk of infection remained among individuals with a previous SARS-CoV-2 infection"
+  ],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "natural_immunity",
+  "expect_addresses": "yes"
+ },
+ {
+  "video_id": "s4Z3baKFWu0",
+  "channel": "Unmask America",
+  "title": "Massive blood clots from covid vaccines!",
+  "window": 1,
+  "window_text": "that clots and corpses have become much more common 50 to 70 percent of all corpses He works with these days up from 5 to 10 percent prior to the pandemic Some doctors speculate that the spike protein used in the vaccines can cause string-like structures, which the body doesn't break down The clots found are lacking iron potassium magnesium and zinc Which according to experts shows that these aren't just normal post-mortem clots Because normal human blood always has those nutrients most doctors aren't going to see what I see I have to get it out there because I feel like humanity might be at stake",
+  "candidates": [
+   {
+    "id": "vaccines-09-00467-v2#Vaccines_2021,_9,_467.2:19",
+    "similarity": 0.4838,
+    "source_file": "vaccines-09-00467-v2.pdf",
+    "text": "blood vessels of the abdomen and the veins of the legs) along with thrombocytopenia, or low blood platelet counts. These events are rare, but to date have been documented for the mRNA vaccines BNT162b"
+   },
+   {
+    "id": "vaccines-09-00467-v2#Serious_Adverse_Side_Effects_of_COVID-19_Vaccines:1",
+    "similarity": 0.482,
+    "source_file": "vaccines-09-00467-v2.pdf",
+    "text": "[38], (3) 1 case out of 15,181 in the vaccine group, and 1 case out of 15,170 in the placebo group, for the mRNA-based vaccine [40]. A total of 37 blot clots, including 22 pulmonary embolus cases (PE)"
+   },
+   {
+    "id": "IDR-S315727#Regulatory_Agency)_reported_13_patients_with_allergic:1",
+    "similarity": 0.4813,
+    "source_file": "IDR-S315727.pdf",
+    "text": "after vaccination were elderly patients with underlying health conditions and, consequently, these deaths did not suggest a direct vaccine cause. However, the evaluation of the vaccines’ adverse effec"
+   }
+  ],
+  "relevant_evidence": [],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "blood_clots",
+  "expect_addresses": "no"
+ },
+ {
+  "video_id": "Z3g_CijXgUI",
+  "channel": "Face the Nation",
+  "title": "Doctor weighs in on RFK Jr.'s push for COVID-19 vaccine injury compens",
+  "window": 0,
+  "window_text": "Welcome back to Takeout, coming to you from New York. The Department of Health and Human Services is preparing a list of injuries it believes it can assert were presumptively caused by COVID vaccinations. Now, this list would allow people to be compensated for these injuries without, and this is interesting, to prove that the shot, meaning the vaccination, was the cause of said injuries. HHS Secretary Robert F. Kennedy, as you know, is not only behind this proposal, he's a longtime skeptic slash critic of vaccinations. COVID and otherwise, Dr. Celine Gounder joins us to discuss it all. What is this list, and how is it being propagated or put together? So right now, if you think a COVID shot hurt you, you actually have to prove causation, and almost no one can. The government denies about 98% of",
+  "candidates": [
+   {
+    "id": "vaccines-11-01693#Vaccines_2023,_11,_1693.9:1",
+    "similarity": 0.6767,
+    "source_file": "vaccines-11-01693.pdf",
+    "text": "a policy is not advisable. Natural infection poses risks of severe acute illness and long-term post-acute symptoms (Long COVID), particularly in vulnerable individuals and those with underlying health"
+   },
+   {
+    "id": "vaccines-09-00467-v2#Conclusions:3",
+    "similarity": 0.6624,
+    "source_file": "vaccines-09-00467-v2.pdf",
+    "text": "The results support the overall efﬁcacy and safety of all available COVID-19 vaccines, providing clear data-driven evidence to support the ongoing global public health effort to vaccinate the entire p"
+   },
+   {
+    "id": "clc-45-691#While:0",
+    "similarity": 0.6439,
+    "source_file": "clc-45-691.pdf",
+    "text": "there maybe apprehension among some patients and providers, the benefits of COVID‐19 vaccination at preventing severe COVID‐19 infections cannot be emphasized enough. Advisory Committee on Immunizatio"
+   }
+  ],
+  "relevant_evidence": [],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "general",
+  "expect_addresses": "no"
+ },
+ {
+  "video_id": "DQxMIJCvanc",
+  "channel": "Dr. Jen Caudle",
+  "title": "Does the COVID Vaccine Cause Infertility? Why Are Some Reluctant to Ge",
+  "window": 7,
+  "window_text": "the world, in this country who have received the vaccine. So in terms of waiting to see, you know, we can see right now, talk to your family, your friends, your coworkers, your loved ones, your doctor, healthcare providers, because so many people have gotten the vaccine, get the facts, and then of course, what I want, what we all want, of course, is for people to get the vaccine, one of the most important things we can do here. There are some hesitancy concerns that I keep hearing repeatedly. For example, I hear from young women that they worried about the mRNA vaccines, which are brand new, affecting their fertility. Can you help us understand the theory that's holding women back and what's the truth around this? Yeah, you know, this is a really concerning one. I've seen this",
+  "candidates": [
+   {
+    "id": "pbio.3001506#Introduction:6",
+    "similarity": 0.7501,
+    "source_file": "pbio.3001506.pdf",
+    "text": "and nonpregnant individuals alike [13,14], public perception of the risk surrounding vaccination has been impacted by the rapid proliferation of numerous theories that lack confirmatory data or overtl"
+   },
+   {
+    "id": "pbio.3001506#Introduction:7",
+    "similarity": 0.7326,
+    "source_file": "pbio.3001506.pdf",
+    "text": "likely than men to be vaccine hesitant [15], and a number of these unconfirmed speculations target women’s health issues specifically, spreading fear about pregnancy, breastfeeding, and fertility post"
+   },
+   {
+    "id": "pbio.3001506#May_24,_2022.4:3",
+    "similarity": 0.7212,
+    "source_file": "pbio.3001506.pdf",
+    "text": "women and pregnancies continue to be impacted by the ongoing COVID-19 pandemic and by vaccine hesitancy. In the absence of complete clinical trial data, many women are choosing to vaccinate during pre"
+   }
+  ],
+  "relevant_evidence": [],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "infertility",
+  "expect_addresses": "no"
+ },
+ {
+  "video_id": "tF4DdSWsP5I",
+  "channel": "WGN News",
+  "title": "Researchers discover why COVID vaccines cause heart damage — and more ",
+  "window": 1,
+  "window_text": "for developing myocarditis. That's an inflammation of the heart muscle, typically associated with viral infections. Scientists say the COVID vaccine activates immune cells, triggering inflammation that damages heart muscle cells. While the incidence is rare, doctors say knowing the action of damage gives them a target to make the vaccine safer. Fibroids in the uterus may signal problems with the heart. According to a study by the American Heart Association, heart disease risk is much greater among women with fibroids compared to those without. The study of nearly 3 million women over a decade shows fibroids and heart disease share similar pathways, including excessive buildup of connective tissue and inflammation. Doctors say when women are diagnosed with fibroids, they should also pay attention to heart health and get tested for heart risk factors. Enjoy dark chocolate and slow the aging",
+  "candidates": [
+   {
+    "id": "clinpract-16-00077#Future_Research_Directions:1",
+    "similarity": 0.6628,
+    "source_file": "clinpract-16-00077.pdf",
+    "text": "and biomarkers is needed to assess potential subclinical fibrosis, diastolic dysfunction, or arrhythmogenic remodeling. Mechanistic studies comparing vaccine-induced and infection-induced myocarditis "
+   },
+   {
+    "id": "clinpract-16-00077#Interpretation_of_Findings:1",
+    "similarity": 0.6471,
+    "source_file": "clinpract-16-00077.pdf",
+    "text": "older adults [3,6]. Additionally, no increased risk of myocarditis was noted in pregnant women [17]. Ilonze et al. and Truong et al. further confirmed that vaccine-associated myocarditis typically pre"
+   },
+   {
+    "id": "clinpract-16-00077#Limitations:11",
+    "similarity": 0.6366,
+    "source_file": "clinpract-16-00077.pdf",
+    "text": "myocarditis events [2,6]. Recent reviews have emphasized the importance of large, prospective, multicenter studies to evaluate long-term cardiac recovery, fibrosis burden, and overall prognosis follow"
+   }
+  ],
+  "relevant_evidence": [],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "myocarditis",
+  "expect_addresses": "no"
+ },
+ {
+  "video_id": "2riTrIQTaaw",
+  "channel": "ParkviewHealth",
+  "title": "COVID vaccine guidance – Heart disease",
+  "window": 6,
+  "window_text": "you do have a vaccine, your symptoms are going to be truncated. You may not get a lot of symptoms at all and your potential for infectivity to others is likely markedly diminished. So that's exactly what we need to accomplish in a pandemic. You could say I can have a sore arm or I can roll the dice and see how I'm going to respond to this virus. And it really doesn't matter if you're 20 or if you're 70. There's still some element of risk and we see that with unfortunate patients that pass away in the hospital every day and we see patients left with comorbidities or illnesses that don't recover the rest of their life. So I think those are really the two options and that there's really no reason not to proceed because of the",
+  "candidates": [
+   {
+    "id": "vaccines-11-01693#Vaccines_2023,_11,_1693.9:0",
+    "similarity": 0.6798,
+    "source_file": "vaccines-11-01693.pdf",
+    "text": "11 of 13 been previously infected. However, older adults and those who are immunosuppressed should be considered for an extra booster vaccine [26–28]. It is crucial to emphasize that relying solely on"
+   },
+   {
+    "id": "s41598-023-47043#Conclusions:0",
+    "similarity": 0.6679,
+    "source_file": "s41598-023-47043.pdf",
+    "text": "Our findings suggest that the risk of infection (and of developing severe disease) is affected not only by age and comorbidities but also by personal history of immunity-conferring events and by the v"
+   },
+   {
+    "id": "clinpract-16-00077#Risk–Benefit_Evaluation:1",
+    "similarity": 0.6579,
+    "source_file": "clinpract-16-00077.pdf",
+    "text": "adults, while Sritharan et al. demonstrated that vaccinated patients had lower hospitalization and mortality rates after COVID-19 infection [20,22]. The substantially lower morbidity and mortality amo"
+   }
+  ],
+  "relevant_evidence": [],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "natural_immunity",
+  "expect_addresses": "no"
+ },
+ {
+  "video_id": "A22eAcrsjqQ",
+  "channel": "Arizona Humane Society (AZ Humane)",
+  "title": "3TV: Free Vaccine and Microchip Clinic",
+  "window": 2,
+  "window_text": "freezing temperatures to kill the parvo. And that parvo can kill puppies within three days of exposure. So this is going to be the way to protect your pets. Again, not only parvo, but rabies as well. Vaccinations. So typically, these vaccinations are about $21 today. Again, they are going to be free. Good morning to you. Good morning. Good morning to you. Good morning. Who's with you? We have Cece and Chloe. What brought you guys down here today? Our friend actually told us about it today. So we definitely want this opportunity. It helps us out a lot. Why is this important to you? We love our dogs so much. And they just need all the love and just very. Yes, health. They're like our best friends. They're members of our family. And we've got some little kitties",
+  "candidates": [
+   {
+    "id": "IDR-S315727#It_is_well_known_that_RNA_is_highly_degradable_and_may:1",
+    "similarity": 0.4532,
+    "source_file": "IDR-S315727.pdf",
+    "text": "the inconvenience of storage temperature. Indeed in order to preserve their activity, it is necessary to keep these vaccines at very low temperatures (−70°C or −20°C). This is a huge drawback for poor"
+   },
+   {
+    "id": "vaccines-11-01693#Vaccines_2023,_11,_1693.9:1",
+    "similarity": 0.4092,
+    "source_file": "vaccines-11-01693.pdf",
+    "text": "a policy is not advisable. Natural infection poses risks of severe acute illness and long-term post-acute symptoms (Long COVID), particularly in vulnerable individuals and those with underlying health"
+   },
+   {
+    "id": "s41541-022-00594-7#While_most_existing_studies_on_vaccine_effectiveness_against:4",
+    "similarity": 0.409,
+    "source_file": "s41541-022-00594-7.pdf",
+    "text": "the system affects the eligibility for vaccination and getting a Vaccines Pass that allows individuals to enter public places such as restaurants and sports facilities. Individuals fail to report thei"
+   }
+  ],
+  "relevant_evidence": [],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "off_topic",
+  "expect_addresses": "no"
+ },
+ {
+  "video_id": "GtqyTBPhbMA",
+  "channel": "Sharjah24 News",
+  "title": "How AstraZeneca COVID-19 vaccine causes blood clots",
+  "window": 1,
+  "window_text": "This virus vector then helps program an immune response against a real coronavirus. The new study found that if the vaccine enters the bloodstream, it can attract a type of protein called platelet factor 4. From there, in extremely rare cases, the body's immune system can confuse platelet factor 4 for the virus vector and release antibodies to attack it. When this happens, the antibodies and platelet factor 4 can cluster together, resulting in blood clots. The BBC points out that vaccine-induced clots like these have been linked to just 73 deaths out of nearly 50 million doses of AstraZeneca given in the UK, while AstraZeneca said the vaccine is thought to have saved more than a million lives around the world and prevented 50 million cases of COVID. The clots are more likely to occur because of a COVID",
+  "candidates": [
+   {
+    "id": "vaccines-09-00467-v2#Serious_Adverse_Side_Effects_of_COVID-19_Vaccines:1",
+    "similarity": 0.6769,
+    "source_file": "vaccines-09-00467-v2.pdf",
+    "text": "[38], (3) 1 case out of 15,181 in the vaccine group, and 1 case out of 15,170 in the placebo group, for the mRNA-based vaccine [40]. A total of 37 blot clots, including 22 pulmonary embolus cases (PE)"
+   },
+   {
+    "id": "IDR-S315727#Regulatory_Agency)_reported_13_patients_with_allergic:1",
+    "similarity": 0.6625,
+    "source_file": "IDR-S315727.pdf",
+    "text": "after vaccination were elderly patients with underlying health conditions and, consequently, these deaths did not suggest a direct vaccine cause. However, the evaluation of the vaccines’ adverse effec"
+   },
+   {
+    "id": "ijms-22-10791-v2#Platelet_Factor_4:0",
+    "similarity": 0.6551,
+    "source_file": "ijms-22-10791-v2.pdf",
+    "text": "Vaccine-induced thrombotic thrombocytopenia (VITT), as observed in rare cases following vaccination with vaccines from AstraZeneca or Johnson & Johnson, resembled heparin-induced thrombocytopenia (HIT"
+   }
+  ],
+  "relevant_evidence": [],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "blood_clots",
+  "expect_addresses": "no"
+ },
+ {
+  "video_id": "gum4DvKEU9M",
+  "channel": "ANC 24/7",
+  "title": "WHO: AstraZeneca jab risk-benefit 'still largely positive' | ANC",
+  "window": 4,
+  "window_text": "find it confusing that the vaccination program is saving tens of thousands of lives but the pandemic remains dangerous. Let me explain it in a single word, time, time. Even moving at the record speed we're moving at, we're not even halfway through vaccinating over 300 million Americans. This is going to take time. We aren't at the finish line. We still have a lot of work to do. We're still in a life and death race against this virus. Analysis of state and county data shows new COVID-19 cases in the U.S. rose 5 percent to over 450,000 last week, the third straight week that infections have increased. The average number of COVID-19 patients in hospitals also rose 4 percent to over 37,000 in the week before April 4, breaking an 11-week streak of falling admissions. Brazil sees its",
+  "candidates": [
+   {
+    "id": "s41392-022-00950-y#February_9,_2022,_COVID-19_has_spread_to_227_countries_and:0",
+    "similarity": 0.7448,
+    "source_file": "s41392-022-00950-y.pdf",
+    "text": "regions worldwide,6 causing over 399 million conﬁrmed cases and 5.75 million deaths.7 The COVID-19 pandemic is an unprecedented event which has caused a huge impact on human health and global public h"
+   },
+   {
+    "id": "s41392-022-00950-y#Advances_in_COVID-19_mRNA_vaccine_development:1",
+    "similarity": 0.7353,
+    "source_file": "s41392-022-00950-y.pdf",
+    "text": "2 (SARS-CoV-2) has determined 399,600,607 cases and 5,757,562 deaths worldwide. COVID-19 is a serious threat to human health globally. The World Health Organization (WHO) has declared COVID-19 pandemi"
+   },
+   {
+    "id": "vaccines-11-01693#Vaccines_2023,_11,_1693.9:1",
+    "similarity": 0.7069,
+    "source_file": "vaccines-11-01693.pdf",
+    "text": "a policy is not advisable. Natural infection poses risks of severe acute illness and long-term post-acute symptoms (Long COVID), particularly in vulnerable individuals and those with underlying health"
+   }
+  ],
+  "relevant_evidence": [],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "general",
+  "expect_addresses": "no"
+ },
+ {
+  "video_id": "cMuQxt2k4gk",
+  "channel": "ABC 10 News",
+  "title": "Early data shows COVID-19 vaccine safe for pregnant women",
+  "window": 0,
+  "window_text": "Now to the coronavirus vaccines we are learning more about how they affect women who are pregnant. ABC 10 News reporter Jared Arons has been tracking this issue since December. And we spoke to some local experts who are leading the research to try to ensure these vaccines are safe for mother and baby. When Pfizer, Moderna and Johnson & Johnson did clinical trials on their COVID-19 vaccines, they didn't include pregnant women in their studies. That meant researchers had to wait until the vaccine roll out and then ask pregnant women to participate. It's taken months, but the numbers are starting to come in and the results are promising. I think all data so far point to this seems to be good for the mom and the baby. Dr. Christina Chambers runs the Mother to Baby program at UC",
+  "candidates": [
+   {
+    "id": "pbio.3001506#Introduction:0",
+    "similarity": 0.8093,
+    "source_file": "pbio.3001506.pdf",
+    "text": "Pregnant women are at increased risk for severe Coronavirus Disease 2019 (COVID-19) with higher rates of hospitalization, intensive care, and death compared to nonpregnant women [1– 7]. However, pregn"
+   },
+   {
+    "id": "dead036#College:0",
+    "similarity": 0.7712,
+    "source_file": "dead036.pdf",
+    "text": "of Obstetricians and Gynecologists, 2022; Royal College of Obstetricians & Gynaecologists, 2022; UK Health Security Agency, 2022). Most early studies evaluating the efficacy of COVID-19 vaccines exclu"
+   },
+   {
+    "id": "pbio.3001506#Introduction:1",
+    "similarity": 0.7674,
+    "source_file": "pbio.3001506.pdf",
+    "text": "initial COVID-19 vaccine trials, leading to a lack of data on vaccine-associated benefits or adverse events in this population [8]. While the first COVID-19 vaccine trials in pregnant women are now un"
+   }
+  ],
+  "relevant_evidence": [],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "infertility",
+  "expect_addresses": "no"
+ },
+ {
+  "video_id": "tF4DdSWsP5I",
+  "channel": "WGN News",
+  "title": "Researchers discover why COVID vaccines cause heart damage — and more ",
+  "window": 0,
+  "window_text": "I'm a medical watch this afternoon and update on a long-linked complication of the COVID vaccine. Medical reporter Dina Baer has results of a recent new study. Dina. Lourdes and Ben, adverse reactions are becoming more clear in this new study. Stanford Medicine doctors uncover the biological process behind the COVID mRNA shot and heart damage. Following the vaccine, young men and adolescents of both sexes had a greater chance for developing myocarditis. That's an inflammation of the heart muscle, typically associated with viral infections. Scientists say the COVID vaccine activates immune cells, triggering inflammation that damages heart muscle cells. While the incidence is rare, doctors say knowing the action of damage gives them a target to make the vaccine safer. Fibroids in the uterus may signal problems with the heart. According to a study by the American Heart Association,",
+  "candidates": [
+   {
+    "id": "clinpract-16-00077#Introduction:9",
+    "similarity": 0.8023,
+    "source_file": "clinpract-16-00077.pdf",
+    "text": "event in younger age groups [6]. Recognition of vaccine-associated myocarditis has prompted important public-health discussions about balancing the benefits of COVID-19 vaccination against its potenti"
+   },
+   {
+    "id": "clinpract-16-00077#Abstract:4",
+    "similarity": 0.7778,
+    "source_file": "clinpract-16-00077.pdf",
+    "text": "In contrast, myocarditis following SARS-CoV-2 infection was consistently associated with more severe outcomes, including higher rates of hospitalization and mortality. Conclusions: Vaccineassociated m"
+   },
+   {
+    "id": "clc-45-691#While:1",
+    "similarity": 0.7724,
+    "source_file": "clc-45-691.pdf",
+    "text": "the benefits of vaccination clearly outweighed the risks by preventing more than 11 000 COVID‐19 cases, 560 hospitalizations, 138 intensive care unit admissions, and 6 deaths per million doses of vacc"
+   }
+  ],
+  "relevant_evidence": [],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "myocarditis",
+  "expect_addresses": "no"
+ },
+ {
+  "video_id": "WTdorGWyCGs",
+  "channel": "UNTV News and Rescue",
+  "title": "Immunity provided by COVID-19 vaccines wanes faster in elderly",
+  "window": 2,
+  "window_text": "shots Meanwhile, experts are not recommending booster shots for children Gloriani said children should first complete their two doses of COVID-19 vaccine before discussing about administering them with booster shots For children, we are not yet vaccinated They will finish their two doses first For children, their immune response is better because they are older So we are not worried about the waning immune system Ilyn Cerudo, UNTV News and Rescue We serve the people, we give glory to God",
+  "candidates": [
+   {
+    "id": "s41541-022-00594-7#As_the_number_of_SARS-CoV-2_infections_is_still_increasing:0",
+    "similarity": 0.6899,
+    "source_file": "s41541-022-00594-7.pdf",
+    "text": "worldwide, a sizeable fraction of the population needs to consider their history of infection in their subsequent vaccine uptake decisions, i.e., booster doses. Our data is apparently more in favor of"
+   },
+   {
+    "id": "fendo-15-1356938#Frontiers_in_Endocrinology.2:0",
+    "similarity": 0.6456,
+    "source_file": "fendo-15-1356938.pdf",
+    "text": "frontiersin.org 11 of confounding factors and increased the robustness and reliability of the results. Inevitably, certain limitations exist. First, we did not further inquire into the impact of vacci"
+   },
+   {
+    "id": "vaccines-10-01316#Introduction:3",
+    "similarity": 0.6414,
+    "source_file": "vaccines-10-01316.pdf",
+    "text": "According to the American Academy of Pediatrics, the total number of reported pediatric COVID-19 cases as of 22 April 2022 was 12,937,304, with children accounting for 19.0% of all cases [4]. Currentl"
+   }
+  ],
+  "relevant_evidence": [],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "natural_immunity",
+  "expect_addresses": "no"
+ },
+ {
+  "video_id": "A22eAcrsjqQ",
+  "channel": "Arizona Humane Society (AZ Humane)",
+  "title": "3TV: Free Vaccine and Microchip Clinic",
+  "window": 6,
+  "window_text": "with these vaccines. So free vaccines usually can cost people hundreds of dollars. So if you can come out, get everything you need for your pets today, keep up with their boosters if there's puppies or kittens. But yeah, we couldn't do without PetSmart Charities. As you can see, the need is very huge in our community. Just last week, our teams were able to do 285 free vaccines and microchips. So it's great to see responsible pet owners out here today. How often do those microchips come in handy? Oh, my goodness. It's said that one in every three pets will go missing in their lifetime. But with a microchip, your chances of getting them back increase exponentially. We cannot stress it enough. Collars, tags, they come off when a pet goes missing. Microchip is permanent. All right, so",
+  "candidates": [
+   {
+    "id": "s41541-022-00594-7#While_most_existing_studies_on_vaccine_effectiveness_against:4",
+    "similarity": 0.4726,
+    "source_file": "s41541-022-00594-7.pdf",
+    "text": "the system affects the eligibility for vaccination and getting a Vaccines Pass that allows individuals to enter public places such as restaurants and sports facilities. Individuals fail to report thei"
+   },
+   {
+    "id": "kwac011#In_multivariable-adjusted_models,_we_adjusted_for_the:5",
+    "similarity": 0.4726,
+    "source_file": "kwac011.pdf",
+    "text": "facilities); 8290 (residential care facilities, without nurses); 7970 (offices of physicians); and 7980 (offices of dentists)) and race/ethnicity (non-Hispanic White, non-Hispanic Black, non-Hispanic "
+   },
+   {
+    "id": "vaccines-11-01693#Conclusions:2",
+    "similarity": 0.4647,
+    "source_file": "vaccines-11-01693.pdf",
+    "text": "can choose to receive additional booster shots annually or when it is deemed appropriate. Meanwhile, individuals who have never been infected can be re-immunized more rapidly. Supplementary Materials:"
+   }
+  ],
+  "relevant_evidence": [],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "off_topic",
+  "expect_addresses": "no"
+ },
+ {
+  "video_id": "gum4DvKEU9M",
+  "channel": "ANC 24/7",
+  "title": "WHO: AstraZeneca jab risk-benefit 'still largely positive' | ANC",
+  "window": 1,
+  "window_text": "still reviewing data. There's no link for the moment between the vaccine and the thrombolytic events with thrombocytopenia. Of course it's under evaluation and we wait for some feedback from those committees in the coming days and in coming hours. We know from the data coming from countries like the UK and others that the benefits are really important in terms of reduction of the mortality of populations that are being vaccinated. Out of caution, the Oxford University has paused its trial of the AstraZeneca shot on children in the UK. Last weekend, Britain's medicine regulator reported 30 blood clotting cases, seven of them fatal, out of the 18 million doses administered in the country. U.S. President Joe Biden speeds up the timeline for adult COVID-19 vaccinations in the U.S. Biden has directed states to widen the vaccine eligibility to",
+  "candidates": [
+   {
+    "id": "vaccines-09-00467-v2#Serious_Adverse_Side_Effects_of_COVID-19_Vaccines:2",
+    "similarity": 0.7626,
+    "source_file": "vaccines-09-00467-v2.pdf",
+    "text": "embolus cases (PE) and 5 deep vein thrombosis (DVT), have been reported for the Oxford-AstraZeneca vaccine among 17 million people in the EU and Britain [43]; see discussion for recent contributions. "
+   },
+   {
+    "id": "vaccines-09-00467-v2#Serious_Adverse_Side_Effects_of_COVID-19_Vaccines:1",
+    "similarity": 0.7338,
+    "source_file": "vaccines-09-00467-v2.pdf",
+    "text": "[38], (3) 1 case out of 15,181 in the vaccine group, and 1 case out of 15,170 in the placebo group, for the mRNA-based vaccine [40]. A total of 37 blot clots, including 22 pulmonary embolus cases (PE)"
+   },
+   {
+    "id": "vaccines-10-01444#Conclusions:1",
+    "similarity": 0.6929,
+    "source_file": "vaccines-10-01444.pdf",
+    "text": "context of accelerated global vaccination efforts. Our review attempts to make physicians conscious of ruling out this entity while evaluating patients presenting with thrombocytopenia after receiving"
+   }
+  ],
+  "relevant_evidence": [],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "blood_clots",
+  "expect_addresses": "no"
+ },
+ {
+  "video_id": "RaLxhFiOBYk",
+  "channel": "The BMJ",
+  "title": "Covid-19: Researcher blows the whistle on data integrity issues in Pfi",
+  "window": 3,
+  "window_text": "out and the boxes that the vaccine came in, the containers, they had written the subject information on these containers. So right there, you know, me working on the study, it unblinded me to the randomization of these patients. I made note of that. I took pictures. I took pictures to just to document what I'd seen to show my managers. It was also discovered that Ventavia was unblinding participants in the study based on a directive from our COO which was to print out the randomization scheme and put that drug assignment in everybody's chart. Per Pfizer's protocol, we should have immediately stopped enrolling, but they never told Pfizer. Instead, they wanted us to go through each of the charts and actually take out the randomization scheme that was printed. So that coupled with everything else, I made the",
+  "candidates": [
+   {
+    "id": "vaccines-11-01693#Study_Designs_and_Participant_Enrollment:4",
+    "similarity": 0.5768,
+    "source_file": "vaccines-11-01693.pdf",
+    "text": "as individuals with medical conditions that could potentially affect the immunological study. Participants who did not complete the required information sheet and those who were unvaccinated were excl"
+   },
+   {
+    "id": "dead036#Discussion:4",
+    "similarity": 0.5744,
+    "source_file": "dead036.pdf",
+    "text": "vaccination compared to those who did not receive a vaccine. Overall, the certainty in the pooled evidence was low (Fig. 4) due to serious concerns about the consistency, precision and directness of o"
+   },
+   {
+    "id": "vaccines-09-00467-v2#Data_Extraction:0",
+    "similarity": 0.5704,
+    "source_file": "vaccines-09-00467-v2.pdf",
+    "text": "Four independent reviewers extracted data from the studies that were chosen. The following data were obtained from each article: ﬁrst authors, trial initiation date, published year, vaccine name, comp"
+   }
+  ],
+  "relevant_evidence": [],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "general",
+  "expect_addresses": "no"
+ },
+ {
+  "video_id": "dUlCqxeGFGw",
+  "channel": "Dr. Zachary Rubin",
+  "title": "Did Dr. Fauci purposely mislead the public about the safety of Covid v",
+  "window": 3,
+  "window_text": "you some clarity to the story because, depending on where you're getting your information from, it's being taken wildly out of context. So please share this post widely. If you recall, the COVID vaccine was initially started to roll out in December 2020 and ramped up in the beginning of 2021. And initially, it was not universally recommended for pregnant people to get the vaccine because we did not have enough safety data. But if you were pregnant, you could get a vaccine. And during that time, there was a database called vSafe, where when you got your vaccine, you could log into this website and explain any potential symptoms that you had so that researchers could understand in real time what the potential safety was. The text message that people are talking about was sent in January 2021, when",
+  "candidates": [
+   {
+    "id": "dead036#College:1",
+    "similarity": 0.759,
+    "source_file": "dead036.pdf",
+    "text": "safety of vaccines in pregnancy (Polack et al., 2020; Baden et al., 2021; Madhi et al., 2021; Sadoff et al., 2021). The majority of health authorities currently support the safety of COVID-19 vaccinat"
+   },
+   {
+    "id": "pbio.3001506#Introduction:5",
+    "similarity": 0.7406,
+    "source_file": "pbio.3001506.pdf",
+    "text": "CDC are notably consistent with the conclusions from other studies supporting the safety of COVID-19 mRNA vaccination during pregnancy [11,12]. Even as more data accumulate supporting the safety of th"
+   },
+   {
+    "id": "dead036#Implications_for_clinical_practice:2",
+    "similarity": 0.7327,
+    "source_file": "dead036.pdf",
+    "text": "2021). Generally, concerns about the safety of vaccines in pregnancy could be attributed to the generic immunological and inflammatory response that could impact foetal implantation and embryogenesis "
+   }
+  ],
+  "relevant_evidence": [],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "infertility",
+  "expect_addresses": "no"
+ },
+ {
+  "video_id": "Ut8M9jTEYNg",
+  "channel": "CBS Evening News",
+  "title": "COVID shots may be linked to rare heart problems in teens, CDC finds",
+  "window": 4,
+  "window_text": "vast share in males age 24 or younger. I woke up at 2 a.m. with chest pain. 16-year-old Noah Hyers was rushed to the hospital just two days after receiving his second dose. I was terrified as we were driving there and Noah said, mom, it's getting worse. And these chest pains are really terrible. And I was just praying. Symptoms of myocarditis include chest pains, heart palpitations, and shortness of breath. But a new CDC report estimates the vaccines could prevent 5,700 COVID cases among 12 to 17-year-old boys and as many as 215 hospitalizations. The benefits still clearly outweigh the risks. This experience was much better than getting COVID and much lower risk of anything long-lasting, apparently. The Delta variant and vaccine hesitancy continue to drive new COVID cases. Tonight, Missouri with the highest rate in the nation,",
+  "candidates": [
+   {
+    "id": "clc-45-691#While:1",
+    "similarity": 0.8259,
+    "source_file": "clc-45-691.pdf",
+    "text": "the benefits of vaccination clearly outweighed the risks by preventing more than 11 000 COVID‐19 cases, 560 hospitalizations, 138 intensive care unit admissions, and 6 deaths per million doses of vacc"
+   },
+   {
+    "id": "clinpract-16-00077#Introduction:9",
+    "similarity": 0.7705,
+    "source_file": "clinpract-16-00077.pdf",
+    "text": "event in younger age groups [6]. Recognition of vaccine-associated myocarditis has prompted important public-health discussions about balancing the benefits of COVID-19 vaccination against its potenti"
+   },
+   {
+    "id": "clc-45-691#While:2",
+    "similarity": 0.7674,
+    "source_file": "clc-45-691.pdf",
+    "text": "myocarditis cases after vaccination in males aged 12–29 years.4 Vaccine recipients, providers, and healthcare workers should be aware of this very rare adverse effect of myocarditis after COVID‐19 vac"
+   }
+  ],
+  "relevant_evidence": [],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "myocarditis",
+  "expect_addresses": "no"
+ },
+ {
+  "video_id": "WTdorGWyCGs",
+  "channel": "UNTV News and Rescue",
+  "title": "Immunity provided by COVID-19 vaccines wanes faster in elderly",
+  "window": 1,
+  "window_text": "average interval Gloriani is recommending that once the booster shot vaccination drive for health workers is finished, the national government can begin administering booster shots for the elderly Senior citizens can receive any COVID-19 vaccine brand as long as there will be no contraindication or possible complication if they receive the specific COVID-19 vaccine brand The Department of Health previously released guidelines on the various COVID-19 vaccine combination for booster shots Meanwhile, experts are not recommending booster shots for children Gloriani said children should first complete their two doses of COVID-19 vaccine before discussing about administering them with booster shots For children, we are not yet vaccinated They will finish their two doses first For children, their immune response is better because they are older So we are not worried about the waning immune system Ilyn Cerudo, UNTV News and",
+  "candidates": [
+   {
+    "id": "s41541-022-00594-7#As_the_number_of_SARS-CoV-2_infections_is_still_increasing:0",
+    "similarity": 0.7098,
+    "source_file": "s41541-022-00594-7.pdf",
+    "text": "worldwide, a sizeable fraction of the population needs to consider their history of infection in their subsequent vaccine uptake decisions, i.e., booster doses. Our data is apparently more in favor of"
+   },
+   {
+    "id": "vaccines-11-01693#Vaccines_2023,_11,_1693.9:0",
+    "similarity": 0.7074,
+    "source_file": "vaccines-11-01693.pdf",
+    "text": "11 of 13 been previously infected. However, older adults and those who are immunosuppressed should be considered for an extra booster vaccine [26–28]. It is crucial to emphasize that relying solely on"
+   },
+   {
+    "id": "vaccines-11-01693#Conclusions:2",
+    "similarity": 0.6811,
+    "source_file": "vaccines-11-01693.pdf",
+    "text": "can choose to receive additional booster shots annually or when it is deemed appropriate. Meanwhile, individuals who have never been infected can be re-immunized more rapidly. Supplementary Materials:"
+   }
+  ],
+  "relevant_evidence": [],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "natural_immunity",
+  "expect_addresses": "no"
+ },
+ {
+  "video_id": "fyVQNL294nQ",
+  "channel": "WION",
+  "title": "Gravitas: AstraZeneca and the blood clot controversy",
+  "window": 2,
+  "window_text": "be doing, taking the vaccine or not? And we'll take these questions one by one, we start with the controversy what is happening around the world. European nations like France, Germany and the Netherlands have suspended the use of AstraZeneca vaccines on people below the age of 60 years. Canada has limited the jabs to those above 55 years of age. Denmark and Norway have suspended the use of AstraZeneca altogether. Why? Because of reports of rare blood clots in the brain. What about India? No such case has been reported in India. No cases of blood clots linked to the AstraZeneca vaccine have come to light or been reported in India. But there are some cases in the United Kingdom and the European Union. It's known as the cerebral venous sinus thrombosis. Some experts fear it is linked to",
+  "candidates": [
+   {
+    "id": "IDR-S315727#People_more_prone_to_this_drawback_are_those_who_have:2",
+    "similarity": 0.7108,
+    "source_file": "IDR-S315727.pdf",
+    "text": "years should especially be aware of the rare but increased risk of this adverse event. For the AstraZeneca vaccine, thrombosis seems to be a complication of the vaccine especially in people younger th"
+   },
+   {
+    "id": "vaccines-09-00467-v2#Serious_Adverse_Side_Effects_of_COVID-19_Vaccines:2",
+    "similarity": 0.7047,
+    "source_file": "vaccines-09-00467-v2.pdf",
+    "text": "embolus cases (PE) and 5 deep vein thrombosis (DVT), have been reported for the Oxford-AstraZeneca vaccine among 17 million people in the EU and Britain [43]; see discussion for recent contributions. "
+   },
+   {
+    "id": "IDR-S315727#Regulatory_Agency)_reported_13_patients_with_allergic:1",
+    "similarity": 0.697,
+    "source_file": "IDR-S315727.pdf",
+    "text": "after vaccination were elderly patients with underlying health conditions and, consequently, these deaths did not suggest a direct vaccine cause. However, the evaluation of the vaccines’ adverse effec"
+   }
+  ],
+  "relevant_evidence": [],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "blood_clots",
+  "expect_addresses": "no"
+ },
+ {
+  "video_id": "JQVmrgcEc68",
+  "channel": "NBC News",
+  "title": "FDA says pregnant women should decide on Covid vaccine with doctor as ",
+  "window": 0,
+  "window_text": "a system by which we are supposed to blindfold ourselves at the FDA and just rubber stamp vaccine after vaccine each year. We're not going to do that at this point. That's FDA Commissioner Dr. Marty McCary. He's talking about the new CDC guidelines no longer recommending COVID-19 vaccinations or boosters for healthy kids and healthy pregnant women. That's despite groups like the American College of Obstetricians and Gynecologists and the American Academy of Pediatrics saying the opposite. The COVID vaccine for healthy children and healthy pregnant women has been removed from the CDC recommended immunization schedule. The CDC itself lists pregnancy as a risk factor for COVID but Dr. McCary sticks by the new guidelines. They still recommend in many cases the vaccine for pregnant women so wouldn't the U.S. now be an outlier in that space? So the",
+  "candidates": [
+   {
+    "id": "dead036#College:1",
+    "similarity": 0.8208,
+    "source_file": "dead036.pdf",
+    "text": "safety of vaccines in pregnancy (Polack et al., 2020; Baden et al., 2021; Madhi et al., 2021; Sadoff et al., 2021). The majority of health authorities currently support the safety of COVID-19 vaccinat"
+   },
+   {
+    "id": "dead036#College:0",
+    "similarity": 0.7813,
+    "source_file": "dead036.pdf",
+    "text": "of Obstetricians and Gynecologists, 2022; Royal College of Obstetricians & Gynaecologists, 2022; UK Health Security Agency, 2022). Most early studies evaluating the efficacy of COVID-19 vaccines exclu"
+   },
+   {
+    "id": "pbio.3001506#Introduction:7",
+    "similarity": 0.776,
+    "source_file": "pbio.3001506.pdf",
+    "text": "likely than men to be vaccine hesitant [15], and a number of these unconfirmed speculations target women’s health issues specifically, spreading fear about pregnancy, breastfeeding, and fertility post"
+   }
+  ],
+  "relevant_evidence": [],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "general",
+  "expect_addresses": "no"
+ },
+ {
+  "video_id": "HO7zve5tQxM",
+  "channel": "13WHAM ABC News",
+  "title": "Fauci texts reveal early debate between health officials over COVID va",
+  "window": 1,
+  "window_text": "COVID vaccines became available to the public. The messages were released by Republican senators Ron Johnson and Rand Paul. Fauci was texting with then surgeon general Vivek Murthy and CDC director Rachelle Walensky about COVID vaccination and pregnancy. We tell pregnant women don't even have a glass of wine and yet we coerced them, convinced them, sometimes mandated them to get an experimental Jane therapy. Fauci initially said he wasn't concerned about pregnant women receiving the vaccine, but later raised potential concerns, writing quote. I asked around a bit more and another issue came up that you need to be aware of since many people have significant cytokine storms and fever after the second dose. This theoretically could be associated with miscarriage in the first trimester. At the time down on COVID vaccination during pregnancy was very limited, but less",
+  "candidates": [
+   {
+    "id": "dead036#Miscarriage_risk_following_COVID-19_vaccination.2:2",
+    "similarity": 0.792,
+    "source_file": "dead036.pdf",
+    "text": "miscarriage especially in the first trimester or among those with more severe vaccine side effects (Graham et al., 1998; Dreier et al., 2014). We were unable to explore the optimal timing to provide C"
+   },
+   {
+    "id": "pbio.3001506#May_24,_2022.3:13",
+    "similarity": 0.7877,
+    "source_file": "pbio.3001506.pdf",
+    "text": "during the second or early third trimester compared to later in the third trimester [52–57]. Though many women have now received COVID-19 vaccinations in the first trimester, few studies had previousl"
+   },
+   {
+    "id": "dead036#Some_authors_have_raised_concerns_about_the_potential_cross-:3",
+    "similarity": 0.7861,
+    "source_file": "dead036.pdf",
+    "text": "pregnant women with COVID-19, it is critical to maximize prevention efforts by encouraging vaccine uptake and promoting its safety during pregnancy (Royal College of Obstetricians & Gynaecologists, 20"
+   }
+  ],
+  "relevant_evidence": [],
+  "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+  "topic": "infertility",
+  "expect_addresses": "no"
+ }
+]

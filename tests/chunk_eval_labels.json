@@ -1,0 +1,1365 @@
+{
+  "description": "Hand-labelled ground truth for chunk evaluation. relevant_evidence holds verbatim phrases, not passage ids, so labels stay valid when chunk size changes.",
+  "window_words": 140,
+  "window_stride": 70,
+  "items": [
+    {
+      "video_id": "gcExM22XkYs",
+      "channel": "CBS Evening News",
+      "title": "False links between COVID vaccine and infertility raise alarm among wo",
+      "window": 1,
+      "window_text": "infertility? So every day. Jay Huber is a fertility doctor in New Orleans. He says there's no evidence that COVID vaccine causes infertility. What is the biggest misconception? This concept that the vaccination will actually train the human immune system to create an antibody that can cross-react with that vital placental protein, which would ultimately cause infertility. There's a lot of emotion because I've gone through this twice before and it wasn't successful. Stacey Clark, a 36-year-old nurse, is getting fertility treatments from Dr. Huber. She fears the vaccine could somehow affect her ability to get pregnant. What if there is something in there that wasn't tested? Will it cause, you know, females to be sterile? What are your discussions about the vaccine with Dr. Huber been like? He, of course, very much feels that there's enough evidence for me",
+      "candidates": [
+        {
+          "id": "nbk-female-infertility-covid-vaccines#FROM_EVIDENCE_TO_CONCLUSIONS:4",
+          "similarity": 0.8153,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "measures of infertility and exposure to vaccines were both selfreported (Wesselink et al., 2022). No studies examined NVX-CoV2373 and female infertility. 4 9/5/26, 11:00 PM Female Infertility and COVI"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#After_6:13",
+          "similarity": 0.7968,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "female infertility (Wesselink et al., 2022). None of the studies reported an adverse effect on fertility after vaccination. Most studies that examined whether COVID-19 vaccines affect the treatment ou"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#After_6:14",
+          "similarity": 0.7682,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "These studies have been summarized in few systematic reviews. Although they were not the focus of this review, they provided reassurance and context that COVID-19 vaccines do not affect fertility. All"
+        }
+      ],
+      "relevant_evidence": [
+        "no measurable negative impact on IVF",
+        "no adverse effect on embryo quality and clinical pregnancy rates"
+      ],
+      "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+      "topic": "infertility",
+      "router_says": {
+        "topic": "infertility",
+        "absolute": 0.7564,
+        "margin": 0.05
+      }
+    },
+    {
+      "video_id": "gcExM22XkYs",
+      "channel": "CBS Evening News",
+      "title": "False links between COVID vaccine and infertility raise alarm among wo",
+      "window": 0,
+      "window_text": "We want to clear up some widespread misinformation about COVID vaccines and fertility. The rumors have scared some women from getting a COVID shot. CBS's Nikki Bates continues our series, Women and the Pandemic. As production lines started rolling out the vaccine, social media began rolling out the rumors and they spread as rapidly as the virus itself. How often are you being asked by patients if the vaccine causes infertility? So every day. Jay Huber is a fertility doctor in New Orleans. He says there's no evidence that COVID vaccine causes infertility. What is the biggest misconception? This concept that the vaccination will actually train the human immune system to create an antibody that can cross-react with that vital placental protein, which would ultimately cause infertility. There's a lot of emotion because I've gone through this twice before and",
+      "candidates": [
+        {
+          "id": "nbk-female-infertility-covid-vaccines#FROM_EVIDENCE_TO_CONCLUSIONS:4",
+          "similarity": 0.7968,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "measures of infertility and exposure to vaccines were both selfreported (Wesselink et al., 2022). No studies examined NVX-CoV2373 and female infertility. 4 9/5/26, 11:00 PM Female Infertility and COVI"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#CLINICAL_AND_EPIDEMIOLOGICAL_EVIDENCE:0",
+          "similarity": 0.785,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "In evaluating the literature on whether COVID-19 vaccines impact female fertility, the committee considered three types of studies that included important biologic measures known to be associated with"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#After_6:14",
+          "similarity": 0.7829,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "These studies have been summarized in few systematic reviews. Although they were not the focus of this review, they provided reassurance and context that COVID-19 vaccines do not affect fertility. All"
+        }
+      ],
+      "relevant_evidence": [
+        "no measurable negative impact on IVF",
+        "no evidence that female or male fertility problems are a side effect"
+      ],
+      "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+      "topic": "infertility",
+      "router_says": {
+        "topic": "infertility",
+        "absolute": 0.763,
+        "margin": 0.0284
+      }
+    },
+    {
+      "video_id": "hEOO5Qzc8cQ",
+      "channel": "NDSU Center for Immunization Research & Education",
+      "title": "Can COVID 19 vaccines cause infertility?",
+      "window": 0,
+      "window_text": "Medical experts say there is no evidence that COVID-19 vaccines would result in the infertility of women. This claim started on social media and it was full of misinformation about what the COVID-19 vaccine contains and how the vaccine could cause issues during future pregnancies. These claims are not true. One thing we should ask ourselves is could the vaccine cause infertility? And here's what we know so far. If this theory was true, you would also expect infertility to occur in people who have had natural infection since the vaccine contains instructions for the same spike protein that is seen on the virus that causes COVID-19. In the United States we have had over 31 million documented cases of COVID. Worldwide we have seen 138 million COVID-19 infections reported and thus far we are not seeing a decrease in",
+      "candidates": [
+        {
+          "id": "nbk-female-infertility-covid-vaccines#After_6:14",
+          "similarity": 0.8836,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "These studies have been summarized in few systematic reviews. Although they were not the focus of this review, they provided reassurance and context that COVID-19 vaccines do not affect fertility. All"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#FROM_EVIDENCE_TO_CONCLUSIONS:4",
+          "similarity": 0.8761,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "measures of infertility and exposure to vaccines were both selfreported (Wesselink et al., 2022). No studies examined NVX-CoV2373 and female infertility. 4 9/5/26, 11:00 PM Female Infertility and COVI"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#CLINICAL_AND_EPIDEMIOLOGICAL_EVIDENCE:0",
+          "similarity": 0.8662,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "In evaluating the literature on whether COVID-19 vaccines impact female fertility, the committee considered three types of studies that included important biologic measures known to be associated with"
+        }
+      ],
+      "relevant_evidence": [
+        "no measurable negative impact on IVF",
+        "no evidence that female or male fertility problems are a side effect"
+      ],
+      "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+      "topic": "infertility",
+      "router_says": {
+        "topic": "infertility",
+        "absolute": 0.8711,
+        "margin": 0.1518
+      }
+    },
+    {
+      "video_id": "hEOO5Qzc8cQ",
+      "channel": "NDSU Center for Immunization Research & Education",
+      "title": "Can COVID 19 vaccines cause infertility?",
+      "window": 1,
+      "window_text": "this theory was true, you would also expect infertility to occur in people who have had natural infection since the vaccine contains instructions for the same spike protein that is seen on the virus that causes COVID-19. In the United States we have had over 31 million documented cases of COVID. Worldwide we have seen 138 million COVID-19 infections reported and thus far we are not seeing a decrease in fertility among those who have been infected. Lastly it's important to note that during the Pfizer, Moderna and Johnson & Johnson clinical trials some women in the vaccine groups became pregnant. Among the women who were vaccinated, no safety concerns have been noted to date.",
+      "candidates": [
+        {
+          "id": "nbk-female-infertility-covid-vaccines#After_6:14",
+          "similarity": 0.8578,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "These studies have been summarized in few systematic reviews. Although they were not the focus of this review, they provided reassurance and context that COVID-19 vaccines do not affect fertility. All"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#FROM_EVIDENCE_TO_CONCLUSIONS:4",
+          "similarity": 0.854,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "measures of infertility and exposure to vaccines were both selfreported (Wesselink et al., 2022). No studies examined NVX-CoV2373 and female infertility. 4 9/5/26, 11:00 PM Female Infertility and COVI"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#After_6:13",
+          "similarity": 0.8526,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "female infertility (Wesselink et al., 2022). None of the studies reported an adverse effect on fertility after vaccination. Most studies that examined whether COVID-19 vaccines affect the treatment ou"
+        }
+      ],
+      "relevant_evidence": [
+        "no measurable negative impact on IVF",
+        "no evidence that female or male fertility problems are a side effect"
+      ],
+      "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+      "topic": "infertility",
+      "router_says": {
+        "topic": "infertility",
+        "absolute": 0.8427,
+        "margin": 0.1322
+      }
+    },
+    {
+      "video_id": "JxIkndSVRDI",
+      "channel": "M&M Devs",
+      "title": "Shocking Findings: Could COVID-19 Vaccines Impact Fertility?",
+      "window": 0,
+      "window_text": "This is fertility study. A study of 1.3 million showed successful conceptions per 1,000 women were considerably lower for women who were COVID-19 mRNA vaccinated. Preliminary results call for further studies of the potential influence of COVID-19 vaccination on human fertility. And I think in that thread, they were talking about what it does to their eggs and ovaries. That's right there. This is what a lot of the conspiracy theorists were talking about when the VAX was coming out. Yeah. Well, it's like. Which, by the way, the conspiracy theorists are undefeated still. Yeah, conspiracy theorists are way more accurate than CNN. Way more. Even if they got things wrong. Let's say there's no nanobots in the shots. But even whatever that, forget all that. I think that nanobots in the shot would be too expensive. That's why I",
+      "candidates": [
+        {
+          "id": "nbk-female-infertility-covid-vaccines#FROM_EVIDENCE_TO_CONCLUSIONS:4",
+          "similarity": 0.6632,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "measures of infertility and exposure to vaccines were both selfreported (Wesselink et al., 2022). No studies examined NVX-CoV2373 and female infertility. 4 9/5/26, 11:00 PM Female Infertility and COVI"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#FROM_EVIDENCE_TO_CONCLUSIONS:5",
+          "similarity": 0.6469,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "Adverse Effects of COVID-19 Vaccination and Intramuscular Vaccine … https://www.ncbi.nlm.nih.gov/books/NBK607379/ 7/10 Conclusion 9-3: The evidence is inadequate to accept or reject a causal relations"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#CLINICAL_AND_EPIDEMIOLOGICAL_EVIDENCE:0",
+          "similarity": 0.6326,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "In evaluating the literature on whether COVID-19 vaccines impact female fertility, the committee considered three types of studies that included important biologic measures known to be associated with"
+        }
+      ],
+      "relevant_evidence": [],
+      "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+      "topic": "infertility",
+      "router_says": {
+        "topic": "infertility",
+        "absolute": 0.64,
+        "margin": 0.0125
+      }
+    },
+    {
+      "video_id": "JxIkndSVRDI",
+      "channel": "M&M Devs",
+      "title": "Shocking Findings: Could COVID-19 Vaccines Impact Fertility?",
+      "window": 1,
+      "window_text": "theorists were talking about when the VAX was coming out. Yeah. Well, it's like. Which, by the way, the conspiracy theorists are undefeated still. Yeah, conspiracy theorists are way more accurate than CNN. Way more. Even if they got things wrong. Let's say there's no nanobots in the shots. But even whatever that, forget all that. I think that nanobots in the shot would be too expensive. That's why I think it's not real. Yeah, I'm with you. I mean, maybe a few people got it. Maybe. I still don't think Biden got it on TV. I think they salineed that dude.",
+      "candidates": [
+        {
+          "id": "nbk-female-infertility-covid-vaccines#FROM_EVIDENCE_TO_CONCLUSIONS:4",
+          "similarity": 0.2706,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "measures of infertility and exposure to vaccines were both selfreported (Wesselink et al., 2022). No studies examined NVX-CoV2373 and female infertility. 4 9/5/26, 11:00 PM Female Infertility and COVI"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#FROM_EVIDENCE_TO_CONCLUSIONS:3",
+          "similarity": 0.2578,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "infertility. Very few studies examined Ad26.COV2.S and female infertility; the only epidemiological study that did so did not find an association. The study was limited by the inclusion of people with"
+        }
+      ],
+      "relevant_evidence": [],
+      "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+      "topic": "general",
+      "router_says": {
+        "topic": "infertility",
+        "absolute": 0.2393,
+        "margin": 0.0135
+      }
+    },
+    {
+      "video_id": "F-LD9pvPXQE",
+      "channel": "Lila Rose",
+      "title": "Did The COVID Shot Affect Fertility?",
+      "window": 0,
+      "window_text": "There's no way the *** injured your fertility in any way. I mean, it was astounding, the gaslighting of American women. Menstrual related issues, potentially pregnancy related issues. There were a lot of women trying to just voice their concerns. They were ignored, they were gaslit, they were told, you don't know what you're talking about. And now, a couple of years later, I think people are sort of waking up, we're starting to see research institutions like Yale being willing to look at safety issues around the mRNA shots.",
+      "candidates": [
+        {
+          "id": "nbk-female-infertility-covid-vaccines#After_6:12",
+          "similarity": 0.625,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "one of very few studies to include Ad26.COV2.S. The study was limited by self-report of both exposure and outcomes. The authors also noted that approximately 11 percent of the participants had a prior"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#After_6:13",
+          "similarity": 0.5496,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "female infertility (Wesselink et al., 2022). None of the studies reported an adverse effect on fertility after vaccination. Most studies that examined whether COVID-19 vaccines affect the treatment ou"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#Studies_among_oocyte_donors,_and:10",
+          "similarity": 0.5438,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "the absence of a causal relationship between mRNA vaccines and female infertility. In a study of women undergoing elective oocyte cryopreservation, Karavani et al. (2022) compared 224 women aged 30–39"
+        }
+      ],
+      "relevant_evidence": [],
+      "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+      "topic": "infertility",
+      "router_says": {
+        "topic": "infertility",
+        "absolute": 0.4747,
+        "margin": 0.0745
+      }
+    },
+    {
+      "video_id": "MniP4EtW7xI",
+      "channel": "drrohanfonseca ",
+      "title": "Men&#39;s Fertility And Covid Vaccines Here Is The Emerging Truth",
+      "window": 8,
+      "window_text": "men. However, this was attributed to the possibility of the increase in time of abstinence. So in this study as well, it can be concluded that the vaccines did not have any effect on the sperm count of healthy men. A couple of downsides of the studies, according to me, are that they seem to have a small sample size and although the chances are low, we do not know what the long-term side effects could be as not too long has passed since the vaccines are being used. We can though conclude from the study so far that the vaccines have no bearing in fertility in males. On the contrary, COVID-19 has a potential to affect fertility. I would like with this video to help elevate some of your concerns around the vaccine and male fertility and at the",
+      "candidates": [
+        {
+          "id": "nbk-female-infertility-covid-vaccines#After_6:14",
+          "similarity": 0.8306,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "These studies have been summarized in few systematic reviews. Although they were not the focus of this review, they provided reassurance and context that COVID-19 vaccines do not affect fertility. All"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#CLINICAL_AND_EPIDEMIOLOGICAL_EVIDENCE:0",
+          "similarity": 0.8143,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "In evaluating the literature on whether COVID-19 vaccines impact female fertility, the committee considered three types of studies that included important biologic measures known to be associated with"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#FROM_EVIDENCE_TO_CONCLUSIONS:0",
+          "similarity": 0.7952,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "The studies reviewed reported no effect of COVID-19 vaccines on fertility. The donor oocyte studies provide the strongest clinical evidence, although the sample sizes were small (Bosch et al., 2023; K"
+        }
+      ],
+      "relevant_evidence": [
+        "little or no adverse effect on ovarian stimulation, sperm parameters"
+      ],
+      "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+      "topic": "infertility",
+      "router_says": {
+        "topic": "infertility",
+        "absolute": 0.7788,
+        "margin": 0.103
+      }
+    },
+    {
+      "video_id": "MniP4EtW7xI",
+      "channel": "drrohanfonseca ",
+      "title": "Men&#39;s Fertility And Covid Vaccines Here Is The Emerging Truth",
+      "window": 9,
+      "window_text": "what the long-term side effects could be as not too long has passed since the vaccines are being used. We can though conclude from the study so far that the vaccines have no bearing in fertility in males. On the contrary, COVID-19 has a potential to affect fertility. I would like with this video to help elevate some of your concerns around the vaccine and male fertility and at the same time keep you informed. Putting up some more videos here that might interest you. Like, subscribe, signing out Dr. Rohan Fonseca.",
+      "candidates": [
+        {
+          "id": "nbk-female-infertility-covid-vaccines#After_6:14",
+          "similarity": 0.8053,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "These studies have been summarized in few systematic reviews. Although they were not the focus of this review, they provided reassurance and context that COVID-19 vaccines do not affect fertility. All"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#FROM_EVIDENCE_TO_CONCLUSIONS:0",
+          "similarity": 0.7743,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "The studies reviewed reported no effect of COVID-19 vaccines on fertility. The donor oocyte studies provide the strongest clinical evidence, although the sample sizes were small (Bosch et al., 2023; K"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#After_6:15",
+          "similarity": 0.7686,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "whether COVID-19 vaccines affected female infertility (Chamani et al., 2022; Huang et al., 2023; Zaçe et al., 2022; Zhang et al., 2023). None of these studies reported that COVID-19 vaccines negativel"
+        }
+      ],
+      "relevant_evidence": [],
+      "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+      "topic": "general",
+      "router_says": {
+        "topic": "infertility",
+        "absolute": 0.7164,
+        "margin": 0.1064
+      }
+    },
+    {
+      "video_id": "zg-Sh7gYXxk",
+      "channel": "Dr. Jayne Morgan",
+      "title": "How do the Covid vaccines affect male fertility?",
+      "window": 0,
+      "window_text": "Hi, this is Dr. Jane Morgan, and sometimes I'm asked about male fertility and the COVID vaccines. What do we know about that? We know that when men take the COVID vaccine, there is a risk of developing fever the same as women. This is one of the common side effects not only of this vaccine, but of many vaccines. We also know that fever causes a slight drop in the sperm count, and it requires about two months for full recovery. Remember, however, if you were to get COVID-19 disease, you have a risk of very high fever and ongoing fevers that also could impact your sperm count. Additionally, the COVID-19 disease binds to cells in your body, including those cells in your testicles, while the COVID-19 vaccine does not. I hope that's helpful.",
+      "candidates": [
+        {
+          "id": "nbk-female-infertility-covid-vaccines#After_6:14",
+          "similarity": 0.8162,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "These studies have been summarized in few systematic reviews. Although they were not the focus of this review, they provided reassurance and context that COVID-19 vaccines do not affect fertility. All"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#FROM_EVIDENCE_TO_CONCLUSIONS:0",
+          "similarity": 0.8109,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "The studies reviewed reported no effect of COVID-19 vaccines on fertility. The donor oocyte studies provide the strongest clinical evidence, although the sample sizes were small (Bosch et al., 2023; K"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#CLINICAL_AND_EPIDEMIOLOGICAL_EVIDENCE:0",
+          "similarity": 0.7934,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "In evaluating the literature on whether COVID-19 vaccines impact female fertility, the committee considered three types of studies that included important biologic measures known to be associated with"
+        }
+      ],
+      "relevant_evidence": [
+        "little or no adverse effect on ovarian stimulation, sperm parameters"
+      ],
+      "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+      "topic": "infertility",
+      "router_says": {
+        "topic": "infertility",
+        "absolute": 0.7777,
+        "margin": 0.1238
+      }
+    },
+    {
+      "video_id": "l2POvDQu96c",
+      "channel": "Christy Risinger, MD",
+      "title": "COVID VACCINE - Does it cause INFERTILITY?",
+      "window": 11,
+      "window_text": "to updates 116 and 117 to see a clear explanation with drawings. It's excellent and it's free. Okay, now on to myth number two, that the messenger RNA vaccines cause infertility. Remember how I said that up to 10% of the human genome is made of bits of viral DNA? Well one happy side effect of this is that there's production of a placental protein called Sincitin-1. The body has repurposed the virus' self-using ability to help the placenta fuse with the uterus. How amazing is that? Well one scientist has suggested that this protein was similar to the spike protein found on the SARS-CoV-2 virus. And if the vaccine caused our bodies to make antibodies to protect us from COVID-19, he thought they could also make antibodies to reject the placenta. But let's break this apart a bit because",
+      "candidates": [
+        {
+          "id": "nbk-female-infertility-covid-vaccines#FROM_EVIDENCE_TO_CONCLUSIONS:4",
+          "similarity": 0.7033,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "measures of infertility and exposure to vaccines were both selfreported (Wesselink et al., 2022). No studies examined NVX-CoV2373 and female infertility. 4 9/5/26, 11:00 PM Female Infertility and COVI"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#FROM_EVIDENCE_TO_CONCLUSIONS:5",
+          "similarity": 0.683,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "Adverse Effects of COVID-19 Vaccination and Intramuscular Vaccine … https://www.ncbi.nlm.nih.gov/books/NBK607379/ 7/10 Conclusion 9-3: The evidence is inadequate to accept or reject a causal relations"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#After_6:15",
+          "similarity": 0.6784,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "whether COVID-19 vaccines affected female infertility (Chamani et al., 2022; Huang et al., 2023; Zaçe et al., 2022; Zhang et al., 2023). None of these studies reported that COVID-19 vaccines negativel"
+        }
+      ],
+      "relevant_evidence": [],
+      "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+      "topic": "general",
+      "router_says": {
+        "topic": "infertility",
+        "absolute": 0.6821,
+        "margin": 0.0629
+      }
+    },
+    {
+      "video_id": "l2POvDQu96c",
+      "channel": "Christy Risinger, MD",
+      "title": "COVID VACCINE - Does it cause INFERTILITY?",
+      "window": 0,
+      "window_text": "Hi, and welcome to another edition of Your Health with Dr. Christy. My name is Dr. Christy Reisinger, and today I'm going to dispel two myths about the mRNA COVID-19 vaccines. Now that about 50% of the U.S. adult population has received at least one dose of the COVID-19 vaccines, it's now the medical community's responsibility to alleviate concerns about the vaccine and encourage the remaining 50% to get the COVID vaccine. There have been a lot of myths and misinformation about the mRNA vaccines, but here are the top two that I think are worth dispelling today. Myth number one, the vaccine alters your genetic system, and the COVID-19 vaccines are part of a global effort to change the human genome and control the population. I just don't think people realize that technology that's being used in the vaccine",
+      "candidates": [
+        {
+          "id": "cdc_108736_DS1#Bust_Common_Myths_and_Learn_the_Facts:4",
+          "similarity": 0.6412,
+          "source_file": "cdc_108736_DS1.pdf",
+          "text": "the U.S. contain a live virus. mRNA and viral vector vaccines are the two types of currently authorized COVID-19 vaccines available. Learn more about mRNA and​ viral vector COVID-19 vaccines. Is it sa"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#After_6:5",
+          "similarity": 0.5832,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "Evidence Review of the Adverse Effects of COVID-19 Vaccination and Intramuscular Vaccine … https://www.ncbi.nlm.nih.gov/books/NBK607379/ 6/10 4.56 prevaccination compared to 3.86 ± 4.31 post-vaccinati"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#front:1",
+          "similarity": 0.5746,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "Review Relevant Literature Regarding Adverse Events Associated with Vaccines; Rosenberg D, Kumova OK, Stratton K, et al., editors. Evidence Review of the Adverse Effects of COVID-19 Vaccination and In"
+        }
+      ],
+      "relevant_evidence": [],
+      "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+      "topic": "general",
+      "router_says": {
+        "topic": "myths_and_facts",
+        "absolute": 0.6557,
+        "margin": 0.0899
+      }
+    },
+    {
+      "video_id": "b3-BCUmEYg0",
+      "channel": "AHCA / NCAL",
+      "title": "Will the COVID-19 Vaccine Cause Infertility?",
+      "window": 0,
+      "window_text": "The evidence would say, no, this vaccine does not cause infertility. We know that this vaccine causes the human body to make the same type of antibodies it makes when you get infected with the virus. And we know millions of women around the world have been infected by this virus and we have not seen any decrease in fertility for women who have gotten COVID. We also know that in the trials, women who got the vaccine and women who didn't get the vaccine, both became pregnant at the same rate. So there was no decrease in fertility. So women who actually got the vaccine became pregnant. So it's pretty clear that this vaccine does not cause infertility.",
+      "candidates": [
+        {
+          "id": "nbk-female-infertility-covid-vaccines#After_6:14",
+          "similarity": 0.8135,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "These studies have been summarized in few systematic reviews. Although they were not the focus of this review, they provided reassurance and context that COVID-19 vaccines do not affect fertility. All"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#After_6:15",
+          "similarity": 0.7981,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "whether COVID-19 vaccines affected female infertility (Chamani et al., 2022; Huang et al., 2023; Zaçe et al., 2022; Zhang et al., 2023). None of these studies reported that COVID-19 vaccines negativel"
+        },
+        {
+          "id": "nbk-female-infertility-covid-vaccines#After_6:13",
+          "similarity": 0.7853,
+          "source_file": "nbk-female-infertility-covid-vaccines.pdf",
+          "text": "female infertility (Wesselink et al., 2022). None of the studies reported an adverse effect on fertility after vaccination. Most studies that examined whether COVID-19 vaccines affect the treatment ou"
+        }
+      ],
+      "relevant_evidence": [
+        "no evidence that female or male fertility problems are a side effect",
+        "no measurable negative impact on IVF"
+      ],
+      "note": "FILL IN relevant_evidence: verbatim phrases from the passage(s) that actually answer this window. Leave empty if no evidence in the corpus addresses it.",
+      "topic": "infertility",
+      "router_says": {
+        "topic": "infertility",
+        "absolute": 0.7473,
+        "margin": 0.2336
+      }
+    },
+    {
+      "video_id": "7QuTr4fIiyU",
+      "channel": "The National Desk",
+      "title": "",
+      "window": 9,
+      "window_text": "from long COVID and vaccine injury or both. Many were young and previously healthy. For those with vaccine injury, trust in public institutions has been shattered. Many were coerced under the August 2021 federal mandates despite legitimate hesitations due to prior infection or personal health risk. They knew their body better than the agencies. Now disabled, they are dismissed or ignored by the systems that mandated their compliance. The myocarditis signal was also a big thing. This spring of 2021, a clear safety signal emerged. Myocarditis and young males linked to mRNA vaccines. The Department of Defense confirmed cases of rare heart inflammation and peer-reviewed studies later detected circulating spike protein in post-vaccine myocarditis cases. Autopsy findings have confirmed fatal vaccine-induced myocarditis. Yet federal authorities accelerated licensing and mandates sidelining concerns. The CDC's hesitation to issue a health alert on",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "myocarditis",
+        "absolute": 0.7312,
+        "margin": 0.1644
+      }
+    },
+    {
+      "video_id": "7QuTr4fIiyU",
+      "channel": "The National Desk",
+      "title": "",
+      "window": 1,
+      "window_text": "ranking member Blumenthal. Thank you for having me. I'm going to dovetail a little bit off what Dr. McCullis said and one of the things that, as a clinician who also had about 200 people working for him and actually seeing about 170,000 patients a year, when COVID came along, I had to really figure out how to not only help my staff and make sure they're safe, but also help the patients that my organization was responsible for. And that really made me dive into understanding the pathology. And what I came away with was understanding that the spike protein, the S1 subunit specifically, is not a benign protein. It triggers inflammation. It disrupts endothelial barriers. It induces fibrin-resistant to breakdown. And it promotes a lot of amyloid aggregates, which is what I research. These effects impair oxygen delivery,",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "viral_shedding",
+        "absolute": 0.3912,
+        "margin": 0.1031
+      }
+    },
+    {
+      "video_id": "CztIknqTNpY",
+      "channel": "eGPlearning",
+      "title": "",
+      "window": 2,
+      "window_text": "you should be advised of how to do this at the time that you have the vaccination. This may include discussing it with either your doctor, your nurse or your local pharmacist. If you get side effects not listed in this video then you may report these using the yellow card format with the MRHA website. The link to that is available here. Additionally, you may also download the apps to the Google Play or Amazon App Store and use those. By reporting these side effects you help to provide more information about the safety of this vaccine. For more specific information about the safety and use of this vaccination for yourself individually, please contact the local team that will be vaccinating you and they may signpost you to further details or resources for information. If you would like to",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "myths_and_facts",
+        "absolute": 0.4162,
+        "margin": 0.0291
+      }
+    },
+    {
+      "video_id": "CztIknqTNpY",
+      "channel": "eGPlearning",
+      "title": "",
+      "window": 3,
+      "window_text": "to the Google Play or Amazon App Store and use those. By reporting these side effects you help to provide more information about the safety of this vaccine. For more specific information about the safety and use of this vaccination for yourself individually, please contact the local team that will be vaccinating you and they may signpost you to further details or resources for information. If you would like to learn more about the other vaccines available please have a look at the available videos right here.",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "myths_and_facts",
+        "absolute": 0.3628,
+        "margin": 0.0423
+      }
+    },
+    {
+      "video_id": "F6NKbQzo4aE",
+      "channel": "Vox",
+      "title": "",
+      "window": 7,
+      "window_text": "in some of the new COVID-19 vaccines, the genetic code of a portion of one, either in the form of DNA or what's called messenger RNA, along with minor ingredients to keep it stable. It's harmless, but when your immune system detects it, it responds just like it's a real danger. It attacks the intruder and creates these memory antibodies to be able to fight it again in the future. Vaccines are designed to give you the same immunity as if you had fought off the real virus. And some of the new COVID-19 ones do this particularly well. The messenger RNA vaccines are quite good at stimulating your immune system. That's why you have 95% efficacy. That's right, a 95% chance of being protected against COVID-19. That makes them some of the most effective vaccines. But that also means",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "myocarditis",
+        "absolute": 0.6181,
+        "margin": 0.0392
+      }
+    },
+    {
+      "video_id": "F6NKbQzo4aE",
+      "channel": "Vox",
+      "title": "",
+      "window": 16,
+      "window_text": "a day or two. But the scientists who have studied these vaccines, who have seen the side effects, are some of the most eager to get it. I couldn't wait to get this vaccine, you kidding me? I mean, two doses of vaccine gives me a 95% chance of being protected. We would be the first ones to not wanna take it if we felt it was unsafe, right? So, take it from your friendly vaccine person.",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "natural_immunity",
+        "absolute": 0.4073,
+        "margin": 0.0339
+      }
+    },
+    {
+      "video_id": "ydkMwOp2Fhk",
+      "channel": "The Jimmy Dore Show",
+      "title": "",
+      "window": 51,
+      "window_text": "media. 80% of Americans took a vaccine, 20% didn't. 20% did not take a vaccine. The vaccine was never safe enough for me to take. Messenger RNA, devised by Pfizer-Moderna, has been chemically modified to be unassailable to enzymes in the body to be broken down. The Messenger RNA is found in the human heart of people who die after the vaccine. It's found in the brain. The spike protein is found everywhere in the body. Three studies now show the spike protein is circulating in the blood for six to nine months after people take the shot. This part of the virus, the lethal part of the virus in the vaccinated, it's circulating in the blood. And then they take a booster, they get more circulating the blood. It is a killer protein. It cannot be safe. It was",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "viral_shedding",
+        "absolute": 0.6922,
+        "margin": 0.2225
+      },
+      "topic_was": "viral_shedding"
+    },
+    {
+      "video_id": "ydkMwOp2Fhk",
+      "channel": "The Jimmy Dore Show",
+      "title": "",
+      "window": 37,
+      "window_text": "tried to tell the American people the truth, we get vilified. We get marginalized. We get ridiculed. That's, again, why so appreciative of what you've been doing here on your show and having me on here to talk about this. Well, yeah, we know, completely ostracized. You know, I live in Hollywood and so everybody completely ostracized me. I've been dropped from the invite list to everything. And I've been slandered left and right by people I've known for 30 years. People who've been on my show, people who've been my friends for 30 years, go on social media without ever having a conversation with me about it. Like they would never say, hey, Jimmy, explain to me what you're saying about the Vax. Explain to me what you're saying about, they just went right on social media and called",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "viral_shedding",
+        "absolute": 0.0961,
+        "margin": 0.0564
+      }
+    },
+    {
+      "video_id": "Y6_jn0DzXHI",
+      "channel": "London Real",
+      "title": "",
+      "window": 4,
+      "window_text": "body temperature and and on from that absolutely amazing structures started appearing which were activated by the body temperature and so then you go to one of the contents of the fake vaccine which is now more and more widely acknowledged by people who are after the truth graphene oxide what is graphene oxide it's a superconductor of electricity now the brain and the body communicate electrically and the other thing that is highly relevant about graphene oxide is that it amplifies electromagnetic fields so if you if you have graphene oxide in the body and lots of people do it's not it it's not just coming from the fake vaccine it's coming from other sources as well but if you have graphene oxide in the in the body if you if you become if you have contact with an",
+      "candidates": [],
+      "relevant_evidence": [
+        "free from metals"
+      ],
+      "topic": "general",
+      "router_says": {
+        "topic": "viral_shedding",
+        "absolute": 0.5239,
+        "margin": 0.1004
+      },
+      "topic_was": "myths_and_facts"
+    },
+    {
+      "video_id": "Y6_jn0DzXHI",
+      "channel": "London Real",
+      "title": "",
+      "window": 10,
+      "window_text": "is why 95 percent of people lose all their money well that's why I created the london real investment club so you can access the hottest deals on the planet and use the crypto bull market to create the generational wealth that you deserve join my team of over 100 people from around the world that are making millions of dollars behind the scenes investing in blockchain AI web three games d5 bitcoin and more don't miss out click the link below to book a call with one of my team now but hurry this bull market will end soon",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "myths_and_facts",
+        "absolute": 0.1144,
+        "margin": 0.0362
+      }
+    },
+    {
+      "video_id": "cV4jUXBWpvA",
+      "channel": "JRE-Daily-Updates",
+      "title": "",
+      "window": 1,
+      "window_text": "infect people it runs into a lot of immune systems that see it coming. If you vaccinate into an active pandemic you're doing a number of different things. For one thing, maybe the worst thing is you're guaranteeing that the pathogen is gonna encounter a lot of people who are in the process of developing immunity. So what you're giving them is like an environment that's set up to train them to escape the immunity that the vaccine produces. Now with the vaccines that we have used this problem is even worse because these vaccines or I should say so-called vaccines, they aren't vaccines and I was convinced that that was not an important issue. Lots of people were upset by the redefinition of the term vaccine. I wasn't convinced it was an important issue. I have switched sides on",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "natural_immunity",
+      "router_says": {
+        "topic": "myths_and_facts",
+        "absolute": 0.5695,
+        "margin": 0.0308
+      }
+    },
+    {
+      "video_id": "cV4jUXBWpvA",
+      "channel": "JRE-Daily-Updates",
+      "title": "",
+      "window": 12,
+      "window_text": "saying that it's harmless. You are saying you know it doesn't carry any risk, right? If you get in your car drunk one day and you drive home, right? Well, there was no harm. It was harmless, but it wasn't safe, right? So when they said these things are safe the answer is, well, how would you know that? You've only been injecting them into people for months. You don't know what happens five years down the road. It can't be safe, right? You can tell us you don't know any harms of any harms yet, but you can't say it's safe. And so that alarmed us because we were immediately being told, here's a new technology. Heather and I looked at the new technology and it's like, oh, that's not a minor change. That's a radical departure from the",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "myths_and_facts",
+        "absolute": 0.2377,
+        "margin": 0.0424
+      }
+    },
+    {
+      "video_id": "rNUwvh4VxlM",
+      "channel": "JRE Talks",
+      "title": "",
+      "window": 12,
+      "window_text": "well people do anything to not blame it on the vaccine like when there's an injury like people want to find all sorts of other reasons if there was any other thing that came along that was a new novel remedy for things and then there was this host of side effects that were attached to it people would want to be investigating those side effects but because this thing came along during the pandemic and what robert malone talks about where you have one solution that's presented to a problem that's isolating society people are literally trapped and this one thing is offered up as a solution and anything that's opposing that gets attacked because everybody does the work of the propaganda machine the regular people do that work because they genuinely believe that you're a knucklehead if you",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "viral_shedding",
+        "absolute": 0.5363,
+        "margin": 0.0571
+      }
+    },
+    {
+      "video_id": "rNUwvh4VxlM",
+      "channel": "JRE Talks",
+      "title": "",
+      "window": 15,
+      "window_text": "I I totally get that a hundred percent um but but I feel like people like him and everyone that have been out there even the ones that believed everything and that's okay because they got scared and I get it yeah there's still ladies on air there's still mask on planes you can tell they're scared they're scared they got them but um they need to understand it's like when you do when you when you get when you're humbled hey man I might have been maybe I shouldn't have said that yeah it's all cool I I don't but I guess by their actions I still feel it but um what what makes me crazy is isn't that a well orchestrated marketed funded way to murder at the end of the day like to purposely keep people from",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "viral_shedding",
+        "absolute": 0.0711,
+        "margin": 0.0093
+      }
+    },
+    {
+      "video_id": "IUIBYfAgoCk",
+      "channel": "Redacted",
+      "title": "",
+      "window": 4,
+      "window_text": "story. So tell us, just in maybe us normies, what that means about the COVID vaccine still in your body however long later. So it's been shown there is a spike made up to 704 days post-vax and that's only possible if the mRNA is still there. And I think, and it needs to be shown, is that the DNA in the COVID shots into our cells is being transfected and then into our genome somewhere. And so it's not non-biolactiv, it's not this no big deal thing, it's something that's very important, are intentionally used a gene therapy plasma in their shot. And so this can't be something like, oops, we didn't know that, you're making components of a vaccine, I mean we do know that the mRNA technology was not used before the COVID vaccines. It is being",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "viral_shedding",
+        "absolute": 0.5976,
+        "margin": 0.0579
+      },
+      "topic_was": "viral_shedding"
+    },
+    {
+      "video_id": "IUIBYfAgoCk",
+      "channel": "Redacted",
+      "title": "",
+      "window": 10,
+      "window_text": "rid of that turkey neck, sagging neckline and get compliments around the dinner table. If you haven't tried Genia Cell's breakthrough neckline lift with MDL technology, you need to pick up the phone or go to GeniaCell.com right now to find out more about it. If you order today, Genia Cell will include their immediate effects for results you can see in just 12 hours. And for Thanksgiving, Genia Cell's offer gets better. You get the top selling Genia Cell deep firming vitamin C serum included in the essentials package. You'll give thanks this holiday for 10 years off your appearance and everyone will see the difference guaranteed 100% or your money back. That's the Genia Cell promise. So go to GeniaCell.com slash redacted. One more time. That's GeniaCell.com slash redacted. And from now until Thanksgiving, you'll also get their",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "myths_and_facts",
+        "absolute": 0.146,
+        "margin": 0.0095
+      }
+    },
+    {
+      "video_id": "s2yiZpNhDH4",
+      "channel": "Megyn Kelly",
+      "title": "",
+      "window": 0,
+      "window_text": "I naively believed with the COVID vaccine that if there were some negative consequence to it, and I realize you're telling me to COVID too, but I thought with the vaccine that was manmade, well, so is the COVID virus, that the pharmaceutical companies that had created it would be first in line to fix it, that they would be the ones coming up with BioStrike because they'd say, oh no, look what we did, we helped unleash this thing into people's blood and it's affecting the brain barrier and everything, and they haven't. They don't acknowledge that there's a problem whatsoever. They're still just pushing 27 boosters on the same people they jabbed to begin with. Well, what's so disappointing? Very early on they knew about the myocarditis. That's really disappointing. They knew about that. Very early on I",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "myocarditis",
+        "absolute": 0.5738,
+        "margin": 0.014
+      }
+    },
+    {
+      "video_id": "P0lymSkLbTs",
+      "channel": "Dr. John Campbell",
+      "title": "",
+      "window": 0,
+      "window_text": "The amount of adverse reactions being tolerated from the mRNA vaccines is really quite bizarre and disproportionate. So, for example, if we look at Vigie access, which has been maintained by the World Health Organization, we look at Tetanus vaccine, which has been given out since 1968. It's had just over 15,000 adverse reactions. Polio vaccine, which has also been used since 1968, just over 123,000 adverse reactions. But the COVID vaccines, which has been used since 2020, has had 4 million adverse reactions. Why are there so many more adverse reactions with the mRNA-type vaccines as opposed to the traditional vaccines, and why are these tolerated by the authorizing bodies around the world?",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "myocarditis",
+        "absolute": 0.4358,
+        "margin": 0.0031
+      }
+    },
+    {
+      "video_id": "rJgxDRsg1Jo",
+      "channel": "Bangalore Gastro Centre Hospitals",
+      "title": "",
+      "window": 0,
+      "window_text": "Recently, we had a huge surge of cases of heart attacks and heart-related deaths in young people as young as below 25 years of age. So, in a span of 40 days, 22 cases within one district in Karnataka, Harsan, this has created a real panic amongst people and there is a huge surge of people going into Jaydev hospital in Bangalore to get their heart checked. Why is this happening? Is it to do with the COVID vaccine? Is it to do with the COVID disease itself? Is it to do with their lifestyle? Is it to do with a lot of pressure, stress? Is it that they have a family history that they didn't know? Is it that they already have a heart problem and they have not got it checked? Answers to all these questions will be",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "myocarditis",
+      "router_says": {
+        "topic": "myocarditis",
+        "absolute": 0.4804,
+        "margin": 0.0233
+      }
+    },
+    {
+      "video_id": "giS6CiT1qTE",
+      "channel": "KTXS News",
+      "title": "",
+      "window": 0,
+      "window_text": "A groundbreaking new study sounding alarms about the safety of COVID mRNA vaccines directly challenging claims from public health officials and raising urgent questions about transparency and trust. So using hard data from disease trends from patient outcomes and immune system analysis, multiple research reports show that heart inflammation risks tied to the vaccines maybe far greater and maybe even more dangerous than previously reported, particularly among young men joining us now to discuss this as Independent Medical Alliance Senior Fellow of Pediatric Cardiology, Dr. Kirk Milhome. Good morning to you, doctor. Welcome to the national news desk. Great to have you. Good morning. Thanks for having me on. This new study about the safety of COVID mRNA vaccines was published in the International Journal of Cardiovascular Research and Innovation, as I understand it. Tell us about the scope of",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "myocarditis",
+        "absolute": 0.7238,
+        "margin": 0.1421
+      }
+    },
+    {
+      "video_id": "giS6CiT1qTE",
+      "channel": "KTXS News",
+      "title": "",
+      "window": 7,
+      "window_text": "floating around in the body for over 700 days. It was supposed to just be put in and your body had a new response and then it went away but it is hanging around in some pieces. So it's not transitory it's not resolving over time. I mean there's like long-term impacts we're seeing right now. Yeah, for certain people it is devastating and long-term processes that they had very little risk for. Wow. So for more information you can visit imahealth.org and doctor we appreciate you joining us this morning to talk about this very important topic. Thank you for having me on.",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "myocarditis",
+        "absolute": 0.2043,
+        "margin": 0.0286
+      },
+      "topic_was": "viral_shedding"
+    },
+    {
+      "video_id": "ZRrCYM3LsYM",
+      "channel": "Triggernometry",
+      "title": "",
+      "window": 1,
+      "window_text": "things that we knew we didn't know about it, but then there's things that we didn't know we didn't know. So what's actually happening with these vaccines is you inject it. Now, what's supposed to happen is supposed to stay in your arm, maybe a bit go into your lymph nodes under your arm and generate a localized immune response there, but that has an effect on the whole body. But what we now know is happening, for example, with these mRNA vaccines, is they're actually being systemically absorbed to a degree. They're going everywhere. So what happens is you've got one of these lipid nanoparticles with this mRNA recipe inside for the antigen. If that goes into a cell in your arm, that goes into your arm. The cell in your arm makes some of the antigen, some of",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "viral_shedding",
+        "absolute": 0.6432,
+        "margin": 0.1566
+      },
+      "topic_was": "viral_shedding"
+    },
+    {
+      "video_id": "ZRrCYM3LsYM",
+      "channel": "Triggernometry",
+      "title": "",
+      "window": 13,
+      "window_text": "in the UK comes from what we call the yellow card scheme. Of course, now it's all on a computer. But we still have these yellow cards in the back of the old, in the back of the books. In fact, if you look in the back of these, these are the books here with all the drugs that you can prescribe in. And still at the back there's some yellow pages that you can fill out any adverse events in. Although it's mostly done on a computer now. But the British Medical Journal actually published an article saying that only about 10% of severe serious adverse reactions are reported. And for less serious adverse events, it's probably only 2% or 3% that are actually reported. So the question is, to what degree is there under-reporting of these side effects?",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "infertility",
+        "absolute": 0.1925,
+        "margin": 0.0088
+      }
+    },
+    {
+      "video_id": "UMGAO3SEz2Q",
+      "channel": "Real Time with Bill Maher",
+      "title": "",
+      "window": 0,
+      "window_text": "Let me cut to then mRNA, because I was a guy who did not want the COVID vaccine. But I do want research on mRNA. I don't think that that's crazy stuff. In fact, when the next one comes along, I may want to be first online for it. So I'm not down with, I like Bobby too, but I'm not down with him cutting that shit. Yeah, so mRNA is in every single one of our cells, a DNA, RNA, RNA protein. It's got to like the pathway. So mRNA itself is not bad. And the messaging around mRNA vaccines has led people to believe that anything that carries the letters mRNA is bad. We are all here and we would not be here were it not for mRNA. mRNA vaccines are a relatively new technology, controversial because of",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "viral_shedding",
+        "absolute": 0.597,
+        "margin": 0.0997
+      }
+    },
+    {
+      "video_id": "UMGAO3SEz2Q",
+      "channel": "Real Time with Bill Maher",
+      "title": "",
+      "window": 7,
+      "window_text": "our infancy of understanding. That is not to say we haven't made great discoveries. And I should say, it's not to say that the NIH is a failed endeavor. It has returned beautifully in many areas of science and medicine. I do think an audit and a revision of what we're doing, a careful audit and revision is great, but we can't just throw things out because of what they're called.",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "myths_and_facts",
+        "absolute": 0.1775,
+        "margin": 0.1167
+      }
+    },
+    {
+      "video_id": "8nD6Q9X0SFw",
+      "channel": "Vaccine Makers Project",
+      "title": "",
+      "window": 0,
+      "window_text": "Coronavirus. Like many viruses, it uses a protein on its surface to attach to and enter our cells. Antibodies that fit onto this protein can block the virus from attaching. Coronavirus mRNA vaccines teach our immune system to make these antibodies. How do mRNA vaccines do that? mRNA is a genetic material that instructs our cells to produce proteins. The mRNA in the vaccine is wrapped in a layer of fat particles that protect it and help it get taken up by specialized cells of the immune system called dendritic cells. Once inside these cells, the mRNA does not enter the cell's nucleus or interact with DNA, but remains in the cytoplasm with other mRNA molecules waiting to create the enzymes our body needs. When ribosomes read the vaccine mRNA, pieces of the viral surface protein are made. These pieces",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "viral_shedding",
+        "absolute": 0.7324,
+        "margin": 0.2492
+      }
+    },
+    {
+      "video_id": "8nD6Q9X0SFw",
+      "channel": "Vaccine Makers Project",
+      "title": "",
+      "window": 2,
+      "window_text": "are then displayed on the surface of the dendritic cell. The dendritic cell travels to a nearby lymph node where it presents the surface proteins to other cells of the immune system. Some of these cells, called helper T cells, train B cells how to make antibodies that will fit perfectly onto the surface protein of the virus. Other cells stimulated by the protein pieces called cytotoxic T cells can kill virus-infected cells. Now, when the coronavirus tries to infect us, our immune system is ready, immediately recognizing, neutralizing, and destroying it. Before we ever even have a chance to become sick.",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "viral_shedding",
+        "absolute": 0.5147,
+        "margin": 0.1457
+      }
+    },
+    {
+      "video_id": "YqFa-eglI60",
+      "channel": "CBS Mornings",
+      "title": "",
+      "window": 2,
+      "window_text": "with mRNA vaccines, you can produce them much more quickly. Means you can also update the vaccine more efficiently. Just to give you some perspective, if we had a flu pandemic hit tomorrow, if you use the egg-based technology, it would take 18 months to produce enough flu vaccine for that pandemic strain to cover a quarter of the world's population. Wow. With an mRNA vaccine, you could do it much more quickly. So who is eligible for this vaccination? And when is it going to become available for people to get? Yeah, so this is for people 50 to 64, it's approved. And then for people 65 and up, there's an accelerated approval. So some of the side effects people should be aware of and it's common to other mRNA vaccines. You might have some injection site pain, fatigue,",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "viral_shedding",
+        "absolute": 0.6019,
+        "margin": 0.0965
+      }
+    },
+    {
+      "video_id": "YqFa-eglI60",
+      "channel": "CBS Mornings",
+      "title": "",
+      "window": 5,
+      "window_text": "Are you surprised by the FDA's decision because this approval came after, you know, the FDA initially refused to review the application. So why did they do this kind of course reversal? Well, unfortunately there's been unscientific skepticism of mRNA vaccines. And so Secretary Kennedy actually canceled some 22 mRNA projects funded by the federal government worth about $500 million on top of a Moderna pandemic flu contract. And earlier this year, they were refusing to even look at the application. It was after 10 last night that we finally heard that this had been approved. They had to make a decision yesterday, one way or the other. And so that shows you they were really dragging their feet on this. Got that. Well, flu season is coming up, so people have to make decisions. Thank you, Dr. Celine Gounder.",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "viral_shedding",
+        "absolute": 0.3938,
+        "margin": 0.0005
+      }
+    },
+    {
+      "video_id": "LM4ZzTpPAAQ",
+      "channel": "Florida Medical Clinic Orlando Health",
+      "title": "",
+      "window": 0,
+      "window_text": "Myth number one, the COVID-19 vaccine was developed to control the general population through microchip tracking. It seems like this all came up around the time that the Gates Foundation was supporting the COVID vaccine, and they did a large donation for national and international vaccination. And in the process of that interviewing with Bill Gates, there was discussion about having an e-vaccine card. And this sort of morphed into a belief that they were actually going to implant vaccination microchips and then track people. What he was actually talking about was using e-vaccination cards that would ultimately track people's shot records. It's sort of a shot record approach, not that there were going to be microchips. The other thing you have to realize is what would be the purpose of putting a microchip in a vaccine? Is it to",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "myths_and_facts",
+        "absolute": 0.5821,
+        "margin": 0.098
+      },
+      "topic_was": "myths_and_facts"
+    },
+    {
+      "video_id": "LM4ZzTpPAAQ",
+      "channel": "Florida Medical Clinic Orlando Health",
+      "title": "",
+      "window": 2,
+      "window_text": "track our behavior? Is it to track our location? And the reality is that we already do all that with our smartphones. Anybody could track us. Anybody could know what we do and what we prefer without actually having to inject anything on us. When you look at the vaccines, the amounts of fluids are very small. The needles are very small. Nothing that would suggest that you could fit something like that in our current technology.",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "myths_and_facts",
+        "absolute": 0.4943,
+        "margin": 0.0337
+      },
+      "topic_was": "myths_and_facts"
+    },
+    {
+      "video_id": "PfBD1HeNkFE",
+      "channel": "KHOU 11",
+      "title": "",
+      "window": 0,
+      "window_text": "Tonight, the verify team is checking into a video that's been watched 25 million times. It claims COVID-19 vaccines contain microchips, which can be read with the same scanner used to identify microchipped animals. Here's investigative reporter Cheryl Mercedes. This TikTok video shows two women who appear to be using a pet microchip scanner to show what the device picks up when it is triggered over an unvaccinated arm versus a vaccinated arm. Twice, it reads a chip identification number on the vaccinated arm. Elizabeth asked us to verify if this is legit. Our source for this is jasmine underscore 0708, the TikTok user who created the post on June 15. Followers were quick to comment, oh no, are we being tracked? Scary. But two weeks later, the creator commented on the post that the video was a joke and",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "myths_and_facts",
+        "absolute": 0.4446,
+        "margin": 0.0407
+      },
+      "topic_was": "myths_and_facts"
+    },
+    {
+      "video_id": "PfBD1HeNkFE",
+      "channel": "KHOU 11",
+      "title": "",
+      "window": 2,
+      "window_text": "that the device is actually scanning a dog chip tucked under her sleeve. She adds, you guys believe anything on the internet. So we can verify the TikTok video does not show a pet microchip reader identifying a microchip in a vaccinated person's arm. The creator of that post took some heat on TikTok after revealing that the video was a joke. One person pointing out it is very hard when healthcare professionals are spreading false information about the vaccine. Whether or not it's a joke, it's not funny. With your verify, I'm Cheryl Mercedes. Back to you. Watch out for that TikTok. It has something you want us to look into. Just email verify at khou.com.",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "viral_shedding",
+        "absolute": 0.3294,
+        "margin": 0.0785
+      },
+      "topic_was": "myths_and_facts"
+    },
+    {
+      "video_id": "RUr25jr-970",
+      "channel": "University of Maryland Medical System",
+      "title": "",
+      "window": 0,
+      "window_text": "It's time to end COVID and it's definitely time to get vaccinated. There's some myths and misinformation about the vaccine that's stopping people from getting vaccinated. So we're going to see what questions out there. Hey, hey, do you have any questions about the vaccine? It sounds fake. I heard you get microchip with every vaccination. Let's get to the facts. Dr. Gunion, fact of fiction, with every shot you are being chipped. That is fiction. Sounds like a science fiction plot, but you can go get some potato chips with me after you get this vaccine. So no one is being implanted with a chip. Well, there you have it. Every time you get the vaccine, you're not being chipped. So let's go get this vaccine and let's end this virus.",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "myths_and_facts",
+        "absolute": 0.5891,
+        "margin": 0.0656
+      }
+    },
+    {
+      "video_id": "HgINkAsQLi4",
+      "channel": "LSC Health + Care Partnership",
+      "title": "",
+      "window": 0,
+      "window_text": "Some people, not many, have this thought that there's a microchip in the vaccine. There isn't. It's not possible to put a chip into a vaccine.",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "viral_shedding",
+        "absolute": 0.5257,
+        "margin": 0.0711
+      },
+      "topic_was": "myths_and_facts"
+    },
+    {
+      "video_id": "BGdqLP4DSlA",
+      "channel": "NowThis Impact",
+      "title": "",
+      "window": 1,
+      "window_text": "vaccine causes infertility. So let's just start with who this person is. This person has not worked for Pfizer in at least nine or 10 years. And so they are not someone that is really close to the vaccine development or anything like that. It's also somebody who has made claims very recently that the pandemic is effectively over and not something that we need to worry about anymore. So I just think it helps to understand the mindset of the person who is making these claims. Now this post contained a lot of information. I'm simply going to focus on the one where they say that, oh my gosh, the vaccine causes infertility. Let me read you what they say in the post. The vaccinations are expected to produce antibodies against spike proteins of SARS-CoV-2. This is true. However,",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "infertility",
+      "router_says": {
+        "topic": "infertility",
+        "absolute": 0.6729,
+        "margin": 0.0825
+      }
+    },
+    {
+      "video_id": "BGdqLP4DSlA",
+      "channel": "NowThis Impact",
+      "title": "",
+      "window": 4,
+      "window_text": "protein that is integral to placental development in the embryo. The idea that these two proteins are so similar that your antibodies could mount an immune response is a bit of an extremist claim. Are they similar? They do have some similarities, but a lot of viruses have similarities. So they would need to be extremely similar. And we're just not finding that when you actually look at the genetic sequencing. It is a little bit of a outrageous claim that comes with really no scientific basis. They don't have any evidence of this. It's basically someone thinking out loud about what ifs. So I agree. We should definitely be considering this as a possibility. They should be, you know, keeping an eye on that. But you can't just make these claims and say that people shouldn't be vaccinated because",
+      "candidates": [],
+      "relevant_evidence": [
+        "No evidence of fetal defects or antisyncytin-1 antibody induction",
+        "did not lead to differences in fetal s"
+      ],
+      "topic": "infertility",
+      "router_says": {
+        "topic": "viral_shedding",
+        "absolute": 0.4934,
+        "margin": 0.0343
+      }
+    },
+    {
+      "video_id": "21hkEfN3UmA",
+      "channel": "Dave Asprey",
+      "title": "",
+      "window": 1,
+      "window_text": "have not been vaccinated, you know, these are vaccines that are not going to be mandatory, but essentially they are, because you won't be able to participate in virtually any type of life. This is what they're going to. And here's an interesting fact to it. The airport company is largely responsible for putting this together. And you mentioned in private companies, but there's a primary one that's responsible for this. It's IBM. In IBM, you may not realize or understand, one of their divisions was responsible for developing the systems to identify the Jews in Nazi Germany that were exterminated. They played a large role in this and they've admitted, they wrote a whole big article on this. So same company, you know, few years later. And interestingly, and you know this well, IBM's market cap today is about",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "viral_shedding",
+        "absolute": 0.4601,
+        "margin": 0.0117
+      }
+    },
+    {
+      "video_id": "21hkEfN3UmA",
+      "channel": "Dave Asprey",
+      "title": "",
+      "window": 3,
+      "window_text": "110 billion. The market cap of Microsoft is 10 times, it's over a trillion dollars. In the early 1980s, this young kid Bill Gates, Harvard School dropout, wrote the operating system DOS and sold it to IBM. And computer hardware is for their emerging personal computer. They're the company that developed personal computer. And then all the clones started, but computer hardware became a commodity. And obviously IBM stock didn't go up much since that time, but Microsoft sure did because the software became the big platform. So Gates became the wealthiest guy in the world. And really, you know, so IBM's playing a role here, but I think Gates plays a much bigger role, really.",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "viral_shedding",
+        "absolute": 0.0345,
+        "margin": 0.0104
+      }
+    },
+    {
+      "video_id": "6HzRcPGqzvs",
+      "channel": "SWAY'S UNIVERSE",
+      "title": "",
+      "window": 14,
+      "window_text": "I look at the science to see exactly how can I prove that to see more? So is it opinion or is it based on actual fact? And according to this same scientist who had an over three hour conversation with Dr. Brian Hooker, he revealed that yes, it was intentional and we hid the data. Literally, they hid it as a matter of fact, 10 years of the data, they completely removed it and he admitted it later and said, I want to confess and I want to be subpoenaed before Congress to confess everything about what has occurred with this vaccine. Okay, Riza Islam is here. You said something really interesting because my partner, who I came up in the game with didn't vaccinate his kids for similar reasons and you said between the years of 2004 and",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "myths_and_facts",
+        "absolute": 0.5685,
+        "margin": 0.0346
+      }
+    },
+    {
+      "video_id": "6HzRcPGqzvs",
+      "channel": "SWAY'S UNIVERSE",
+      "title": "",
+      "window": 62,
+      "window_text": "No, no, no, we're gonna do a series with you if you don't mind. Oh, I'm honored. Okay? I'm honored. Okay, great. So we'll have room for the finish this dialogue and also to start new ones. Kelly Kincaid, thank you. How can I reach you? Thank you, follow me on all platforms. Kelly Kincaid, K-E-L-L-Y-K-I-N-K-A-I-D. Thank you for all the work that you're doing and we will keep the citizens abreast of this SB 276. Yes, yes, absolutely. Anything you want to say in closing? Oh, I'm just honored, brother. I'm honored that you and sister have had enough integrity to put this on the platform because of course most people would not touch it. So I'm just honored to be your brother and I'm honored that you allow me to come here and serve and do my capacity",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "blood_clots",
+        "absolute": 0.0122,
+        "margin": 0.0047
+      }
+    },
+    {
+      "video_id": "PMDcOTWEEcI",
+      "channel": "London Real",
+      "title": "",
+      "window": 38,
+      "window_text": "illogical and idiotic. Even my own, it's amazing that in my own family, what a rift that this caused. It's like this with a lot of people. So the first thing is, yes, there is a COVID-19. It is an SHC014 surface antigen for coronavirus, which by the way, coronaviruses were first discovered or first written about or first publicized back in the 1960s. I think the first study came out either in 1963 or 1968. From that point onwards, they have been literally thousands upon thousands upon thousands of studies that have been done on the coronavirus. Now it's relatively an inert type of virus. It's found everywhere. And before I go on with the coronavirus aspect, I just want to mention that I'm talking about the traditional virological model right now. I'm not talking about the more evolved",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "myths_and_facts",
+        "absolute": 0.5985,
+        "margin": 0.0381
+      }
+    },
+    {
+      "video_id": "PMDcOTWEEcI",
+      "channel": "London Real",
+      "title": "",
+      "window": 113,
+      "window_text": "2,000 studies have been done to show the effects of 5G on our systems. 5G, when they talk about the 5G, the fifth generation, when they actually roll it out, the final end product is 30 to 300 gigahertz. That's what they're gonna be, that's gonna be the power of this technology. Our phones are around 900 Hertz. So Brian, so you can understand what the difference, somebody suggested, one of the subscribers suggested, maybe you wanna spell this out. So I'm gonna spell this out so that all your viewers can understand this. When you've got 900 Hertz on your cell phone, and now you start talking about 5G, and you start talking about 30 to 300 gigahertz, I wanna just draw that extrapolation out. One gigahertz is one billion Hertz, with a B, not million, billion Hertz. 1.8",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "myths_and_facts",
+        "absolute": 0.0486,
+        "margin": 0.0313
+      }
+    },
+    {
+      "video_id": "33vf9wJv_lw",
+      "channel": "THE BIG FACTS NETWORK ",
+      "title": "",
+      "window": 7,
+      "window_text": "fact, help to detox people from the mRNA spike protein that was injected into them as a result of that experiment during COVID from those shots. Do y'all hear what I just said to you? I didn't take it. Good job. But do y'all hear what I just said to you? So not taking is good. The virus, that's another thing. And then also the people who did take it, you have something called shedding. And science knows that through your droplets, through the air, sexual intercourse, blood issues and moisture exchange, if someone did take it and you involved with them around them in a room with them, here we go. Now, this is just real because a lot of people have been asking this question and the scientists all over the world are angry because they are mad.",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "viral_shedding",
+        "absolute": 0.5921,
+        "margin": 0.1001
+      },
+      "topic_was": "viral_shedding"
+    },
+    {
+      "video_id": "33vf9wJv_lw",
+      "channel": "THE BIG FACTS NETWORK ",
+      "title": "",
+      "window": 13,
+      "window_text": "ask me the same question every time. Yeah, I don't know. I mean, this thing is over. It's over. Is it? I would say a certain condition of the world is doomed, meaning anybody who just wants to live in ignorance ain't gonna happen to them. You will be slapped awake at this point. What you mean? You don't have a choice to live in ignorance anymore. You can't pretend like you don't see what you see. Oh, OK. It's out there. Yeah, yeah, yeah. That's what I mean. So that part of the world is a done deal for that. Like this, you're not going to be able to escape the reality of what's happening. You now just got to make a decision on what you want to do about it. It's pretty much that you want to change",
+      "candidates": [],
+      "relevant_evidence": [],
+      "topic": "general",
+      "router_says": {
+        "topic": "myths_and_facts",
+        "absolute": 0.0853,
+        "margin": 0.0501
+      }
+    },
+    {
+      "video_id": "j6Sn07fQeYM",
+      "window": 0,
+      "window_text": "Vaccines are turning the tide, but they're not without risks, especially for women. There have been rare cases of blood clotting, even fatal ones, leading some governments to slow down vaccinations. We have now today chosen to continue our vaccine rollout without AstraZeneca. But each delay puts more lives at risk as the coronavirus spreads. It's a balancing act between speed and caution in the fight against COVID-19. The risk of dying from COVID is much higher than getting a blood clot from a vaccine. But even more concerning is a new report from Oxford University that shows catching the coronavirus puts you at even more risk of a deadly blood clot. In a moment we'll talk to a vaccine scientist at Johns Hopkins University. First this report. AstraZeneca's COVID-19 vector vaccine has hardly been out of the headlines since",
+      "topic": "blood_clots",
+      "relevant_evidence": []
+    },
+    {
+      "video_id": "j6Sn07fQeYM",
+      "window": 4,
+      "window_text": "fight against COVID-19 and we need to use the vaccines we have to protect us from the devastating effects. Scientists have been investigating the reports and circumstances of the thromboses. Britain's Medicines and Healthcare Regulator Agency says 20 million doses of the AstraZeneca vaccine administered by the end of March with 79 cases of a thrombosis later reported, 19 of which were fatal. The cause is thought to be a rare immune reaction. Most of them presented some two weeks after inoculation. There are no apparent risk groups such as age or sex. Several countries like Germany, France and Canada have tightened restrictions on the use of AstraZeneca's COVID-19 vaccine. Others have suspended it totally waiting for the EMA's verdict. It has now recommended the continued unrestricted use of the AstraZeneca jab regardless of any rare cases of thrombosis. So",
+      "topic": "blood_clots",
+      "relevant_evidence": [
+        "79 reports of thrombosis associated with low platelets",
+        "The number of clotting events is not greater than what is seen in the general population"
+      ]
+    },
+    {
+      "video_id": "j6Sn07fQeYM",
+      "window": 17,
+      "window_text": "go as far as saying that vector vaccines could be the problem? In terms of the clotting that's been seen? Exactly, yeah. In terms of adverse events? In terms of clotting and or adverse events. So each vaccine is going to have its different adverse events. Each vaccine platform has different kinds of adverse events that happen. And so for the vectored vaccines, especially for AstraZeneca, potentially for Johnson and Johnson as well, it looks like clotting may be an increased risk factor that we didn't see with the mRNA vaccines and in the United States, over 100 million people have now been vaccinated with one of the two mRNA vaccines without the same sort of signal that we've seen with the adenovirus vaccines. But this hasn't necessarily been seen with other adenovirus vaccines in the past. So we need",
+      "topic": "blood_clots",
+      "relevant_evidence": [
+        "rare cases of thrombosis after the receipt of these vaccines",
+        "coagulopathies, including thromboses, thrombocytopenia"
+      ]
+    },
+    {
+      "video_id": "cGF0D2poGyA",
+      "window": 5,
+      "window_text": "time, there were just six cases in millions of doses. The CDC says they confirmed 38 cases of blood clots out of 12 and a half million doses, 12.6 million doses. That's just 0.003% and how about a chance of death? Certainly a serious concern when it comes to the coronavirus or any vaccine for that matter. But those chances are extremely rare and there has not been a direct link to the COVID vaccine according to the CDC. The latest from their website updated two days ago, more than 331 million doses of the COVID-19 vaccine have been administered in the United States. Over that time span, VAERS has received 5,946 reports of death. However, a review of available clinical information, including death certificates, autopsy and medical records has not established a casual link or excuse me, a casual",
+      "topic": "blood_clots",
+      "relevant_evidence": [
+        "more than 90% of those were non-serious"
+      ]
+    },
+    {
+      "video_id": "-Vcm7bUocSg",
+      "window": 0,
+      "window_text": "We know Johnson and Johnson's vaccine has dominated headlines this week. It's on the shelf because of possible blood clots in several people. It's still being investigated as we know, but we know that there are six clot cases in the US out of close to 7 million who have gotten that vaccine. But we also know that there are some other side effects from the Pfizer and Moderna vaccines that are much more common. John Schemle has more on those this morning and John, you know you hear from people who have gotten the shots and look out for this. This is what I experienced. So it's really dominating conversations. Yeah, it really pops your eyes. If you see somebody with COVID arm, and that's what we're talking about. Primarily two of these reactions, one being COVID arm, the",
+      "topic": "blood_clots",
+      "relevant_evidence": [
+        "the data are too weak and anecdotal to provide clear evidence of cause and effect"
+      ]
+    },
+    {
+      "video_id": "im3otpqYAiQ",
+      "window": 1,
+      "window_text": "blood clot that forms in the brain from the virus vector vaccine. So none of these findings are new, but they are actually fairly reassuring because they didn't find anything else that was at all alarming, Heidi. And I did look at a few different vaccine types as well. Was there any difference across them? There was indeed. Yes, they did see this increased risk for the brain blood clot in relation to the AstraZeneca virus vector vaccine. And also we did see the increased risk of myocarditis and pericarditis with the mRNA vaccines that are the ones made by Pfizer, Biontech and Moderna. There were some other interesting findings as well. Guillain-Barre syndrome was shown to be an event of concern linked to mostly to the Oxford AstraZeneca virus vector vaccine. Otherwise, everything else was pretty much as we",
+      "topic": "blood_clots",
+      "relevant_evidence": [
+        "increased incidence of cerebral venous sinus thrombosis (CVST)",
+        "normally very rare cerebral venous sinus thrombosis"
+      ]
+    },
+    {
+      "video_id": "OqSbJ8TxOx8",
+      "window": 0,
+      "window_text": "Dr. Vaughn you were really specializing in the blood clots, you know, I've seen video after video picture after picture of these long white blood clots in autopsy We've also, you know throughout COVID Autopsies were really discouraged. We weren't seeking the scientific truth. I see Dr. McCulloch I have you kind of answer that But you know Dr. Vaughn first talk about talk about the clotting we saw and what you know in terms of what was Discovered under autopsy. Well, first of all early in COVID the spring of 2020 My collaborator zhaka lobster in South Africa Was the first one to kind of alert people to say that this was primary Primarily a vascular disease not a pulmonary disease And that's one of the reasons that ventilators are probably one of the most ineffective things You could",
+      "topic": "blood_clots",
+      "relevant_evidence": []
+    },
+    {
+      "video_id": "OqSbJ8TxOx8",
+      "window": 5,
+      "window_text": "coming out of the colander that you could pull apart when you didn't need it It was easy to break down But the actual clot that was formed in covid or from the spike protein from the vaccine Was like burnt spaghetti casserole that you have to get a brillo pad to get off the dish And a lot of people their issue is their inability to break down that clotting mechanism We all need to clot, but we all need to actually get rid of the clot and that is the problem",
+      "topic": "blood_clots",
+      "relevant_evidence": []
+    },
+    {
+      "video_id": "7QuTr4fIiyU",
+      "window": 8,
+      "window_text": "that he had a pulmonary embolism, but empirical anticoagulation and anti-platelet therapy brought rapid improvement. This case prompted deeper investigation that the spike protein's ability to induce fibrin that's resistant to breakdown, activate platelets irreversibly, and damage the inside of our vessels, vessels that run to every part of our body and every organ, explained his symptoms and those of thousands more since. I have treated approximately 4,000 patients suffering from long COVID and vaccine injury or both. Many were young and previously healthy. For those with vaccine injury, trust in public institutions has been shattered. Many were coerced under the August 2021 federal mandates despite legitimate hesitations due to prior infection or personal health risk. They knew their body better than the agencies. Now disabled, they are dismissed or ignored by the systems that mandated their compliance. The myocarditis",
+      "topic": "blood_clots",
+      "relevant_evidence": [
+        "Some major adverse events, such as myopericarditis, Guillain-Barre syndrome, and coagulopathy"
+      ]
+    },
+    {
+      "video_id": "68QzzWGc4mI",
+      "window": 9,
+      "window_text": "the sponsors have issued an SLC with the following two main points. One, the updated unadjusted incidents of myocarditis and or pericarditis was approximately 27 per million or one in 37,000 in males 12 to 24 years of age for the 2023 to 2024 formulation. And two, at a median follow-up of approximately five months post-vaccination persistence of abnormal cardiac magnetic resonance imaging findings that are a marker for myocardial injury was common. So that's our class safety warning and I think it's an important warning that was issued with the hard work of the team here. And I want to take a minute to talk a little bit about the history of COVID-19 vaccine induced myocarditis the background in history. So the first reports of this phenomenon were actually came to us by way of Israel. As many of",
+      "topic": "myocarditis",
+      "relevant_evidence": [
+        "mRNA vaccines carry a small and typically transient risk of myocarditis"
+      ]
+    },
+    {
+      "video_id": "68QzzWGc4mI",
+      "window": 12,
+      "window_text": "a reporter of COVID-19 vaccines in myocarditis. By April 2021, there were at least two deaths and 60 cases reported from Israel and the reports said that these details had been sent to the US FDA and the CDC. And yet by April 27th, 2021, then Centers for Disease Control and Prevention Director said regarding this phenomenon, quote, we have not seen a signal and we've actually looked intentionally for the signal in the over 200 million doses we've given. Yet at this time, the CDC was aware of 14 cases of post-vaccine myocarditis reported by the Department of Defense. The Department of Defense would be one of the first to publish this phenomenon, myocarditis following immunization with mRNA COVID vaccines among military members and these early reports documented rather consistently an elevation in myocarditis risk, particularly to men, particularly",
+      "topic": "myocarditis",
+      "relevant_evidence": [
+        "Case reports of myocarditis associated with COVID-19 vaccine were"
+      ]
+    },
+    {
+      "video_id": "68QzzWGc4mI",
+      "window": 24,
+      "window_text": "the United States. Severity and long-term sequela. The CDC data published from a few years ago in 2022 documented clinical outcomes 90 days after post-vaccination myocarditis in 12 to 29-year-olds. Notably, at presentation, this is from VAERS submissions, so there is a reporting element to this. At presentation, 25% of these patients were initially admitted to the intensive care unit. One patient required extra corporeal membrane oxygenation or ECMO. At 90 days after diagnosis, over 25% continued to be prescribed cardiac medications. Over 30% remained on activity restrictions to avoid strenuous exercise. Over half of these patients had more than one persistent abnormality on cardiac MR. Only 66% of these patients were known to have fully recovered and 17% had not fully recovered by three months. There have also been reports of deaths due to fulminate myocarditis. This is one",
+      "topic": "myocarditis",
+      "relevant_evidence": [
+        "the majority of cases were mild and self-limited, with short hospital stays and favorable outcomes"
+      ]
+    },
+    {
+      "video_id": "68QzzWGc4mI",
+      "window": 26,
+      "window_text": "report in the New England Journal of Medicine. There are several other reports. As is the case with all idiosyncratic adverse events, these are likely to exist on a spectrum. There's undoubtedly some people who have mild or subclinical myocarditis and undoubtedly also some deaths may be implicated. And we, in our own sponsored data, find that 2% of hospitalized patients required inotropes. Myocarditis from vaccines is a distinct clinical entity, likely immunologically mediated. Many analysts have compared this vaccine-induced myocarditis against myocarditis following COVID-19 infection. Yet, many of these studies failed to disambiguate myocarditis after COVID-19 infection versus troponin elevations seen in the setting of severe illness. Furthermore, patients, many, can still get COVID-19 at some distance after vaccination, accepting the risks of both the vaccine product and the illness, though very likely the illness, the former, is mitigated.",
+      "topic": "myocarditis",
+      "relevant_evidence": []
+    },
+    {
+      "video_id": "Qe5_86qCNRo",
+      "window": 2,
+      "window_text": "the risk of myocarditis from vaccines or how myocarditis is not the only outcome we need to worry about when it comes to COVID infection. But in the end, the fact that some people will experience myocarditis after vaccination gives an off-ramp to the vaccine hesitant, hindering public health efforts. But according to a paper appearing in the Journal of the American College of Cardiology, not all vaccines are created equal. We're talking about this paper, which compares myocarditis rates between the Pfizer and Moderna vaccines. And the differences are pretty stark. This is a huge study of more than 3 million individuals who received at least two doses of mRNA vaccine in British Columbia in 2021. Just over 70% received the Pfizer vaccine. Researchers linked those vaccine records to emergency room and hospitalization visits for myocarditis and pericarditis as",
+      "topic": "myocarditis",
+      "relevant_evidence": [
+        "the benefits of vaccination clearly outweighed the risks"
+      ]
+    },
+    {
+      "video_id": "Qe5_86qCNRo",
+      "window": 8,
+      "window_text": "COVID far outpaces the risk from vaccination, but that risk outpaces the background rate of myocarditis. What's a young man to do? To be honest, it's complicated. And this study does not answer all the questions that we may have about this situation. There was no real control group. It didn't measure the rate of myocarditis among people who don't get the vaccine, though certainly the pre-COVID rate is quite a bit lower. There was no analysis of post-COVID myocarditis. I'm pulling numbers from other studies to make a comparison there. This study didn't look at other side effects from vaccination or the efficacy of vaccination against COVID infection, hospitalization or death. It didn't look at the myocarditis rate among those with a prior COVID infection or after a booster vaccine. Finally, though other studies have suggested that post-vaccine myocarditis",
+      "topic": "myocarditis",
+      "relevant_evidence": [
+        "interpretations of chronic risk should remain cautious"
+      ]
+    },
+    {
+      "video_id": "Qf0JSP7VtgU",
+      "window": 5,
+      "window_text": "been reading from the CDC, where they're investigating a small number of people who got the COVID-19 vaccine, and yet they found that predominantly adolescents, young adults, mostly male, had some kind of heart condition. Have you looked into that? What do we know about that? Well, currently there are a few rare scattered cases of what we call myocarditis, which is an inflammatory condition that affects the muscles of the heart. The best data that we have on this actually comes from Israel. And in Israel they were looking at the vaccines earlier than we were and have a really good handle on the side effects, the potential side effects for the vaccine. The bottom line is that in Israel, out of 5 million people who are vaccinated, there were about 62 cases of myocarditis that they felt was",
+      "topic": "myocarditis",
+      "relevant_evidence": [
+        "Israel postulated the incidence of myocarditis as 1 every 26 000 males"
+      ]
+    },
+    {
+      "video_id": "kda_j6EyAg8",
+      "window": 30,
+      "window_text": "totally. I think that's a very important reminder that whenever you're getting a medical intervention, it's a bit of a slippery slope when one starts arguing about total societal benefit. But there is of course something that society-wide that has been important in medical science and particularly in vaccination science in the past, which is natural immunity. So when somebody has natural immunity, and other people have a lot of it, you can develop this sort of herd immunity. And then that's considered to be defensive that decisions about who should get vaccinated against COVID. So it didn't seem to matter whether someone had been exposed to the virus and had recovered, and then presumably had some degree at least of natural immunity. That seemed irrelevant, at least in some countries, to the decision about whether or not they should",
+      "topic": "natural_immunity",
+      "relevant_evidence": []
+    },
+    {
+      "video_id": "kda_j6EyAg8",
+      "window": 31,
+      "window_text": "it, you can develop this sort of herd immunity. And then that's considered to be defensive that decisions about who should get vaccinated against COVID. So it didn't seem to matter whether someone had been exposed to the virus and had recovered, and then presumably had some degree at least of natural immunity. That seemed irrelevant, at least in some countries, to the decision about whether or not they should get the vaccine. Can you comment a little bit about that? Because to me, that seemed a bit confusing. Yes. I mean, to me, that was a very big red flag really. I mean, we were rolling out vaccines to primary school children at a time when our joint committee on vaccination and immunization acknowledged that 90% of them had already had it. I heard our chief medical officer being",
+      "topic": "natural_immunity",
+      "relevant_evidence": [
+        "the post-COVID-19 natural immunity has likely played a fundamental role"
+      ]
+    },
+    {
+      "video_id": "kda_j6EyAg8",
+      "window": 34,
+      "window_text": "vaccine or not. We could have perfectly well got children to a spit test and looked for an antibody then and there and said, no, go back to class if we'd wanted to, but we didn't want to. And it was argued for quite a long time that natural immunity wouldn't last. Well, if it wouldn't last, then the vaccine wouldn't work. Coronaviruses, you don't get lifelong immunity. But what you get when a new coronavirus is around, you get more people being a bit sicker the first time around. And then you just get recurrent common colds, unless you're very vulnerable, in which case that may make you ill again. But for most people, you're just going to get a cold. And that that immunity is fine. It's absolutely good enough. Yeah, I mean, one of the things I",
+      "topic": "natural_immunity",
+      "relevant_evidence": [
+        "relying solely on natural infection as a policy is not advisable"
+      ]
+    },
+    {
+      "video_id": "tnpl7F1eTD8",
+      "window": 16,
+      "window_text": "lived from? You know, one of the things that I think exposed them, which is certainly was the red pill for me was when I had COVID and I said, I have natural immunity and they were like, oh, no, you've still got to have it. Do it anyway. And then the next thing that happened, Sarah, was... Natural immunity became a myth. Do you remember that? They said the myth of natural immunity. And the second thing that happened was they went, kids don't have any symptoms. They're unaffected by it. And then they went, you've still got to vaccinate your kids. And I'm like, you are out of your effing mind. And that to me, it's just applying critical thinking. And as you know, I got hammered as well. I mean, even after Biden dropped the mandates that",
+      "topic": "natural_immunity",
+      "relevant_evidence": []
+    },
+    {
+      "video_id": "ZRrCYM3LsYM",
+      "window": 19,
+      "window_text": "from a much less serious Omicron infection. So basically times have changed. Risk-benefit analysis has changed. And I don't like this idea where everyone's treated the same. So I think every intervention now, especially as we're not in a crisis situation now, every intervention, whether it's a vaccine or giving a paracetamol or giving an ibuprofen tablet, should be what is the potential benefit for you as an individual human being? What is the potential risk for you as an individual human being? And we know that young men, for example, are more prone to myocarditis and pericarditis from mRNA vaccines with essentially no risk at all from severe COVID, especially now there's a lot of natural immunity around. So the risk-benefit analysis should be calculated on that individualized basis.",
+      "topic": "natural_immunity",
+      "relevant_evidence": [
+        "individuals who have overcome the natural infection are protected from an Omicron infection slightly more"
+      ]
+    },
+    {
+      "video_id": "H0F-YvUQEGY",
+      "window": 1,
+      "window_text": "COVID-19 vaccine will cause infertility. But are they true? So the short answer is it does not cause infertility. Dr. Patrick Ramsey, Chief of Maternal Fetal Medicine at University Health, says a lot has been learned about COVID infections in the past year, one of which is that COVID doesn't appear to affect the ability to carry a pregnancy. Currently, we wouldn't expect the vaccines to act any differently than we see with the actual infection. So the preliminary data from the vaccine has shown no concerns for fertility for men or women. In a case at Town Hall last month, UT Health's Dr. Ruth Bergeron echoed those thoughts, saying several vaccine trial participants got pregnant during the trials without issue. And COVID doesn't appear to be affecting pregnancies in general. There's been tens of millions of cases of COVID-19",
+      "topic": "infertility",
+      "relevant_evidence": [
+        "no measurable negative impact on IVF pregnancy outcomes"
+      ]
+    },
+    {
+      "video_id": "z8FA7rTFbEY",
+      "window": 0,
+      "window_text": "A study by a Japanese private clinic showed that COVID-19 vaccines do not affect male fertility. The fertility clinic analyzed 11 men who have not been infected with the novel coronavirus. They had all received the Pfizer shot. The study found no significant decrease in any of the sperm-quality parameters, including count, concentration and motility. The clinic is considering holding a joint research with Miami University to study the long-term sign effect on a larger number of people and the potential effect from booster shots.",
+      "topic": "infertility",
+      "relevant_evidence": [
+        "no Chinese research has examined the impact of male vaccination types on semen parameters"
+      ]
+    }
+  ],
+  "topic_label_note": "`topic` is the hand-assigned ground truth for routing: which evidence topic a claim in this window actually belongs to, or \"general\" when the window makes no topical claim (filler, intros, outros, sponsor reads) or spans several. The collection query is NOT usable as this label — a video found under one query makes claims about others. Valid values: blood_clots, infertility, myocarditis, myths_and_facts, natural_immunity, viral_shedding, general."
+}

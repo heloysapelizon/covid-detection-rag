@@ -13,7 +13,7 @@ import argparse
 import sys
 
 from .audio import ffmpeg_available
-from .config import DATA_DIR, MODEL_SIZE
+from .config import DATA_DIR, MODEL_SIZE, TRANSCRIBE_MAX_S
 from .transcriber import print_summary, run
 from .whisper import load_model
 from .data import (
@@ -43,6 +43,11 @@ def build_parser() -> argparse.ArgumentParser:
                         help="re-run videos transcribed before timed segments were stored")
     parser.add_argument("--summary-only", action="store_true",
                         help="rebuild output from the checkpoint without transcribing")
+    parser.add_argument("--max-transcribe", type=int, default=TRANSCRIBE_MAX_S,
+                        metavar="SECONDS",
+                        help=f"transcribe only the first N seconds of each video, "
+                             f"discarding the rest; 0 for whole videos "
+                             f"(default: {TRANSCRIBE_MAX_S})")
     return parser
 
 
@@ -82,7 +87,8 @@ def main(argv: list[str] | None = None) -> int:
 
         model = load_model(args.model)
         results = run(model, dataset, results, checkpoint_file,
-                      limit=args.limit, resegment=args.resegment)
+                      limit=args.limit, resegment=args.resegment,
+                      max_transcribe_s=args.max_transcribe)
 
     enriched = build_enriched(dataset, results)
     json_path, csv_path = save_enriched(enriched, dataset_path)

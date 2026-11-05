@@ -5,6 +5,7 @@ every candidate is completed with a videos.list pass. That is also what makes th
 """
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import pandas as pd
@@ -43,14 +44,39 @@ def gather_from_links(links_file: Path) -> dict[str, str]:
     return {vid: f"link_list:{links_file.stem}" for vid in ids}
 
 
+def load_excluded_ids(path: Path) -> set[str]:
+    """Video ids to keep out of a collection run.
+
+    Accepts either a ground-truth label file (an object with an `items` list) or
+    a plain JSON list of ids. Returns an empty set when the file is absent, so a
+    run without exclusions still works.
+    """
+    if not path or not path.exists():
+        return set()
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if isinstance(data, dict) and "items" in data:
+        return {r["video_id"] for r in data["items"] if r.get("video_id")}
+    if isinstance(data, list):
+        return {r["video_id"] if isinstance(r, dict) else r for r in data}
+    return set()
+
+
 def collect(
     client,
     queries: list[str] | None = None,
     links_file: Path | None = None,
     name: str = DATASET_NAME,
     max_duration_s: int = MAX_DURATION_S,
+    exclude_ids: set[str] | None = None,
 ) -> list[dict]:
-    """Build and save a filtered dataset. Returns the saved records."""
+    """Build and save a filtered dataset. Returns the saved records.
+
+    `exclude_ids` drops candidates before metadata is fetched. This is what keeps
+    a second collection run from leaking the held-out test videos into a dev set:
+    the v2 queries overlap the v1 ones in subject matter, so YouTube returns many
+    of the same videos, and without this they would silently reappear in the set
+    used for tuning.
+    """
     provenance: dict[str, str] = {}
 
     if queries:
@@ -66,7 +92,20 @@ def collect(
     if not provenance:
         print("No candidates gathered.")
         return []
-    
+
+    if exclude_ids:
+        overlap = set(provenance) & exclude_ids
+        if overlap:
+            print(f"\nExcluding {len(overlap)} candidate(s) already in the "
+                  f"held-out set:")
+            for vid in sorted(overlap):
+                print(f"    {vid}  ({provenance[vid]})")
+            for vid in overlap:
+                del provenance[vid]
+        if not provenance:
+            print("Every candidate was excluded.")
+            return []
+
     ids = list(provenance)
     print(f"\nFetching full metadata for {len(ids)} video(s) "
           f"({(len(ids) + 49) // 50} quota unit(s))...")

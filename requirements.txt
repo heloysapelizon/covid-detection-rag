@@ -10,7 +10,16 @@ python-dotenv==1.2.2
 yt-dlp==2026.8.19
 faster-whisper==1.2.1
 
-# rag — local embeddings and HTTP to the llama.cpp server
+# rag — web-search fallback for claims the reference corpus does not cover.
+# DuckDuckGo needs no API key or card, and is the backend used by Tian et al.,
+# arXiv:2409.00009 — see docs/web-search.md.
+ddgs==9.16.1
+# Tavily is an optional alternative backend (--web tavily). It needs no package:
+# rag/websearch.py calls the REST endpoint with `requests`. It does need a key in
+# TAVILY_API_KEY. See docs/web-search.md for why DuckDuckGo is the default.
+
+# rag — PDF text extraction, local embeddings, HTTP to the model server
+pymupdf==1.28.2
 sentence-transformers==5.6.0
 numpy==2.2.6
 requests==2.34.2

@@ -4,6 +4,8 @@
     python -m collect --links disinformation_dozen.txt
     python -m collect --links disinformation_dozen.txt --no-search
     python -m collect --name my_dataset --max-duration 1800
+    python -m collect --name covid_vaccine_videos_dev2 \
+        --exclude data/youtube/exclude_dev2.json
 
 Writes data/youtube/<name>.json and .csv — the dataset `transcribe` reads.
 
@@ -16,7 +18,7 @@ import sys
 from pathlib import Path
 
 from .config import DATA_DIR, DATASET_NAME, MAX_DURATION_S, SEARCH_QUERIES
-from .collector import collect, print_summary
+from .collector import collect, load_excluded_ids, print_summary
 from .api import build_client
 
 
@@ -35,6 +37,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--max-duration", type=int, default=MAX_DURATION_S,
                         metavar="SECONDS",
                         help=f"drop videos longer than this (default: {MAX_DURATION_S})")
+    parser.add_argument("--exclude", metavar="FILE", default=None,
+                        help="JSON file of video ids to skip — a ground-truth "
+                             "label file or a plain list. Use it to keep the "
+                             "held-out test videos out of a dev collection")
     return parser
 
 
@@ -62,12 +68,22 @@ def main(argv: list[str] | None = None) -> int:
         print(f"error: {e}", file=sys.stderr)
         return 1
 
+    exclude_ids: set[str] = set()
+    if args.exclude:
+        exclude_path = Path(args.exclude)
+        if not exclude_path.exists():
+            print(f"error: no exclude file at {exclude_path}", file=sys.stderr)
+            return 1
+        exclude_ids = load_excluded_ids(exclude_path)
+        print(f"Excluding {len(exclude_ids)} video id(s) from {exclude_path}")
+
     records = collect(
         client,
         queries=None if args.no_search else SEARCH_QUERIES,
         links_file=links_file,
         name=args.name,
         max_duration_s=args.max_duration,
+        exclude_ids=exclude_ids,
     )
     print_summary(records)
     return 0 if records else 1

@@ -6,14 +6,17 @@
     python -m rag Y6_jn0DzXHI --json out.json   # also save full results
     python -m rag --list                        # videos with usable transcripts
 
-Requires a local llama.cpp server:
+Requires a local model server. `LLM_SERVER` selects which; llama.cpp is the
+default and is what the reported experiment runs on:
 
-    llama-server -m model.gguf -c 8192 --port 8080
+    llama-server -m model.gguf -c 8192 --port 8080    # default
+    LLM_SERVER=ollama ollama serve                    # development only
 """
 from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -25,9 +28,25 @@ from .config import (
     MIN_SIMILARITY,
     TOP_K,
 )
+# Single definition, so the rule deciding which transcripts enter an experiment
+# cannot drift between the pipeline and the evaluation scripts.
+from transcribe.config import is_usable  # noqa: E402
+
 from .index import EvidenceIndex, build
 from .llm import health
 from .pipeline import check_transcript, print_report
+from .websearch import get_backend
+
+
+def _start_hint() -> str:
+    """How to start whichever server this run is configured against.
+
+    Printed on a health-check failure. Either server may be configured, so an
+    unconditional hint would send the reader to the wrong process.
+    """
+    if os.environ.get("LLM_SERVER", "").lower() == "ollama" or "11434" in LLAMA_URL:
+        return "  ollama serve"
+    return "  llama-server -m model.gguf -c 8192 --port 8080"
 
 
 def load_transcripts() -> dict[str, dict]:
@@ -40,7 +59,7 @@ def load_transcripts() -> dict[str, dict]:
     if transcribed.exists():
         records = json.loads(transcribed.read_text(encoding="utf-8"))
         out = {r["video_id"]: r for r in records
-               if r.get("transcript_status") == "ok" and r.get("transcript")}
+               if is_usable(r.get("transcript_status")) and r.get("transcript")}
         if out:
             return out
 
@@ -57,7 +76,7 @@ def load_transcripts() -> dict[str, dict]:
     return {
         vid: {**meta.get(vid, {"video_id": vid}), "transcript": v["transcript"]}
         for vid, v in cp.items()
-        if v.get("transcript_status") == "ok" and v.get("transcript")
+        if is_usable(v.get("transcript_status")) and v.get("transcript")
     }
 
 
@@ -69,6 +88,13 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("video_id", nargs="?",
                         help="video id to fact-check (see --list)")
+    parser.add_argument("--build-manifest", action="store_true",
+                        help="regenerate data/evidence/sources.json from the "
+                             "DOCUMENTS declaration in rag/manifest.py, then exit")
+    parser.add_argument("--no-extract", action="store_true",
+                        help="with --build-index, embed the committed passages "
+                             "without re-reading the source PDFs (which are "
+                             "gitignored, so this is the path on a clone)")
     parser.add_argument("--build-index", action="store_true",
                         help="embed the evidence corpus and exit")
     parser.add_argument("--check-server", action="store_true",
@@ -83,6 +109,10 @@ def build_parser() -> argparse.ArgumentParser:
                         help="only check the first N claim windows")
     parser.add_argument("--json", metavar="FILE", default=None,
                         help="write full results to this JSON file")
+    parser.add_argument("--web", default="none", metavar="BACKEND",
+                        help="web-search fallback for claims the corpus cannot "
+                             "address: duckduckgo, tavily, or none (default). "
+                             "tavily needs TAVILY_API_KEY")
     parser.add_argument("--quiet", action="store_true",
                         help="suppress per-window progress")
     return parser
@@ -91,8 +121,13 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
 
+    if args.build_manifest:
+        from .manifest import build as build_manifest
+        build_manifest()
+        return 0
+
     if args.build_index:
-        n = build()
+        n = build(extract=not args.no_extract)
         print(f"Indexed {n} evidence passage(s) into {INDEX_DIR}")
         return 0
 
@@ -100,7 +135,8 @@ def main(argv: list[str] | None = None) -> int:
         ok, detail = health()
         print(("OK   " if ok else "FAIL ") + detail)
         if not ok:
-            print("\nStart one with:\n  llama-server -m model.gguf -c 8192 --port 8080")
+            print(f"\nStart the server this run is configured for "
+                  f"({LLAMA_URL}):\n{_start_hint()}")
         return 0 if ok else 1
 
     transcripts = load_transcripts()
@@ -129,8 +165,8 @@ def main(argv: list[str] | None = None) -> int:
     ok, detail = health()
     if not ok:
         print(f"error: {detail}", file=sys.stderr)
-        print("Start one with:\n  llama-server -m model.gguf -c 8192 --port 8080",
-              file=sys.stderr)
+        print(f"Start the server this run is configured for ({LLAMA_URL}):\n"
+              f"{_start_hint()}", file=sys.stderr)
         return 1
 
     try:
@@ -153,11 +189,22 @@ def main(argv: list[str] | None = None) -> int:
         transcript = " ".join(windows[0].split()) if len(windows) == 1 \
             else " ".join(w.split()[:45] for w in windows)
 
+    # Web fallback is opt-in: without --web the run is corpus-only and a claim
+    # the corpus cannot address stays NO_EVIDENCE.
+    try:
+        web_fetch_fn = get_backend(args.web)
+    except ValueError as e:
+        print(f"error: {e}", file=sys.stderr)
+        return 2
+    if web_fetch_fn is not None and not args.quiet:
+        print(f"web fallback : {args.web or 'duckduckgo'}")
+
     results = check_transcript(
         transcript, index,
         top_k=args.top_k,
         min_similarity=args.min_similarity,
         verbose=not args.quiet,
+        web_fetch_fn=web_fetch_fn,
     )
     print_report(results, meta=record)
 

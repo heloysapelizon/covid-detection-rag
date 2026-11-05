@@ -24,6 +24,7 @@ Everything runs locally: no data leaves the machine.
 Usage:
 
     llama-server -m model.gguf -c 8192 --port 8080   # in another terminal
+                                                     # (LLM_SERVER=ollama for dev)
     python -m rag --build-index
     python -m rag <video_id>
 """

@@ -1,3 +1,11 @@
 __pycache__/
 /.vscode
 .env
+
+# Source PDFs for the reference corpus: publisher copyright, so no copy is
+# redistributed here. Only the extracted passages in data/evidence/passages/
+# are committed, which is enough to rebuild the index.
+data/evidence/pdf/
+
+# macOS
+.DS_Store

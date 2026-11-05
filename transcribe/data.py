@@ -94,14 +94,25 @@ def load_dataset(name: str) -> tuple[Path, list[dict]]:
 # --------------------------------------------------------------------------
 
 
+# The dataset whose progress lives in the original, unsuffixed checkpoint. Every
+# other dataset gets its own file.
+_LEGACY_DATASET = "covid_vaccine_videos"
+
+
 def checkpoint_path_for(dataset_path: Path) -> Path:
     """Checkpoint file for a dataset.
 
-    The original single-dataset checkpoint keeps its name so existing progress is
-    still found; any other dataset gets its own file, so runs over different
-    datasets do not overwrite each other's results.
+    The first dataset keeps the original checkpoint name so its progress is still
+    found; every other dataset gets its own file, so runs over different datasets
+    cannot overwrite each other.
+
+    The match is on the exact stem, not a prefix. A prefix test was used here
+    first and silently sent every dataset to the shared checkpoint, since they
+    all begin "covid_vaccine_videos" — so a dev run's transcripts were written
+    where `build_enriched` would not look for them and the run produced no
+    output file.
     """
-    if dataset_path.name.startswith("covid_vaccine_videos") and dataset_path.parent == DATA_DIR:
+    if dataset_path.parent == DATA_DIR and dataset_path.stem == _LEGACY_DATASET:
         return CHECKPOINT_PATH
     return DATA_DIR / f"transcripts_checkpoint_{dataset_path.stem}.json"
 
