@@ -246,7 +246,7 @@ def _endpoint(url: str) -> str:
             else f"{base}/v1/chat/completions")
 
 
-def _chat(
+def _chat_once(
     system: str,
     user: str,
     url: str,
@@ -273,6 +273,12 @@ def _chat(
                                       "json_schema": schema}
     elif use_json_mode:
         payload["response_format"] = {"type": "json_object"}
+    if IS_REMOTE:
+        # OpenRouter may route a request to any provider serving the model, and a
+        # provider that does not support response_format ignores it silently, so
+        # the schema guarantee would hold on some windows and not others. This
+        # restricts routing to providers that honour every parameter sent.
+        payload["provider"] = {"require_parameters": True}
 
     headers = {}
     if IS_REMOTE:
@@ -300,6 +306,7 @@ def _chat(
 
     parsed = _extract_json(content)
     if parsed is None:
+        _log_failure(payload, body)
         return None, f"model did not return JSON: {content[:200]}"
     return parsed, ""
 
@@ -456,3 +463,55 @@ def adjudicate(
         "evidence_id": str(parsed.get("evidence_id", "")),
         "reason": str(parsed.get("reason", "")),
     }
+
+
+# Retries. A reply with no JSON is re-asked: gpt-oss occasionally ends after its
+# reasoning with empty content, and the same window succeeds when replayed
+# (measured on the gpt-oss-20b smoke test, 1 of 42 windows). Transport errors are
+# retried after a wait so a model server that crashed and is restarting does not
+# turn the rest of a run into ERROR rows, which the checkpoint would then save as
+# finished videos. Each retry is printed so the run log records it.
+_RETRY_NO_JSON = 2
+_RETRY_TRANSPORT = 6
+_RETRY_WAIT_S = 20
+_TRANSPORT_ERRORS = ("ConnectionError", "HTTPError", "ReadTimeout",
+                     "ConnectTimeout", "Timeout", "ChunkedEncodingError")
+
+
+def _chat(*args, **kwargs) -> tuple[dict | None, str]:
+    """_chat_once with bounded retries; same signature and return value."""
+    import sys
+    import time
+    no_json = transport = 0
+    while True:
+        parsed, err = _chat_once(*args, **kwargs)
+        if parsed is not None:
+            return parsed, err
+        if err.startswith("model did not return JSON") and no_json < _RETRY_NO_JSON:
+            no_json += 1
+        elif err.startswith(_TRANSPORT_ERRORS) and transport < _RETRY_TRANSPORT:
+            transport += 1
+            time.sleep(_RETRY_WAIT_S)
+        else:
+            return parsed, err
+        print(f"    retry: {err[:120]}", file=sys.stderr, flush=True)
+
+
+# Full request and response of every reply that carried no JSON, so a failure can
+# be diagnosed from what the server actually returned (finish_reason, usage,
+# reasoning text) rather than from a replay that may not reproduce it. Written
+# only on failure. The request holds no credentials: the API key travels in the
+# Authorization header, which is not logged.
+FAILURE_LOG = PROJECT_ROOT / "data" / "results" / "llm_failures.jsonl"
+
+
+def _log_failure(payload: dict, body: dict) -> None:
+    import time
+    try:
+        FAILURE_LOG.parent.mkdir(parents=True, exist_ok=True)
+        with FAILURE_LOG.open("a", encoding="utf-8") as f:
+            f.write(json.dumps({"time": time.strftime("%Y-%m-%dT%H:%M:%S"),
+                                "request": payload, "response": body},
+                               ensure_ascii=False) + "\n")
+    except OSError:
+        pass

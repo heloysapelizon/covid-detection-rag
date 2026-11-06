@@ -9,4 +9,6 @@ data/evidence/pdf/
 
 # macOS
 .DS_Store
-data/results/server_*.log
+
+# Web-search cache: archived per run as data/results/web_cache_after_*.tar.gz
+data/web_cache/

@@ -90,9 +90,14 @@ TEMPERATURE = 0.0            # deterministic: this is classification, not writin
 # Field ORDER matters, not just presence: `addresses` is answered before
 # `verdict` so relevance is decided before the verdict for a left-to-right
 # decoder. All three mechanisms preserve that order.
-USE_GRAMMAR = _IS_LLAMACPP
-USE_JSON_SCHEMA = _IS_OPENROUTER
-USE_JSON_MODE = _IS_OLLAMA
+# LLM_CONSTRAINT overrides the per-backend default: grammar | json_schema | json_object.
+# gpt-oss on llama.cpp needs json_schema: a GBNF grammar forces "{" as the first
+# token, skipping the harmony channel header, and llama-server's harmony parser
+# then rejects every response with HTTP 500.
+_CONSTRAINT = os.environ.get("LLM_CONSTRAINT", "").lower()
+USE_GRAMMAR = (_CONSTRAINT == "grammar") if _CONSTRAINT else _IS_LLAMACPP
+USE_JSON_SCHEMA = (_CONSTRAINT == "json_schema") if _CONSTRAINT else _IS_OPENROUTER
+USE_JSON_MODE = (_CONSTRAINT == "json_object") if _CONSTRAINT else _IS_OLLAMA
 
 # --- Retrieval -----------------------------------------------------------
 # Runs locally via sentence-transformers; small, fast, good enough for short claims.
