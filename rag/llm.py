@@ -515,3 +515,143 @@ def _log_failure(payload: dict, body: dict) -> None:
                                ensure_ascii=False) + "\n")
     except OSError:
         pass
+
+
+
+# --- Parametric-only condition ---------------------------------------------
+# The baseline the RAG conditions are compared against: the same claim window,
+# the same model, backend and output-constraint mechanism, the same stance guard
+# and the same video-level aggregation, but NO evidence. The model judges from
+# its own (parametric) knowledge. What has to differ, and only that:
+#   - no `addresses` / `evidence_id`: there is no evidence to be relevant or cited;
+#   - NO_EVIDENCE becomes UNVERIFIABLE: abstention when the model's own knowledge
+#     cannot settle the claim, reported separately like NO_EVIDENCE.
+# The wording follows SYSTEM_PROMPT line for line wherever evidence is not
+# involved, so a difference in results is attributable to the evidence, not to a
+# rewritten instruction.
+PARAMETRIC_PROMPT = (
+    "You are a fact-checking classifier. You are given a CLAIM transcribed from a "
+    "video. No evidence is provided: judge it from your own knowledge of the "
+    "scientific and public-health consensus.\n\n"
+    "Decide whether the speaker is asserting something that consensus contradicts.\n\n"
+    "Verdicts:\n"
+    '- "FAKE_NEWS": the speaker asserts, implies, or presents as fact something the '
+    "scientific and public-health consensus contradicts. This includes stating that "
+    "a vaccine contains an ingredient it does not contain, or that it has an effect "
+    "it does not have. It counts even if the speaker is vague, hedging, or "
+    "embedding the claim in a longer story.\n"
+    '- "NOT_FAKE_NEWS": the speaker agrees with the consensus, or is quoting, '
+    "reporting, questioning or debunking the false claim rather than asserting it.\n"
+    '- "UNVERIFIABLE": you cannot determine from your own knowledge whether what the '
+    "speaker says is true or false, or the passage makes no checkable factual claim. "
+    "Use this rather than guessing.\n\n"
+    "Key distinction: a speaker who DENIES a myth (\"vaccines do not cause "
+    'infertility") is NOT_FAKE_NEWS. A speaker who ASSERTS it is FAKE_NEWS.\n\n'
+    "Before deciding, determine the speaker's STANCE toward the false idea. Look for "
+    "negations and denials: \"isn't\", \"aren't\", \"not possible\", \"no reason to "
+    'suspect", "there\'s no evidence", "that\'s a myth", "doesn\'t". If the speaker '
+    "is saying the false thing is NOT true, the verdict is NOT_FAKE_NEWS even though "
+    "the topic matches. Topic overlap alone is never enough to flag.\n\n"
+    "Reply with a JSON object using EXACTLY these four keys, in this order:\n"
+    '  "stance"   - "asserting" if the speaker presents the false idea as true, '
+    '"denying" if they say it is false, "neutral" if merely describing or unclear\n'
+    '  "verdict"  - one of "FAKE_NEWS", "NOT_FAKE_NEWS", "UNVERIFIABLE". '
+    'Use FAKE_NEWS only when stance is "asserting".\n'
+    '  "claim"    - for FAKE_NEWS, the exact words from the CLAIM text that are '
+    "false, copied verbatim; otherwise an empty string\n"
+    '  "reason"   - one sentence explaining the verdict\n\n'
+    "Examples:\n"
+    '{"stance": "asserting", "verdict": "FAKE_NEWS", '
+    '"claim": "the vaccine makes you magnetic", "reason": "The speaker presents '
+    'magnetism as real; COVID-19 vaccines contain no metals and cannot make a '
+    'person magnetic."}\n'
+    '{"stance": "denying", "verdict": "NOT_FAKE_NEWS", "claim": "", "reason": '
+    '"The speaker is debunking the magnetism myth, which agrees with the '
+    'consensus."}\n'
+    '{"stance": "neutral", "verdict": "UNVERIFIABLE", "claim": "", "reason": '
+    '"The speaker describes a local event that cannot be checked against '
+    'general knowledge."}\n\n'
+    'Use the key "verdict". Do not use "decision" or any other name. JSON only.'
+)
+
+PARAMETRIC_GRAMMAR = r"""
+root   ::= "{" ws "\"stance\":" ws stance "," ws "\"verdict\":" ws verdict "," ws "\"claim\":" ws string "," ws "\"reason\":" ws string ws "}"
+stance  ::= "\"asserting\"" | "\"denying\"" | "\"neutral\""
+verdict ::= "\"FAKE_NEWS\"" | "\"NOT_FAKE_NEWS\"" | "\"UNVERIFIABLE\""
+string ::= "\"" char* "\""
+char   ::= [^"\\] | "\\" ["\\/bfnrt]
+ws     ::= [ \t\n]*
+"""
+
+# Same contract as PARAMETRIC_GRAMMAR, as a JSON schema (see VERDICT_SCHEMA).
+PARAMETRIC_SCHEMA = {
+    "name": "verdict_parametric",
+    "strict": True,
+    "schema": {
+        "type": "object",
+        "properties": {
+            "stance": {"type": "string",
+                       "enum": ["asserting", "denying", "neutral"]},
+            "verdict": {"type": "string",
+                        "enum": ["FAKE_NEWS", "NOT_FAKE_NEWS", "UNVERIFIABLE"]},
+            "claim": {"type": "string"},
+            "reason": {"type": "string"},
+        },
+        "required": ["stance", "verdict", "claim", "reason"],
+        "additionalProperties": False,
+    },
+}
+
+
+def adjudicate_parametric(
+    claim: str,
+    url: str = LLAMA_URL,
+    model: str = LLAMA_MODEL,
+    use_grammar: bool = USE_GRAMMAR,
+    use_json_mode: bool = USE_JSON_MODE,
+) -> dict:
+    """Classify one claim window from the model's own knowledge, no evidence.
+
+    Returns the same keys as adjudicate(), with addresses and evidence_id empty
+    and verdict one of FAKE_NEWS / NOT_FAKE_NEWS / UNVERIFIABLE / ERROR.
+    """
+    parsed, err = _chat(
+        PARAMETRIC_PROMPT,
+        f'CLAIM (transcribed speech):\n"{claim}"',
+        url, model,
+        use_grammar, PARAMETRIC_GRAMMAR if use_grammar else None,
+        use_json_mode,
+        use_json_schema=USE_JSON_SCHEMA,
+        schema=PARAMETRIC_SCHEMA,
+    )
+    if parsed is None:
+        return {"verdict": "ERROR", "addresses": "", "stance": "",
+                "claim": "", "evidence_id": "", "reason": err}
+
+    verdict = ""
+    for key in ("verdict", "decision", "label", "classification", "result"):
+        if parsed.get(key):
+            verdict = str(parsed[key]).upper().strip().replace(" ", "_")
+            break
+    if verdict not in {"FAKE_NEWS", "NOT_FAKE_NEWS", "UNVERIFIABLE"}:
+        return {"verdict": "ERROR", "addresses": "", "stance": "", "claim": "",
+                "evidence_id": "",
+                "reason": f"unrecognised verdict {verdict!r} in {list(parsed)}"}
+
+    stance = str(parsed.get("stance", "")).lower().strip()
+
+    # The same stance guard as adjudicate(): a speaker denying or merely
+    # describing the myth is not spreading it, whatever verdict was picked.
+    if verdict == "FAKE_NEWS" and stance in {"denying", "neutral"}:
+        return {
+            "verdict": "NOT_FAKE_NEWS", "addresses": "", "stance": stance,
+            "claim": "", "evidence_id": "",
+            "reason": (f"Overridden: model said FAKE_NEWS but reported stance "
+                       f"{stance!r}. {parsed.get('reason', '')}"),
+        }
+
+    return {
+        "verdict": verdict, "addresses": "", "stance": stance,
+        "claim": str(parsed.get("claim", "")), "evidence_id": "",
+        "reason": str(parsed.get("reason", "")),
+    }

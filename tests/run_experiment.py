@@ -38,7 +38,7 @@ from rag.config import (  # noqa: E402
 )
 from rag.index import EvidenceIndex  # noqa: E402
 from rag.llm import health  # noqa: E402
-from rag.pipeline import check_transcript  # noqa: E402
+from rag.pipeline import check_transcript, check_transcript_parametric  # noqa: E402
 from rag.websearch import get_backend  # noqa: E402
 from tests.datasets import EXCLUDED, TEST_LABELS  # noqa: E402
 
@@ -195,7 +195,7 @@ def run_metadata(web: str, index) -> dict:
     }
 
 
-def run(web: str, limit: int | None, out: Path) -> dict:
+def run(web: str, limit: int | None, out: Path, condition: str = "rag") -> dict:
     """Fact-check every test video, checkpointing after each."""
     index = EvidenceIndex.load()
     backend = get_backend(web)
@@ -207,6 +207,13 @@ def run(web: str, limit: int | None, out: Path) -> dict:
     payload = json.loads(out.read_text(encoding="utf-8")) if out.exists() else {}
     done = payload.get("videos", {})
     meta = payload.get("run") or run_metadata(web, index)
+    # A results file belongs to one condition; resuming it under another
+    # would mix evidence-grounded and parametric verdicts in one figure.
+    stored = meta.get("condition", "rag")
+    if payload and stored != condition:
+        raise SystemExit(f"{out} holds a {stored!r} run; refusing to resume "
+                         f"it as {condition!r}")
+    meta["condition"] = condition
     # A resumed run must not silently mix configurations.
     current = run_metadata(web, index)["settings"]
     if meta.get("settings") and meta["settings"] != current:
@@ -232,9 +239,12 @@ def run(web: str, limit: int | None, out: Path) -> dict:
     for n, video in enumerate(todo, 1):
         vid = video["video_id"]
         print(f"[{n}/{len(todo)}] {vid}  {video['title'][:52]}")
-        results = check_transcript(
-            video["transcript"], index, verbose=False, web_fetch_fn=backend,
-        )
+        if condition == "parametric":
+            results = check_transcript_parametric(video["transcript"])
+        else:
+            results = check_transcript(
+                video["transcript"], index, verbose=False, web_fetch_fn=backend,
+            )
         flags = [r for r in results if r["verdict"] in FLAG_VERDICTS]
         done[vid] = {
             "label_fake_news": video["label_fake_news"],
@@ -266,7 +276,10 @@ def score(out: Path, summary_path: Path | None = None) -> None:
     figures survive without the console log.
     """
     if not out.exists():
-        print(f"no results at {out}")
+        # builtins.print: this function defines a local `print` below, which
+        # makes the bare name local throughout and this line an UnboundLocalError.
+        import builtins
+        builtins.print(f"no results at {out}")
         return
     lines: list[str] = []
 
@@ -281,7 +294,7 @@ def score(out: Path, summary_path: Path | None = None) -> None:
     if meta:
         st = meta.get("settings", {})
         print(f"run: {meta.get('started')}  commit {meta.get('git_commit')}  "
-              f"web={meta.get('web_backend')}")
+              f"web={meta.get('web_backend')}  condition={meta.get('condition', 'rag')}")
         print(f"     model={st.get('LLAMA_MODEL')} gamma={st.get('ROUTE_GAMMA')} "
               f"chunk={st.get('CHUNK_WORDS')}/{st.get('CHUNK_STRIDE')} "
               f"grammar={st.get('USE_GRAMMAR')}")
@@ -356,14 +369,20 @@ def main() -> int:
     ap.add_argument("--clear-cache", action="store_true",
                     help="empty the web-search cache first, so this run's "
                          "evidence is fetched fresh (use for a measurement run)")
+    ap.add_argument("--condition", default="rag", choices=("rag", "parametric"),
+                    help="rag: retrieve evidence (default); parametric: no "
+                         "retrieval, the model judges from its own knowledge")
     args = ap.parse_args()
+    if args.condition == "parametric" and args.web != "none":
+        ap.error("--condition parametric uses no evidence; drop --web")
 
     # The model is part of the filename: a four-model comparison writing to one
     # default path would have each run silently resume from, and overwrite,
     # another model's results.
     _slug = LLAMA_MODEL.replace("/", "-").replace(":", "-")
     out = Path(args.out) if args.out else (
-        OUT_DIR / f"test_run_{_slug}_{args.web}.json")
+        OUT_DIR / f"test_run_{_slug}_"
+        f"{'parametric' if args.condition == 'parametric' else args.web}.json")
 
     if args.score:
         score(out)
@@ -385,7 +404,8 @@ def main() -> int:
         return 0
 
     print()
-    run(args.web, args.limit, out)
+    print(f"condition: {args.condition}")
+    run(args.web, args.limit, out, args.condition)
     print()
     score(out)
     return 0

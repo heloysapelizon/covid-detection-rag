@@ -10,7 +10,7 @@ import textwrap
 
 from .config import CLAIM_STRIDE_WORDS, CLAIM_WINDOW_WORDS, MIN_SIMILARITY, TOP_K
 from .index import EvidenceIndex
-from .llm import adjudicate, build_query
+from .llm import adjudicate, adjudicate_parametric, build_query
 from .manifest import document_sources
 from .websearch import (
     is_authority,
@@ -259,3 +259,39 @@ def _print_flags(flagged: list[dict]) -> None:
         for line in textwrap.wrap(r["debunk_text"], 70):
             print(f"    {line}")
         print()
+
+
+
+def check_transcript_parametric(transcript: str, verbose: bool = False) -> list[dict]:
+    """Parametric-only condition: the same claim windows, adjudicated without
+    retrieval (rag.llm.adjudicate_parametric).
+
+    Rows carry the same keys as check_transcript(), with every evidence field
+    empty and evidence_origin "none", so the same scoring code reads both.
+    """
+    claims = segment_claims(transcript)
+    results = []
+    for n, claim in enumerate(claims, 1):
+        verdict = adjudicate_parametric(claim)
+        results.append({
+            "window": n,
+            "claim_text": claim,
+            "verdict": verdict["verdict"],
+            "addresses": "",
+            "stance": verdict.get("stance", ""),
+            "flagged_phrase": verdict.get("claim", ""),
+            "reason": verdict.get("reason", ""),
+            "evidence_id": "",
+            "debunk_text": "",
+            "evidence_source": "",
+            "evidence_url": "",
+            "similarity": None,
+            "retrieved_ids": [],
+            "evidence_origin": "none",
+            "retrieved_at": "",
+            "web_decision": "",
+        })
+        if verbose:
+            mark = {"FAKE_NEWS": "FLAG", "ERROR": "err "}.get(verdict["verdict"], "ok  ")
+            print(f"  [{n}/{len(claims)}] {mark} {verdict['verdict']}")
+    return results
