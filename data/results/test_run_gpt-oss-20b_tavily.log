@@ -407,3 +407,102 @@ scored 119 video(s)
 
 summary written to /home/davint-workstation/ANTIGO/Heloysa/covid-detection-rag/data/results/test_run_gpt-oss-20b_tavily_summary.txt
 === run finished sex 06 nov 2026 08:41:07 -03
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gpt-oss-20b-MXFP4.gguf
+  output constr. : json_schema, provider-validated (OpenRouter)
+  model          : gpt-oss-20b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos    : 119 labelled with usable transcripts
+  web fallback   : tavily
+                   probe OK -> https://www.who.int/teams/immunization-vaccines-and-
+  web cache      : on, 574 entry(ies) — a non-empty cache means some evidence is replayed, not refetched
+  claim windows  : ~1588 (~12.5 h at 28.4 s/window on CPU)
+
+all checks passed
+
+1 video(s) to run, 118 already done
+
+[1/1] PMDcOTWEEcI  The Coronavirus Agenda: What The Mainstream Media Do
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 9583.05it/s]
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gpt-oss-20b-MXFP4.gguf
+  output constr. : json_schema, provider-validated (OpenRouter)
+  model          : gpt-oss-20b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos    : 119 labelled with usable transcripts
+  web fallback   : tavily
+                   probe OK -> https://www.who.int/teams/immunization-vaccines-and-
+  web cache      : on, 575 entry(ies) — a non-empty cache means some evidence is replayed, not refetched
+  claim windows  : ~1588 (~12.5 h at 28.4 s/window on CPU)
+
+all checks passed
+
+1 video(s) to run, 118 already done
+
+[1/1] PMDcOTWEEcI  The Coronavirus Agenda: What The Mainstream Media Do
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 8616.66it/s]
+    FLAG  29/126 flagged   label=fake
+
+finished in 51.1 min
+
+run: 2026-11-05T23:18:48Z  commit abba693  web=tavily
+     model=gpt-oss-20b gamma=0.3 chunk=55/35 grammar=False
+     corpus=2488 passages
+
+scored 119 video(s)
+
+                  predicted
+                fake    not
+  label fake      37      5
+  label not       34     43
+
+  precision 0.521   recall 0.881   F1 0.655   accuracy 0.672
+
+  windows answered on web evidence: 613
+
+  false negatives (5):
+    F-LD9pvPXQE  [medium] infertility
+    P0lymSkLbTs  [high] adverse_events_vaers
+    Z6qlcRGzh-Q  [high] vaers_coverup
+    n9yZ-TKtHQY  [high] plandemic_bioweapon
+    rpm4ED9XY90  [high] vaccine_deaths
+
+  false positives (34):
+    2S2v45_NSYs  3/39 windows flagged
+    2eSHjV9a-OI  1/1 windows flagged
+    68QzzWGc4mI  12/33 windows flagged
+    BByJrQkInyU  1/63 windows flagged
+    BGdqLP4DSlA  2/7 windows flagged
+    CztIknqTNpY  2/4 windows flagged
+    Djlk3A8mEQI  3/12 windows flagged
+    F6NKbQzo4aE  3/17 windows flagged
+    I3kd5SyYHEE  1/6 windows flagged
+    K8F_L-fM350  1/7 windows flagged
+    LM4ZzTpPAAQ  1/3 windows flagged
+    LzkCvK8nayI  1/2 windows flagged
+    MniP4EtW7xI  2/10 windows flagged
+    PIcqomL17YA  2/17 windows flagged
+    Qe5_86qCNRo  1/11 windows flagged
+    Qf0JSP7VtgU  1/10 windows flagged
+    YiLHB8F0hFI  1/2 windows flagged
+    ZHx_DdSip78  1/4 windows flagged
+    cGF0D2poGyA  1/14 windows flagged
+    fy3oJpuFzaI  3/34 windows flagged
+    gReF5xOBrzI  1/33 windows flagged
+    imxaAhjCSDw  1/1 windows flagged
+    j6Sn07fQeYM  3/24 windows flagged
+    jqD7rV2vYx4  3/10 windows flagged
+    l2POvDQu96c  4/17 windows flagged
+    mdwVaPBpks0  1/25 windows flagged
+    mkZ1MabMEZw  1/3 windows flagged
+    ryZzJTL429k  2/20 windows flagged
+    tvrDH67EyRA  5/37 windows flagged
+    veAv-xJ-bY4  2/3 windows flagged
+    xE3KrtoDeRE  16/74 windows flagged
+    xYLapZC2RrY  1/3 windows flagged
+    xmJXYT5IMdQ  1/4 windows flagged
+    zg-Sh7gYXxk  1/1 windows flagged
+
+summary written to /home/davint-workstation/ANTIGO/Heloysa/covid-detection-rag/data/results/test_run_gpt-oss-20b_tavily_summary.txt

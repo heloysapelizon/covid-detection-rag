@@ -11,7 +11,7 @@ scored 119 video(s)
 
   precision 0.521   recall 0.881   F1 0.655   accuracy 0.672
 
-  windows answered on web evidence: 598
+  windows answered on web evidence: 613
 
   false negatives (5):
     F-LD9pvPXQE  [medium] infertility
