@@ -1,0 +1,63 @@
+run: 2026-11-06T13:20:02Z  commit abba693  web=tavily
+     model=openai/gpt-oss-120b gamma=0.3 chunk=55/35 grammar=False
+     corpus=2488 passages
+
+scored 119 video(s)
+
+                  predicted
+                fake    not
+  label fake      37      5
+  label not       40     37
+
+  precision 0.481   recall 0.881   F1 0.622   accuracy 0.622
+
+  windows answered on web evidence: 993
+
+  false negatives (5):
+    21hkEfN3UmA  [high] vaccine_passport_nazi_comparison
+    F-LD9pvPXQE  [medium] infertility
+    JxIkndSVRDI  [high] infertility
+    StUZ5b0-HUs  [medium] vaccine_efficacy+definition
+    n9yZ-TKtHQY  [high] plandemic_bioweapon
+
+  false positives (40):
+    -Vcm7bUocSg  1/8 windows flagged
+    2S2v45_NSYs  7/39 windows flagged
+    68QzzWGc4mI  17/33 windows flagged
+    7DlcRSvuvnw  1/4 windows flagged
+    BByJrQkInyU  11/63 windows flagged
+    BGdqLP4DSlA  2/7 windows flagged
+    CztIknqTNpY  1/4 windows flagged
+    DjMqylDmbP8  1/10 windows flagged
+    Djlk3A8mEQI  3/12 windows flagged
+    F6NKbQzo4aE  4/17 windows flagged
+    FXRsR0qsViU  1/4 windows flagged
+    MnEArHUiVXI  3/4 windows flagged
+    MrmiEBmeumA  1/7 windows flagged
+    PIcqomL17YA  4/17 windows flagged
+    Qe5_86qCNRo  1/11 windows flagged
+    Qf0JSP7VtgU  3/10 windows flagged
+    TDLu5BJzaAE  1/5 windows flagged
+    VOl2-xI76tI  4/13 windows flagged
+    YiLHB8F0hFI  2/2 windows flagged
+    ZHx_DdSip78  2/4 windows flagged
+    cGF0D2poGyA  2/14 windows flagged
+    fy3oJpuFzaI  6/34 windows flagged
+    gReF5xOBrzI  3/33 windows flagged
+    imxaAhjCSDw  1/1 windows flagged
+    j6Sn07fQeYM  4/24 windows flagged
+    jqD7rV2vYx4  1/10 windows flagged
+    l2POvDQu96c  5/17 windows flagged
+    m4Kzi2UxI5E  1/10 windows flagged
+    mdwVaPBpks0  4/25 windows flagged
+    mkZ1MabMEZw  2/3 windows flagged
+    nucCr7Sywgc  3/18 windows flagged
+    oMXGGmBfkf8  1/6 windows flagged
+    ryZzJTL429k  5/20 windows flagged
+    tUS2fIaDp_Q  1/2 windows flagged
+    tvrDH67EyRA  15/37 windows flagged
+    veAv-xJ-bY4  2/3 windows flagged
+    xE3KrtoDeRE  35/74 windows flagged
+    xmJXYT5IMdQ  2/4 windows flagged
+    z8FA7rTFbEY  1/1 windows flagged
+    zg-Sh7gYXxk  1/1 windows flagged
