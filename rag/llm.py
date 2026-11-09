@@ -298,7 +298,7 @@ def _chat_once(
             err = body["error"]
             msg = err.get("message", str(err)) if isinstance(err, dict) else str(err)
             return None, f"provider error: {msg[:200]}"
-        content = body["choices"][0]["message"]["content"]
+        content = body["choices"][0]["message"].get("content") or ""
     except requests.exceptions.RequestException as e:
         return None, f"{type(e).__name__}: {str(e)[:200]}"
     except (KeyError, IndexError, ValueError) as e:
