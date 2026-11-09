@@ -1,0 +1,146 @@
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gemma-4-12b-it-Q4_K_M.gguf
+  output constr. : GBNF grammar, enforced during sampling (llama.cpp)
+  model          : gemma-4-12b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos    : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gemma-4-12b-it-Q4_K_M.gguf
+  output constr. : GBNF grammar, enforced during sampling (llama.cpp)
+  model          : gemma-4-12b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos    : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric
+3 video(s) to run, 0 already done
+
+[1/3] 0-3aELGEIUY  What We Know Now About True Benefits and Dangers of 
+    FLAG  16/21 flagged   label=fake
+[2/3] 21hkEfN3UmA  The Covid vaccine passports with Dr. Joe Mercola
+    FLAG  3/4 flagged   label=fake
+[3/3] 2MrNkagJIwY  Pfizer Scientist tell the Truth about COVID and the 
+    FLAG  17/17 flagged   label=fake
+
+finished in 2.0 min
+
+run: 2026-11-07T00:04:41Z  commit 9c11e96  web=none  condition=parametric
+     model=gemma-4-12b gamma=0.3 chunk=55/35 grammar=True
+     corpus=2488 passages
+
+scored 3 video(s)
+
+                  predicted
+                fake    not
+  label fake       3      0
+  label not        0      0
+
+  precision 1.000   recall 1.000   F1 1.000   accuracy 1.000
+
+  windows answered on web evidence: 0
+
+summary written to /home/davint-workstation/ANTIGO/Heloysa/covid-detection-rag/data/results/test_run_gemma-4-12b_parametric_summary.txt
+3 videos, 42 windows, verdicts: {'FAKE_NEWS': 36, 'NOT_FAKE_NEWS': 6}
+0 video(s) with ERROR windows
+2.9 s/window (valid for a non-resumed run)
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gemma-4-12b-it-Q4_K_M.gguf
+  output constr. : GBNF grammar, enforced during sampling (llama.cpp)
+  model          : gemma-4-12b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos    : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric
+116 video(s) to run, 3 already done
+
+[1/116] 33vf9wJv_lw  Rizza Islam Talks COVID Vaccine | Big Facts Podcast
+    FLAG  11/15 flagged   label=fake
+[2/116] 6HzRcPGqzvs  First Aid: Rizza Islam Explains Why Parents Should N
+    FLAG  53/65 flagged   label=fake
+[3/116] 7LoJ850ZorY  The Myth of COVID‑21 - Dr Rashid Buttar
+    FLAG  8/18 flagged   label=fake
+[4/116] 7QuTr4fIiyU  Doctor testifies on the dangerous side effects of CO
+    FLAG  12/12 flagged   label=fake
+[5/116] 8a-MTuhfw98  New flu mRNA vac, dangers
+    FLAG  17/17 flagged   label=fake
+[6/116] 9sW0OmzcmL0  The Problem With the COVID Vaccine | Robert F. Kenne
+    FLAG  19/21 flagged   label=fake
+[7/116] EcCyZwjHs9M  &#39;COVID Vaccine was not a vaccine, it was…&#39;: 
+    FLAG  22/24 flagged   label=fake
+[8/116] F-LD9pvPXQE  Did The COVID Shot Affect Fertility?
+    ok    0/1 flagged   label=fake
+[9/116] Fu8lEbQXSKM  The Truth About Excess Deaths Since COVID Vaxx Is Mi
+    FLAG  7/13 flagged   label=fake
+[10/116] HFdOuBJ6aac  ‘PATHOLOGICAL LIAR’: Fauci blasted over EXPLOSIVE di
+    FLAG  10/10 flagged   label=fake
+[11/116] I06-UcSG8Tk  RFK Jr. on Young Turks: Vaccine Crossfire
+    retry: model did not return JSON: {"stance": "asserting", "verdict": "FAKE_NEWS", "claim": "a virus broke out right next to a V
+    retry: model did not return JSON: {"stance": "asserting", "verdict": "FAKE_NEWS", "claim": "a virus broke out right next to a V
+    FLAG  32/39 flagged   label=fake
+[12/116] IUIBYfAgoCk  The COVID Vaccine DNA Bombshell They Tried to Hide |
+    FLAG  20/21 flagged   label=fake
+[13/116] JxIkndSVRDI  Shocking Findings: Could COVID-19 Vaccines Impact Fe
+    FLAG  2/2 flagged   label=fake
+[14/116] NtuMf0F9SlI  mRNA Vaccines Install the Genetic Code for Lethal Sp
+    FLAG  24/28 flagged   label=fake
+[15/116] OqSbJ8TxOx8  COVID-19 vaccine caused blood clots: Doctor testimon
+    FLAG  6/6 flagged   label=fake
+[16/116] P0lymSkLbTs  Covid vaccine adverse reactions
+    FLAG  1/1 flagged   label=fake
+[17/116] PMDcOTWEEcI  The Coronavirus Agenda: What The Mainstream Media Do
+    retry: model did not return JSON: {"stance": "asserting", "verdict": "FAKE_NEWS", "claim": "Dr. Fauci in 2015, the following ye
+    FLAG  109/126 flagged   label=fake
+[18/116] SE78ocLgStc  &#39;See for yourself!&#39; | Neil Oliver uncovers A
+    FLAG  16/20 flagged   label=fake
+[19/116] StUZ5b0-HUs  Truth About COVID Vaccines And Lockdown. #shorts #co
+    FLAG  2/2 flagged   label=fake
+[20/116] UjvwoteSlTI  All MRNA vaccines risky
+    FLAG  40/44 flagged   label=fake
+[21/116] XXG_9Wm_dOE  &#39;COVID vaccine has worst side effects ever&#39;:
+    FLAG  19/22 flagged   label=fake
+[22/116] Y6_jn0DzXHI  The Secret Element in the Covid Vaccine: What They W
+    FLAG  11/11 flagged   label=fake
+[23/116] Z6qlcRGzh-Q  Senate investigates what health officials knew about
+    retry: model did not return JSON: {"stance": "asserting", "verdict": "FAKE_NEWS", "claim": "we were seeing severe signals of ha
+    retry: model did not return JSON: {"stance": "asserting", "verdict": "FAKE_NEWS", "claim": "we were seeing severe signals of ha
+    FLAG  5/8 flagged   label=fake
+[24/116] ZRrCYM3LsYM  Doctor Explains: MRNA Vaccine Issues
+    FLAG  18/20 flagged   label=fake
+[25/116] _BNyKPuAPD0  Exposing COVID-19 Vaccine Reactions | Are Side Effec
+    FLAG  11/27 flagged   label=fake
+[26/116] _SJ3GWZq0jI  &#39;CANCER OCCURRED near injection sites...&#39;: B
+    FLAG  7/14 flagged   label=fake
+[27/116] cIGTf5qO5as  When will we Learn the TRUTH about COVID Vaccines?
+    FLAG  18/24 flagged   label=fake
+[28/116] cV4jUXBWpvA  The SCARY TRUTH about COVID Vaccines
+    FLAG  18/18 flagged   label=fake
+[29/116] giS6CiT1qTE  Study reveals new heart health concerns from COVID v
+    FLAG  8/8 flagged   label=fake
+[30/116] kda_j6EyAg8  Vaccines and fertility
+    FLAG  38/45 flagged   label=fake
+[31/116] n9yZ-TKtHQY  COVID-19 Conspiracy: The Truth About the Pandemic
+    FLAG  3/3 flagged   label=fake
+[32/116] rNUwvh4VxlM  The Dark Truth about COVID-19!! | JRE
+    FLAG  15/18 flagged   label=fake
+[33/116] rpm4ED9XY90  Uncover the Shocking Truth About COVID-19 Vaccines!
+    FLAG  1/1 flagged   label=fake
+[34/116] s2yiZpNhDH4  The Consequences of Ignoring Myocarditis Risks From 
+    FLAG  2/2 flagged   label=fake
+[35/116] tnpl7F1eTD8  New SHOCKING Side Effect of the COVID Vaccine!
+    FLAG  28/30 flagged   label=fake
+[36/116] u1MIKNhPz24  Dr. Peter McCullough on the Most Serious Side Effect
+    FLAG  26/26 flagged   label=fake
+[37/116] v0EyE70YT-c  FDA approves new mRNA vaccine, despite risks.
+    FLAG  20/32 flagged   label=fake
+[38/116] ydkMwOp2Fhk  THIS Is How They Covered Up The COVID Vaxx’s DEADLY 

@@ -1,0 +1,17 @@
+run: 2026-11-07T00:04:41Z  commit 9c11e96  web=none  condition=parametric
+     model=gemma-4-12b gamma=0.3 chunk=55/35 grammar=True
+     corpus=2488 passages
+
+scored 40 video(s)
+
+                  predicted
+                fake    not
+  label fake      39      1
+  label not        0      0
+
+  precision 1.000   recall 0.975   F1 0.987   accuracy 0.975
+
+  windows answered on web evidence: 0
+
+  false negatives (1):
+    F-LD9pvPXQE  [medium] infertility
