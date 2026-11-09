@@ -502,14 +502,16 @@ def _chat(*args, **kwargs) -> tuple[dict | None, str]:
 # reasoning text) rather than from a replay that may not reproduce it. Written
 # only on failure. The request holds no credentials: the API key travels in the
 # Authorization header, which is not logged.
-FAILURE_LOG = PROJECT_ROOT / "data" / "results" / "llm_failures.jsonl"
+FAILURE_DIR = PROJECT_ROOT / "data" / "results"
 
 
 def _log_failure(payload: dict, body: dict) -> None:
     import time
+    slug = str(payload.get("model", "unknown")).replace("/", "-").replace(":", "-")
+    path = FAILURE_DIR / f"llm_failures_{slug}.jsonl"
     try:
-        FAILURE_LOG.parent.mkdir(parents=True, exist_ok=True)
-        with FAILURE_LOG.open("a", encoding="utf-8") as f:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("a", encoding="utf-8") as f:
             f.write(json.dumps({"time": time.strftime("%Y-%m-%dT%H:%M:%S"),
                                 "request": payload, "response": body},
                                ensure_ascii=False) + "\n")
