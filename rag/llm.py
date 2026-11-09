@@ -33,6 +33,7 @@ from .config import (
     LLAMA_MODEL,
     LLAMA_URL,
     PROJECT_ROOT,
+    RESULTS_DIR,
     REQUEST_TIMEOUT_S,
     TEMPERATURE,
     USE_GRAMMAR,
@@ -508,7 +509,7 @@ def _chat(*args, **kwargs) -> tuple[dict | None, str]:
 # reasoning text) rather than from a replay that may not reproduce it. Written
 # only on failure. The request holds no credentials: the API key travels in the
 # Authorization header, which is not logged.
-FAILURE_DIR = PROJECT_ROOT / "data" / "results"
+FAILURE_DIR = RESULTS_DIR
 
 
 def _log_failure(payload: dict, body: dict) -> None:

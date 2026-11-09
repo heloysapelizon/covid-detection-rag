@@ -1,7 +1,7 @@
 """Window- and claim-level metrics, next to the video-level score.
 
-    python tests/window_metrics.py data/results/test_run_*.json
-    python tests/window_metrics.py <files> --out data/results/metrics_summary.md
+    python tests/window_metrics.py data/results/v2/test_run_*.json
+    python tests/window_metrics.py <files> --out data/results/v2/metrics_summary.md
 
 The labels are video-level, plus one annotated `flagged_phrase` per fake video
 (data/labels/ground_truth.json). That supports three finer views without new

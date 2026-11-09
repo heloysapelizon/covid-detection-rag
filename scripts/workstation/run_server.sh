@@ -2,7 +2,8 @@
 cd ~/ANTIGO/Heloysa/covid-detection-rag
 unset CUDA_VISIBLE_DEVICES
 export LD_LIBRARY_PATH="$HOME/ANTIGO/Heloysa/llama.cpp/build/bin:$LD_LIBRARY_PATH"
-LOG=data/results/server_gpt-oss-20b.log
+mkdir -p data/results/v2
+LOG=data/results/v2/server_gpt-oss-20b.log
 while true; do
   ~/ANTIGO/Heloysa/llama.cpp/build/bin/llama-server \
     -m ~/ANTIGO/Heloysa/models/gpt-oss-20b-MXFP4.gguf \

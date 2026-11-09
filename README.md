@@ -439,7 +439,6 @@ the output constraint and the fallback are untested paths. `--limit 3` costs
 minutes and is the only check that the chain works end to end.
 
 ```bash
-mkdir -p data/results
 ```
 
 Each model runs the same protocol, `scripts/run_test_model.sh`:
@@ -505,7 +504,14 @@ filename both come from it: left at its default, two local runs would be
 recorded as `qwen2.5:14b` and the second would silently resume from the first.
 `unset LLM_SERVER` before a local run, or it will keep pointing at OpenRouter.
 
-Each model writes its own files, so the runs cannot overwrite one another:
+Results are grouped by protocol version (`data/results/README.md`): full runs
+go to `data/results/v2/` (set `RESULTS_VERSION` for another), smoke tests to
+`data/results/smoke/`, and the first test round is kept in `data/results/v1/`.
+The smoke test no longer seeds the full run: each full run is one complete
+measurement of all 119 videos.
+
+Each model writes its own files in `data/results/v2/`, so the runs cannot
+overwrite one another:
 
 | file | holds |
 |---|---|
@@ -514,9 +520,10 @@ Each model writes its own files, so the runs cannot overwrite one another:
 | `..._tc_summary.txt` / `..._tc_ov_summary.txt` | scored without / with the overlap veto |
 | `..._tc.log` | the console narrative of the full run |
 | `test_run_<model>_verifier_tc.txt` | the verifier, raw and with the veto |
+| `protocol_<model>_tc.log` | everything `run_test_model.sh` printed |
 
-Earlier runs without the time check (`test_run_<model>_<web>.json`, no `_tc`)
-are kept and are not resumed by these commands.
+The first round (`data/results/v1/`, no `_tc`) is kept for comparison and is
+never resumed by these commands; re-score it with `--score --out <file>`.
 
 **Budget.** At the measured trigger rate (35-40% of windows) the 119-video run
 costs roughly 560-650 Tavily credits of the free tier's 1,000, so it fits in one
@@ -620,14 +627,14 @@ LLM_SERVER=openrouter LLAMA_MODEL=qwen/qwen3.6-27b \
 
 # or point at the file directly, which needs no environment at all
 python tests/run_experiment.py --score \
-    --out data/results/test_run_qwen-qwen3.6-27b_tavily_tc.json
+    --out data/results/v2/test_run_qwen-qwen3.6-27b_tavily_tc.json
 
 # the same, with the overlap veto (writes ..._ov_summary.txt; results untouched)
 python tests/run_experiment.py --score --overlap-veto \
-    --out data/results/test_run_qwen-qwen3.6-27b_tavily_tc.json
+    --out data/results/v2/test_run_qwen-qwen3.6-27b_tavily_tc.json
 
 # the verifier: both arms of one model, raw and with the veto
-R=data/results/test_run_qwen-qwen3.6-27b
+R=data/results/v2/test_run_qwen-qwen3.6-27b
 python tests/score_verifier.py ${R}_parametric_tc.json ${R}_tavily_tc.json
 python tests/score_verifier.py ${R}_parametric_tc.json ${R}_tavily_tc.json --overlap-veto
 ```

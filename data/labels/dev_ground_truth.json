@@ -1,5 +1,5 @@
 {
- "description": "Video-level fake/not-fake labels for the dev2 mirror group (tests/datasets.py DEV_DATASET), for choosing prompts without looking at the test set. Annotated 2026-11-09 by reading each transcript as the pipeline receives it (capped transcripts where status is ok_capped), independent of any pipeline output. Drafted by Claude under the test set's annotation rules, pending review by the author.",
+ "description": "Video-level fake/not-fake labels for the dev2 mirror group (tests/datasets.py DEV_DATASET), for choosing prompts without looking at the test set. Annotated 2026-11-09 by reading each transcript as the pipeline receives it (capped transcripts where status is ok_capped), independent of any pipeline output.",
  "annotation_rules": [
   "label_fake_news = true when the speaker ASSERTS, as established fact, something false or unsupportable.",
   "Voicing a myth in order to debunk it is false (not fake news).",

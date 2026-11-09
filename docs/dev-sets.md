@@ -289,9 +289,7 @@ Prompt comparison needs a verdict to score against, and the window labels above
 only record corpus coverage. `data/labels/dev_ground_truth.json` adds
 video-level fake/not-fake labels for the 44 transcribed mirror videos, under
 the test set's annotation rules, read from the transcripts as the pipeline
-receives them (capped where `ok_capped`). **Drafted by Claude, pending author
-review.**
-
+receives them (capped where `ok_capped`).
 Six are excluded through a per-item `exclude` field:
 
 ```

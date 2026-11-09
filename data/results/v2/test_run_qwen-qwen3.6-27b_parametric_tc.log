@@ -1,0 +1,18 @@
+preflight:
+  model server   : OK   https://openrouter.ai/api/v1 — qwen/qwen3.6-27b offered, key valid (credit: 93.81 of 100 left)
+  output constr. : json_schema, provider-validated (OpenRouter)
+  NOTE           : remote backend — transcript text leaves this machine
+  model          : qwen/qwen3.6-27b at https://openrouter.ai/api/v1
+  evidence index : OK   2488 passages
+  test videos   : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric   dataset: test   prompt: production
+116 video(s) to run, 3 already done
+
+[1/116] 33vf9wJv_lw  Rizza Islam Talks COVID Vaccine | Big Facts Podcast
+    FLAG  9/15 flagged   label=fake
+[2/116] 6HzRcPGqzvs  First Aid: Rizza Islam Explains Why Parents Should N

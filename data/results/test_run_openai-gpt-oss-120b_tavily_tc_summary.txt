@@ -1,0 +1,18 @@
+run: 2026-11-09T17:12:19Z  commit bf84ce3  web=tavily  condition=rag
+     dataset=test  prompt=production
+     model=openai/gpt-oss-120b gamma=0.3 chunk=55/35 grammar=False
+     corpus=2488 passages
+
+scored 3 video(s)
+
+                  predicted
+                fake    not
+  label fake       2      1
+  label not        0      0
+
+  precision 1.000   recall 0.667   F1 0.800   accuracy 0.667
+
+  windows answered on web evidence: 18
+
+  false negatives (1):
+    21hkEfN3UmA  [high] vaccine_passport_nazi_comparison

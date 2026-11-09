@@ -181,7 +181,7 @@ PY=.venv/bin/python
 $PY tests/run_experiment.py --dataset dev --prompt base --condition parametric
 $PY tests/run_experiment.py --dataset dev --prompt base --web tavily
 
-R=data/results/dev_run_openai-gpt-oss-120b
+R=data/results/v2/dev_run_openai-gpt-oss-120b
 $PY tests/score_verifier.py ${R}_parametric_base.json ${R}_tavily_base.json
 $PY tests/score_verifier.py ${R}_parametric_base.json ${R}_tavily_base.json --overlap-veto
 ```

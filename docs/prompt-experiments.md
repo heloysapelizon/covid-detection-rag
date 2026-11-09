@@ -628,10 +628,10 @@ produced identically.
 python tests/select_prompt_cases.py 20 tests/prompt_cases.json
 
 # run both prompts over identical retrieval, checkpointed per case
-python tests/prompt_ab.py tests/prompt_cases.json data/results/prompt_ab_dev.json
+python tests/prompt_ab.py tests/prompt_cases.json data/results/v1/prompt_ab_dev.json
 
 # score
-python tests/score_prompt_ab.py data/results/prompt_ab_dev.json
+python tests/score_prompt_ab.py data/results/v1/prompt_ab_dev.json
 ```
 
 Files:
@@ -643,7 +643,7 @@ Files:
 | `tests/prompt_ab.py` | runs each prompt over identical retrieval |
 | `tests/score_prompt_ab.py` | metrics + the disagreement listing |
 | `tests/prompt_cases.json` | the 40-case set (35 were completed) |
-| `data/results/prompt_ab_dev.json` | every input and output from this run |
+| `data/results/v1/prompt_ab_dev.json` | every input and output from this run |
 
 `adjudicate()` takes an optional `system_prompt` argument for this purpose. The
 pipeline never passes it, so the production path is unaffected.

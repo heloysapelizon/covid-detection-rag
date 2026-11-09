@@ -1,0 +1,15 @@
+run: 2026-11-09T15:18:42Z  commit bf84ce3  web=none  condition=parametric
+     dataset=test  prompt=production
+     model=qwen/qwen3.6-27b gamma=0.3 chunk=55/35 grammar=False
+     corpus=2488 passages
+
+scored 4 video(s)
+
+                  predicted
+                fake    not
+  label fake       4      0
+  label not        0      0
+
+  precision 1.000   recall 1.000   F1 1.000   accuracy 1.000
+
+  windows answered on web evidence: 0

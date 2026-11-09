@@ -1,6 +1,6 @@
 """Sanity-check an experiment results file: verdict counts and ERROR windows.
 
-    python tests/check_run.py data/results/test_run_gpt-oss-20b_tavily.json
+    python tests/check_run.py data/results/v2/test_run_gpt-oss-20b_tavily_tc.json
     python tests/check_run.py <file> --drop-errors   # remove errored videos (backup kept)
 
 A window that errored is saved inside a finished video, and a resumed run skips

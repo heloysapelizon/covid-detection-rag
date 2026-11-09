@@ -50,7 +50,10 @@ from tests.datasets import (  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 TRANSCRIPTS = ROOT / "data" / "youtube" / "covid_vaccine_videos_transcribed.json"
-OUT_DIR = ROOT / "data" / "results"
+# Full runs go to the current results version, --limit runs to smoke/, so a
+# smoke test is never resumed into (or mistaken for) a measurement.
+OUT_DIR = rag_config.RESULTS_DIR
+SMOKE_DIR = rag_config.SMOKE_DIR
 
 # A video counts as predicted fake news when at least one window is flagged.
 # FAKE_NEWS_WEB counts too: it is a flag, distinguished only by provenance, and
@@ -508,7 +511,8 @@ def main() -> int:
         if rag_config.OVERLAP_VETO:
             _suffix += "_ov"
     out = Path(args.out) if args.out else (
-        OUT_DIR / f"{args.dataset}_run_{_slug}_{_arm}{_suffix}.json")
+        (SMOKE_DIR if args.limit else OUT_DIR)
+        / f"{args.dataset}_run_{_slug}_{_arm}{_suffix}.json")
     apply_prompt(args.prompt)
 
     if args.score:

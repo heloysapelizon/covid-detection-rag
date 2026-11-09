@@ -8,16 +8,16 @@ source .venv/bin/activate
 export LLAMA_MODEL=gpt-oss-20b LLM_CONSTRAINT=json_schema CUDA_VISIBLE_DEVICES=""
 unset LLM_SERVER
 export PY=python
-LOG=data/results/test_run_gpt-oss-20b_protocol.log
 
-echo "waiting for llama-server..." | tee -a "$LOG"
+echo "waiting for llama-server..."
 for i in $(seq 60); do curl -sf localhost:8080/health >/dev/null && break; sleep 5; done
 
 INHIBIT=""
 systemd-inhibit --what=sleep:idle --why=test true 2>/dev/null \
   && INHIBIT="systemd-inhibit --what=sleep:idle --why=Heloysa-TCC-run" \
-  || echo "=== WARNING: systemd-inhibit denied, sleep not blocked" | tee -a "$LOG"
+  || echo "=== WARNING: systemd-inhibit denied, sleep not blocked"
 
-$INHIBIT scripts/run_test_model.sh 2>&1 | tee -a "$LOG"
-echo "=== protocol finished $(date) (exit ${PIPESTATUS[0]})" | tee -a "$LOG"
+# The protocol writes its own log: data/results/v2/protocol_<model>_tc.log
+$INHIBIT scripts/run_test_model.sh
+echo "=== protocol finished $(date) (exit $?)"
 exec bash

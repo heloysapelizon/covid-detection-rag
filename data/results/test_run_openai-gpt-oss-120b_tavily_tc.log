@@ -1,0 +1,40 @@
+preflight:
+  model server   : OK   https://openrouter.ai/api/v1 — openai/gpt-oss-120b offered, key valid (credit: 93.24 of 100 left)
+  output constr. : json_schema, provider-validated (OpenRouter)
+  NOTE           : remote backend — transcript text leaves this machine
+  model          : openai/gpt-oss-120b at https://openrouter.ai/api/v1
+  evidence index : OK   2488 passages
+  test videos   : 119 labelled with usable transcripts
+  web fallback   : tavily
+                   probe OK -> https://www.who.int/teams/immunization-vaccines-and-
+  web cache      : on, 18 entry(ies) — a non-empty cache means some evidence is replayed, not refetched
+  claim windows  : ~1588 (~12.5 h at 28.4 s/window on CPU)
+
+all checks passed
+
+condition: rag   dataset: test   prompt: production
+116 video(s) to run, 3 already done
+
+[1/116] 33vf9wJv_lw  Rizza Islam Talks COVID Vaccine | Big Facts Podcast
+W1109 14:40:11.647000 17331 .venv/lib/python3.13/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 7750.79it/s]
+    FLAG  4/15 flagged   label=fake
+[2/116] 6HzRcPGqzvs  First Aid: Rizza Islam Explains Why Parents Should N
+    FLAG  29/65 flagged   label=fake
+[3/116] 7LoJ850ZorY  The Myth of COVID‑21 - Dr Rashid Buttar
+    retry: model did not return JSON: 
+    FLAG  4/18 flagged   label=fake
+[4/116] 7QuTr4fIiyU  Doctor testifies on the dangerous side effects of CO
+    FLAG  5/12 flagged   label=fake
+[5/116] 8a-MTuhfw98  New flu mRNA vac, dangers
+    FLAG  5/17 flagged   label=fake
+[6/116] 9sW0OmzcmL0  The Problem With the COVID Vaccine | Robert F. Kenne
+    FLAG  11/21 flagged   label=fake
+[7/116] EcCyZwjHs9M  &#39;COVID Vaccine was not a vaccine, it was…&#39;: 
+    FLAG  11/24 flagged   label=fake
+[8/116] F-LD9pvPXQE  Did The COVID Shot Affect Fertility?
+    ok    0/1 flagged   label=fake
+[9/116] Fu8lEbQXSKM  The Truth About Excess Deaths Since COVID Vaxx Is Mi
+    FLAG  4/13 flagged   label=fake
+[10/116] HFdOuBJ6aac  ‘PATHOLOGICAL LIAR’: Fauci blasted over EXPLOSIVE di

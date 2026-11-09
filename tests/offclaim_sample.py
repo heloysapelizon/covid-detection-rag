@@ -1,7 +1,7 @@
 """Audit a random sample of OFF-CLAIM flags, to turn the window-precision bounds
 of tests/window_metrics.py into an estimate.
 
-    python tests/offclaim_sample.py export data/results/test_run_*_tavily.json   # writes the review sheet
+    python tests/offclaim_sample.py export data/results/v2/test_run_*_tavily_tc.json   # writes the review sheet
     #   ... fill the `judgement` column of data/labels/offclaim_review.csv ...
     python tests/offclaim_sample.py score                                          # estimate + 95% CI
 
