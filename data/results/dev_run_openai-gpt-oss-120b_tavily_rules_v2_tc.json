@@ -1773,6 +1773,149 @@
      "web_decision": "corpus has no evidence addressing the claim (verdict=NO_EVIDENCE); query=\"mask mandates anti vaccine sentiment study\""
     }
    ]
+  },
+  "_PrUE69QZvA": {
+   "label_fake_news": false,
+   "confidence": "high",
+   "narrative": "side_effects",
+   "predicted_fake_news": true,
+   "windows": 2,
+   "flags": 1,
+   "web_windows": 2,
+   "results": [
+    {
+     "window": 1,
+     "claim_text": "COVID-19 vaccines are very safe so the two vaccines that have been approved by Health Canada are the mRNA vaccines produced by Pfizer and Moderna. Health Canada has a robust process to review the safety as well as the efficacy how well these vaccines work and we can be confident that those reviews have not shown any significant adverse reactions to the vaccine. So the current vaccines have side effects that are relatively mild after receiving the vaccination including things like fatigue, headaches, sore arm which are all expected and these occur quite frequently after the vaccine. There are some other side effects that are somewhat less common tend to occur more after the second dose of the vaccine and these would be things like fever. There's been quite a bit of media about the risk of anaphylaxis with these",
+     "verdict": "NO_EVIDENCE",
+     "addresses": "no",
+     "stance": "neutral",
+     "flagged_phrase": "",
+     "reason": "The evidence passages discuss Moderna's flu and flu/COVID combo vaccines, not the COVID-19 vaccines approved by Health Canada, so they do not address the claim.",
+     "evidence_id": "WEB-1",
+     "debunk_text": "Moderna (NasdaqGS:MRNA) received Health Canada authorization for its mRNA influenza vaccine and a combined influenza/COVID-19 shot.\n Canada is the first country to approve both a standalone Moderna mRNA flu vaccine and the dual flu/COVID-19 product.\n The approvals expand Moderna's authorized vaccine portfolio in Canada beyond COVID-19 and into seasonal respiratory shots. [...] This Canadian authorization directly supports the catalyst that Moderna can turn its vaccine catalog into a genuine portfolio, not a single COVID line, and it comes on top of recent approvals like mFLUSIVA in the US. That matters in a field where Pfizer and Novavax are also pushing seasonal shots, because the Narrative leans on breadth and geographic reach to justify a platform story. [...] Health Canada's green light for Moderna's flu and combo flu/COVID-19 vaccines is only one part of the investment story. We have also flagged 1 major warning sign for Moderna.",
+     "evidence_source": "finance.yahoo.com — https://finance.yahoo.com/healthcare/articles/moderna-mrna-wins-canada-approval-192012745.html ()",
+     "evidence_url": "https://finance.yahoo.com/healthcare/articles/moderna-mrna-wins-canada-approval-192012745.html",
+     "similarity": null,
+     "retrieved_ids": [
+      "WEB-1",
+      "WEB-2",
+      "WEB-3",
+      "WEB-4"
+     ],
+     "evidence_origin": "web",
+     "retrieved_at": "2026-11-09T15:12:33Z",
+     "web_decision": "corpus has no evidence addressing the claim (verdict=NO_EVIDENCE); query=\"Health Canada approved COVID-19 vaccines Pfizer Moderna\""
+    },
+    {
+     "window": 2,
+     "claim_text": "that are relatively mild after receiving the vaccination including things like fatigue, headaches, sore arm which are all expected and these occur quite frequently after the vaccine. There are some other side effects that are somewhat less common tend to occur more after the second dose of the vaccine and these would be things like fever. There's been quite a bit of media about the risk of anaphylaxis with these vaccines but reassuringly just this past week the CDC looked at nearly two million doses of the vaccine being given and they showed that the risk of anaphylaxis is about one in a hundred thousand. This is somewhat higher than vaccines such as influenza but it's still a very low rate of vaccination and we do have safety measures in place to monitor people after their vaccine within our clinics.",
+     "verdict": "FAKE_NEWS_WEB",
+     "addresses": "yes",
+     "stance": "asserting",
+     "flagged_phrase": "the risk of anaphylaxis is about one in a hundred thousand",
+     "reason": "The evidence reports anaphylaxis rates of about 0.37 per 100,000 doses (or 5 per million), which is lower than the claimed rate of one in 100,000.",
+     "evidence_id": "WEB-1",
+     "debunk_text": "the CDC reported a total of 66 cases of anaphylaxis among 17,524,676 doses administered between December 14, 2020 and January 18, 2021 (0.37 cases per 100,000 doses).35 The occurrence of anaphylaxis after COVID-19 vaccination is in the range reported after inactivated influenza vaccine (0.14 per 100,000 doses), pneumococcal polysaccharide vaccine (0.25 per 100,000 doses), and live attenuated herpes zoster vaccine (0.96 per 100,000 doses).313637 In addition, a total of 640 (9.2%) serious adverse [...] Within the first day after initiating mass vaccination with the Pfizer-BioNTech vaccine, there were reports of anaphylaxis in both the UK and the US.1 The World Allergy Organization (WAO) estimated the incidence of anaphylaxis as close to 0.5:100,000 doses (0.0005%) for the Pfizer-BioNTech vaccine.1 The initial estimated rates of anaphylaxis associated with mRNA COVID-19 vaccination in the US was estimated to range from 0.25 to 1.11 cases per 100,000 doses.35 Subsequently, the CDC reported a [...] incidence rate was estimated at 4.5 cases per 100,000 doses (7.4 cases for the Oxford-AstraZeneca vaccine and 1.8 cases for the Pfizer-BioNTech vaccine per 100,000 doses) (Table 2).40 The above estimated rates were only analyzed based on early limited data and further causality assessments are still underway in Korea.40 Recently, 3 academic Korean hospitals have reported 2 prospective and 1 retrospective studies with healthcare workers (7,625, 1,483, and 1,503 subjects, respectively) who",
+     "evidence_source": "pmc.ncbi.nlm.nih.gov — https://pmc.ncbi.nlm.nih.gov/articles/PMC8255352 ()",
+     "evidence_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8255352",
+     "similarity": null,
+     "retrieved_ids": [
+      "WEB-1",
+      "WEB-2",
+      "WEB-3",
+      "WEB-4"
+     ],
+     "evidence_origin": "web",
+     "retrieved_at": "2026-11-09T15:12:47Z",
+     "web_decision": "corpus has no evidence addressing the claim (verdict=NO_EVIDENCE); query=\"CDC anaphylaxis rate COVID vaccine one in 100000\""
+    }
+   ]
+  },
+  "Wtd0Hj00g_E": {
+   "label_fake_news": false,
+   "confidence": "high",
+   "narrative": "mrna_mechanism",
+   "predicted_fake_news": true,
+   "windows": 3,
+   "flags": 2,
+   "web_windows": 2,
+   "results": [
+    {
+     "window": 1,
+     "claim_text": "The other thing that we hear all the time when we're talking about mRNA is, well, isn't this messing with our DNA? Can't this somehow alter our DNA and be harmful? And we've seen people say things like, okay, can cause cancer and other negative outcomes. So how would you respond to that? It's an important question, of course, but RNA doesn't do those things. The only type of RNA that causes a problem is the RNA of a retrovirus that goes the other way. And HIV happens to be an example of a retrovirus that comes in as RNA and brings with it its own enzyme to turn that RNA into DNA. This does not happen, except in these limited cases of retroviruses. Retroviruses are deadly, deadly viruses. And once they're in your DNA, you've got them forever. Almost",
+     "verdict": "NO_EVIDENCE",
+     "addresses": "no",
+     "stance": "denying",
+     "flagged_phrase": "",
+     "reason": "The provided evidence discusses mRNA vaccine technology and delivery but does not address whether mRNA can alter DNA, so it does not speak to the claim.",
+     "evidence_id": "s41392-022-00950-y#After_over_30_years_of_research,_mRNA_vaccines_have_become_a:3",
+     "debunk_text": "in the virus genome. In the future, the mRNA technology platform will enable preventing and managing infectious diseases as well as treating other disorders. Due to its advantages, such as a quick development cycle, no requirement for cell culture, and high immunogenicity, an mRNA vaccine has become the world’s ﬁrst",
+     "evidence_source": "Signal Transduction and Targeted Therapy — Advances in COVID-19 mRNA vaccine development (2022-3-23)",
+     "evidence_url": "https://doi.org/10.1038/s41392-022-00950-y",
+     "similarity": 0.6084,
+     "retrieved_ids": [
+      "s41392-022-00950-y#After_over_30_years_of_research,_mRNA_vaccines_have_become_a:3",
+      "s41392-022-00950-y#However,:0",
+      "s41392-022-00950-y#Subsequently,_in_1987_Malone_and_colleagues_employed_cationic:0",
+      "s41392-022-00950-y#Subsequently,_in_1987_Malone_and_colleagues_employed_cationic:1",
+      "s41392-022-00950-y#Subsequently,_in_1987_Malone_and_colleagues_employed_cationic:2",
+      "s41392-022-00950-y#The_most_advantageous_aspect_of_saRNA_vaccine_is_that_it_can:8",
+      "s41392-022-00950-y#The_most_advantageous_aspect_of_saRNA_vaccine_is_that_it_can:9",
+      "s41392-022-00950-y#The_most_advantageous_aspect_of_saRNA_vaccine_is_that_it_can:10",
+      "s41392-022-00950-y#After_over_30_years_of_research,_mRNA_vaccines_have_become_a:1",
+      "s41392-022-00950-y#After_over_30_years_of_research,_mRNA_vaccines_have_become_a:2"
+     ],
+     "evidence_origin": "corpus",
+     "retrieved_at": "",
+     "web_decision": "stance='denying': nothing asserted to check"
+    },
+    {
+     "window": 2,
+     "claim_text": "that causes a problem is the RNA of a retrovirus that goes the other way. And HIV happens to be an example of a retrovirus that comes in as RNA and brings with it its own enzyme to turn that RNA into DNA. This does not happen, except in these limited cases of retroviruses. Retroviruses are deadly, deadly viruses. And once they're in your DNA, you've got them forever. Almost all the rest of the virus families make what's called an acute infection, and then they're gone. That's because they aren't messing with our DNA. RNA does not make DNA, and it gets degraded pretty quickly, usually within a day, I would say for the most part. I don't know the precise numbers, but it's a short-lived molecule, and that's how it's designed to be. And really, this makes RNA",
+     "verdict": "FAKE_NEWS_WEB",
+     "addresses": "yes",
+     "stance": "asserting",
+     "flagged_phrase": "RNA does not make DNA",
+     "reason": "The speaker says RNA does not make DNA, but the evidence documents instances where non‑retroviral RNA viruses have been reverse‑transcribed and integrated into host genomes.",
+     "evidence_id": "WEB-3",
+     "debunk_text": "### Incidental Integration of Non-retroviral RNA Viruses\n\nAs mentioned at the beginning of this section, RNA viruses normally do not integrate. However, the genomic sequence of lymphocytic choriomeningitis virus (LCMV), an arenavirus, has been identified in genome of infected mice and is seemingly the result of an incidental event that will be described hereafter. [...] By definition, RNA viruses are not able to integrate their genome into the host chromosome, as their genetic information resides in RNA molecules and not DNA. The only exception to this are retroviruses, which are characterized by the reverse transcription of their viral RNA genome into a linear double-stranded DNA molecule (viral DNA intermediate), and thus the substrate for subsequent viral genome integration into the host genome. For retroviruses, integration is a mandatory step for [...] Integration of viral genome into host chromosomes results from (i) an essential step of life cycle, such as for retroviruses, or (ii) an incident, for some RNA viruses and DNA viruses. However, the high integration frequency of some DNA viruses (i.e. HHV-6) and its role in establishing beneficial latency may challenge the view of incidental integration. Nevertheless, incidental or not, genome integration of DNA and RNA viruses have profound consequences for the host, including premature cell",
+     "evidence_source": "pmc.ncbi.nlm.nih.gov — https://pmc.ncbi.nlm.nih.gov/articles/PMC7120651 ()",
+     "evidence_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7120651",
+     "similarity": null,
+     "retrieved_ids": [
+      "WEB-1",
+      "WEB-3",
+      "WEB-4",
+      "WEB-2"
+     ],
+     "evidence_origin": "web",
+     "retrieved_at": "2026-11-09T15:13:06Z",
+     "web_decision": "corpus has no evidence addressing the claim (verdict=NO_EVIDENCE); query=\"RNA viruses integrate into human DNA non retrovirus\""
+    },
+    {
+     "window": 3,
+     "claim_text": "all the rest of the virus families make what's called an acute infection, and then they're gone. That's because they aren't messing with our DNA. RNA does not make DNA, and it gets degraded pretty quickly, usually within a day, I would say for the most part. I don't know the precise numbers, but it's a short-lived molecule, and that's how it's designed to be. And really, this makes RNA vaccines much safer, in my view.",
+     "verdict": "FAKE_NEWS_WEB",
+     "addresses": "yes",
+     "stance": "asserting",
+     "flagged_phrase": "RNA does not make DNA",
+     "reason": "The claim states RNA cannot make DNA, but the evidence reports that there is some evidence SARS‑CoV‑2 RNA can integrate into host DNA, contradicting the claim.",
+     "evidence_id": "WEB-4",
+     "debunk_text": "Fourth, retroviruses in particular are known to reverse-transcribe intracellularly and have the ability to be integrated into the host genome. There is some evidence in support of SARS-CoV-2’s ability to integrate some of its genetic sequences into the DNA of the host cells ; however, unlike retroviruses, the infectious SARS-CoV-2 virus could not be reproduced from the integrated subgenomic sequences. This evidence is still inconclusive but may explain the prolonged detection of non-infectious [...] Third, the experiment employed cultured hepatocellular carcinoma cells (Huh-7) that differ significantly from primary human hepatocytes. Authors also acknowledged in their article that Huh-7 exhibits an active DNA replication and significantly different gene and protein expression to the healthy hepatocytes. In particular, the upregulated proteins in Huh-7 involvement in RNA metabolism may favour reverse transcription of the in vitro-transfected mRNA, which may not otherwise occur in a healthy",
+     "evidence_source": "pmc.ncbi.nlm.nih.gov — https://pmc.ncbi.nlm.nih.gov/articles/PMC9164063 ()",
+     "evidence_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9164063",
+     "similarity": null,
+     "retrieved_ids": [
+      "WEB-4",
+      "WEB-1",
+      "WEB-2",
+      "WEB-3"
+     ],
+     "evidence_origin": "web",
+     "retrieved_at": "2026-11-09T15:13:19Z",
+     "web_decision": "corpus has no evidence addressing the claim (verdict=NO_EVIDENCE); query=\"does mRNA reverse transcribe into DNA\""
+    }
+   ]
   }
  }
 }

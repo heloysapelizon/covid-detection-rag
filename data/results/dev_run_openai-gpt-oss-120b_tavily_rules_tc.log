@@ -35,3 +35,15 @@ Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF
 [8/38] Wtd0Hj00g_E  Do mRNA vaccines alter our DNA?! #mrna
     ok    0/3 flagged   label=not 
 [9/38] Sl90BBpVZU0  Are Covid mRNA vaccines "toxic" to the ovaries? Shoc
+    FLAG  3/22 flagged   label=not 
+[10/38] AfXrd9C2ixs  What are the common side effects of the COVID-19 vac
+    ok    0/2 flagged   label=not 
+[11/38] RaLxhFiOBYk  Covid-19: Researcher blows the whistle on data integ
+    ok    0/8 flagged   label=not 
+[12/38] QANLh7B8kv4  Safety of COVID-19 vaccines – what we need to know
+    ok    0/3 flagged   label=not 
+[13/38] v-NEr3KCug8  How the COVID-19 vaccines were created so quickly - 
+    FLAG  3/10 flagged   label=not 
+[14/38] BML55JrmEhk  Does the COVID-19 vaccine have a microchip, cause de
+/opt/homebrew/Caskroom/miniconda/base/lib/python3.13/multiprocessing/resource_tracker.py:400: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/loky-10514-fx0554zv'}
+  warnings.warn(

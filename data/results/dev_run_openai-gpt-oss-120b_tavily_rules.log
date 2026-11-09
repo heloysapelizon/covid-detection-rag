@@ -43,3 +43,13 @@ Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF
 [12/38] QANLh7B8kv4  Safety of COVID-19 vaccines – what we need to know
     FLAG  1/3 flagged   label=not 
 [13/38] v-NEr3KCug8  How the COVID-19 vaccines were created so quickly - 
+    ok    0/10 flagged   label=not 
+[14/38] BML55JrmEhk  Does the COVID-19 vaccine have a microchip, cause de
+    ok    0/7 flagged   label=not 
+[15/38] s7cpfJgYS5c  Do COVID-19 Vaccines Cause Infertility? Dr. Mallika 
+    ok    0/8 flagged   label=not 
+[16/38] KdD76ta4NfA  Doctor Reveals SHOCKING Vaccine Truth: Kidney Failur
+    FLAG  1/2 flagged   label=not 
+[17/38] UijQ-6jhVuc  Doctor Dies After Getting COVID Vaccine? Post Vaccin
+/opt/homebrew/Caskroom/miniconda/base/lib/python3.13/multiprocessing/resource_tracker.py:400: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/loky-10516-00fiz_c9'}
+  warnings.warn(
