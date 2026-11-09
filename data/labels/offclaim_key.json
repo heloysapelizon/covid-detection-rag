@@ -1,0 +1,814 @@
+{
+ "seed": 20261106,
+ "per_run": 50,
+ "runs": {
+  "data/results/test_run_gpt-oss-20b_tavily.json": {
+   "off_claim_flags": 180,
+   "sampled": 50
+  },
+  "data/results/test_run_openai-gpt-oss-120b_tavily.json": {
+   "off_claim_flags": 331,
+   "sampled": 50
+  }
+ },
+ "rows": {
+  "PMDcOTWEEcI|70|this virus was transferred to china and then it was escaped either intentionally or unintentionally": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts a lab‑leak origin, while the evidence indicates that the lab‑leak hypothesis is considered extremely unlikely and that a natural zoonotic spillover is the most plausible explanation."
+   }
+  ],
+  "6HzRcPGqzvs|30|the likelihood of them coming out with autism is very very very high": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts that mercury in vaccines causes autism, which contradicts evidence that no association exists between thimerosal and autism."
+   }
+  ],
+  "8a-MTuhfw98|6|6 4 got these grade 3 more serious adverse reactions in the mrna group": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker claims 6.4% grade‑3 adverse events for the mRNA vaccine, but the evidence shows only about 1.4% for mRNA‑1273, contradicting the claim."
+   }
+  ],
+  "EcCyZwjHs9M|16|peter marks and senior fda officials were warned about pulmonary infarction in march of 2021": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The claim states FDA officials warned about pulmonary infarction, but the evidence indicates the CDC does not list it as a common side effect and does not support that such a warning existed."
+   }
+  ],
+  "UjvwoteSlTI|4|the thing about rna is it inserts at random you cannot control it any part of the genome it could just plop in next to an oncosurface gene or something": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker claims mRNA inserts randomly into the genome, but evidence shows integration is vanishingly small and has not been demonstrated."
+   }
+  ],
+  "0-3aELGEIUY|15|many people who had the vaccine even two or three years ago are suddenly going to prematurely have heart attacks or sudden cardiac death": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts a long‑term increase in sudden cardiac death after vaccination, but the evidence shows no increased risk of sudden cardiac death following COVID‑19 vaccination."
+   }
+  ],
+  "PMDcOTWEEcI|52|the original coronavirus that they were manipulating was so resistant to human culture and they put it into human cell lines it wouldnt culture so they had to manipulate it to be able to survive or to be able to sustain itself": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts that the virus was manipulated to grow in human cell culture, but the evidence indicates no definitive proof of such manipulation and only discusses the possibility, not confirmation."
+   }
+  ],
+  "cV4jUXBWpvA|9|gene therapy": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts that mRNA vaccines are a form of gene therapy, but the evidence states that this is a misconception and that they are not gene therapy."
+   }
+  ],
+  "tnpl7F1eTD8|21|these cancers that seem to be popping up": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts that vaccines cause cancers, but the evidence states there is no evidence of an increase in cancer diagnoses after COVID‑19 vaccination."
+   }
+  ],
+  "XXG_9Wm_dOE|20|negative efficacy after six months": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker claims the vaccine has negative efficacy after six months, but evidence shows it remains about 90% effective against severe disease up to six months."
+   }
+  ],
+  "2MrNkagJIwY|1|your antibodies are probably better at that than the vaccination": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker claims natural infection yields superior antibodies and longer protection, but the evidence shows no clear evidence that natural immunity is better than vaccine-induced immunity; it is comparable."
+   }
+  ],
+  "PMDcOTWEEcI|122|wuhan was the place that 5g was gonna be rolled out and announced by china by the chinese government as early as 2018": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The claim that 5G was rolled out in Wuhan in 2018 is unsupported; evidence shows Wuhan had 5G coverage later and no evidence it was the first city or that 5G was launched that early."
+   }
+  ],
+  "6HzRcPGqzvs|8|there has to be a certain number of people within a certain proximity or within a certain square mileage": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts that CDC requires a fixed number of cases within a specific area to define an outbreak, but the evidence shows CDC guidelines define an outbreak as more cases than expected, not a specific numeric threshold."
+   }
+  ],
+  "9sW0OmzcmL0|11|unblinds it so that everybody knows you got the vaccine you got the placebo and then it takes all the people in the placebo group and it gives them the real vaccine": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker claims Pfizer unblinds and gives the vaccine to placebo participants, implying dishonesty and inability to detect long‑term injuries, but the evidence shows Pfizer merely offered participants the option to become unblinded and receive the vaccine, not that it prevented injury detection."
+   }
+  ],
+  "OqSbJ8TxOx8|2|primary primarily a vascular disease not a pulmonary disease": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The evidence documents vascular involvement in COVID-19 but does not support the claim that the disease is primarily vascular rather than pulmonary."
+   }
+  ],
+  "XXG_9Wm_dOE|14|five million people die in 2021 and 2022": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts that five million people died in 2021 and 2022, but the CDC evidence shows far fewer deaths (e.g., 244,986 in 2022)."
+   }
+  ],
+  "Fu8lEbQXSKM|1|people are dying at higher rates than they did before the covid vaccine": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts that excess deaths increased after the vaccine rollout, but the evidence debunks this claim, showing no causal link between vaccination and higher death rates."
+   },
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The evidence states that COVID-19 vaccinations prevented millions of deaths, contradicting the speaker's claim that excess deaths are higher because of the vaccine."
+   }
+  ],
+  "IUIBYfAgoCk|1|the covid vaccine has dna": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The speaker claims the COVID vaccine contains DNA, but CDC evidence states that COVID-19 vaccines do not contain DNA and do not alter or interact with DNA."
+   }
+  ],
+  "cIGTf5qO5as|12|it does cause birth defects": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts that COVID causes birth defects, while the evidence reports no link between SARS‑CoV‑2 infection or vaccination during pregnancy and major congenital conditions."
+   }
+  ],
+  "ydkMwOp2Fhk|109|the miscarriage rate was 12 6 but the raw data revealed an 82 miscarriage rate and women vaccinated during the first trimester": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The speaker claims a dramatically higher miscarriage rate from vaccination, whereas the evidence shows no increase in miscarriage risk among vaccinated pregnant women."
+   }
+  ],
+  "PMDcOTWEEcI|110|vaccines thats gonna make more people sick": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The speaker asserts that the mandated vaccine will make more people sick, but the evidence shows COVID‑19 mRNA vaccines have a favorable safety profile with no major vaccine‑associated myocarditis."
+   }
+  ],
+  "giS6CiT1qTE|5|the people who had the least amount of myocarditis were the unvaccinated": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The speaker asserts that unvaccinated individuals had the lowest myocarditis rates, but the evidence discusses low overall incidence without supporting a comparison that unvaccinated had fewer cases."
+   }
+  ],
+  "0-3aELGEIUY|14|it can certainly accelerate heart disease which means many people who had the vaccine even two or three years ago are suddenly going to prematurely have heart attacks or sudden cardiac death": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts that vaccination accelerates heart disease leading to premature heart attacks or sudden cardiac death, but the evidence shows no increased risk of sudden death or cardiac complications after vaccination."
+   }
+  ],
+  "UjvwoteSlTI|9|vaccine causes hyper progression of cancers": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts that COVID‑19 vaccines cause hyper‑progression of various cancers, but the evidence only discusses a proposed mechanism and reports of malignancies without confirming such hyper‑progression, so the claim is unsupported and false."
+   }
+  ],
+  "ydkMwOp2Fhk|49|theres not been proper studies": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts that vaccine injuries have not been properly studied, contradicting evidence that extensive studies and data exist on vaccine injuries."
+   }
+  ],
+  "PMDcOTWEEcI|105|covid 19 is not the thing to be feared it is not the thing that is dangerous": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The speaker claims COVID‑19 is not dangerous, while the evidence states it continues to pose a serious threat to public health."
+   }
+  ],
+  "7LoJ850ZorY|2|created this mutant form of coronavirus that is that was actually designed for gain of function studies and then it was released whether intentionally or accidentally": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts that COVID‑19 was engineered via gain‑of‑function studies, but the evidence states that SARS‑CoV‑2 is not the result of genetic engineering."
+   }
+  ],
+  "ydkMwOp2Fhk|107|falsely assured pregnant women that the vaccines were proven safe and essential for maternal and fetal newborn health": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The speaker claims the vaccines are not proven safe for pregnant women, but the evidence demonstrates that mRNA COVID‑19 vaccines are safe and do not increase miscarriage risk."
+   }
+  ],
+  "ydkMwOp2Fhk|43|it created this virus": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker claims EcoHealth Alliance created SARS‑CoV‑2, but the evidence states there is no evidence that the virus originated in a lab or that EcoHealth was involved in its creation."
+   }
+  ],
+  "ydkMwOp2Fhk|24|they never released that study until under pressure by the covid injection injured": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker claims the study was withheld until pressure, but the evidence shows it was withdrawn for unsupported conclusions, not withheld, contradicting the claim."
+   }
+  ],
+  "ydkMwOp2Fhk|60|it turns the cell into a manufacturing cell of a protein that is toxic to it": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts the vaccine produces a toxic protein, but the evidence shows that spike proteins produced by mRNA vaccines are less toxic than those from infection."
+   }
+  ],
+  "SE78ocLgStc|16|children receiving the full suite of childhood jabs are demonstrably less healthy than those left unjabbed": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts the study found vaccinated children less healthy, but the evidence shows the study had serious design problems and was not published, contradicting that claim."
+   }
+  ],
+  "NtuMf0F9SlI|21|messenger rna for vaccines is a completely failed concept its a dangerous concept": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The claim asserts that mRNA vaccines are a failed and dangerous concept, while the evidence shows they are effective and have mild to moderate adverse events, contradicting the claim."
+   }
+  ],
+  "6HzRcPGqzvs|51|youre pushing something that is known to cause autism": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts the vaccine causes autism, while the evidence states there is no evidence that the COVID‑19 vaccine causes autism."
+   }
+  ],
+  "kda_j6EyAg8|33|90 of them had already had it": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker claims 90% of primary school children were already vaccinated, but evidence shows only about 35% of children 17 and younger have completed the primary series, contradicting the claim."
+   }
+  ],
+  "u1MIKNhPz24|10|if moderna can kill a healthy 42 year old man": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts that Moderna can kill healthy 42‑year‑old men, but the evidence only reports a single rare case and does not support a general claim of such deaths."
+   }
+  ],
+  "ydkMwOp2Fhk|80|the mrna vaccine suppresses your own bodys immune system your t cells and it makes it tolerate cancer": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The evidence states there is no evidence that mRNA COVID‑19 vaccines suppress the immune system; they actually enhance immunity, contradicting the claim."
+   }
+  ],
+  "u1MIKNhPz24|21|they died of taking the pfizer vaccine healthy young adolescents": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The claim asserts the vaccine caused the deaths, but the evidence states that a direct cause-and-effect relationship between the vaccine and the deaths cannot be established."
+   }
+  ],
+  "PMDcOTWEEcI|42|they took orthologs from mers and took orthologs from hiv and put it into that virus to make this highly virulent highly resistant form of coronavirus called covid 19": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts COVID‑19 was engineered from multiple viruses, but the evidence states it was not genetically engineered."
+   }
+  ],
+  "I06-UcSG8Tk|20|our country which was one of the most heavily vaccinated in the world had the highest body count from covid of any nation on earth": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The evidence shows the United States did not have the highest COVID‑19 death count; other countries had more deaths, contradicting the claim."
+   }
+  ],
+  "ydkMwOp2Fhk|105|they lied to pregnant women and told pregnant women it was safe for pregnant women": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The speaker asserts that COVID‑19 vaccines are not safe for pregnant women, contradicting evidence that they are safe and reduce adverse pregnancy outcomes."
+   }
+  ],
+  "PMDcOTWEEcI|116|5g causes a disruption of the cell membranes": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts that 5G causes cancer by disrupting cell membranes, but the evidence states there is no conclusive evidence linking 5G to cancer or other health problems."
+   }
+  ],
+  "Y6_jn0DzXHI|4|the contents of the fake vaccine graphene oxide": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker claims the vaccine contains graphene oxide, which contradicts evidence that no graphene oxide is used in any COVID‑19 vaccine."
+   }
+  ],
+  "IUIBYfAgoCk|3|it will enter the cells nucleus and into the genome of that cell": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The claim that DNA delivered by lipid nanoparticles integrates into the host genome is unsupported; evidence shows LNPs deliver plasmid DNA for expression, not integration."
+   }
+  ],
+  "rNUwvh4VxlM|15|dont go and get vaccinated": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The speaker asserts that vaccination is harmful, which contradicts evidence that COVID‑19 mRNA vaccines are safe."
+   }
+  ],
+  "u1MIKNhPz24|24|there were 1 600 deaths": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts the CDC inflated the COVID‑19 death toll by 1,600%, a claim that the evidence states is false."
+   }
+  ],
+  "NtuMf0F9SlI|24|they actually intentionally lied to the world and said the virus came out of nature they knew it came out of the wuhan lab": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The evidence dismisses the lab‑escape hypothesis, contradicting the claim that the virus originated from a Wuhan lab and that officials lied about it."
+   }
+  ],
+  "v0EyE70YT-c|28|senator robert f kennedy announced a coordinated wind down of its mrna vaccine development activities under the biomedical advanced research and development authority": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The claim misidentifies the speaker as a senator, while the evidence states it was HHS Secretary Robert F. Kennedy Jr. announcing the wind-down."
+   }
+  ],
+  "PMDcOTWEEcI|57|smallpox tuberculosis and ebola are the only things that are air transmitable everything else its a lie its a lie its a lie they dont transmit through the air": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The evidence lists many airborne diseases beyond smallpox, TB, and Ebola, showing the claim is false."
+   }
+  ],
+  "cV4jUXBWpvA|4|it does not create immunity to the pathogen": [
+   {
+    "run": "data/results/test_run_gpt-oss-20b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The speaker asserts that COVID vaccines do not create immunity, while the evidence states that vaccines induce an immune response and are effective, contradicting the claim."
+   }
+  ],
+  "6HzRcPGqzvs|29|the amount of mercury that is combined within all those": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts vaccines contain mercury, but WEB-1 states none of the COVID-19 vaccines contain a mercury-containing preservative."
+   }
+  ],
+  "PMDcOTWEEcI|36|does the coronavirus exist is covid 19 actually being tested for": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker questions the existence of the virus and testing, while the evidence confirms that COVID-19 testing is established and used."
+   }
+  ],
+  "6HzRcPGqzvs|5|there were 108 deaths from the measles vaccine": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "PolitiFact debunks the claim that the measles vaccine caused 108 deaths, showing the assertion is false."
+   }
+  ],
+  "kda_j6EyAg8|9|they still cant tell us actually where it goes in the body how much spike protein individuals make how long they go on making it for": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The evidence states that mRNA lasts up to two days in the body, providing information on how long spike protein production persists, contradicting the claim that we cannot tell how long it goes on making it."
+   }
+  ],
+  "ydkMwOp2Fhk|25|children died thats been confirmed by the fda when theyve looked at": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker claims the FDA confirmed child deaths from the vaccine, but NBC News reports the FDA found no cases certainly linked to vaccination."
+   }
+  ],
+  "ydkMwOp2Fhk|99|a man whose child was killed by these injections": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts that a child was killed by the vaccine, but the FDA report (WEB-2) states no child deaths have been definitively linked to Covid vaccines."
+   }
+  ],
+  "6HzRcPGqzvs|28|vitamin k has 0 9 micrograms of benzoyl alcohol hence why the baby gets jaundice because it attacks the liver directly": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The claim asserts that vitamin K injection contains benzoyl alcohol causing jaundice, but the evidence shows it contains 9 mg/mL benzyl alcohol and links jaundice to overdose, not a specific 0.9 µg amount"
+   }
+  ],
+  "NtuMf0F9SlI|24|the us and chinese have had a collaboration for years trying to make a biological threat an infectious and lethal coronavirus they intentionally lied to the world and said the virus came out of nature they knew it came out of the wuhan lab": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The evidence mentions US‑China scientific collaboration but does not support the claim that they were creating a biological weapon or that officials knowingly lied about a natural origin, contradicting the speaker's assertion."
+   }
+  ],
+  "XXG_9Wm_dOE|3|the commonwealth quote unquote study is not a study its a blog its not a peer reviewed study its not in a journal": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The evidence shows the Commonwealth Fund analysis was published in JAMA Pediatrics, a peer‑reviewed journal, not merely a blog"
+   }
+  ],
+  "ydkMwOp2Fhk|103|adverse events happened to millions of people": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The evidence shows only thousands of reported deaths (e.g., 8,164), far fewer than the claimed millions, contradicting the speaker's assertion."
+   }
+  ],
+  "cV4jUXBWpvA|8|far less certain than we understood": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "Evidence notes that mRNA vaccines are not completely novel and have substantial safety data from prior trials, contradicting the speaker's claim that they are far less certain and a radically new technology."
+   }
+  ],
+  "9sW0OmzcmL0|1|if you get a shot youre protected and that youre not going to transmit it": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The claim states vaccination prevents transmission, but the evidence (WEB-4) reports no convincing evidence that COVID-19 vaccination significantly reduces the risk of transmitting the virus."
+   }
+  ],
+  "kda_j6EyAg8|42|the one that went out to the public was based on great big vats of e coli bacteria": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "Evidence shows E. coli is used only for plasmid DNA production, not for producing the final mRNA vaccine, contradicting the claim that the public vaccine was based on E. coli."
+   }
+  ],
+  "PMDcOTWEEcI|107|most of it locked down in total fear of even stepping outside the house": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The claim asserts a pervasive lockdown, while FactCheck.org reports the government is not planning lockdowns, contradicting the claim."
+   }
+  ],
+  "PMDcOTWEEcI|55|fauci is the one that put that money": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts Fauci funded gain‑of‑function research, but WEB-2 reports that Fauci has denied that NIH funded such research, directly contradicting the claim."
+   }
+  ],
+  "v0EyE70YT-c|27|lipid nanoparticles are going to be systemically distributed cells all around the body can potentially produce this hemoglutinin antigen these cells can be recognised as foreign by the immune system whether the infected cells are in the heart or the blood vessels to the brain or wherever it is and be destroyed by the immune system": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "WEB-1 states that local administration of mRNA vaccines restricts biodistribution and mitigates systemic distribution, contradicting the speaker's assertion of systemic distribution and widespread cell destruction."
+   }
+  ],
+  "2MrNkagJIwY|11|no one has the right to ask you if youve been vaccinated so its an invasion of privacy": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts that asking about vaccination status is a privacy violation, but the evidence states that such inquiries are not HIPAA violations and are legally permissible."
+   }
+  ],
+  "_BNyKPuAPD0|14|a small percentage of people who received the covid 19 vaccine experienced long term side effects that mimicked conditions like fibromyalgia and chronic fatigue syndrome": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "WEB-1 reports that COVID-19 vaccination reduces the risk of new-onset fibromyalgia, contradicting the claim that the vaccine causes long-term side effects mimicking fibromyalgia or chronic fatigue syndrome."
+   }
+  ],
+  "6HzRcPGqzvs|16|between the years of 2004 and 2014 there were 108 deaths caused by the measles vaccine": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The evidence shows no verified vaccine-related deaths in that period, indicating the claim is false."
+   }
+  ],
+  "6HzRcPGqzvs|50|known to cause autism": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts the vaccine causes autism, but the cited public health evidence (WEB-1) reports no link between COVID‑19 vaccines and autism."
+   }
+  ],
+  "Y6_jn0DzXHI|4|graphene oxide is in the vaccine": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker claims graphene oxide is present in the vaccine, but the evidence states graphene oxide is not used in any COVID‑19 vaccines."
+   }
+  ],
+  "kda_j6EyAg8|19|you cant get much benefit from a vaccine if youre giving it to young healthy people who are never going to get ill": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The evidence shows that unvaccinated infected individuals, including young people, have higher risk of myocarditis, pericarditis, and death than vaccinated individuals, contradicting the claim that young healthy people will not get ill and thus gain little benefit."
+   }
+  ],
+  "ydkMwOp2Fhk|73|you get this t cell suppression the immune system was tolerating the cancer and this was the reason we started to see it": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker claims the vaccine causes T‑cell suppression leading to immune tolerance and cancer, but the evidence states there is no evidence supporting increased cancer incidence after vaccination."
+   }
+  ],
+  "33vf9wJv_lw|1|the result is neurological disorders guillain barre syndrome reproductive issues": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The systematic review shows no apparent increase in miscarriage risk among vaccinated pregnant women, contradicting the claim of reproductive issues."
+   }
+  ],
+  "PMDcOTWEEcI|33|they wouldnt be altering death certificates": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts that death certificates are being altered for COVID-19, but the fact‑check evidence states the CDC has not changed how COVID‑19 death certificates are filled out."
+   }
+  ],
+  "6HzRcPGqzvs|38|measles is not some major disease its actually rarely if ever deadly": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker claims measles is rarely or never deadly, but the evidence shows measles causes significant mortality, with thousands of deaths annually."
+   }
+  ],
+  "kda_j6EyAg8|43|the one that went out to the public was based on great big vats of e coli bacteria which are then using dna and weve been quite a number of labs now that have shown this dna contamination in the commercial vaccines": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker claims commercial vaccines are made in E. coli vats and have problematic DNA contamination, but the evidence shows only trace residual DNA within limits and no bacterial production, contradicting the claim."
+   }
+  ],
+  "PMDcOTWEEcI|8|a video of you with over nine million views was recently banned on youtube": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "Snopes evidence confirms the video remains live on YouTube and was not banned, contradicting the speaker's claim."
+   }
+  ],
+  "SE78ocLgStc|8|there are still millions more pages of documents that have not yet been released pfizer went to court locking down for 75 years": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The claim asserts that Pfizer and the FDA sought to lock documents away for 75 years, which the evidence shows the FDA sought a 55‑75 year timeline but was forced by court to release them much sooner"
+   }
+  ],
+  "2MrNkagJIwY|3|the darn vaccine is full of shit": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The evidence states that health authorities support the safety of COVID-19 vaccines, contradicting the speaker's assertion that the vaccine is harmful."
+   }
+  ],
+  "rNUwvh4VxlM|3|its really going to help you": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The evidence states that studies have not proven vitamin D to be an effective COVID-19 treatment, contradicting the speaker's definitive claim that it will help."
+   }
+  ],
+  "u1MIKNhPz24|7|people started getting heart damage with the vaccines": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The speaker claims a surge of vaccine‑related heart damage, whereas the evidence states myocarditis after COVID‑19 vaccination is a rare adverse effect and benefits outweigh risks."
+   }
+  ],
+  "PMDcOTWEEcI|101|purbrite owns those patents and that purbrite is owned by bill gates foundation": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts that the Pirbright Institute is owned by the Bill & Melinda Gates Foundation and holds a COVID‑19 vaccine patent, but the evidence shows the patent is for a poultry coronavirus and is not owned by the Gates Foundation."
+   }
+  ],
+  "UjvwoteSlTI|30|the vaccine caused more hiv infection than the placebo arm": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "Evidence shows the vaccine did not cause more infections; infection rates were similar or lower than placebo, contradicting the claim"
+   }
+  ],
+  "ydkMwOp2Fhk|45|plausible mechanisms of covid 19 injection causing cancer": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts the vaccine causes cancer, but the evidence indicates studies showing such links are methodologically flawed and do not establish a causal mechanism."
+   }
+  ],
+  "UjvwoteSlTI|41|atrial ventricular fibrillation is a much more likely event": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The speaker claims a higher likelihood of atrial/ventricular fibrillation, but the evidence says arrhythmia risk after vaccine-associated myocarditis remains uncertain, not confirmed."
+   }
+  ],
+  "ydkMwOp2Fhk|10|covid injections they reported 21 000 worldwide deaths": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker claims 21,000 deaths caused by COVID vaccines, but the evidence notes that reported deaths are unverified suspected side effects and not confirmed as caused by the vaccine."
+   }
+  ],
+  "cIGTf5qO5as|2|it only takes about six months for a conspiracy to become a reality": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts conspiracies become reality in six months, but the evidence shows beliefs in conspiracy theories are stable and not increasing rapidly over time."
+   }
+  ],
+  "giS6CiT1qTE|6|their cardiac mri which showed and continued inflammation and possible scarring of the heart itself 90 days out theyre still having free floating spike protein which is what that vaccine asks the body to make which is a cardiotoxin": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The evidence states that vaccine-associated myocarditis is generally mild, self‑limited, and patients recover fully without complications, contradicting the claim of persistent inflammation, scarring, and ongoing spike protein toxicity."
+   }
+  ],
+  "NtuMf0F9SlI|21|messenger rna for vaccines is a completely failed concept": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The evidence states that mRNA vaccines have demonstrated high efficacy (>50%) and are effective, contradicting the claim that they are a failed concept."
+   }
+  ],
+  "7QuTr4fIiyU|10|autopsy findings have confirmed fatal vaccine induced myocarditis": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The evidence says a definite causal relationship cannot be established and myocarditis cases are generally mild, contradicting the claim of fatal vaccine‑induced myocarditis."
+   }
+  ],
+  "u1MIKNhPz24|1|fatal heart damage myocarditis fatal": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The evidence states myocarditis after COVID-19 vaccination is rare and usually resolves completely, contradicting the claim that it causes fatal heart damage."
+   }
+  ],
+  "ydkMwOp2Fhk|80|the mrna vaccine suppresses your own bodys immune system your t cells and it makes it tolerate cancer which is why people are showing up with what they call turbo cancers": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts a definitive causal link between mRNA vaccination, T‑cell suppression and rapid cancer development, but the evidence states no definitive cause‑and‑effect relationship has been established."
+   }
+  ],
+  "PMDcOTWEEcI|83|dr fauci promoted a drug that caused a lot of problems": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The evidence refutes the claim that Fauci promoted AZT causing deaths, stating the meme is false and AZT was not responsible for such outcomes."
+   }
+  ],
+  "rNUwvh4VxlM|2|vitamin d was essential to fighting off diseases it really protects you": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The evidence states that there is insufficient human data to support that vitamin D is essential for preventing disease, contradicting the speaker's strong claim of essential protection."
+   }
+  ],
+  "UjvwoteSlTI|40|people who are in hospital for months because of strokes induced by the astrazeneca myocarditis in the young people": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "The claim asserts severe strokes and prolonged hospitalization caused by AstraZeneca, but the evidence states adverse events were not proven to be caused by the vaccine and deaths were not directly linked."
+   }
+  ],
+  "33vf9wJv_lw|9|you have something called shedding and science knows that through your droplets through the air sexual intercourse blood issues and moisture exchange": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "The speaker asserts that vaccinated people shed transmissible material, but evidence from public health authorities states COVID‑19 vaccines cannot be shed because they contain no live virus."
+   }
+  ],
+  "v0EyE70YT-c|20|serious adverse events were reported in 2 2 of the recipients of the mrna group so 2 2 got serious side effects": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS_WEB",
+    "origin": "web",
+    "reason": "Evidence reports serious adverse event rates of about 0.005% (WEB-4), far lower than the claimed 2.2%, contradicting the speaker's assertion."
+   }
+  ],
+  "ZRrCYM3LsYM|7|the immune system will mount an immunological reaction to that foreign spike protein in the heart": [
+   {
+    "run": "data/results/test_run_openai-gpt-oss-120b_tavily.json",
+    "verdict": "FAKE_NEWS",
+    "origin": "corpus",
+    "reason": "Evidence states that myocarditis after mRNA vaccination is rare and mechanisms are not fully established, contradicting the claim that heart cells routinely present spike protein and trigger immune attack"
+   }
+  ]
+ }
+}
