@@ -83,59 +83,39 @@ VERDICT_SCHEMA = {
 }
 
 SYSTEM_PROMPT = (
-    "You are a fact-checking classifier. You are given EVIDENCE from public health "
-    "authorities and a CLAIM transcribed from a video.\n\n"
-    "Decide whether the speaker is asserting something the evidence contradicts.\n\n"
-    "Verdicts:\n"
-    '- "FAKE_NEWS": the speaker asserts, implies, or presents as fact something the '
-    "evidence contradicts. This includes stating that a vaccine contains an "
-    "ingredient the evidence says it does not contain, or that it has an effect the "
-    "evidence says it does not have. It counts even if the speaker is vague, "
-    "hedging, or embedding the claim in a longer story.\n"
-    '- "NOT_FAKE_NEWS": the speaker agrees with the evidence, or is quoting, '
-    "reporting, questioning or debunking the false claim rather than asserting it.\n"
-    '- "NO_EVIDENCE": the evidence provided does not address what the speaker says. '
-    "Use this whenever the evidence is silent on the claim's specific subject, EVEN "
-    "IF you personally believe the claim is false. Saying something is false without "
-    "evidence that addresses it is not fact-checking, and an unsupported true answer "
-    "is still an error here.\n\n"
-    "Key distinction: a speaker who DENIES a myth (\"vaccines do not cause "
-    'infertility") is NOT_FAKE_NEWS. A speaker who ASSERTS it is FAKE_NEWS.\n\n'
-    "Before deciding, determine the speaker's STANCE toward the false idea. Look for "
-    "negations and denials: \"isn't\", \"aren't\", \"not possible\", \"no reason to "
-    'suspect", "there\'s no evidence", "that\'s a myth", "doesn\'t". If the speaker '
-    "is saying the false thing is NOT true, the verdict is NOT_FAKE_NEWS even though "
-    "the topic matches the evidence. Topic overlap alone is never enough to flag.\n\n"
-    "Reply with a JSON object using EXACTLY these six keys, in this order:\n"
-    '  "addresses"   - "yes" or "no". Does the EVIDENCE discuss the specific '
-    "subject of the CLAIM? Answer this FIRST, before deciding anything else. "
-    "Share of a general topic is not enough: evidence about vaccine ingredients "
-    "does not address microchips, and evidence about spike-protein immunology "
-    'does not address blood clots. If the specific subject is absent, answer "no".\n'
-    '  "stance"      - "asserting" if the speaker presents the false idea as true, '
-    '"denying" if they say it is false, "neutral" if merely describing or unclear\n'
-    '  "verdict"     - one of "FAKE_NEWS", "NOT_FAKE_NEWS", "NO_EVIDENCE". '
-    'If "addresses" is "no" you MUST answer "NO_EVIDENCE" — you may only answer '
-    '"FAKE_NEWS" or "NOT_FAKE_NEWS" when "addresses" is "yes". '
-    'Use FAKE_NEWS only when stance is "asserting".\n'
-    '  "claim"       - for FAKE_NEWS, the exact words from the CLAIM text that are '
-    "false, copied verbatim; otherwise an empty string\n"
-    '  "evidence_id" - the id of the evidence passage you relied on, e.g. '
-    '"CDC-MAGNETIC"\n'
-    '  "reason"      - one sentence explaining the verdict\n\n'
-    "Examples:\n"
-    '{"addresses": "yes", "stance": "asserting", "verdict": "FAKE_NEWS", '
-    '"claim": "the vaccine makes you magnetic", "evidence_id": "CDC-MAGNETIC", '
-    '"reason": "The speaker presents magnetism as real; the CDC states vaccines '
-    'are free from metals."}\n'
-    '{"addresses": "yes", "stance": "denying", "verdict": "NOT_FAKE_NEWS", '
-    '"claim": "", "evidence_id": "CDC-MAGNETIC", "reason": "The speaker is '
-    'debunking the magnetism myth, which agrees with the evidence."}\n'
-    '{"addresses": "no", "stance": "asserting", "verdict": "NO_EVIDENCE", '
-    '"claim": "", "evidence_id": "", "reason": "The speaker claims the vaccine '
-    'contains graphene oxide; the evidence does not discuss graphene oxide, so it '
-    'cannot support a verdict either way."}\n\n'
-    'Use the key "verdict". Do not use "decision" or any other name. JSON only.'
+    'You are a fact-checking classifier. You are given EVIDENCE passages and a CLAIM transcribed from a video.\n'
+    '\n'
+    'Decide whether the speaker is asserting something the evidence contradicts.\n'
+    '\n'
+    'Verdicts:\n'
+    '- "FAKE_NEWS": the speaker asserts, implies, or presents as fact something the evidence contradicts. This includes stating that something contains, causes or does what the evidence says it does not. It counts even if the speaker is vague or embeds the claim in a longer story.\n'
+    '- "NOT_FAKE_NEWS": the speaker agrees with the evidence, or is quoting, reporting, questioning or debunking the false claim rather than asserting it.\n'
+    '- "NO_EVIDENCE": the evidence provided does not address what the speaker says. Use this whenever the evidence is silent on the claim\'s specific subject, EVEN IF you personally believe the claim is false. Saying something is false without evidence that addresses it is not fact-checking, and an unsupported true answer is still an error here.\n'
+    '\n'
+    'These are NOT FAKE_NEWS, however alarming the topic sounds:\n'
+    '- Hedged speculation or forecasts: "might be true", "could be", "almost as if", "likely", "probably", "it is unlikely that".\n'
+    '- A personal anecdote ("my friend got sick after taking it", "I skipped it and was fine"): a personal account, not a factual claim.\n'
+    '- Accurately reporting a real, documented harm or adverse event.\n'
+    '- Acknowledging a real minor effect while rejecting a false claim.\n'
+    '- A minor technical inaccuracy inside an otherwise accurate explanation.\n'
+    '- A figure, date, count or name that is approximately right, or whose error would not change what a listener concludes.\n'
+    '- An odd spelling of a name: the CLAIM is an automatic transcription, so treat misspellings as transcription errors.\n'
+    '- Advertising and sponsor messages.\n'
+    '\n'
+    'FAKE_NEWS needs evidence that states the opposite of what the speaker says. Evidence that does not mention it, or does not confirm it, is NO_EVIDENCE, not a contradiction.\n'
+    '\n'
+    'Before deciding, determine the speaker\'s STANCE toward the false idea. Look for negations and denials: "isn\'t", "aren\'t", "not possible", "no reason to suspect", "there\'s no evidence", "that\'s a myth", "doesn\'t". If the speaker is saying the false thing is NOT true, the verdict is NOT_FAKE_NEWS even though the topic matches the evidence. Topic overlap alone is never enough to flag.\n'
+    '\n'
+    'Reply with a JSON object using EXACTLY these six keys, in this order:\n'
+    '  "addresses"   - "yes" or "no". Does the EVIDENCE discuss the specific subject of the CLAIM? Answer this FIRST, before deciding anything else. Sharing a general topic is not enough: evidence about what camels eat does not address how camels store water. The evidence must be about the same thing, the same group and the same measure: a figure for one product, population or outcome does not address a claim about another. If the specific subject is absent, answer "no".\n'
+    '  "stance"      - "asserting" if the speaker presents the false idea as true, "denying" if they say it is false, "neutral" if merely describing or unclear\n'
+    '  "verdict"     - one of "FAKE_NEWS", "NOT_FAKE_NEWS", "NO_EVIDENCE". If "addresses" is "no" you MUST answer "NO_EVIDENCE" — you may only answer "FAKE_NEWS" or "NOT_FAKE_NEWS" when "addresses" is "yes". Use FAKE_NEWS only when stance is "asserting".\n'
+    '  "claim"       - for FAKE_NEWS, the exact words from the CLAIM text that are false, copied verbatim; otherwise an empty string\n'
+    '  "evidence_id" - the id of the evidence passage you relied on\n'
+    '  "reason"      - one sentence explaining the verdict\n'
+    '\n'
+    'Example:\n'
+    '{"addresses": "yes", "stance": "asserting", "verdict": "FAKE_NEWS", "claim": "camels store water in their hump", "evidence_id": "DOCUMENT-ID", "reason": "The speaker asserts that camels store water in their hump; the evidence states that the hump stores fat, not water."}\n'
 )
 
 
@@ -188,15 +168,30 @@ def health(url: str = LLAMA_URL, timeout: float = 5.0) -> tuple[bool, str]:
         return False, f"{type(e).__name__}: cannot reach {url}"
 
 
-def build_prompt(claim: str, passages: list[dict]) -> str:
-    """Render retrieved evidence and the claim into one user message."""
+def build_prompt(claim: str, passages: list[dict], claim_date=None,
+                 dated: bool = False) -> str:
+    """Render retrieved evidence and the claim into one user message.
+
+    With `dated` (TIME_CHECK on) every passage shows a date or "undated", the
+    claim shows its publish date, and a TIME CHECK note is appended when the
+    window contains time-bound wording. Without it the message is unchanged.
+    """
+    from .temporal import time_note
     lines = ["EVIDENCE:"]
     for p in passages:
-        lines.append(f"[{p['id']}] ({p.get('publisher', '')}, {p.get('updated', '')})")
+        when = p.get('updated', '') or ("undated" if dated else "")
+        lines.append(f"[{p['id']}] ({p.get('publisher', '')}, {when})")
         lines.append(f"  addresses: {p.get('claim_addressed', '')}")
         lines.append(f"  states: {p.get('text', '')}")
     lines.append("")
-    lines.append(f"CLAIM (transcribed speech):\n\"{claim}\"")
+    if dated:
+        when = claim_date.isoformat() if claim_date else "date unknown"
+        lines.append(f"CLAIM (transcribed speech, published {when}):\n\"{claim}\"")
+        note = time_note(claim, claim_date, parametric=False)
+        if note:
+            lines += ["", note]
+    else:
+        lines.append(f"CLAIM (transcribed speech):\n\"{claim}\"")
     return "\n".join(lines)
 
 
@@ -361,6 +356,7 @@ def adjudicate(
     use_grammar: bool = USE_GRAMMAR,
     use_json_mode: bool = USE_JSON_MODE,
     system_prompt: str | None = None,
+    claim_date=None,
 ) -> dict:
     """Ask the local model to classify one claim against retrieved evidence.
 
@@ -381,7 +377,7 @@ def adjudicate(
     # the transport cannot apply to one caller and not the other.
     parsed, err = _chat(
         system_prompt or SYSTEM_PROMPT,
-        build_prompt(claim, passages),
+        build_prompt(claim, passages, claim_date, dated=_time_check()),
         url, model,
         use_grammar, VERDICT_GRAMMAR if use_grammar else None,
         use_json_mode,
@@ -455,7 +451,7 @@ def adjudicate(
                        f"{stance!r}. {parsed.get('reason', '')}"),
         }
 
-    return {
+    result = {
         "verdict": verdict,
         "addresses": addresses,
         "stance": stance,
@@ -463,6 +459,16 @@ def adjudicate(
         "evidence_id": str(parsed.get("evidence_id", "")),
         "reason": str(parsed.get("reason", "")),
     }
+    if _time_check():
+        from .temporal import guard
+        result = guard(result, passages, claim_date)
+    return result
+
+
+def _time_check() -> bool:
+    # Read at call time so the experiment runner can switch it per run.
+    from . import config
+    return config.TIME_CHECK
 
 
 # Retries. A reply with no JSON is re-asked: gpt-oss occasionally ends after its
@@ -532,48 +538,37 @@ def _log_failure(payload: dict, body: dict) -> None:
 # involved, so a difference in results is attributable to the evidence, not to a
 # rewritten instruction.
 PARAMETRIC_PROMPT = (
-    "You are a fact-checking classifier. You are given a CLAIM transcribed from a "
-    "video. No evidence is provided: judge it from your own knowledge of the "
-    "scientific and public-health consensus.\n\n"
-    "Decide whether the speaker is asserting something that consensus contradicts.\n\n"
-    "Verdicts:\n"
-    '- "FAKE_NEWS": the speaker asserts, implies, or presents as fact something the '
-    "scientific and public-health consensus contradicts. This includes stating that "
-    "a vaccine contains an ingredient it does not contain, or that it has an effect "
-    "it does not have. It counts even if the speaker is vague, hedging, or "
-    "embedding the claim in a longer story.\n"
-    '- "NOT_FAKE_NEWS": the speaker agrees with the consensus, or is quoting, '
-    "reporting, questioning or debunking the false claim rather than asserting it.\n"
-    '- "UNVERIFIABLE": you cannot determine from your own knowledge whether what the '
-    "speaker says is true or false, or the passage makes no checkable factual claim. "
-    "Use this rather than guessing.\n\n"
-    "Key distinction: a speaker who DENIES a myth (\"vaccines do not cause "
-    'infertility") is NOT_FAKE_NEWS. A speaker who ASSERTS it is FAKE_NEWS.\n\n'
-    "Before deciding, determine the speaker's STANCE toward the false idea. Look for "
-    "negations and denials: \"isn't\", \"aren't\", \"not possible\", \"no reason to "
-    'suspect", "there\'s no evidence", "that\'s a myth", "doesn\'t". If the speaker '
-    "is saying the false thing is NOT true, the verdict is NOT_FAKE_NEWS even though "
-    "the topic matches. Topic overlap alone is never enough to flag.\n\n"
-    "Reply with a JSON object using EXACTLY these four keys, in this order:\n"
-    '  "stance"   - "asserting" if the speaker presents the false idea as true, '
-    '"denying" if they say it is false, "neutral" if merely describing or unclear\n'
-    '  "verdict"  - one of "FAKE_NEWS", "NOT_FAKE_NEWS", "UNVERIFIABLE". '
-    'Use FAKE_NEWS only when stance is "asserting".\n'
-    '  "claim"    - for FAKE_NEWS, the exact words from the CLAIM text that are '
-    "false, copied verbatim; otherwise an empty string\n"
-    '  "reason"   - one sentence explaining the verdict\n\n'
-    "Examples:\n"
-    '{"stance": "asserting", "verdict": "FAKE_NEWS", '
-    '"claim": "the vaccine makes you magnetic", "reason": "The speaker presents '
-    'magnetism as real; COVID-19 vaccines contain no metals and cannot make a '
-    'person magnetic."}\n'
-    '{"stance": "denying", "verdict": "NOT_FAKE_NEWS", "claim": "", "reason": '
-    '"The speaker is debunking the magnetism myth, which agrees with the '
-    'consensus."}\n'
-    '{"stance": "neutral", "verdict": "UNVERIFIABLE", "claim": "", "reason": '
-    '"The speaker describes a local event that cannot be checked against '
-    'general knowledge."}\n\n'
-    'Use the key "verdict". Do not use "decision" or any other name. JSON only.'
+    'You are a fact-checking classifier. You are given a CLAIM transcribed from a video. No evidence is provided: judge it from your own knowledge of the established scientific consensus.\n'
+    '\n'
+    'Decide whether the speaker is asserting something that consensus contradicts.\n'
+    '\n'
+    'Verdicts:\n'
+    '- "FAKE_NEWS": the speaker asserts, implies, or presents as fact something the consensus contradicts. This includes stating that something contains, causes or does what it does not. It counts even if the speaker is vague or embeds the claim in a longer story.\n'
+    '- "NOT_FAKE_NEWS": the speaker agrees with the consensus, or is quoting, reporting, questioning or debunking the false claim rather than asserting it.\n'
+    '- "UNVERIFIABLE": you cannot determine from your own knowledge whether what the speaker says is true or false, or the passage makes no checkable factual claim. Use this rather than guessing.\n'
+    '\n'
+    'These are NOT FAKE_NEWS, however alarming the topic sounds:\n'
+    '- Hedged speculation or forecasts: "might be true", "could be", "almost as if", "likely", "probably", "it is unlikely that".\n'
+    '- A personal anecdote ("my friend got sick after taking it", "I skipped it and was fine"): a personal account, not a factual claim.\n'
+    '- Accurately reporting a real, documented harm or adverse event.\n'
+    '- Acknowledging a real minor effect while rejecting a false claim.\n'
+    '- A minor technical inaccuracy inside an otherwise accurate explanation.\n'
+    '- A figure, date, count or name that is approximately right, or whose error would not change what a listener concludes.\n'
+    '- An odd spelling of a name: the CLAIM is an automatic transcription, so treat misspellings as transcription errors.\n'
+    '- Advertising and sponsor messages.\n'
+    '\n'
+    'FAKE_NEWS needs a consensus that holds the opposite of what the speaker says. If what they say is merely unconfirmed, the verdict is UNVERIFIABLE, not FAKE_NEWS.\n'
+    '\n'
+    'Before deciding, determine the speaker\'s STANCE toward the false idea. Look for negations and denials: "isn\'t", "aren\'t", "not possible", "no reason to suspect", "there\'s no evidence", "that\'s a myth", "doesn\'t". If the speaker is saying the false thing is NOT true, the verdict is NOT_FAKE_NEWS even though the topic matches. Topic overlap alone is never enough to flag.\n'
+    '\n'
+    'Reply with a JSON object using EXACTLY these four keys, in this order:\n'
+    '  "stance"      - "asserting" if the speaker presents the false idea as true, "denying" if they say it is false, "neutral" if merely describing or unclear\n'
+    '  "verdict"     - one of "FAKE_NEWS", "NOT_FAKE_NEWS", "UNVERIFIABLE". Use FAKE_NEWS only when stance is "asserting".\n'
+    '  "claim"       - for FAKE_NEWS, the exact words from the CLAIM text that are false, copied verbatim; otherwise an empty string\n'
+    '  "reason"      - one sentence explaining the verdict\n'
+    '\n'
+    'Example:\n'
+    '{"stance": "asserting", "verdict": "FAKE_NEWS", "claim": "camels store water in their hump", "reason": "The speaker asserts that camels store water in their hump; the hump stores fat, not water."}\n'
 )
 
 PARAMETRIC_GRAMMAR = r"""
@@ -611,15 +606,26 @@ def adjudicate_parametric(
     model: str = LLAMA_MODEL,
     use_grammar: bool = USE_GRAMMAR,
     use_json_mode: bool = USE_JSON_MODE,
+    claim_date=None,
 ) -> dict:
     """Classify one claim window from the model's own knowledge, no evidence.
 
     Returns the same keys as adjudicate(), with addresses and evidence_id empty
     and verdict one of FAKE_NEWS / NOT_FAKE_NEWS / UNVERIFIABLE / ERROR.
     """
+    user = f'CLAIM (transcribed speech):\n"{claim}"'
+    if _time_check():
+        # Same dates and note as the evidence arm; there is no evidence to
+        # date, so no guard — the instruction is all the parametric arm gets.
+        from .temporal import time_note
+        when = claim_date.isoformat() if claim_date else "date unknown"
+        user = f'CLAIM (transcribed speech, published {when}):\n"{claim}"'
+        note = time_note(claim, claim_date, parametric=True)
+        if note:
+            user += "\n\n" + note
     parsed, err = _chat(
         PARAMETRIC_PROMPT,
-        f'CLAIM (transcribed speech):\n"{claim}"',
+        user,
         url, model,
         use_grammar, PARAMETRIC_GRAMMAR if use_grammar else None,
         use_json_mode,

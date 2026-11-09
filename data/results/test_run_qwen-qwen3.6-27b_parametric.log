@@ -94,3 +94,31 @@ Traceback (most recent call last):
     raise TypeError(f'the JSON object must be str, bytes or bytearray, '
                     f'not {s.__class__.__name__}')
 TypeError: the JSON object must be str, bytes or bytearray, not NoneType
+preflight:
+  model server   : OK   https://openrouter.ai/api/v1 — qwen/qwen3.6-27b offered, key valid (credit: 95.74 of 100 left)
+  output constr. : json_schema, provider-validated (OpenRouter)
+  NOTE           : remote backend — transcript text leaves this machine
+  model          : qwen/qwen3.6-27b at https://openrouter.ai/api/v1
+  evidence index : OK   2488 passages
+  test videos    : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric
+96 video(s) to run, 23 already done
+
+[1/96] XXG_9Wm_dOE  &#39;COVID vaccine has worst side effects ever&#39;:
+    FLAG  17/22 flagged   label=fake
+[2/96] Y6_jn0DzXHI  The Secret Element in the Covid Vaccine: What They W
+    FLAG  10/11 flagged   label=fake
+[3/96] Z6qlcRGzh-Q  Senate investigates what health officials knew about
+    FLAG  6/8 flagged   label=fake
+[4/96] ZRrCYM3LsYM  Doctor Explains: MRNA Vaccine Issues
+    FLAG  16/20 flagged   label=fake
+[5/96] _BNyKPuAPD0  Exposing COVID-19 Vaccine Reactions | Are Side Effec
+    FLAG  12/27 flagged   label=fake
+[6/96] _SJ3GWZq0jI  &#39;CANCER OCCURRED near injection sites...&#39;: B
+    FLAG  9/14 flagged   label=fake
+[7/96] cIGTf5qO5as  When will we Learn the TRUTH about COVID Vaccines?

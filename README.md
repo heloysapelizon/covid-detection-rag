@@ -442,44 +442,62 @@ minutes and is the only check that the chain works end to end.
 mkdir -p data/results
 ```
 
+Each model runs the same protocol, `scripts/run_test_model.sh`:
+
+1. preflight;
+2. **both arms**, parametric (`--condition parametric`) and evidence
+   (`--web tavily`), each smoke-tested on 3 videos and then run in full;
+3. both arms with **`--time-check`**: the claim and every passage carry their
+   dates into the prompt, windows with time-bound wording ("so far", "not yet")
+   get a TIME CHECK note, and a time-bound flag resting on later evidence is
+   overridden (`rag/temporal.py`);
+4. each arm re-scored with the **overlap veto** (`--score --overlap-veto`): a
+   flag is withdrawn when an overlapping window cleared the same words. It is
+   applied at scoring time, so the results keep the raw verdicts and both
+   figures can be reported;
+5. the **verifier** scored, raw and with the veto: a window counts only when
+   both arms flagged it (`tests/score_verifier.py`, docs/evidence-as-verifier.md).
+
+**The test set always runs the production prompts in `rag/llm.py`.** Prompt
+variants are compared on the development set only
+(`--dataset dev --prompt NAME`, see `tests/prompt_variants.py`), and the winner
+is copied into `rag/llm.py` before any test run. Never pass `--prompt` with the
+test set.
+
 #### 1. gpt-oss-20b — local, llama.cpp
 
 ```bash
-export LLAMA_MODEL=gpt-oss-20b          # label only; llama-server serves its GGUF
-python tests/run_experiment.py --limit 3 --web tavily
-python tests/run_experiment.py --web tavily --clear-cache 2>&1 \
-    | tee data/results/test_run_gpt-oss-20b_tavily.log
+unset LLM_SERVER
+export LLAMA_MODEL=gpt-oss-20b LLM_CONSTRAINT=json_schema   # label only; llama-server serves its GGUF
+scripts/run_test_model.sh
 ```
 
 #### 2. Gemma 4 12B — local, llama.cpp
 
 ```bash
+unset LLM_SERVER LLM_CONSTRAINT
 export LLAMA_MODEL=gemma-4-12b
-python tests/run_experiment.py --limit 3 --web tavily
-python tests/run_experiment.py --web tavily --clear-cache 2>&1 \
-    | tee data/results/test_run_gemma-4-12b_tavily.log
+scripts/run_test_model.sh
 ```
 
 #### 3. Qwen3.6-27B — remote, OpenRouter
 
 ```bash
 export LLM_SERVER=openrouter LLAMA_MODEL=qwen/qwen3.6-27b
-python tests/run_experiment.py --limit 3 --web tavily
-python tests/run_experiment.py --web tavily --clear-cache 2>&1 \
-    | tee data/results/test_run_qwen-qwen3.6-27b_tavily.log
+scripts/run_test_model.sh
 ```
 
 #### 4. gpt-oss-120b — remote, OpenRouter
 
 ```bash
 export LLM_SERVER=openrouter LLAMA_MODEL=openai/gpt-oss-120b
-python tests/run_experiment.py --limit 3 --web tavily
-python tests/run_experiment.py --web tavily --clear-cache 2>&1 \
-    | tee data/results/test_run_openai-gpt-oss-120b_tavily.log
+scripts/run_test_model.sh
 ```
 
-Drop `--web tavily` for a corpus-only run — the cleaner headline figure, since
-web evidence is not licence-vetted and has no ground truth.
+The script resumes: after an interruption, run it again and it continues the
+unfinished arm and re-scores the rest. Set `PY=` to use another interpreter
+than `.venv/bin/python`. The two remote models can run at the same time, in
+separate shells.
 
 **Always pass `LLAMA_MODEL` explicitly.** llama-server ignores it and serves
 whatever GGUF it was started with, but the run metadata and the default results
@@ -487,20 +505,30 @@ filename both come from it: left at its default, two local runs would be
 recorded as `qwen2.5:14b` and the second would silently resume from the first.
 `unset LLM_SERVER` before a local run, or it will keep pointing at OpenRouter.
 
-Each model writes its own `data/results/test_run_<model>_<web>.json`, so the
-eight runs cannot overwrite one another.
+Each model writes its own files, so the runs cannot overwrite one another:
+
+| file | holds |
+|---|---|
+| `test_run_<model>_parametric_tc.json` | parametric arm, every window of every video |
+| `test_run_<model>_tavily_tc.json` | evidence arm, same |
+| `..._tc_summary.txt` / `..._tc_ov_summary.txt` | scored without / with the overlap veto |
+| `..._tc.log` | the console narrative of the full run |
+| `test_run_<model>_verifier_tc.txt` | the verifier, raw and with the veto |
+
+Earlier runs without the time check (`test_run_<model>_<web>.json`, no `_tc`)
+are kept and are not resumed by these commands.
 
 **Budget.** At the measured trigger rate (35-40% of windows) the 119-video run
 costs roughly 560-650 Tavily credits of the free tier's 1,000, so it fits in one
 pass with margin. A resumed run costs less: repeated queries are served from the
 cache for 0 credits.
 
-**Expect ~9.3 h corpus-only, ~12.5 h with the fallback** at the rates measured
+**Expect ~9.3 h for the parametric arm and ~12.5 h for the evidence arm** at the rates measured
 on this project's CPU. A GPU with `-ngl 99` is typically an order of magnitude
 faster, so check the preflight estimate on the actual machine rather than
 trusting these numbers.
 
-`tee` matters because the per-video progress lines are the only record of the
+The script `tee`s each full run because the per-video progress lines are the only record of the
 order videos were processed in and of any transient server error that a resumed
 run would otherwise hide.
 
@@ -517,14 +545,6 @@ show (docs/web-search.md).
 
 Checkpointed after every video, so an interrupted run resumes where it stopped
 and nothing is recomputed.
-
-Each run leaves three files in `data/results/`, all of them committable:
-
-| file | holds |
-|---|---|
-| `test_run_<web>.json` | `run` metadata + every window of every video |
-| `test_run_<web>_summary.txt` | the scored confusion matrix and error lists |
-| `test_run_<web>.log` | the console narrative, if you used `tee` above |
 
 The `run` block records the configuration that produced the results — model,
 every parameter in `rag/config.py`, grammar mode, corpus size, web backend, git
@@ -596,12 +616,25 @@ finds the file the same way a run names it, so **the same `LLAMA_MODEL` and
 ```bash
 # re-score one model's web run
 LLM_SERVER=openrouter LLAMA_MODEL=qwen/qwen3.6-27b \
-    python tests/run_experiment.py --score --web tavily
+    python tests/run_experiment.py --score --web tavily --time-check
 
 # or point at the file directly, which needs no environment at all
 python tests/run_experiment.py --score \
-    --out data/results/test_run_qwen-qwen3.6-27b_tavily.json
+    --out data/results/test_run_qwen-qwen3.6-27b_tavily_tc.json
+
+# the same, with the overlap veto (writes ..._ov_summary.txt; results untouched)
+python tests/run_experiment.py --score --overlap-veto \
+    --out data/results/test_run_qwen-qwen3.6-27b_tavily_tc.json
+
+# the verifier: both arms of one model, raw and with the veto
+R=data/results/test_run_qwen-qwen3.6-27b
+python tests/score_verifier.py ${R}_parametric_tc.json ${R}_tavily_tc.json
+python tests/score_verifier.py ${R}_parametric_tc.json ${R}_tavily_tc.json --overlap-veto
 ```
+
+`scripts/run_test_model.sh` runs all of these at the end; the commands are for
+re-scoring by hand. Report the parametric arm, the evidence arm and the verifier
+for every model, each raw and with the veto (docs/evidence-as-verifier.md).
 
 `--out` is the safer form when comparing models: it cannot silently score the
 wrong file because `LLAMA_MODEL` was left over from a previous run.

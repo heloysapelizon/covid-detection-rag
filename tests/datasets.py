@@ -49,6 +49,10 @@ TEST_LABELS = LABELS / "ground_truth.json"
 DEV_SELECTED = YOUTUBE / "covid_vaccine_videos_dev2_mirror_selected.json"
 DEV_DATASET = YOUTUBE / "covid_vaccine_videos_dev2_mirror_selected_transcribed.json"
 DEV_LABELS = ROOT / "tests" / "chunk_eval_labels_dev2.json"
+# Video-level fake/not-fake labels for the dev mirror group, annotated under the
+# same rules as TEST_LABELS. Used to compare prompts; DEV_LABELS above only
+# records corpus coverage per window and cannot score a verdict.
+DEV_VIDEO_LABELS = LABELS / "dev_ground_truth.json"
 
 FALLBACK_SELECTED = YOUTUBE / "covid_vaccine_videos_dev2_uncovered_selected.json"
 FALLBACK_DATASET = (
@@ -112,6 +116,43 @@ def check_leakage() -> list[str]:
     return sorted((dev_ids | fb_ids) & test_ids | (dev_ids & fb_ids))
 
 
+def check_content_leakage(threshold: float = 0.4) -> list[tuple[str, str, float]]:
+    """Dev/fallback videos whose transcript largely repeats a test transcript.
+
+    The id check above misses a syndicated segment re-uploaded by another
+    station: a different video id with the same words. Overlap is the share of
+    8-word shingles of the shorter transcript found in the other. Dev videos
+    the dev labels already exclude are skipped, so a non-empty result means a
+    duplicate nobody has dealt with yet.
+    """
+    def shingles(text: str, k: int = 8) -> set[str]:
+        w = text.lower().split()
+        return {" ".join(w[i:i + k]) for i in range(max(1, len(w) - k))}
+
+    transcripts = YOUTUBE / "covid_vaccine_videos_transcribed.json"
+    if not transcripts.exists():
+        return []
+    test_ids = {r["video_id"] for r in test_videos(include_excluded=True)}
+    test = {r["video_id"]: shingles(r["transcript"])
+            for r in json.loads(transcripts.read_text(encoding="utf-8"))
+            if r["video_id"] in test_ids and r.get("transcript")}
+    handled = set()
+    if DEV_VIDEO_LABELS.exists():
+        handled = {i["video_id"] for i in json.loads(
+            DEV_VIDEO_LABELS.read_text(encoding="utf-8"))["items"]
+            if i.get("exclude")}
+    hits = []
+    for r in dev_videos() + fallback_videos():
+        if r["video_id"] in handled:
+            continue
+        mine = shingles(r["transcript"])
+        for tid, theirs in test.items():
+            share = len(mine & theirs) / max(1, min(len(mine), len(theirs)))
+            if share >= threshold:
+                hits.append((r["video_id"], tid, round(share, 2)))
+    return hits
+
+
 def describe() -> str:
     test = test_videos()
     dev = dev_videos()
@@ -138,6 +179,9 @@ def describe() -> str:
             lines.append(f"{label}   -  NOT YET SELECTED")
     leak = check_leakage()
     lines.append(f"LEAK  {'none' if not leak else str(len(leak)) + ' -> ' + str(leak)}")
+    dup = check_content_leakage()
+    lines.append(f"DUP   {'none' if not dup else str(len(dup)) + ' -> ' + str(dup)}"
+                 "  (transcript overlap with test, unexcluded)")
     return "\n".join(lines)
 
 

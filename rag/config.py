@@ -203,3 +203,18 @@ GENERAL_TOP_SHARE_MAX = 0.60 # and no single topic may exceed this share
 # Heavy overlap means a claim spanning a boundary still appears whole somewhere.
 CLAIM_WINDOW_WORDS = 140
 CLAIM_STRIDE_WORDS = 70
+
+# --- Time-bound statements -----------------------------------------------------
+# On: dates reach the prompt (claim = video publish date, corpus passage =
+# document date, web = undated), windows with time-bound wording get a TIME
+# CHECK note, and a time-bound flag resting on later evidence is overridden.
+# See rag/temporal.py.
+TIME_CHECK = os.environ.get("TIME_CHECK", "0") in ("1", "true", "True")
+
+# --- Overlap veto ----------------------------------------------------------------
+# Claim windows overlap by half, so a flagged phrase normally appears in a second
+# window with different surrounding context. On: a flag is withdrawn when another
+# window containing the same words judged them NOT_FAKE_NEWS — the case of a myth
+# quoted in one window and rebutted in the next. An abstention (NO_EVIDENCE,
+# UNVERIFIABLE) never vetoes. Deterministic, no extra model calls.
+OVERLAP_VETO = os.environ.get("OVERLAP_VETO", "0") in ("1", "true", "True")

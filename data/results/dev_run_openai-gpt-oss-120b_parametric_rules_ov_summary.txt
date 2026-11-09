@@ -1,0 +1,33 @@
+(re-scored with overlap veto)
+run: 2026-11-09T13:56:40Z  commit 36c481d  web=none  condition=parametric
+     dataset=dev  prompt=rules
+     model=openai/gpt-oss-120b gamma=0.3 chunk=55/35 grammar=False
+     corpus=2488 passages
+
+scored 38 video(s)
+
+                  predicted
+                fake    not
+  label fake       8      0
+  label not       15     15
+
+  precision 0.348   recall 1.000   F1 0.516   accuracy 0.605
+
+  windows answered on web evidence: 0
+
+  false positives (15):
+    0h5VAb1Lk0U  2/8 windows flagged
+    dUlCqxeGFGw  1/7 windows flagged
+    4gaG0rWGBd8  3/6 windows flagged
+    _PrUE69QZvA  1/2 windows flagged
+    Wtd0Hj00g_E  2/3 windows flagged
+    Sl90BBpVZU0  1/22 windows flagged
+    AfXrd9C2ixs  2/2 windows flagged
+    s7cpfJgYS5c  3/8 windows flagged
+    KdD76ta4NfA  1/2 windows flagged
+    UijQ-6jhVuc  4/19 windows flagged
+    Te38Qkxx4c8  3/20 windows flagged
+    E-TuA4ZfN10  4/29 windows flagged
+    LWgmluRbIag  2/5 windows flagged
+    xGHs0u0VzoA  2/5 windows flagged
+    M7cqIQ5tApU  6/11 windows flagged

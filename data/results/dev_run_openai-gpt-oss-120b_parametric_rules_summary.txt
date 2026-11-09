@@ -1,0 +1,34 @@
+run: 2026-11-09T13:56:40Z  commit 36c481d  web=none  condition=parametric
+     dataset=dev  prompt=rules
+     model=openai/gpt-oss-120b gamma=0.3 chunk=55/35 grammar=False
+     corpus=2488 passages
+
+scored 38 video(s)
+
+                  predicted
+                fake    not
+  label fake       8      0
+  label not       17     13
+
+  precision 0.320   recall 1.000   F1 0.485   accuracy 0.553
+
+  windows answered on web evidence: 0
+
+  false positives (17):
+    0h5VAb1Lk0U  3/8 windows flagged
+    dUlCqxeGFGw  3/7 windows flagged
+    4gaG0rWGBd8  4/6 windows flagged
+    _PrUE69QZvA  1/2 windows flagged
+    Wtd0Hj00g_E  2/3 windows flagged
+    Sl90BBpVZU0  4/22 windows flagged
+    AfXrd9C2ixs  2/2 windows flagged
+    s7cpfJgYS5c  4/8 windows flagged
+    KdD76ta4NfA  1/2 windows flagged
+    UijQ-6jhVuc  6/19 windows flagged
+    fZLxvo21XDg  2/6 windows flagged
+    Te38Qkxx4c8  7/20 windows flagged
+    E-TuA4ZfN10  5/29 windows flagged
+    LWgmluRbIag  3/5 windows flagged
+    xGHs0u0VzoA  2/5 windows flagged
+    M7cqIQ5tApU  6/11 windows flagged
+    lmBy0cJPg7c  1/5 windows flagged

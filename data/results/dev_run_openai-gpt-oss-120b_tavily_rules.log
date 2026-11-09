@@ -1,0 +1,45 @@
+preflight:
+  model server   : OK   https://openrouter.ai/api/v1 — openai/gpt-oss-120b offered, key valid (credit: 94.30 of 100 left)
+  output constr. : json_schema, provider-validated (OpenRouter)
+  NOTE           : remote backend — transcript text leaves this machine
+  model          : openai/gpt-oss-120b at https://openrouter.ai/api/v1
+  evidence index : OK   2488 passages
+  dev videos    : 38 labelled with usable transcripts
+  web fallback   : tavily
+                   probe OK -> https://www.who.int/teams/immunization-vaccines-and-
+  web cache      : on, 1252 entry(ies) — a non-empty cache means some evidence is replayed, not refetched
+  claim windows  : ~349 (~2.8 h at 28.4 s/window on CPU)
+
+all checks passed
+
+condition: rag   dataset: dev   prompt: rules
+38 video(s) to run, 0 already done
+
+[1/38] 0h5VAb1Lk0U  Concerns about COVID-19 Vaccine Side Effects
+W1109 11:57:55.964000 10516 .venv/lib/python3.13/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 7456.73it/s]
+    FLAG  3/8 flagged   label=not 
+[2/38] dUlCqxeGFGw  Did Dr. Fauci purposely mislead the public about the
+    FLAG  2/7 flagged   label=not 
+[3/38] EaT5mGLYHnI  ‘Boy, he can’t let the public know…’: Sen. Johnson r
+    FLAG  5/20 flagged   label=fake
+[4/38] eqVz15W1Rmk  'Spike proteins in tumors?’: Sen Johnson drops bombs
+    FLAG  5/21 flagged   label=fake
+[5/38] 3AEgaNF4E2I  Does the COVID-19 Vaccine Cause Infertility? Yardlie
+    ok    0/1 flagged   label=not 
+[6/38] 4gaG0rWGBd8  The Truth About COVID (6 years later...)
+    FLAG  2/6 flagged   label=not 
+[7/38] _PrUE69QZvA  Are the COVID-19 vaccines safe?
+    FLAG  1/2 flagged   label=not 
+[8/38] Wtd0Hj00g_E  Do mRNA vaccines alter our DNA?! #mrna
+    ok    0/3 flagged   label=not 
+[9/38] Sl90BBpVZU0  Are Covid mRNA vaccines "toxic" to the ovaries? Shoc
+    FLAG  1/22 flagged   label=not 
+[10/38] AfXrd9C2ixs  What are the common side effects of the COVID-19 vac
+    FLAG  2/2 flagged   label=not 
+[11/38] RaLxhFiOBYk  Covid-19: Researcher blows the whistle on data integ
+    FLAG  1/8 flagged   label=not 
+[12/38] QANLh7B8kv4  Safety of COVID-19 vaccines – what we need to know
+    FLAG  1/3 flagged   label=not 
+[13/38] v-NEr3KCug8  How the COVID-19 vaccines were created so quickly - 

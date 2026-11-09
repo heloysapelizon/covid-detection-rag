@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import textwrap
 
+from . import config
 from .config import CLAIM_STRIDE_WORDS, CLAIM_WINDOW_WORDS, MIN_SIMILARITY, TOP_K
 from .index import EvidenceIndex
 from .llm import adjudicate, adjudicate_parametric, build_query
@@ -54,12 +55,17 @@ def check_transcript(
     min_similarity: float = MIN_SIMILARITY,
     verbose: bool = True,
     web_fetch_fn=None,
+    published: str | None = None,
 ) -> list[dict]:
     """Fact-check one transcript. Returns one result per claim window.
 
     Each result carries the window text, what was retrieved, the model's verdict,
     and — when flagged — the evidence passage that debunks it.
+
+    `published` (the video's publish date) dates the claim for the time check.
     """
+    from .temporal import parse_date
+    claim_date = parse_date(published)
     claims = segment_claims(transcript)
     sources = document_sources()
     if verbose:
@@ -68,7 +74,13 @@ def check_transcript(
     results = []
     for n, claim in enumerate(claims, 1):
         passages = index.search(claim, top_k=top_k, min_similarity=min_similarity)
-        verdict = adjudicate(claim, passages)
+        if config.TIME_CHECK:
+            # Passages carry no date of their own; the document's is in the
+            # manifest. Copied so the index's own dicts are not mutated.
+            passages = [{**p, "updated": (sources.get(p.get("source_file", ""))
+                                          or {}).get("updated", "")}
+                        for p in passages]
+        verdict = adjudicate(claim, passages, claim_date=claim_date)
 
         # Web fallback, decided on the ADJUDICATED verdict rather than on an
         # empty retrieval: the corpus almost always returns something, so
@@ -102,7 +114,7 @@ def check_transcript(
                     # what sent us here.
                     passages = web
                     origin = "web"
-                    verdict = adjudicate(claim, passages)
+                    verdict = adjudicate(claim, passages, claim_date=claim_date)
                     # Relabel so a web-sourced verdict is never mistaken for a
                     # corpus one. NO_EVIDENCE and ERROR keep their names: they
                     # assert nothing, so there is no provenance to qualify.
@@ -162,7 +174,51 @@ def check_transcript(
             mark = {"FAKE_NEWS": "FLAG", "ERROR": "err "}.get(verdict["verdict"], "ok  ")
             print(f"  [{n}/{len(claims)}] {mark} {verdict['verdict']}")
 
-    return results
+    return overlap_veto(results) if config.OVERLAP_VETO else results
+
+
+_FLAGS = {"FAKE_NEWS", "FAKE_NEWS_WEB"}
+_CLEARS = {"NOT_FAKE_NEWS", "NOT_FAKE_NEWS_WEB"}
+
+
+def _grams(text: str, k: int = 6) -> set[str]:
+    import re
+    w = re.sub(r"[^a-z0-9' ]+", " ", (text or "").lower()).split()
+    return {" ".join(w[i:i + k]) for i in range(max(1, len(w) - k + 1))}
+
+
+def overlap_veto(results: list[dict]) -> list[dict]:
+    """Withdraw a flag that an overlapping window explicitly cleared.
+
+    Windows overlap by half, so the flagged words of window i normally also
+    appear in a neighbour, read with different surrounding context. If any
+    window containing them (matched on shared 6-word shingles) returned
+    NOT_FAKE_NEWS, the flag becomes NOT_FAKE_NEWS: the typical case is a myth
+    quoted at the edge of one window and rebutted in the next. Abstentions do
+    not veto — in the evidence arm they usually mean the neighbour retrieved
+    different evidence, not that it read the words differently (measured on
+    dev: letting them veto cost recall, letting only clearances veto did not).
+
+    Pure and deterministic; the original verdict is kept as `verdict_raw`.
+    Applied after the run so it never feeds back into adjudication.
+    """
+    shingles = [_grams(r.get("claim_text", "")) for r in results]
+    out = []
+    for i, r in enumerate(results):
+        r = {**r, "verdict_raw": r.get("verdict_raw", r["verdict"])}
+        if r["verdict"] in _FLAGS:
+            mine = _grams(r.get("flagged_phrase", ""))
+            clearing = [results[j]["window"] for j in range(len(results))
+                        if j != i and mine & shingles[j]
+                        and results[j]["verdict"] in _CLEARS]
+            if clearing:
+                r["verdict"] = ("NOT_FAKE_NEWS_WEB" if r["verdict"] == "FAKE_NEWS_WEB"
+                                else "NOT_FAKE_NEWS")
+                r["reason"] = (f"Overridden (overlap veto): window(s) {clearing} "
+                               f"contain the same words and cleared them. "
+                               f"{r.get('reason', '')}")
+        out.append(r)
+    return out
 
 
 def print_report(results: list[dict], meta: dict | None = None) -> None:
@@ -262,17 +318,20 @@ def _print_flags(flagged: list[dict]) -> None:
 
 
 
-def check_transcript_parametric(transcript: str, verbose: bool = False) -> list[dict]:
+def check_transcript_parametric(transcript: str, verbose: bool = False,
+                                published: str | None = None) -> list[dict]:
     """Parametric-only condition: the same claim windows, adjudicated without
     retrieval (rag.llm.adjudicate_parametric).
 
     Rows carry the same keys as check_transcript(), with every evidence field
     empty and evidence_origin "none", so the same scoring code reads both.
     """
+    from .temporal import parse_date
+    claim_date = parse_date(published)
     claims = segment_claims(transcript)
     results = []
     for n, claim in enumerate(claims, 1):
-        verdict = adjudicate_parametric(claim)
+        verdict = adjudicate_parametric(claim, claim_date=claim_date)
         results.append({
             "window": n,
             "claim_text": claim,
@@ -294,4 +353,4 @@ def check_transcript_parametric(transcript: str, verbose: bool = False) -> list[
         if verbose:
             mark = {"FAKE_NEWS": "FLAG", "ERROR": "err "}.get(verdict["verdict"], "ok  ")
             print(f"  [{n}/{len(claims)}] {mark} {verdict['verdict']}")
-    return results
+    return overlap_veto(results) if config.OVERLAP_VETO else results

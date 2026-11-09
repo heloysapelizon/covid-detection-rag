@@ -282,3 +282,34 @@ unreachable, and why it now keys on the adjudicated verdict instead
 Both gaps closed: the chunk ordering is decisive again, and `ROUTE_GAMMA = 0.30`
 is now measured on 86 topical and 77 general windows rather than 22 and 61
 (docs/routing-experiments.md).
+
+## Video-level dev labels (2026-11-09)
+
+Prompt comparison needs a verdict to score against, and the window labels above
+only record corpus coverage. `data/labels/dev_ground_truth.json` adds
+video-level fake/not-fake labels for the 44 transcribed mirror videos, under
+the test set's annotation rules, read from the transcripts as the pipeline
+receives them (capped where `ok_capped`). **Drafted by Claude, pending author
+review.**
+
+Six are excluded through a per-item `exclude` field:
+
+```
+  content duplicates of test videos (different video id, same words)
+    Ti5SpsYxkGo   = test Z6qlcRGzh-Q / -9U3HTacDP8   overlap 1.00
+    fnFC7lnHjU8   = test Z6qlcRGzh-Q / -9U3HTacDP8   overlap 0.91
+    Z3g_CijXgUI   = test DjMqylDmbP8                  overlap 0.80
+    qFR3TlR0SmI   = test giS6CiT1qTE                  overlap 0.49
+  off scope (no human-vaccine content)
+    A22eAcrsjqQ   pet vaccine and microchip clinic
+    Sdr-ZCs1yzU   zoonotic spillover, no vaccine claim
+```
+
+The id-based leak check passed all four duplicates: they are the same
+syndicated segments re-uploaded by other stations. `tests/datasets.py` now also
+reports transcript overlap with test (8-word shingles, threshold 0.4), so a
+future duplicate shows up as `DUP` rather than silently entering tuning.
+
+Kept: **38 videos, 8 fake_news / 30 not_fake_news.** The positive class is
+small, so recall and F1 move in steps of one video; the false-positive count
+over the 30 negatives is the more stable figure for prompt comparison.

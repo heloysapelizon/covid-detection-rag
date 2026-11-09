@@ -5,6 +5,10 @@
     python tests/run_experiment.py --web duckduckgo
     python tests/run_experiment.py --score          # score an existing run
 
+    # prompt selection, on the development set (never on test)
+    python tests/run_experiment.py --dataset dev --prompt rules --web tavily
+    python tests/run_experiment.py --dataset dev --prompt rules --condition parametric
+
 This is the final experiment. It runs over the 119 labelled test videos
 (data/labels/ground_truth.json), which no parameter was chosen by looking at —
 every threshold was derived on separate development collections (docs/dev-sets.md).
@@ -40,7 +44,9 @@ from rag.index import EvidenceIndex  # noqa: E402
 from rag.llm import health  # noqa: E402
 from rag.pipeline import check_transcript, check_transcript_parametric  # noqa: E402
 from rag.websearch import get_backend  # noqa: E402
-from tests.datasets import EXCLUDED, TEST_LABELS  # noqa: E402
+from tests.datasets import (  # noqa: E402
+    DEV_DATASET, DEV_VIDEO_LABELS, EXCLUDED, TEST_LABELS,
+)
 
 ROOT = Path(__file__).resolve().parent.parent
 TRANSCRIPTS = ROOT / "data" / "youtube" / "covid_vaccine_videos_transcribed.json"
@@ -52,26 +58,42 @@ OUT_DIR = ROOT / "data" / "results"
 FLAG_VERDICTS = {"FAKE_NEWS", "FAKE_NEWS_WEB"}
 
 
-def load_test_set() -> list[dict]:
-    """Labelled test videos joined with their transcripts."""
-    labels = json.loads(TEST_LABELS.read_text(encoding="utf-8"))["items"]
-    transcripts = {
-        r["video_id"]: r
-        for r in json.loads(TRANSCRIPTS.read_text(encoding="utf-8"))
-    }
+# Which videos a run covers. dev exists so prompts can be chosen without looking
+# at the test set; its video-level labels follow the same annotation rules.
+DATASETS = {
+    "test": (TEST_LABELS, TRANSCRIPTS, 100),
+    "dev": (DEV_VIDEO_LABELS, DEV_DATASET, 35),
+}
+
+
+def load_test_set(dataset: str = "test") -> list[dict]:
+    """Labelled videos of one split, joined with their transcripts."""
+    labels_path, transcripts_path, _ = DATASETS[dataset]
+    if not labels_path.exists():
+        raise SystemExit(f"no labels for --dataset {dataset}: {labels_path} "
+                         f"does not exist")
+    labels = json.loads(labels_path.read_text(encoding="utf-8"))["items"]
+    rows = json.loads(transcripts_path.read_text(encoding="utf-8"))
+    rows = rows if isinstance(rows, list) else rows.get("videos", [])
+    transcripts = {r["video_id"]: r for r in rows}
     out = []
     for row in labels:
         vid = row["video_id"]
-        if vid in EXCLUDED:
+        # EXCLUDED holds the test set's exclusions; a label file may also carry
+        # its own per-item "exclude" reason (the dev labels do, for content
+        # duplicates of test videos and off-scope videos).
+        if vid in EXCLUDED or row.get("exclude"):
             continue
         rec = transcripts.get(vid)
         if not rec or not rec.get("transcript"):
             continue
-        out.append({**row, "transcript": rec["transcript"]})
+        # published_at dates the claim for the time check (rag/temporal.py).
+        out.append({**row, "transcript": rec["transcript"],
+                    "published_at": rec.get("published_at")})
     return out
 
 
-def preflight(web: str) -> list[str]:
+def preflight(web: str, dataset: str = "test") -> list[str]:
     """Everything that must be true before a multi-hour run. Returns problems."""
     problems = []
 
@@ -100,10 +122,13 @@ def preflight(web: str) -> list[str]:
         print(f"  evidence index : FAIL {type(e).__name__}: {e}")
         problems.append("evidence index missing or stale — run --build-index")
 
-    videos = load_test_set()
-    print(f"  test videos    : {len(videos)} labelled with usable transcripts")
-    if len(videos) < 100:
-        problems.append(f"only {len(videos)} test videos resolved; expected ~119")
+    videos = load_test_set(dataset)
+    minimum = DATASETS[dataset][2]
+    print(f"  {dataset} videos{' ' * (6 - len(dataset))} : {len(videos)} "
+          f"labelled with usable transcripts")
+    if len(videos) < minimum:
+        problems.append(f"only {len(videos)} {dataset} videos resolved; "
+                        f"expected at least {minimum}")
 
     try:
         backend = get_backend(web)
@@ -166,11 +191,59 @@ _RECORDED_SETTINGS = (
     "TOPIC_RANK_BONUS", "ROUTE_GAMMA", "ROUTE_FLOOR", "ROUTE_TOP_N",
     "FLAG_MIN_SIMILARITY", "CLAIM_WINDOW_WORDS", "CLAIM_STRIDE_WORDS",
     "EMBED_MODEL", "LLAMA_MODEL", "LLAMA_URL", "TEMPERATURE",
-    "USE_GRAMMAR", "USE_JSON_MODE",
+    "USE_GRAMMAR", "USE_JSON_MODE", "TIME_CHECK",
+    "OVERLAP_VETO",
 )
 
 
-def run_metadata(web: str, index) -> dict:
+def prompt_fingerprint(name: str) -> dict:
+    """Name and hash of the prompts in effect, so runs cannot be mixed."""
+    import hashlib
+    from rag import llm
+    def h(obj) -> str:
+        text = obj if isinstance(obj, str) else json.dumps(obj, sort_keys=True)
+        return hashlib.sha1(text.encode()).hexdigest()[:12]
+    # The output contract is part of the variant: stance_first changes the
+    # field order and the stance values, not only the wording.
+    return {"name": name, "sha1": {
+        "rag": h(llm.SYSTEM_PROMPT),
+        "parametric": h(llm.PARAMETRIC_PROMPT),
+        "contract": h([llm.VERDICT_GRAMMAR, llm.VERDICT_SCHEMA,
+                       llm.PARAMETRIC_GRAMMAR, llm.PARAMETRIC_SCHEMA]),
+    }}
+
+
+def apply_prompt(name: str) -> None:
+    """Swap the adjudication prompts for a named pair (tests/prompt_variants.py).
+
+    adjudicate() and adjudicate_parametric() read rag.llm's module globals at
+    call time, so rebinding them changes every call the pipeline makes, and
+    nothing else.
+    """
+    # "production" = rag/llm.py as it stands. Every other name, including
+    # "base", is a frozen pair from tests/prompt_variants.py.
+    if name == "production":
+        return
+    from rag import llm
+    from tests.prompt_variants import PROMPT_PAIRS
+    if name not in PROMPT_PAIRS:
+        raise SystemExit(f"unknown --prompt {name!r}; "
+                         f"choose from {sorted(PROMPT_PAIRS)}")
+    pair = PROMPT_PAIRS[name]
+    llm.SYSTEM_PROMPT = pair["rag"]
+    llm.PARAMETRIC_PROMPT = pair["parametric"]
+    # A variant may also replace the output contract (grammar + schema). Like
+    # the prompts, these are read from rag.llm's globals at call time.
+    for key, attr in (("rag_grammar", "VERDICT_GRAMMAR"),
+                      ("rag_schema", "VERDICT_SCHEMA"),
+                      ("parametric_grammar", "PARAMETRIC_GRAMMAR"),
+                      ("parametric_schema", "PARAMETRIC_SCHEMA")):
+        if key in pair:
+            setattr(llm, attr, pair[key])
+
+
+def run_metadata(web: str, index, dataset: str = "test",
+                 prompt: str = "production") -> dict:
     """Configuration and provenance for this run."""
     import platform
     import subprocess
@@ -188,25 +261,28 @@ def run_metadata(web: str, index) -> dict:
         "platform": platform.platform(),
         "web_backend": web,
         "corpus_passages": len(index.passages),
-        "labels_file": str(TEST_LABELS.relative_to(ROOT)),
+        "dataset": dataset,
+        "labels_file": str(DATASETS[dataset][0].relative_to(ROOT)),
+        "prompt": prompt_fingerprint(prompt),
         "flag_verdicts": sorted(FLAG_VERDICTS),
         "settings": {k: getattr(rag_config, k, None)
                      for k in _RECORDED_SETTINGS},
     }
 
 
-def run(web: str, limit: int | None, out: Path, condition: str = "rag") -> dict:
-    """Fact-check every test video, checkpointing after each."""
+def run(web: str, limit: int | None, out: Path, condition: str = "rag",
+        dataset: str = "test", prompt: str = "production") -> dict:
+    """Fact-check every video of a split, checkpointing after each."""
     index = EvidenceIndex.load()
     backend = get_backend(web)
-    videos = load_test_set()
+    videos = load_test_set(dataset)
     if limit:
         videos = videos[:limit]
 
     out.parent.mkdir(parents=True, exist_ok=True)
     payload = json.loads(out.read_text(encoding="utf-8")) if out.exists() else {}
     done = payload.get("videos", {})
-    meta = payload.get("run") or run_metadata(web, index)
+    meta = payload.get("run") or run_metadata(web, index, dataset, prompt)
     # A results file belongs to one condition; resuming it under another
     # would mix evidence-grounded and parametric verdicts in one figure.
     stored = meta.get("condition", "rag")
@@ -214,8 +290,15 @@ def run(web: str, limit: int | None, out: Path, condition: str = "rag") -> dict:
         raise SystemExit(f"{out} holds a {stored!r} run; refusing to resume "
                          f"it as {condition!r}")
     meta["condition"] = condition
+    # Same for the prompt: a resumed file must not mix two prompt variants.
+    # Older files predate the field and are taken to be the prompt they ran.
+    fp = prompt_fingerprint(prompt)
+    if payload and meta.get("prompt", fp) != fp:
+        raise SystemExit(f"{out} was run with prompt {meta['prompt']}; "
+                         f"refusing to resume it with {fp}")
+    meta["prompt"] = fp
     # A resumed run must not silently mix configurations.
-    current = run_metadata(web, index)["settings"]
+    current = run_metadata(web, index, dataset, prompt)["settings"]
     if meta.get("settings") and meta["settings"] != current:
         changed = {k: (meta["settings"].get(k), current.get(k))
                    for k in current
@@ -240,10 +323,12 @@ def run(web: str, limit: int | None, out: Path, condition: str = "rag") -> dict:
         vid = video["video_id"]
         print(f"[{n}/{len(todo)}] {vid}  {video['title'][:52]}")
         if condition == "parametric":
-            results = check_transcript_parametric(video["transcript"])
+            results = check_transcript_parametric(
+                video["transcript"], published=video.get("published_at"))
         else:
             results = check_transcript(
                 video["transcript"], index, verbose=False, web_fetch_fn=backend,
+                published=video.get("published_at"),
             )
         flags = [r for r in results if r["verdict"] in FLAG_VERDICTS]
         done[vid] = {
@@ -269,7 +354,8 @@ def run(web: str, limit: int | None, out: Path, condition: str = "rag") -> dict:
     return done
 
 
-def score(out: Path, summary_path: Path | None = None) -> None:
+def score(out: Path, summary_path: Path | None = None,
+          overlap_veto: bool = False) -> None:
     """Confusion matrix and per-narrative breakdown against the labels.
 
     Writes the same text to summary_path as well as stdout, so the scored
@@ -290,11 +376,24 @@ def score(out: Path, summary_path: Path | None = None) -> None:
         builtins.print(text, **kwargs)
     payload = json.loads(out.read_text(encoding="utf-8"))
     done = payload.get("videos", payload)   # tolerate the pre-metadata shape
+    if overlap_veto:
+        # Re-score a finished run under the overlap veto: deterministic and
+        # post-hoc, so it needs no model calls. The file is not rewritten.
+        from rag.pipeline import overlap_veto as _veto
+        for r in done.values():
+            if isinstance(r, dict) and "results" in r:
+                r["results"] = _veto(r["results"])
+                r["flags"] = sum(1 for x in r["results"]
+                                 if x["verdict"] in FLAG_VERDICTS)
+                r["predicted_fake_news"] = r["flags"] > 0
+        print("(re-scored with overlap veto)")
     meta = payload.get("run") or {}
     if meta:
         st = meta.get("settings", {})
         print(f"run: {meta.get('started')}  commit {meta.get('git_commit')}  "
               f"web={meta.get('web_backend')}  condition={meta.get('condition', 'rag')}")
+        print(f"     dataset={meta.get('dataset', 'test')}  "
+              f"prompt={(meta.get('prompt') or {}).get('name', 'unrecorded')}")
         print(f"     model={st.get('LLAMA_MODEL')} gamma={st.get('ROUTE_GAMMA')} "
               f"chunk={st.get('CHUNK_WORDS')}/{st.get('CHUNK_STRIDE')} "
               f"grammar={st.get('USE_GRAMMAR')}")
@@ -348,7 +447,8 @@ def score(out: Path, summary_path: Path | None = None) -> None:
             print(f"    {vid:12} {r['flags']}/{r['windows']} windows flagged")
 
     if summary_path is None:
-        summary_path = out.with_name(out.stem + "_summary.txt")
+        summary_path = out.with_name(
+            out.stem + ("_ov" if overlap_veto else "") + "_summary.txt")
     summary_path.parent.mkdir(parents=True, exist_ok=True)
     summary_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     import builtins
@@ -372,6 +472,20 @@ def main() -> int:
     ap.add_argument("--condition", default="rag", choices=("rag", "parametric"),
                     help="rag: retrieve evidence (default); parametric: no "
                          "retrieval, the model judges from its own knowledge")
+    ap.add_argument("--dataset", default="test", choices=sorted(DATASETS),
+                    help="test: the held-out set (default); dev: the tuning set, "
+                         "where prompts are compared")
+    ap.add_argument("--time-check", action="store_true",
+                    help="date the claim and evidence, add a TIME CHECK note to "
+                         "windows with time-bound wording, and override "
+                         "time-bound flags resting on later evidence")
+    ap.add_argument("--overlap-veto", action="store_true",
+                    help="withdraw a flag an overlapping window cleared; with "
+                         "--score, re-scores an existing run this way")
+    ap.add_argument("--prompt", default="production",
+                    help="prompt pair from tests/prompt_variants.py "
+                         "(default production = rag/llm.py as is; base, rules, "
+                         "rules_v2, stance_first, v0 are frozen variants)")
     args = ap.parse_args()
     if args.condition == "parametric" and args.web != "none":
         ap.error("--condition parametric uses no evidence; drop --web")
@@ -380,12 +494,25 @@ def main() -> int:
     # default path would have each run silently resume from, and overwrite,
     # another model's results.
     _slug = LLAMA_MODEL.replace("/", "-").replace(":", "-")
+    # Test-run names are unchanged for the base prompt, so existing files
+    # still resolve; a dev run always names its prompt.
+    _arm = 'parametric' if args.condition == 'parametric' else args.web
+    _suffix = ("" if args.dataset == "test" and args.prompt == "production"
+               else f"_{args.prompt}")
+    rag_config.TIME_CHECK = args.time_check or rag_config.TIME_CHECK
+    if rag_config.TIME_CHECK:
+        _suffix += "_tc"
+    # Not part of the filename when only re-scoring: the veto is post-hoc.
+    if not args.score:
+        rag_config.OVERLAP_VETO = args.overlap_veto or rag_config.OVERLAP_VETO
+        if rag_config.OVERLAP_VETO:
+            _suffix += "_ov"
     out = Path(args.out) if args.out else (
-        OUT_DIR / f"test_run_{_slug}_"
-        f"{'parametric' if args.condition == 'parametric' else args.web}.json")
+        OUT_DIR / f"{args.dataset}_run_{_slug}_{_arm}{_suffix}.json")
+    apply_prompt(args.prompt)
 
     if args.score:
-        score(out)
+        score(out, overlap_veto=args.overlap_veto)
         return 0
 
     if args.clear_cache:
@@ -393,7 +520,7 @@ def main() -> int:
         print(f"web cache: cleared {cache_clear()} entry(ies)\n")
 
     print("preflight:")
-    problems = preflight(args.web)
+    problems = preflight(args.web, args.dataset)
     if problems:
         print("\nNOT READY:")
         for p in problems:
@@ -404,8 +531,9 @@ def main() -> int:
         return 0
 
     print()
-    print(f"condition: {args.condition}")
-    run(args.web, args.limit, out, args.condition)
+    print(f"condition: {args.condition}   dataset: {args.dataset}   "
+          f"prompt: {args.prompt}")
+    run(args.web, args.limit, out, args.condition, args.dataset, args.prompt)
     print()
     score(out)
     return 0

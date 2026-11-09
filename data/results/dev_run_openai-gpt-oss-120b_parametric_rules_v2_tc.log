@@ -1,0 +1,54 @@
+preflight:
+  model server   : OK   https://openrouter.ai/api/v1 — openai/gpt-oss-120b offered, key valid (credit: 94.30 of 100 left)
+  output constr. : json_schema, provider-validated (OpenRouter)
+  NOTE           : remote backend — transcript text leaves this machine
+  model          : openai/gpt-oss-120b at https://openrouter.ai/api/v1
+  evidence index : OK   2488 passages
+  dev videos    : 38 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~349 (~2.0 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric   dataset: dev   prompt: rules_v2
+38 video(s) to run, 0 already done
+
+[1/38] 0h5VAb1Lk0U  Concerns about COVID-19 Vaccine Side Effects
+    ok    0/8 flagged   label=not 
+[2/38] dUlCqxeGFGw  Did Dr. Fauci purposely mislead the public about the
+    FLAG  1/7 flagged   label=not 
+[3/38] EaT5mGLYHnI  ‘Boy, he can’t let the public know…’: Sen. Johnson r
+    FLAG  17/20 flagged   label=fake
+[4/38] eqVz15W1Rmk  'Spike proteins in tumors?’: Sen Johnson drops bombs
+    FLAG  15/21 flagged   label=fake
+[5/38] 3AEgaNF4E2I  Does the COVID-19 Vaccine Cause Infertility? Yardlie
+    ok    0/1 flagged   label=not 
+[6/38] 4gaG0rWGBd8  The Truth About COVID (6 years later...)
+    FLAG  4/6 flagged   label=not 
+[7/38] _PrUE69QZvA  Are the COVID-19 vaccines safe?
+    FLAG  2/2 flagged   label=not 
+[8/38] Wtd0Hj00g_E  Do mRNA vaccines alter our DNA?! #mrna
+    FLAG  2/3 flagged   label=not 
+[9/38] Sl90BBpVZU0  Are Covid mRNA vaccines "toxic" to the ovaries? Shoc
+    FLAG  6/22 flagged   label=not 
+[10/38] AfXrd9C2ixs  What are the common side effects of the COVID-19 vac
+    FLAG  1/2 flagged   label=not 
+[11/38] RaLxhFiOBYk  Covid-19: Researcher blows the whistle on data integ
+    ok    0/8 flagged   label=not 
+[12/38] QANLh7B8kv4  Safety of COVID-19 vaccines – what we need to know
+    ok    0/3 flagged   label=not 
+[13/38] v-NEr3KCug8  How the COVID-19 vaccines were created so quickly - 
+    FLAG  1/10 flagged   label=not 
+[14/38] BML55JrmEhk  Does the COVID-19 vaccine have a microchip, cause de
+    ok    0/7 flagged   label=not 
+[15/38] s7cpfJgYS5c  Do COVID-19 Vaccines Cause Infertility? Dr. Mallika 
+    FLAG  2/8 flagged   label=not 
+[16/38] KdD76ta4NfA  Doctor Reveals SHOCKING Vaccine Truth: Kidney Failur
+    FLAG  1/2 flagged   label=not 
+[17/38] UijQ-6jhVuc  Doctor Dies After Getting COVID Vaccine? Post Vaccin
+    FLAG  3/19 flagged   label=not 
+[18/38] fZLxvo21XDg  How mRNA Vaccines Work (Covid-19 Pfizer and Moderna)
+    FLAG  2/6 flagged   label=not 
+[19/38] VZ3Lbhgyeyw  Does the COVID-19 Vaccine Cause Infertility? Joseph 
+    ok    0/5 flagged   label=not 
+[20/38] vWaeDMp4mIQ  The Shocking Truth About Vaccines
