@@ -1,0 +1,14 @@
+model=openai/gpt-oss-120b  dataset=test  prompt=production  videos=119 (parametric 119, rag 119)
+
+  parametric  TP  41  FP  49  FN   1   P 0.456  R 0.976  F1 0.621
+  rag         TP  37  FP  46  FN   5   P 0.446  R 0.881  F1 0.592
+  video-AND   TP  37  FP  41  FN   5   P 0.474  R 0.881  F1 0.617
+  window-AND  TP  37  FP  32  FN   5   P 0.536  R 0.881  F1 0.667
+
+(both runs re-scored with overlap veto)
+model=openai/gpt-oss-120b  dataset=test  prompt=production  videos=119 (parametric 119, rag 119)
+
+  parametric  TP  41  FP  35  FN   1   P 0.539  R 0.976  F1 0.695
+  rag         TP  37  FP  32  FN   5   P 0.536  R 0.881  F1 0.667
+  video-AND   TP  37  FP  26  FN   5   P 0.587  R 0.881  F1 0.705
+  window-AND  TP  34  FP  19  FN   8   P 0.642  R 0.810  F1 0.716

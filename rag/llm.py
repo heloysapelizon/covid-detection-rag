@@ -28,6 +28,7 @@ import re
 import requests
 
 from .config import (
+    LLM_REASONING,
     FLAG_MIN_SIMILARITY,
     IS_REMOTE,
     LLAMA_MODEL,
@@ -197,17 +198,40 @@ def build_prompt(claim: str, passages: list[dict], claim_date=None,
 
 
 def _extract_json(text: str) -> dict | None:
-    """Pull the first JSON object out of a response, tolerating stray prose."""
+    """Pull the first JSON object out of a response, tolerating stray prose.
+
+    Only a dict is ever returned. Qwen3.6-27B was observed sending the object
+    JSON-encoded as a string ('"{\\"stance\\": ...}"', sometimes after stray
+    characters), which json.loads turns into a str and every caller then
+    crashed on (`'str' object has no attribute 'get'`, 2026-11-10). Such a
+    reply is unwrapped; anything that is still not an object returns None, so
+    the caller retries it like any other reply without JSON. A reply that is
+    already a JSON object takes exactly the path it always did.
+    """
+    def as_dict(value):
+        if isinstance(value, str):          # an object encoded as a string
+            try:
+                value = json.loads(value)
+            except json.JSONDecodeError:
+                return None
+        return value if isinstance(value, dict) else None
+
     try:
-        return json.loads(text)
+        found = as_dict(json.loads(text))
+        if found is not None:
+            return found
     except json.JSONDecodeError:
         pass
     m = re.search(r"\{.*\}", text, re.S)
     if m:
-        try:
-            return json.loads(m.group(0))
-        except json.JSONDecodeError:
-            return None
+        chunk = m.group(0)
+        for candidate in (chunk, chunk.replace('\\"', '"')):   # escaped quotes
+            try:
+                found = as_dict(json.loads(candidate))
+            except json.JSONDecodeError:
+                continue
+            if found is not None:
+                return found
     return None
 
 
@@ -275,6 +299,11 @@ def _chat_once(
         # the schema guarantee would hold on some windows and not others. This
         # restricts routing to providers that honour every parameter sent.
         payload["provider"] = {"require_parameters": True}
+    if LLM_REASONING:
+        # Sent only when set, so the default request is byte-identical to
+        # every earlier run.
+        payload["reasoning"] = ({"enabled": False} if LLM_REASONING == "off"
+                                else {"effort": LLM_REASONING})
 
     headers = {}
     if IS_REMOTE:

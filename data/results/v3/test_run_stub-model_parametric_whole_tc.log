@@ -1,0 +1,1 @@
+PY tests/run_experiment.py --condition parametric --whole --time-check --out data/results/v3/test_run_stub-model_parametric_whole_tc.json

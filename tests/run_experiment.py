@@ -194,7 +194,7 @@ _RECORDED_SETTINGS = (
     "TOPIC_RANK_BONUS", "ROUTE_GAMMA", "ROUTE_FLOOR", "ROUTE_TOP_N",
     "FLAG_MIN_SIMILARITY", "CLAIM_WINDOW_WORDS", "CLAIM_STRIDE_WORDS",
     "EMBED_MODEL", "LLAMA_MODEL", "LLAMA_URL", "TEMPERATURE",
-    "USE_GRAMMAR", "USE_JSON_MODE", "TIME_CHECK",
+    "USE_GRAMMAR", "USE_JSON_MODE", "LLM_REASONING", "WHOLE_TRANSCRIPT", "TIME_CHECK",
     "OVERLAP_VETO",
 )
 
@@ -325,7 +325,18 @@ def run(web: str, limit: int | None, out: Path, condition: str = "rag",
     for n, video in enumerate(todo, 1):
         vid = video["video_id"]
         print(f"[{n}/{len(todo)}] {vid}  {video['title'][:52]}")
-        if condition == "parametric":
+        whole = None
+        if rag_config.WHOLE_TRANSCRIPT:
+            # One judgement per video (rag/whole.py); rows are claims, not windows.
+            from rag import whole as _whole
+            whole = (_whole.check_video_parametric(
+                         video["transcript"], published=video.get("published_at"))
+                     if condition == "parametric" else
+                     _whole.check_video_rag(video["transcript"], index,
+                                            web_fetch_fn=backend,
+                                            published=video.get("published_at")))
+            results = whole["rows"]
+        elif condition == "parametric":
             results = check_transcript_parametric(
                 video["transcript"], published=video.get("published_at"))
         else:
@@ -339,6 +350,11 @@ def run(web: str, limit: int | None, out: Path, condition: str = "rag",
             "confidence": video.get("confidence"),
             "narrative": video.get("narrative"),
             "predicted_fake_news": bool(flags),
+            # Whole-transcript mode only: the model's own true/false answer, kept
+            # beside the claim-derived prediction so disagreements are visible.
+            **({"model_fake_news": whole["model_fake_news"],
+                "claims": whole["claims"], "claims_truncated": whole["truncated"]}
+               if whole else {}),
             "windows": len(results),
             "flags": len(flags),
             "web_windows": sum(1 for r in results
@@ -430,6 +446,18 @@ def score(out: Path, summary_path: Path | None = None,
     rec = tp / (tp + fn) if tp + fn else 0.0
     f1 = 2 * prec * rec / (prec + rec) if prec + rec else 0.0
     acc = (tp + tn) / len(done) if done else 0.0
+    whole_rows = [r for r in done.values() if "model_fake_news" in r]
+    if whole_rows:
+        # The prediction is "at least one claim flagged" after the guards; the
+        # model's own answer can differ (guards overrode a flag, or it did not
+        # follow its own rule). Reported so neither is silently preferred.
+        disagree = [r for r in whole_rows
+                    if bool(r["model_fake_news"]) != r["predicted_fake_news"]]
+        print(f"  whole transcript: {sum(r.get('claims', 0) for r in whole_rows)} claims "
+              f"over {len(whole_rows)} videos; model's own fake_news disagrees with "
+              f"the claim verdicts on {len(disagree)} video(s); "
+              f"{sum(1 for r in whole_rows if r.get('claims_truncated'))} truncated "
+              f"at the claim cap\n")
     print(f"  precision {prec:.3f}   recall {rec:.3f}   F1 {f1:.3f}   "
           f"accuracy {acc:.3f}")
 
@@ -485,6 +513,10 @@ def main() -> int:
     ap.add_argument("--overlap-veto", action="store_true",
                     help="withdraw a flag an overlapping window cleared; with "
                          "--score, re-scores an existing run this way")
+    ap.add_argument("--whole", action="store_true",
+                    help="judge the whole transcript in one go (rag/whole.py) "
+                         "instead of 140-word windows; uses the v1 flagging "
+                         "instructions, so it takes no --prompt (--time-check works)")
     ap.add_argument("--prompt", default="production",
                     help="prompt pair from tests/prompt_variants.py "
                          "(default production = rag/llm.py as is; base, rules, "
@@ -502,6 +534,14 @@ def main() -> int:
     _arm = 'parametric' if args.condition == 'parametric' else args.web
     _suffix = ("" if args.dataset == "test" and args.prompt == "production"
                else f"_{args.prompt}")
+    _suffix += rag_config.reasoning_tag()
+    if args.whole:
+        if args.prompt != "production":
+            ap.error("--whole has fixed v1 instructions: drop --prompt")
+        rag_config.WHOLE_TRANSCRIPT = True
+        # The whole-transcript prompts are fixed (v1 instructions, rag/whole.py),
+        # so the prompt name would mislabel the file: only reasoning + mode.
+        _suffix = rag_config.reasoning_tag() + "_whole"
     rag_config.TIME_CHECK = args.time_check or rag_config.TIME_CHECK
     if rag_config.TIME_CHECK:
         _suffix += "_tc"

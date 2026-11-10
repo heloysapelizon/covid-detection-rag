@@ -1,0 +1,57 @@
+(re-scored with overlap veto)
+run: 2026-11-09T17:12:19Z  commit bf84ce3  web=tavily  condition=rag
+     dataset=test  prompt=production
+     model=openai/gpt-oss-120b gamma=0.3 chunk=55/35 grammar=False
+     corpus=2488 passages
+
+scored 119 video(s)
+
+                  predicted
+                fake    not
+  label fake      37      5
+  label not       32     45
+
+  precision 0.536   recall 0.881   F1 0.667   accuracy 0.689
+
+  windows answered on web evidence: 817
+
+  false negatives (5):
+    21hkEfN3UmA  [high] vaccine_passport_nazi_comparison
+    F-LD9pvPXQE  [medium] infertility
+    JxIkndSVRDI  [high] infertility
+    StUZ5b0-HUs  [medium] vaccine_efficacy+definition
+    n9yZ-TKtHQY  [high] plandemic_bioweapon
+
+  false positives (32):
+    -Vcm7bUocSg  5/8 windows flagged
+    2S2v45_NSYs  9/39 windows flagged
+    68QzzWGc4mI  10/33 windows flagged
+    BByJrQkInyU  13/63 windows flagged
+    BGdqLP4DSlA  2/7 windows flagged
+    Djlk3A8mEQI  2/12 windows flagged
+    F6NKbQzo4aE  4/17 windows flagged
+    I3kd5SyYHEE  1/6 windows flagged
+    MnEArHUiVXI  1/4 windows flagged
+    MrmiEBmeumA  1/7 windows flagged
+    PIcqomL17YA  7/17 windows flagged
+    TDLu5BJzaAE  2/5 windows flagged
+    UMGAO3SEz2Q  1/8 windows flagged
+    VOl2-xI76tI  3/13 windows flagged
+    YiLHB8F0hFI  1/2 windows flagged
+    YqFa-eglI60  1/6 windows flagged
+    cGF0D2poGyA  8/14 windows flagged
+    cnYae-4FN7c  1/1 windows flagged
+    fy3oJpuFzaI  9/34 windows flagged
+    gReF5xOBrzI  3/33 windows flagged
+    hEOO5Qzc8cQ  2/2 windows flagged
+    imxaAhjCSDw  1/1 windows flagged
+    j6Sn07fQeYM  5/24 windows flagged
+    jqD7rV2vYx4  1/10 windows flagged
+    mdwVaPBpks0  1/25 windows flagged
+    mkZ1MabMEZw  2/3 windows flagged
+    nucCr7Sywgc  1/18 windows flagged
+    ryZzJTL429k  7/20 windows flagged
+    tvrDH67EyRA  8/37 windows flagged
+    veAv-xJ-bY4  2/3 windows flagged
+    xE3KrtoDeRE  26/74 windows flagged
+    xmJXYT5IMdQ  3/4 windows flagged

@@ -105,6 +105,25 @@ TEMPERATURE = 0.0            # deterministic: this is classification, not writin
 # token, skipping the harmony channel header, and llama-server's harmony parser
 # then rejects every response with HTTP 500.
 _CONSTRAINT = os.environ.get("LLM_CONSTRAINT", "").lower()
+
+# Reasoning ("thinking") for models that support it, sent as OpenRouter's
+# `reasoning` parameter. Empty = the provider's default (gpt-oss and Qwen3
+# reason by default). "off" disables it; "low" / "medium" / "high" set the
+# effort. Recorded with every run, and a run with it set gets its own filename,
+# so a thinking and a non-thinking run are never mixed or resumed into each
+# other. Measured on 5 test windows (2026-11-10): Qwen3.6-27B takes 43 s per
+# window with reasoning and 3 s without; verdicts can differ.
+# Local llama-server sets this at launch instead (--reasoning-budget 0 for Gemma).
+LLM_REASONING = os.environ.get("LLM_REASONING", "").strip().lower()
+if LLM_REASONING not in ("", "off", "low", "medium", "high"):
+    raise ValueError(f"LLM_REASONING must be off, low, medium or high, not {LLM_REASONING!r}")
+
+
+def reasoning_tag() -> str:
+    """Filename suffix for the reasoning setting: '' by default, '_nothink' off."""
+    if not LLM_REASONING:
+        return ""
+    return "_nothink" if LLM_REASONING == "off" else f"_reasoning-{LLM_REASONING}"
 USE_GRAMMAR = (_CONSTRAINT == "grammar") if _CONSTRAINT else _IS_LLAMACPP
 USE_JSON_SCHEMA = (_CONSTRAINT == "json_schema") if _CONSTRAINT else _IS_OPENROUTER
 USE_JSON_MODE = (_CONSTRAINT == "json_object") if _CONSTRAINT else _IS_OLLAMA
@@ -228,3 +247,9 @@ TIME_CHECK = os.environ.get("TIME_CHECK", "0") in ("1", "true", "True")
 # quoted in one window and rebutted in the next. An abstention (NO_EVIDENCE,
 # UNVERIFIABLE) never vetoes. Deterministic, no extra model calls.
 OVERLAP_VETO = os.environ.get("OVERLAP_VETO", "0") in ("1", "true", "True")
+
+# --- Whole-transcript judgement ------------------------------------------------
+# Off: the transcript is judged in overlapping 140-word windows (the default).
+# On: one judgement per video over the whole transcript (rag/whole.py), set by
+# `tests/run_experiment.py --whole`. Recorded with every run.
+WHOLE_TRANSCRIPT = False

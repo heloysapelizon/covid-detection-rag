@@ -1,0 +1,17 @@
+run: 2026-11-10T22:06:06Z  commit 81fc940  web=none  condition=parametric
+     dataset=dev  prompt=production
+     model=openai/gpt-oss-120b gamma=0.3 chunk=55/35 grammar=False
+     corpus=2488 passages
+
+scored 2 video(s)
+
+                  predicted
+                fake    not
+  label fake       0      0
+  label not        0      2
+
+  whole transcript: 21 claims over 2 videos; model's own fake_news disagrees with the claim verdicts on 0 video(s); 0 truncated at the claim cap
+
+  precision 0.000   recall 0.000   F1 0.000   accuracy 1.000
+
+  windows answered on web evidence: 0

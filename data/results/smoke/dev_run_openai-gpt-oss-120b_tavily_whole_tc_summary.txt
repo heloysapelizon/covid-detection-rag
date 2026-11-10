@@ -1,0 +1,20 @@
+run: 2026-11-10T22:06:34Z  commit 81fc940  web=tavily  condition=rag
+     dataset=dev  prompt=production
+     model=openai/gpt-oss-120b gamma=0.3 chunk=55/35 grammar=False
+     corpus=2488 passages
+
+scored 2 video(s)
+
+                  predicted
+                fake    not
+  label fake       0      0
+  label not        1      1
+
+  whole transcript: 35 claims over 2 videos; model's own fake_news disagrees with the claim verdicts on 1 video(s); 0 truncated at the claim cap
+
+  precision 0.000   recall 0.000   F1 0.000   accuracy 0.500
+
+  windows answered on web evidence: 12
+
+  false positives (1):
+    0h5VAb1Lk0U  1/14 windows flagged

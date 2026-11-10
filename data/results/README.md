@@ -34,6 +34,24 @@ both arms, scored raw and with the overlap veto, plus the verifier
 | `web_cache_before_v2_test_runs.tar.gz` | the web cache as it stood before the v2 test runs |
 | `llm_failures_*.jsonl`, `server_*.log` | as in v1, for v2 runs |
 
+## v3/ — whole-transcript protocol
+
+`WHOLE=1 scripts/run_test_model.sh` (rag/whole.py): one judgement per video over
+the whole transcript instead of 140-word windows, with the v1 flagging
+instructions and the time check: dates in the prompt and a TIME CHECK note for
+time-bound wording (rag/temporal.py). Unlike v2 there is no deterministic time
+guard: the model sees the dates and decides. The parametric arm is one call per video; the
+evidence arm extracts the claims, retrieves corpus evidence for each, judges
+them all in one call, and searches the web for at most 6 claims the corpus
+cannot address. Rows are claims, not windows: the overlap veto does not apply,
+and the verifier is read at video level (`video-AND`).
+
+| files | what |
+|---|---|
+| `test_run_<model>_{parametric,tavily}_whole_tc.*` | test-set runs; `model_fake_news` per video = the model's own true/false |
+| `test_run_<model>_verifier_whole_tc.txt` | the verifier (read the `video-AND` row) |
+| `protocol_<model>_whole_tc.log` | everything the protocol script printed |
+
 ## smoke/ — short checks
 
 Runs on a few videos (`--limit`), to check that a backend and the whole chain

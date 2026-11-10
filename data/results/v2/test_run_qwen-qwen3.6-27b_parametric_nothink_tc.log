@@ -1,0 +1,74 @@
+preflight:
+  model server   : OK   https://openrouter.ai/api/v1 — qwen/qwen3.6-27b offered, key valid (credit: 39.69 of 50 left)
+  output constr. : json_schema, provider-validated (OpenRouter)
+  NOTE           : remote backend — transcript text leaves this machine
+  model          : qwen/qwen3.6-27b at https://openrouter.ai/api/v1
+  evidence index : OK   2488 passages
+  test videos   : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric   dataset: test   prompt: production
+119 video(s) to run, 0 already done
+
+[1/119] 0-3aELGEIUY  What We Know Now About True Benefits and Dangers of 
+    FLAG  15/21 flagged   label=fake
+[2/119] 21hkEfN3UmA  The Covid vaccine passports with Dr. Joe Mercola
+    FLAG  3/4 flagged   label=fake
+[3/119] 2MrNkagJIwY  Pfizer Scientist tell the Truth about COVID and the 
+    FLAG  13/17 flagged   label=fake
+[4/119] 33vf9wJv_lw  Rizza Islam Talks COVID Vaccine | Big Facts Podcast
+    FLAG  8/15 flagged   label=fake
+[5/119] 6HzRcPGqzvs  First Aid: Rizza Islam Explains Why Parents Should N
+    FLAG  50/65 flagged   label=fake
+[6/119] 7LoJ850ZorY  The Myth of COVID‑21 - Dr Rashid Buttar
+    FLAG  8/18 flagged   label=fake
+[7/119] 7QuTr4fIiyU  Doctor testifies on the dangerous side effects of CO
+    FLAG  10/12 flagged   label=fake
+[8/119] 8a-MTuhfw98  New flu mRNA vac, dangers
+    FLAG  11/17 flagged   label=fake
+[9/119] 9sW0OmzcmL0  The Problem With the COVID Vaccine | Robert F. Kenne
+    FLAG  16/21 flagged   label=fake
+[10/119] EcCyZwjHs9M  &#39;COVID Vaccine was not a vaccine, it was…&#39;: 
+    FLAG  22/24 flagged   label=fake
+[11/119] F-LD9pvPXQE  Did The COVID Shot Affect Fertility?
+    FLAG  1/1 flagged   label=fake
+[12/119] Fu8lEbQXSKM  The Truth About Excess Deaths Since COVID Vaxx Is Mi
+    FLAG  5/13 flagged   label=fake
+[13/119] HFdOuBJ6aac  ‘PATHOLOGICAL LIAR’: Fauci blasted over EXPLOSIVE di
+    FLAG  10/10 flagged   label=fake
+[14/119] I06-UcSG8Tk  RFK Jr. on Young Turks: Vaccine Crossfire
+    FLAG  31/39 flagged   label=fake
+[15/119] IUIBYfAgoCk  The COVID Vaccine DNA Bombshell They Tried to Hide |
+    FLAG  16/21 flagged   label=fake
+[16/119] JxIkndSVRDI  Shocking Findings: Could COVID-19 Vaccines Impact Fe
+    FLAG  2/2 flagged   label=fake
+[17/119] NtuMf0F9SlI  mRNA Vaccines Install the Genetic Code for Lethal Sp
+    FLAG  23/28 flagged   label=fake
+[18/119] OqSbJ8TxOx8  COVID-19 vaccine caused blood clots: Doctor testimon
+    FLAG  4/6 flagged   label=fake
+[19/119] P0lymSkLbTs  Covid vaccine adverse reactions
+    FLAG  1/1 flagged   label=fake
+[20/119] PMDcOTWEEcI  The Coronavirus Agenda: What The Mainstream Media Do
+    FLAG  96/126 flagged   label=fake
+[21/119] SE78ocLgStc  &#39;See for yourself!&#39; | Neil Oliver uncovers A
+    FLAG  14/20 flagged   label=fake
+[22/119] StUZ5b0-HUs  Truth About COVID Vaccines And Lockdown. #shorts #co
+    FLAG  1/2 flagged   label=fake
+[23/119] UjvwoteSlTI  All MRNA vaccines risky
+    FLAG  32/44 flagged   label=fake
+[24/119] XXG_9Wm_dOE  &#39;COVID vaccine has worst side effects ever&#39;:
+    FLAG  16/22 flagged   label=fake
+[25/119] Y6_jn0DzXHI  The Secret Element in the Covid Vaccine: What They W
+    FLAG  10/11 flagged   label=fake
+[26/119] Z6qlcRGzh-Q  Senate investigates what health officials knew about
+    FLAG  5/8 flagged   label=fake
+[27/119] ZRrCYM3LsYM  Doctor Explains: MRNA Vaccine Issues
+    FLAG  9/20 flagged   label=fake
+[28/119] _BNyKPuAPD0  Exposing COVID-19 Vaccine Reactions | Are Side Effec
+    FLAG  2/27 flagged   label=fake
+[29/119] _SJ3GWZq0jI  &#39;CANCER OCCURRED near injection sites...&#39;: B
+    FLAG  6/14 flagged   label=fake
+[30/119] cIGTf5qO5as  When will we Learn the TRUTH about COVID Vaccines?

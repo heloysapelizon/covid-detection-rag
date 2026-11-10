@@ -22,6 +22,11 @@
 # Every step resumes: re-running the script after an interruption continues the
 # unfinished run and re-scores the rest.
 #
+# WHOLE=1 runs the whole-transcript protocol instead (rag/whole.py): one
+# judgement per video with the v1 flagging instructions plus the time check,
+# results in data/results/v3/. The overlap veto does not apply (claims are not
+# overlapping windows), and the verifier is read at video level (video-AND).
+#
 # Where things go (data/results/README.md):
 #   data/results/$RESULTS_VERSION/   full runs, scores, verifier, this script's log
 #                                    (RESULTS_VERSION defaults to v2)
@@ -34,24 +39,36 @@ PY=${PY:-.venv/bin/python}
 : "${LLAMA_MODEL:?set LLAMA_MODEL (and LLM_SERVER for a remote model)}"
 SLUG=${LLAMA_MODEL//\//-}
 SLUG=${SLUG//:/-}
-export RESULTS_VERSION=${RESULTS_VERSION:-v2}
+if [[ ${WHOLE:-0} == 1 ]]; then
+  export RESULTS_VERSION=${RESULTS_VERSION:-v3}
+  FEATURES=(--whole --time-check); MODE=_whole_tc
+else
+  export RESULTS_VERSION=${RESULTS_VERSION:-v2}
+  FEATURES=(--time-check); MODE=_tc
+fi
 RESULTS=data/results/$RESULTS_VERSION
 SMOKE=data/results/smoke
 R=$RESULTS/test_run_${SLUG}
-FEATURES=(--time-check)
+# Same tag the runner adds for LLM_REASONING (rag/config.py reasoning_tag), so a
+# non-thinking run never resumes into, or overwrites, a thinking one.
+case "${LLM_REASONING:-}" in
+  "")  TAG="" ;;
+  off) TAG="_nothink" ;;
+  *)   TAG="_reasoning-${LLM_REASONING}" ;;
+esac
 export PYTHONUNBUFFERED=1
 mkdir -p "$RESULTS" "$SMOKE"
 # Everything this script prints also goes to its protocol log.
-exec > >(tee -a "$RESULTS/protocol_${SLUG}_tc.log") 2>&1
+exec > >(tee -a "$RESULTS/protocol_${SLUG}${TAG}${MODE}.log") 2>&1
 
-echo "=== $(date '+%F %T') preflight  model=$LLAMA_MODEL  server=${LLM_SERVER:-llamacpp}"
+echo "=== $(date '+%F %T') preflight  model=$LLAMA_MODEL  server=${LLM_SERVER:-llamacpp}  reasoning=${LLM_REASONING:-default}"
 $PY tests/run_experiment.py --check --web tavily
 
 for arm in parametric tavily; do
   if [[ $arm == parametric ]]; then args=(--condition parametric)
   else args=(--web tavily); fi
-  out=${R}_${arm}_tc.json
-  smoke_out=$SMOKE/test_run_${SLUG}_${arm}_tc.json
+  out=${R}_${arm}${TAG}${MODE}.json
+  smoke_out=$SMOKE/test_run_${SLUG}_${arm}${TAG}${MODE}.json
   # Each model fetches its own web evidence, as in the earlier test runs: the
   # cache is cleared once, before the evidence arm's first video. Not on a
   # resume, which would refetch (and pay for) evidence the run already used.
@@ -74,15 +91,19 @@ for arm in parametric tavily; do
   fi
   echo "=== $(date '+%F %T') full   $arm  -> $out"
   $PY tests/run_experiment.py "${args[@]}" "${FEATURES[@]}" --out "$out" 2>&1 \
-    | tee -a "${R}_${arm}_tc.log"
-  echo "=== $(date '+%F %T') score  $arm with overlap veto"
-  $PY tests/run_experiment.py --score --overlap-veto --out "$out"
+    | tee -a "${R}_${arm}${TAG}${MODE}.log"
+  if [[ $MODE == _tc ]]; then
+    echo "=== $(date '+%F %T') score  $arm with overlap veto"
+    $PY tests/run_experiment.py --score --overlap-veto --out "$out"
+  fi
 done
 
 echo "=== $(date '+%F %T') verifier"
 {
-  $PY tests/score_verifier.py "${R}_parametric_tc.json" "${R}_tavily_tc.json"
-  echo
-  $PY tests/score_verifier.py "${R}_parametric_tc.json" "${R}_tavily_tc.json" --overlap-veto
-} | tee "${R}_verifier_tc.txt"
+  $PY tests/score_verifier.py "${R}_parametric${TAG}${MODE}.json" "${R}_tavily${TAG}${MODE}.json"
+  if [[ $MODE == _tc ]]; then
+    echo
+    $PY tests/score_verifier.py "${R}_parametric${TAG}${MODE}.json" "${R}_tavily${TAG}${MODE}.json" --overlap-veto
+  fi
+} | tee "${R}_verifier${TAG}${MODE}.txt"
 echo "=== $(date '+%F %T') done"

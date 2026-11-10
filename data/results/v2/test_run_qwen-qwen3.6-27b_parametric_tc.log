@@ -16,3 +16,280 @@ condition: parametric   dataset: test   prompt: production
 [1/116] 33vf9wJv_lw  Rizza Islam Talks COVID Vaccine | Big Facts Podcast
     FLAG  9/15 flagged   label=fake
 [2/116] 6HzRcPGqzvs  First Aid: Rizza Islam Explains Why Parents Should N
+preflight:
+  model server   : OK   https://openrouter.ai/api/v1 — qwen/qwen3.6-27b offered, key valid (credit: 92.86 of 100 left)
+  output constr. : json_schema, provider-validated (OpenRouter)
+  NOTE           : remote backend — transcript text leaves this machine
+  model          : qwen/qwen3.6-27b at https://openrouter.ai/api/v1
+  evidence index : OK   2488 passages
+  test videos   : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric   dataset: test   prompt: production
+115 video(s) to run, 4 already done
+
+[1/115] 6HzRcPGqzvs  First Aid: Rizza Islam Explains Why Parents Should N
+    FLAG  48/65 flagged   label=fake
+[2/115] 7LoJ850ZorY  The Myth of COVID‑21 - Dr Rashid Buttar
+    FLAG  7/18 flagged   label=fake
+[3/115] 7QuTr4fIiyU  Doctor testifies on the dangerous side effects of CO
+    FLAG  11/12 flagged   label=fake
+[4/115] 8a-MTuhfw98  New flu mRNA vac, dangers
+    FLAG  9/17 flagged   label=fake
+[5/115] 9sW0OmzcmL0  The Problem With the COVID Vaccine | Robert F. Kenne
+    FLAG  16/21 flagged   label=fake
+[6/115] EcCyZwjHs9M  &#39;COVID Vaccine was not a vaccine, it was…&#39;: 
+    retry: ConnectionError: HTTPSConnectionPool(host='openrouter.ai', port=443): Read timed out.
+    FLAG  21/24 flagged   label=fake
+[7/115] F-LD9pvPXQE  Did The COVID Shot Affect Fertility?
+    FLAG  1/1 flagged   label=fake
+[8/115] Fu8lEbQXSKM  The Truth About Excess Deaths Since COVID Vaxx Is Mi
+    FLAG  5/13 flagged   label=fake
+[9/115] HFdOuBJ6aac  ‘PATHOLOGICAL LIAR’: Fauci blasted over EXPLOSIVE di
+    FLAG  10/10 flagged   label=fake
+[10/115] I06-UcSG8Tk  RFK Jr. on Young Turks: Vaccine Crossfire
+    FLAG  27/39 flagged   label=fake
+[11/115] IUIBYfAgoCk  The COVID Vaccine DNA Bombshell They Tried to Hide |
+    FLAG  17/21 flagged   label=fake
+[12/115] JxIkndSVRDI  Shocking Findings: Could COVID-19 Vaccines Impact Fe
+    FLAG  2/2 flagged   label=fake
+[13/115] NtuMf0F9SlI  mRNA Vaccines Install the Genetic Code for Lethal Sp
+    FLAG  21/28 flagged   label=fake
+[14/115] OqSbJ8TxOx8  COVID-19 vaccine caused blood clots: Doctor testimon
+    FLAG  4/6 flagged   label=fake
+[15/115] P0lymSkLbTs  Covid vaccine adverse reactions
+    FLAG  1/1 flagged   label=fake
+[16/115] PMDcOTWEEcI  The Coronavirus Agenda: What The Mainstream Media Do
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+preflight:
+  model server   : OK   https://openrouter.ai/api/v1 — qwen/qwen3.6-27b offered, key valid (credit: 49.99 of 50 left)
+  output constr. : json_schema, provider-validated (OpenRouter)
+  NOTE           : remote backend — transcript text leaves this machine
+  model          : qwen/qwen3.6-27b at https://openrouter.ai/api/v1
+  evidence index : OK   2488 passages
+  test videos   : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric   dataset: test   prompt: production
+100 video(s) to run, 19 already done
+
+[1/100] PMDcOTWEEcI  The Coronavirus Agenda: What The Mainstream Media Do
+preflight:
+  model server   : OK   https://openrouter.ai/api/v1 — qwen/qwen3.6-27b offered, key valid (credit: 49.99 of 50 left)
+  output constr. : json_schema, provider-validated (OpenRouter)
+  NOTE           : remote backend — transcript text leaves this machine
+  model          : qwen/qwen3.6-27b at https://openrouter.ai/api/v1
+  evidence index : OK   2488 passages
+  test videos   : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric   dataset: test   prompt: production
+100 video(s) to run, 19 already done
+
+[1/100] PMDcOTWEEcI  The Coronavirus Agenda: What The Mainstream Media Do
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
