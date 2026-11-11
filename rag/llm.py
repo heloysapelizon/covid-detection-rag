@@ -208,16 +208,19 @@ def _extract_json(text: str) -> dict | None:
     the caller retries it like any other reply without JSON. A reply that is
     already a JSON object takes exactly the path it always did.
     """
+    # strict=False: a GBNF string (char ::= [^"\\] | ...) admits a raw newline,
+    # which strict JSON rejects; such a reply is grammar-valid and must parse
+    # (observed: gemma-4-12b, whole-transcript mode, 2026-11-11).
     def as_dict(value):
         if isinstance(value, str):          # an object encoded as a string
             try:
-                value = json.loads(value)
+                value = json.loads(value, strict=False)
             except json.JSONDecodeError:
                 return None
         return value if isinstance(value, dict) else None
 
     try:
-        found = as_dict(json.loads(text))
+        found = as_dict(json.loads(text, strict=False))
         if found is not None:
             return found
     except json.JSONDecodeError:
@@ -227,7 +230,7 @@ def _extract_json(text: str) -> dict | None:
         chunk = m.group(0)
         for candidate in (chunk, chunk.replace('\\"', '"')):   # escaped quotes
             try:
-                found = as_dict(json.loads(candidate))
+                found = as_dict(json.loads(candidate, strict=False))
             except json.JSONDecodeError:
                 continue
             if found is not None:

@@ -226,24 +226,27 @@ JUDGE_SCHEMA = _schema(
 
 # GBNF equivalents for llama.cpp, in the same field order.
 _GBNF_COMMON = r'''
+# Bounded on purpose (2026-11-11): unbounded ws let gemma-4-12b pad a reply with
+# newlines until the token cap, and an unbounded array let it list 86 claims
+# against an instruction of at most MAX_CLAIMS. {0,24} = MAX_CLAIMS - 1 more items.
 stance ::= "\"asserting\"" | "\"denying\"" | "\"neutral\""
 bool   ::= "true" | "false"
 int    ::= [0-9]+
 string ::= "\"" char* "\""
 char   ::= [^"\\] | "\\" ["\\/bfnrt]
-ws     ::= [ \t\n]*
+ws     ::= [ \t\n]{0,16}
 '''
 PARAMETRIC_GRAMMAR = r'''
-root   ::= "{" ws "\"claims\":" ws "[" ws (item (ws "," ws item)*)? ws "]" "," ws "\"fake_news\":" ws bool ws "}"
+root   ::= "{" ws "\"claims\":" ws "[" ws (item (ws "," ws item){0,24})? ws "]" "," ws "\"fake_news\":" ws bool ws "}"
 item   ::= "{" ws "\"phrase\":" ws string "," ws "\"stance\":" ws stance "," ws "\"verdict\":" ws verdict "," ws "\"evidence\":" ws string ws "}"
 verdict ::= "\"FAKE_NEWS\"" | "\"NOT_FAKE_NEWS\"" | "\"UNVERIFIABLE\""
 ''' + _GBNF_COMMON
 EXTRACT_GRAMMAR = r'''
-root   ::= "{" ws "\"claims\":" ws "[" ws (item (ws "," ws item)*)? ws "]" ws "}"
+root   ::= "{" ws "\"claims\":" ws "[" ws (item (ws "," ws item){0,24})? ws "]" ws "}"
 item   ::= "{" ws "\"phrase\":" ws string "," ws "\"stance\":" ws stance ws "}"
 ''' + _GBNF_COMMON
 JUDGE_GRAMMAR = r'''
-root   ::= "{" ws "\"judgements\":" ws "[" ws (item (ws "," ws item)*)? ws "]" "," ws "\"fake_news\":" ws bool ws "}"
+root   ::= "{" ws "\"judgements\":" ws "[" ws (item (ws "," ws item){0,24})? ws "]" "," ws "\"fake_news\":" ws bool ws "}"
 item   ::= "{" ws "\"claim\":" ws int "," ws "\"addresses\":" ws yesno "," ws "\"stance\":" ws stance "," ws "\"verdict\":" ws verdict "," ws "\"evidence_id\":" ws string "," ws "\"evidence\":" ws string ws "}"
 yesno  ::= "\"yes\"" | "\"no\""
 verdict ::= "\"FAKE_NEWS\"" | "\"NOT_FAKE_NEWS\"" | "\"NO_EVIDENCE\""
@@ -338,7 +341,7 @@ def check_video_parametric(transcript: str, published: str | None = None) -> dic
                          reason=reason))
     return {"rows": rows, "model_fake_news": parsed.get("fake_news"),
             "claims": len(claims),
-            "truncated": len(parsed.get("claims") or []) > MAX_CLAIMS}
+            "truncated": len(parsed.get("claims") or []) >= MAX_CLAIMS}
 
 
 def _evidence_block(claims: list[dict], passages: dict[int, list[dict]]) -> str:
@@ -414,7 +417,7 @@ def check_video_rag(transcript: str, index, web_fetch_fn=None,
               for c in claims if str(c.get("phrase", "")).strip()]
     if not claims:
         return {"rows": [], "model_fake_news": False, "claims": 0, "truncated": False}
-    truncated = len(parsed.get("claims") or []) > MAX_CLAIMS
+    truncated = len(parsed.get("claims") or []) >= MAX_CLAIMS  # at the cap
 
     passages = {n: index.search(c["phrase"], top_k=PASSAGES_PER_CLAIM, expand=0)
                 for n, c in enumerate(claims, 1)}
