@@ -1,0 +1,14 @@
+model=gemma-4-12b  dataset=test  prompt=production  videos=119 (parametric 119, rag 119)
+
+  parametric  TP  41  FP  32  FN   1   P 0.562  R 0.976  F1 0.713
+  rag         TP  41  FP  34  FN   1   P 0.547  R 0.976  F1 0.701
+  video-AND   TP  41  FP  28  FN   1   P 0.594  R 0.976  F1 0.739
+  window-AND  TP  41  FP  21  FN   1   P 0.661  R 0.976  F1 0.788
+
+(both runs re-scored with overlap veto)
+model=gemma-4-12b  dataset=test  prompt=production  videos=119 (parametric 119, rag 119)
+
+  parametric  TP  41  FP  22  FN   1   P 0.651  R 0.976  F1 0.781
+  rag         TP  40  FP  25  FN   2   P 0.615  R 0.952  F1 0.748
+  video-AND   TP  40  FP  19  FN   2   P 0.678  R 0.952  F1 0.792
+  window-AND  TP  40  FP  15  FN   2   P 0.727  R 0.952  F1 0.825

@@ -1,0 +1,47 @@
+(re-scored with overlap veto)
+run: 2026-11-09T20:45:03Z  commit 5ca1284  web=tavily  condition=rag
+     dataset=test  prompt=production
+     model=gemma-4-12b gamma=0.3 chunk=55/35 grammar=True
+     corpus=2488 passages
+
+scored 119 video(s)
+
+                  predicted
+                fake    not
+  label fake      40      2
+  label not       25     52
+
+  precision 0.615   recall 0.952   F1 0.748   accuracy 0.773
+
+  windows answered on web evidence: 405
+
+  false negatives (2):
+    21hkEfN3UmA  [high] vaccine_passport_nazi_comparison
+    F-LD9pvPXQE  [medium] infertility
+
+  false positives (25):
+    -Vcm7bUocSg  1/8 windows flagged
+    2S2v45_NSYs  2/39 windows flagged
+    68QzzWGc4mI  19/33 windows flagged
+    BByJrQkInyU  1/63 windows flagged
+    BGdqLP4DSlA  1/7 windows flagged
+    DjMqylDmbP8  3/10 windows flagged
+    Djlk3A8mEQI  4/12 windows flagged
+    F6NKbQzo4aE  3/17 windows flagged
+    FXRsR0qsViU  2/4 windows flagged
+    PIcqomL17YA  2/17 windows flagged
+    Qe5_86qCNRo  3/11 windows flagged
+    Qf0JSP7VtgU  1/10 windows flagged
+    VOl2-xI76tI  4/13 windows flagged
+    YqFa-eglI60  3/6 windows flagged
+    ZHx_DdSip78  1/4 windows flagged
+    fy3oJpuFzaI  7/34 windows flagged
+    gReF5xOBrzI  2/33 windows flagged
+    gcExM22XkYs  1/4 windows flagged
+    imxaAhjCSDw  1/1 windows flagged
+    j6Sn07fQeYM  6/24 windows flagged
+    jqD7rV2vYx4  1/10 windows flagged
+    mkZ1MabMEZw  3/3 windows flagged
+    tvrDH67EyRA  2/37 windows flagged
+    xE3KrtoDeRE  35/74 windows flagged
+    xmJXYT5IMdQ  2/4 windows flagged
