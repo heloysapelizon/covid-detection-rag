@@ -1,0 +1,1043 @@
+=== 2026-11-11 18:56:11 preflight  model=gemma-4-12b  server=llamacpp  reasoning=default
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gemma-4-12b-it-Q4_K_M.gguf
+  output constr. : GBNF grammar, enforced during sampling (llama.cpp)
+  model          : gemma-4-12b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos   : 119 labelled with usable transcripts
+  web fallback   : tavily
+                   probe OK -> https://www.who.int/teams/immunization-vaccines-and-
+  web cache      : on, 402 entry(ies) — a non-empty cache means some evidence is replayed, not refetched
+  claim windows  : ~1588 (~12.5 h at 28.4 s/window on CPU)
+
+all checks passed
+=== 2026-11-11 18:56:13 smoke  parametric
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gemma-4-12b-it-Q4_K_M.gguf
+  output constr. : GBNF grammar, enforced during sampling (llama.cpp)
+  model          : gemma-4-12b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos   : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric   dataset: test   prompt: production
+3 video(s) to run, 0 already done
+
+[1/3] 0-3aELGEIUY  What We Know Now About True Benefits and Dangers of 
+    FLAG  8/9 flagged   label=fake
+[2/3] 21hkEfN3UmA  The Covid vaccine passports with Dr. Joe Mercola
+    retry: model did not return JSON: {"claims": [
+    {"phrase": "you are going to need a vaccine passport if you want to travel b
+    FLAG  3/25 flagged   label=fake
+[3/3] 2MrNkagJIwY  Pfizer Scientist tell the Truth about COVID and the 
+    FLAG  7/16 flagged   label=fake
+
+finished in 10.1 min
+
+run: 2026-11-11T21:56:13Z  commit 7117db7  web=none  condition=parametric
+     dataset=test  prompt=production
+     model=gemma-4-12b gamma=0.3 chunk=55/35 grammar=True
+     corpus=2488 passages
+
+scored 3 video(s)
+
+                  predicted
+                fake    not
+  label fake       3      0
+  label not        0      0
+
+  whole transcript: 50 claims over 3 videos; model's own fake_news disagrees with the claim verdicts on 0 video(s); 1 truncated at the claim cap
+
+  precision 1.000   recall 1.000   F1 1.000   accuracy 1.000
+
+  windows answered on web evidence: 0
+
+summary written to data/results/smoke/test_run_gemma-4-12b_parametric_whole_tc_summary.txt
+3 videos, 50 windows, verdicts: {'FAKE_NEWS': 18, 'UNVERIFIABLE': 14, 'NOT_FAKE_NEWS': 18}
+0 video(s) with ERROR windows
+12.1 s/window (valid for a non-resumed run)
+=== 2026-11-11 19:06:22 full   parametric  -> data/results/v3/test_run_gemma-4-12b_parametric_whole_tc.json
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gemma-4-12b-it-Q4_K_M.gguf
+  output constr. : GBNF grammar, enforced during sampling (llama.cpp)
+  model          : gemma-4-12b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos   : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric   dataset: test   prompt: production
+106 video(s) to run, 13 already done
+
+[1/106] I06-UcSG8Tk  RFK Jr. on Young Turks: Vaccine Crossfire
+    FLAG  6/25 flagged   label=fake
+[2/106] IUIBYfAgoCk  The COVID Vaccine DNA Bombshell They Tried to Hide |
+    FLAG  18/25 flagged   label=fake
+[3/106] JxIkndSVRDI  Shocking Findings: Could COVID-19 Vaccines Impact Fe
+    FLAG  3/7 flagged   label=fake
+[4/106] NtuMf0F9SlI  mRNA Vaccines Install the Genetic Code for Lethal Sp
+    FLAG  25/25 flagged   label=fake
+[5/106] OqSbJ8TxOx8  COVID-19 vaccine caused blood clots: Doctor testimon
+    FLAG  22/25 flagged   label=fake
+[6/106] P0lymSkLbTs  Covid vaccine adverse reactions
+    FLAG  1/5 flagged   label=fake
+[7/106] PMDcOTWEEcI  The Coronavirus Agenda: What The Mainstream Media Do
+    FLAG  22/25 flagged   label=fake
+[8/106] SE78ocLgStc  &#39;See for yourself!&#39; | Neil Oliver uncovers A
+    FLAG  8/25 flagged   label=fake
+[9/106] StUZ5b0-HUs  Truth About COVID Vaccines And Lockdown. #shorts #co
+    FLAG  2/6 flagged   label=fake
+[10/106] UjvwoteSlTI  All MRNA vaccines risky
+    FLAG  25/25 flagged   label=fake
+[11/106] XXG_9Wm_dOE  &#39;COVID vaccine has worst side effects ever&#39;:
+    retry: model did not return JSON: {"claims": [{"phrase": "The COVID shots have negative efficacy after six months.", "stance": 
+    FLAG  24/25 flagged   label=fake
+[12/106] Y6_jn0DzXHI  The Secret Element in the Covid Vaccine: What They W
+    FLAG  18/25 flagged   label=fake
+[13/106] Z6qlcRGzh-Q  Senate investigates what health officials knew about
+    retry: model did not return JSON: {"claims": [
+    {"phrase": "VARES has existed for about 30 years", "stance": "asserting", "v
+    retry: model did not return JSON: {"claims": [
+    {"phrase": "VARES has existed for about 30 years", "stance": "asserting", "v
+    ok    0/1 flagged   label=fake
+[14/106] ZRrCYM3LsYM  Doctor Explains: MRNA Vaccine Issues
+    ok    0/25 flagged   label=fake
+[15/106] _BNyKPuAPD0  Exposing COVID-19 Vaccine Reactions | Are Side Effec
+    ok    0/25 flagged   label=fake
+[16/106] _SJ3GWZq0jI  &#39;CANCER OCCURRED near injection sites...&#39;: B
+    FLAG  5/6 flagged   label=fake
+[17/106] cIGTf5qO5as  When will we Learn the TRUTH about COVID Vaccines?
+    FLAG  1/25 flagged   label=fake
+[18/106] cV4jUXBWpvA  The SCARY TRUTH about COVID Vaccines
+    FLAG  24/25 flagged   label=fake
+[19/106] giS6CiT1qTE  Study reveals new heart health concerns from COVID v
+    retry: model did not return JSON: {"claims": [
+    {"phrase": "heart inflammation risks tied to the vaccines maybe far greater 
+    FLAG  10/10 flagged   label=fake
+[20/106] kda_j6EyAg8  Vaccines and fertility
+    FLAG  10/13 flagged   label=fake
+[21/106] n9yZ-TKtHQY  COVID-19 Conspiracy: The Truth About the Pandemic
+    retry: model did not return JSON: {"claims": [
+    {"phrase": "the world was informed, that we were going to have an accident o
+    FLAG  3/7 flagged   label=fake
+[22/106] rNUwvh4VxlM  The Dark Truth about COVID-19!! | JRE
+    FLAG  6/10 flagged   label=fake
+[23/106] rpm4ED9XY90  Uncover the Shocking Truth About COVID-19 Vaccines!
+    FLAG  1/1 flagged   label=fake
+[24/106] s2yiZpNhDH4  The Consequences of Ignoring Myocarditis Risks From 
+    FLAG  17/25 flagged   label=fake
+[25/106] tnpl7F1eTD8  New SHOCKING Side Effect of the COVID Vaccine!
+    FLAG  6/25 flagged   label=fake
+[26/106] u1MIKNhPz24  Dr. Peter McCullough on the Most Serious Side Effect
+    FLAG  25/25 flagged   label=fake
+[27/106] v0EyE70YT-c  FDA approves new mRNA vaccine, despite risks.
+    ok    0/25 flagged   label=fake
+[28/106] ydkMwOp2Fhk  THIS Is How They Covered Up The COVID Vaxx’s DEADLY 
+    FLAG  20/25 flagged   label=fake
+[29/106] zOHocfVy1n0  The Hidden Truth About COVID Vaccines 2025 10 14
+    FLAG  20/25 flagged   label=fake
+[30/106] -Vcm7bUocSg  &#39;COVID Arm&#39; Pfizer And Moderna Vaccine Side 
+    FLAG  1/8 flagged   label=not 
+[31/106] 2S2v45_NSYs  Why It’s Impossible To Put Tracking Microchips In Co
+    ok    0/25 flagged   label=not 
+[32/106] 2eSHjV9a-OI  Debunking COVID Microchip Conspiracy Theory #shorts
+    ok    0/5 flagged   label=not 
+[33/106] 2z8O-48h7J4  Does the COVID-19 vaccine impact fertility?
+    FLAG  1/5 flagged   label=not 
+[34/106] 3kaNMVfmmvg  MYTH: COVID-19 Vaccines Cause Infertility or Miscarr
+    ok    0/7 flagged   label=not 
+[35/106] 68QzzWGc4mI  mRNA COVID Shots Cause Myocarditis
+    ok    0/25 flagged   label=not 
+[36/106] 6cTDgwsdwZc  Covid-19: There is no microchip in the coronavirus v
+    FLAG  1/11 flagged   label=not 
+[37/106] 7DlcRSvuvnw  How do mRNA COVID-19 vaccines work?
+    FLAG  1/13 flagged   label=not 
+[38/106] 8nD6Q9X0SFw  How COVID-19 mRNA Vaccines Work
+    FLAG  1/6 flagged   label=not 
+[39/106] BByJrQkInyU  #5: COVID-19 &amp; Fertility Part 2: The Effect of I
+    ok    0/15 flagged   label=not 
+[40/106] BGdqLP4DSlA  OB/GYN Fact-Checks Infertility &amp; COVID-19 Vaccin
+    ok    0/5 flagged   label=not 
+[41/106] Bf5ij1qISJM  What are the COVID vaccine side effects?
+    FLAG  1/8 flagged   label=not 
+[42/106] Cg6QJNKC38s  FDA approves Moderna&#39;s mRNA flu vaccine after in
+    ok    0/6 flagged   label=not 
+[43/106] CztIknqTNpY  Side effects of the Pfizer COVID19 vaccine
+    ok    0/6 flagged   label=not 
+[44/106] DjMqylDmbP8  HHS compiling list of injuries eligible for automati
+    ok    0/24 flagged   label=not 
+[45/106] Djlk3A8mEQI  The Truth Behind the New COVID-19 Vaccines - Explain
+    FLAG  9/25 flagged   label=not 
+[46/106] F6NKbQzo4aE  Vaccine side effects are actually a good thing
+    FLAG  1/25 flagged   label=not 
+[47/106] FXRsR0qsViU  A closer look at reported COVID-19 vaccine side effe
+    ok    0/6 flagged   label=not 
+[48/106] H0F-YvUQEGY  Trust Index: Do the COVID-19 vaccines cause infertil
+    FLAG  1/9 flagged   label=not 
+[49/106] HgINkAsQLi4  #AskAuntyCarol: Is there a microchip in the vaccine?
+    ok    0/2 flagged   label=not 
+[50/106] I3kd5SyYHEE  Myocarditis and coronavirus vaccines: Explaining the
+    FLAG  1/20 flagged   label=not 
+[51/106] Ii0dg77pW64  COVID Vaccine &amp; Fertility
+    ok    0/6 flagged   label=not 
+[52/106] K8F_L-fM350  Does the COVID-19 Vaccine Affect Fertility?
+    ok    0/6 flagged   label=not 
+[53/106] L7pTGNob0N4  Debunking the COVID-19 Vaccine Microchip Conspiracy:
+    ok    0/8 flagged   label=not 
+[54/106] LM4ZzTpPAAQ  COVID-19 Vaccine Myth #1: The COVID-19 vaccine has m
+    ok    0/9 flagged   label=not 
+[55/106] LzkCvK8nayI  Does the COVID Vaccine Have a Microchip? The Viral H
+    FLAG  6/25 flagged   label=not 
+[56/106] MnEArHUiVXI  When Should You Get the New COVID Vaccine?
+    ok    0/7 flagged   label=not 
+[57/106] MniP4EtW7xI  Men&#39;s Fertility And Covid Vaccines Here Is The E
+    ok    0/15 flagged   label=not 
+[58/106] MrmiEBmeumA  New details on Pfizer COVID-19 vaccine side effects
+    ok    0/7 flagged   label=not 
+[59/106] P711tS7eJK0  Can the mRNA COVID vaccines change our DNA?
+    ok    0/5 flagged   label=not 
+[60/106] PIcqomL17YA  The Moderna mRNA Vaccine &amp; Immune System Side Ef
+    ok    0/12 flagged   label=not 
+[61/106] PfBD1HeNkFE  VERIFY: TikTok video showing pet microchip scanner i
+    ok    0/4 flagged   label=not 
+[62/106] PjtHeNnQvxI  Microchip vaccines? What to say to someone who says 
+    ok    0/8 flagged   label=not 
+[63/106] QJ5k7AIiST8  Does the COVID Vaccine Cause Infertility? Is it Safe
+    ok    0/4 flagged   label=not 
+[64/106] Qe5_86qCNRo  Which mRNA Vaccine Poses a Lower Risk for Myocarditi
+    retry: model did not return JSON: {"claims": [
+    {"phrase": "A small number of individuals who receive an mRNA vaccine will d
+    FLAG  1/12 flagged   label=not 
+[65/106] Qf0JSP7VtgU  Doctor Explains Rare Covid-19 Vaccine Side Effects i
+    retry: model did not return JSON: {"claims": [
+    {"phrase": "an advisory panel for the CDC is investigating reports of heart 
+    ok    0/25 flagged   label=not 
+[66/106] RUr25jr-970  Will the COVID Vaccine Leave You with a Microchip?
+    ok    0/5 flagged   label=not 
+[67/106] TDLu5BJzaAE  COVID-19 vaccine: the $12 billion gamble
+    retry: model did not return JSON: {"claims": [
+    {"phrase": "we are actively manufacturing in this facility right now some of
+    FLAG  1/9 flagged   label=not 
+[68/106] Ts0E-v3zya0  Does COVID-19 vaccine cause infertility?
+    FLAG  1/7 flagged   label=not 
+[69/106] UMGAO3SEz2Q  Andrew Huberman on mRNA Vaccines | Real Time with Bi
+    ok    0/10 flagged   label=not 
+[70/106] VOl2-xI76tI  The Pregnant Doc Telling the Truth About COVID-19 | 
+    FLAG  1/14 flagged   label=not 
+[71/106] YiLHB8F0hFI  I heard the vaccines contain a microchip in them. Is
+    ok    0/1 flagged   label=not 
+[72/106] YqFa-eglI60  Here&#39;s what to know about the new mRNA flu vacci
+    ok    0/7 flagged   label=not 
+[73/106] ZHx_DdSip78  The Truth About Covid Vaccines!
+    ok    0/12 flagged   label=not 
+[74/106] ZfPpHkXSTPk  Largest Covid Vaccine Study Yet Finds Links to Healt
+    FLAG  1/7 flagged   label=not 
+[75/106] ajc_ip-IbdQ  Microchip Implant Tells Covid Vaccine Status
+    FLAG  2/3 flagged   label=not 
+[76/106] b3-BCUmEYg0  Will the COVID-19 Vaccine Cause Infertility?
+    FLAG  1/6 flagged   label=not 
+[77/106] c6tJDyIT0x4  Does the vaccine contain a microchip that can be use
+    FLAG  1/5 flagged   label=not 
+[78/106] cGF0D2poGyA  Looking into adverse effects of the COVID-19 vaccine
+    ok    0/14 flagged   label=not 
+[79/106] cnYae-4FN7c  Wellstar COVID Myth Busters: The Vaccine Contains a 
+    FLAG  1/4 flagged   label=not 
+[80/106] fy3oJpuFzaI  The Truth About My Anti-Vax Debate
+    FLAG  3/25 flagged   label=not 
+[81/106] gQfeAj5w-yc  UM Research Debunks Nicki Minaj COVID Vaccine Infert
+    ok    0/5 flagged   label=not 
+[82/106] gReF5xOBrzI  For mRNA Vaccines, COVID Was Just the Beginning
+    ok    0/23 flagged   label=not 
+[83/106] gcExM22XkYs  False links between COVID vaccine and infertility ra
+    ok    0/7 flagged   label=not 
+[84/106] hEOO5Qzc8cQ  Can COVID 19 vaccines cause infertility?
+    ok    0/7 flagged   label=not 
+[85/106] im3otpqYAiQ  Covid Vaccine Study Finds Links to Health Conditions
+    ok    0/6 flagged   label=not 
+[86/106] imxaAhjCSDw  COVID Vaccine Conspiracy: Microchips, Wheelchairs, a
+    FLAG  4/9 flagged   label=not 
+[87/106] j6Sn07fQeYM  Latest research on vaccine side effects, immune reac
+    ok    0/25 flagged   label=not 
+[88/106] jqD7rV2vYx4  Can the COVID-19 Vaccine Make You Infertile?
+    ok    0/8 flagged   label=not 
+[89/106] l2POvDQu96c  COVID VACCINE - Does it cause INFERTILITY?
+    FLAG  1/25 flagged   label=not 
+[90/106] le5ZWyKvvMI  #ListenToTheExperts - Is there a microchip in the va
+    ok    0/1 flagged   label=not 
+[91/106] m4Kzi2UxI5E  Side Effects Of The Pfizer Vaccine For COVID-19 Expl
+    ok    0/11 flagged   label=not 
+[92/106] mdwVaPBpks0  Scientists Are Developing Injectable Microchips... B
+    ok    0/25 flagged   label=not 
+[93/106] mkZ1MabMEZw  Covid Vaccine Side Effects + VAERS
+    ok    0/5 flagged   label=not 
+[94/106] nucCr7Sywgc  Second COVID Vaccine Shot Side Effects
+    ok    0/11 flagged   label=not 
+[95/106] oMXGGmBfkf8  RNA Vaccines (mRNA Vaccine) - Basis of Pfizer and Mo
+    ok    0/14 flagged   label=not 
+[96/106] oNkvEvdVJcg  COVID-19 Vaccine FAQs: Microchip... a third limb... 
+    ok    0/11 flagged   label=not 
+[97/106] ryZzJTL429k  What Are Long-Term Effects of the COVID Vaccine? A D
+    ok    0/8 flagged   label=not 
+[98/106] t-vspgpkiKs  Could the COVID-19 vaccine cause infertility? | Veri
+    ok    0/17 flagged   label=not 
+[99/106] tUS2fIaDp_Q  4. COVID-19 Vaccines and Side Effects for Women (Upd
+    ok    0/4 flagged   label=not 
+[100/106] tvrDH67EyRA  The Truth About COVID-19 Vaccines ft. Dr. Seema Yasm
+    ok    0/25 flagged   label=not 
+[101/106] veAv-xJ-bY4  mRNA Vaccine Safety - Micheal Fletcher, MD
+    FLAG  1/10 flagged   label=not 
+[102/106] xE3KrtoDeRE  COVID Vaccine SIDE EFFECTS are Finally Kicking in...
+    FLAG  6/7 flagged   label=not 
+[103/106] xYLapZC2RrY  VERIFY: Are there RFID chips in vaccines?
+    ok    0/10 flagged   label=not 
+[104/106] xmJXYT5IMdQ  mRNA vaccines much safer than getting COVID-19: revi
+    FLAG  1/10 flagged   label=not 
+[105/106] z8FA7rTFbEY  Study shows COVID 19 vaccines do not affect male fer
+    ok    0/3 flagged   label=not 
+[106/106] zg-Sh7gYXxk  How do the Covid vaccines affect male fertility?
+    ok    0/5 flagged   label=not 
+
+finished in 128.4 min
+
+run: 2026-11-11T20:57:57Z  commit 7b1e3c8  web=none  condition=parametric
+     dataset=test  prompt=production
+     model=gemma-4-12b gamma=0.3 chunk=55/35 grammar=True
+     corpus=2488 passages
+
+scored 119 video(s)
+
+                  predicted
+                fake    not
+  label fake      35      7
+  label not       26     51
+
+  whole transcript: 1545 claims over 119 videos; model's own fake_news disagrees with the claim verdicts on 11 video(s); 32 truncated at the claim cap
+
+  precision 0.574   recall 0.833   F1 0.680   accuracy 0.723
+
+  windows answered on web evidence: 0
+
+  false negatives (7):
+    2MrNkagJIwY  [medium] natural_immunity+pharma_conspiracy
+    Fu8lEbQXSKM  [medium] excess_deaths
+    HFdOuBJ6aac  [high] fauci_coverup+lab_origin
+    Z6qlcRGzh-Q  [high] vaers_coverup
+    ZRrCYM3LsYM  [medium] myocarditis+underreporting
+    _BNyKPuAPD0  [medium] post_vaccine_syndrome
+    v0EyE70YT-c  [medium] mrna_flu_vaccine_risk_benefit
+
+  false positives (26):
+    -Vcm7bUocSg  1/8 windows flagged
+    2z8O-48h7J4  1/5 windows flagged
+    6cTDgwsdwZc  1/11 windows flagged
+    7DlcRSvuvnw  1/13 windows flagged
+    8nD6Q9X0SFw  1/6 windows flagged
+    Bf5ij1qISJM  1/8 windows flagged
+    Djlk3A8mEQI  9/25 windows flagged
+    F6NKbQzo4aE  1/25 windows flagged
+    H0F-YvUQEGY  1/9 windows flagged
+    I3kd5SyYHEE  1/20 windows flagged
+    LzkCvK8nayI  6/25 windows flagged
+    Qe5_86qCNRo  1/12 windows flagged
+    TDLu5BJzaAE  1/9 windows flagged
+    Ts0E-v3zya0  1/7 windows flagged
+    VOl2-xI76tI  1/14 windows flagged
+    ZfPpHkXSTPk  1/7 windows flagged
+    ajc_ip-IbdQ  2/3 windows flagged
+    b3-BCUmEYg0  1/6 windows flagged
+    c6tJDyIT0x4  1/5 windows flagged
+    cnYae-4FN7c  1/4 windows flagged
+    fy3oJpuFzaI  3/25 windows flagged
+    imxaAhjCSDw  4/9 windows flagged
+    l2POvDQu96c  1/25 windows flagged
+    veAv-xJ-bY4  1/10 windows flagged
+    xE3KrtoDeRE  6/7 windows flagged
+    xmJXYT5IMdQ  1/10 windows flagged
+
+summary written to data/results/v3/test_run_gemma-4-12b_parametric_whole_tc_summary.txt
+=== 2026-11-11 21:14:45 smoke  tavily
+web cache: cleared 402 entry(ies)
+
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gemma-4-12b-it-Q4_K_M.gguf
+  output constr. : GBNF grammar, enforced during sampling (llama.cpp)
+  model          : gemma-4-12b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos   : 119 labelled with usable transcripts
+  web fallback   : tavily
+                   probe OK -> https://www.who.int/teams/immunization-vaccines-and-
+  web cache      : on, 0 entry(ies) — a non-empty cache means some evidence is replayed, not refetched
+  claim windows  : ~1588 (~12.5 h at 28.4 s/window on CPU)
+
+all checks passed
+
+condition: rag   dataset: test   prompt: production
+3 video(s) to run, 0 already done
+
+[1/3] 0-3aELGEIUY  What We Know Now About True Benefits and Dangers of 
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 9062.39it/s]
+    retry: model did not return JSON: *   Passage: "the UK government is probably the only government in the world that's published
+    FLAG  10/13 flagged   label=fake
+[2/3] 21hkEfN3UmA  The Covid vaccine passports with Dr. Joe Mercola
+    retry: model did not return JSON: The user wants a search query based on the provided passage: "They played a large role in thi
+    retry: model did not return JSON: The user wants a search query based on the provided passage: "They played a large role in thi
+    FLAG  2/19 flagged   label=fake
+[3/3] 2MrNkagJIwY  Pfizer Scientist tell the Truth about COVID and the 
+    retry: model did not return JSON: The user wants me to convert a transcribed speech passage into a web search query for fact-ch
+    retry: model did not return JSON: The user wants me to convert a transcribed speech passage into a web search query for fact-ch
+    FLAG  5/25 flagged   label=fake
+
+finished in 43.4 min
+
+run: 2026-11-12T00:14:54Z  commit 7117db7  web=tavily  condition=rag
+     dataset=test  prompt=production
+     model=gemma-4-12b gamma=0.3 chunk=55/35 grammar=True
+     corpus=2488 passages
+
+scored 3 video(s)
+
+                  predicted
+                fake    not
+  label fake       3      0
+  label not        0      0
+
+  whole transcript: 57 claims over 3 videos; model's own fake_news disagrees with the claim verdicts on 0 video(s); 1 truncated at the claim cap
+
+  precision 1.000   recall 1.000   F1 1.000   accuracy 1.000
+
+  windows answered on web evidence: 15
+
+summary written to data/results/smoke/test_run_gemma-4-12b_tavily_whole_tc_summary.txt
+3 videos, 57 windows, verdicts: {'FAKE_NEWS': 10, 'NO_EVIDENCE': 24, 'NOT_FAKE_NEWS_WEB': 3, 'NOT_FAKE_NEWS': 12, 'FAKE_NEWS_WEB': 7, 'ERROR': 1}
+1 video(s) with ERROR windows
+  2MrNkagJIwY: claim missing from the model's judgements
+15 web searches, 0 returned nothing
+45.7 s/window (valid for a non-resumed run)
+=== smoke test of tavily has ERROR windows; fix the cause, then
+    .venv/bin/python tests/check_run.py data/results/smoke/test_run_gemma-4-12b_tavily_whole_tc.json --drop-errors   and re-run this script
+=== 2026-11-12 20:04:07 preflight  model=gemma-4-12b  server=llamacpp  reasoning=default
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gemma-4-12b-it-Q4_K_M.gguf
+  output constr. : GBNF grammar, enforced during sampling (llama.cpp)
+  model          : gemma-4-12b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos   : 119 labelled with usable transcripts
+  web fallback   : tavily
+                   probe OK -> https://pmc.ncbi.nlm.nih.gov/articles/PMC8539830
+  web cache      : on, 447 entry(ies) — a non-empty cache means some evidence is replayed, not refetched
+  claim windows  : ~1588 (~12.5 h at 28.4 s/window on CPU)
+
+all checks passed
+=== 2026-11-12 20:04:09 smoke  parametric
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gemma-4-12b-it-Q4_K_M.gguf
+  output constr. : GBNF grammar, enforced during sampling (llama.cpp)
+  model          : gemma-4-12b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos   : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric   dataset: test   prompt: production
+0 video(s) to run, 3 already done
+
+
+finished in 0.0 min
+
+run: 2026-11-11T21:56:13Z  commit 7117db7  web=none  condition=parametric
+     dataset=test  prompt=production
+     model=gemma-4-12b gamma=0.3 chunk=55/35 grammar=True
+     corpus=2488 passages
+
+scored 3 video(s)
+
+                  predicted
+                fake    not
+  label fake       3      0
+  label not        0      0
+
+  whole transcript: 50 claims over 3 videos; model's own fake_news disagrees with the claim verdicts on 0 video(s); 1 truncated at the claim cap
+
+  precision 1.000   recall 1.000   F1 1.000   accuracy 1.000
+
+  windows answered on web evidence: 0
+
+summary written to data/results/smoke/test_run_gemma-4-12b_parametric_whole_tc_summary.txt
+3 videos, 50 windows, verdicts: {'FAKE_NEWS': 18, 'UNVERIFIABLE': 14, 'NOT_FAKE_NEWS': 18}
+0 video(s) with ERROR windows
+=== 2026-11-12 20:04:09 full   parametric  -> data/results/v3/test_run_gemma-4-12b_parametric_whole_tc.json
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gemma-4-12b-it-Q4_K_M.gguf
+  output constr. : GBNF grammar, enforced during sampling (llama.cpp)
+  model          : gemma-4-12b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos   : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric   dataset: test   prompt: production
+0 video(s) to run, 119 already done
+
+
+finished in 0.0 min
+
+run: 2026-11-11T20:57:57Z  commit 7b1e3c8  web=none  condition=parametric
+     dataset=test  prompt=production
+     model=gemma-4-12b gamma=0.3 chunk=55/35 grammar=True
+     corpus=2488 passages
+
+scored 119 video(s)
+
+                  predicted
+                fake    not
+  label fake      35      7
+  label not       26     51
+
+  whole transcript: 1545 claims over 119 videos; model's own fake_news disagrees with the claim verdicts on 11 video(s); 32 truncated at the claim cap
+
+  precision 0.574   recall 0.833   F1 0.680   accuracy 0.723
+
+  windows answered on web evidence: 0
+
+  false negatives (7):
+    2MrNkagJIwY  [medium] natural_immunity+pharma_conspiracy
+    Fu8lEbQXSKM  [medium] excess_deaths
+    HFdOuBJ6aac  [high] fauci_coverup+lab_origin
+    Z6qlcRGzh-Q  [high] vaers_coverup
+    ZRrCYM3LsYM  [medium] myocarditis+underreporting
+    _BNyKPuAPD0  [medium] post_vaccine_syndrome
+    v0EyE70YT-c  [medium] mrna_flu_vaccine_risk_benefit
+
+  false positives (26):
+    -Vcm7bUocSg  1/8 windows flagged
+    2z8O-48h7J4  1/5 windows flagged
+    6cTDgwsdwZc  1/11 windows flagged
+    7DlcRSvuvnw  1/13 windows flagged
+    8nD6Q9X0SFw  1/6 windows flagged
+    Bf5ij1qISJM  1/8 windows flagged
+    Djlk3A8mEQI  9/25 windows flagged
+    F6NKbQzo4aE  1/25 windows flagged
+    H0F-YvUQEGY  1/9 windows flagged
+    I3kd5SyYHEE  1/20 windows flagged
+    LzkCvK8nayI  6/25 windows flagged
+    Qe5_86qCNRo  1/12 windows flagged
+    TDLu5BJzaAE  1/9 windows flagged
+    Ts0E-v3zya0  1/7 windows flagged
+    VOl2-xI76tI  1/14 windows flagged
+    ZfPpHkXSTPk  1/7 windows flagged
+    ajc_ip-IbdQ  2/3 windows flagged
+    b3-BCUmEYg0  1/6 windows flagged
+    c6tJDyIT0x4  1/5 windows flagged
+    cnYae-4FN7c  1/4 windows flagged
+    fy3oJpuFzaI  3/25 windows flagged
+    imxaAhjCSDw  4/9 windows flagged
+    l2POvDQu96c  1/25 windows flagged
+    veAv-xJ-bY4  1/10 windows flagged
+    xE3KrtoDeRE  6/7 windows flagged
+    xmJXYT5IMdQ  1/10 windows flagged
+
+summary written to data/results/v3/test_run_gemma-4-12b_parametric_whole_tc_summary.txt
+=== 2026-11-12 20:04:10 smoke  tavily
+web cache: cleared 447 entry(ies)
+
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gemma-4-12b-it-Q4_K_M.gguf
+  output constr. : GBNF grammar, enforced during sampling (llama.cpp)
+  model          : gemma-4-12b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos   : 119 labelled with usable transcripts
+  web fallback   : tavily
+                   probe OK -> https://pmc.ncbi.nlm.nih.gov/articles/PMC8539830
+  web cache      : on, 0 entry(ies) — a non-empty cache means some evidence is replayed, not refetched
+  claim windows  : ~1588 (~12.5 h at 28.4 s/window on CPU)
+
+all checks passed
+
+condition: rag   dataset: test   prompt: production
+3 video(s) to run, 0 already done
+
+[1/3] 0-3aELGEIUY  What We Know Now About True Benefits and Dangers of 
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 9121.52it/s]
+    retry: model did not return JSON: *   Passage: "the UK government is probably the only government in the world that's published
+    FLAG  10/13 flagged   label=fake
+[2/3] 21hkEfN3UmA  The Covid vaccine passports with Dr. Joe Mercola
+    retry: model did not return JSON: The user wants a search query based on the provided passage: "They played a large role in thi
+    retry: model did not return JSON: The user wants a search query based on the provided passage: "They played a large role in thi
+    FLAG  1/19 flagged   label=fake
+[3/3] 2MrNkagJIwY  Pfizer Scientist tell the Truth about COVID and the 
+    retry: model did not return JSON: The user wants me to convert a transcribed speech passage into a web search query for fact-ch
+    retry: model did not return JSON: The user wants me to convert a transcribed speech passage into a web search query for fact-ch
+    FLAG  3/25 flagged   label=fake
+
+finished in 44.9 min
+
+run: 2026-11-12T23:04:10Z  commit 7117db7  web=tavily  condition=rag
+     dataset=test  prompt=production
+     model=gemma-4-12b gamma=0.3 chunk=55/35 grammar=True
+     corpus=2488 passages
+
+scored 3 video(s)
+
+                  predicted
+                fake    not
+  label fake       3      0
+  label not        0      0
+
+  whole transcript: 57 claims over 3 videos; model's own fake_news disagrees with the claim verdicts on 0 video(s); 1 truncated at the claim cap
+
+  precision 1.000   recall 1.000   F1 1.000   accuracy 1.000
+
+  windows answered on web evidence: 15
+
+summary written to data/results/smoke/test_run_gemma-4-12b_tavily_whole_tc_summary.txt
+3 videos, 57 windows, verdicts: {'FAKE_NEWS': 10, 'NOT_FAKE_NEWS_WEB': 6, 'NOT_FAKE_NEWS': 12, 'NO_EVIDENCE': 24, 'FAKE_NEWS_WEB': 4, 'ERROR': 1}
+1 video(s) with ERROR windows
+  2MrNkagJIwY: claim missing from the model's judgements
+15 web searches, 0 returned nothing
+47.3 s/window (valid for a non-resumed run)
+=== smoke test of tavily has ERROR windows; fix the cause, then
+    .venv/bin/python tests/check_run.py data/results/smoke/test_run_gemma-4-12b_tavily_whole_tc.json --drop-errors   and re-run this script
+=== 2026-11-12 20:52:59 preflight  model=gemma-4-12b  server=llamacpp  reasoning=default
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gemma-4-12b-it-Q4_K_M.gguf
+  output constr. : GBNF grammar, enforced during sampling (llama.cpp)
+  model          : gemma-4-12b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos   : 119 labelled with usable transcripts
+  web fallback   : tavily
+                   probe OK -> https://pmc.ncbi.nlm.nih.gov/articles/PMC8539830
+  web cache      : on, 15 entry(ies) — a non-empty cache means some evidence is replayed, not refetched
+  claim windows  : ~1588 (~12.5 h at 28.4 s/window on CPU)
+
+all checks passed
+=== 2026-11-12 20:52:59 smoke  parametric
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gemma-4-12b-it-Q4_K_M.gguf
+  output constr. : GBNF grammar, enforced during sampling (llama.cpp)
+  model          : gemma-4-12b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos   : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric   dataset: test   prompt: production
+3 video(s) to run, 0 already done
+
+[1/3] 0-3aELGEIUY  What We Know Now About True Benefits and Dangers of 
+    FLAG  8/9 flagged   label=fake
+[2/3] 21hkEfN3UmA  The Covid vaccine passports with Dr. Joe Mercola
+    retry: model did not return JSON: {"claims": [
+    {"phrase": "you are going to need a vaccine passport if you want to travel b
+    FLAG  3/25 flagged   label=fake
+[3/3] 2MrNkagJIwY  Pfizer Scientist tell the Truth about COVID and the 
+    FLAG  7/16 flagged   label=fake
+
+finished in 9.7 min
+
+run: 2026-11-12T23:52:59Z  commit 6c822ff  web=none  condition=parametric
+     dataset=test  prompt=production
+     model=gemma-4-12b gamma=0.3 chunk=55/35 grammar=True
+     corpus=2488 passages
+
+scored 3 video(s)
+
+                  predicted
+                fake    not
+  label fake       3      0
+  label not        0      0
+
+  whole transcript: 50 claims over 3 videos; model's own fake_news disagrees with the claim verdicts on 0 video(s); 1 truncated at the claim cap
+
+  precision 1.000   recall 1.000   F1 1.000   accuracy 1.000
+
+  windows answered on web evidence: 0
+
+summary written to data/results/smoke/test_run_gemma-4-12b_parametric_whole_tc_summary.txt
+3 videos, 50 windows, verdicts: {'FAKE_NEWS': 18, 'UNVERIFIABLE': 14, 'NOT_FAKE_NEWS': 18}
+0 video(s) with ERROR windows
+11.6 s/window (valid for a non-resumed run)
+=== 2026-11-12 21:02:39 full   parametric  -> data/results/v3/test_run_gemma-4-12b_parametric_whole_tc.json
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gemma-4-12b-it-Q4_K_M.gguf
+  output constr. : GBNF grammar, enforced during sampling (llama.cpp)
+  model          : gemma-4-12b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos   : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric   dataset: test   prompt: production
+119 video(s) to run, 0 already done
+
+[1/119] 0-3aELGEIUY  What We Know Now About True Benefits and Dangers of 
+    FLAG  8/9 flagged   label=fake
+[2/119] 21hkEfN3UmA  The Covid vaccine passports with Dr. Joe Mercola
+    FLAG  3/25 flagged   label=fake
+[3/119] 2MrNkagJIwY  Pfizer Scientist tell the Truth about COVID and the 
+    FLAG  6/25 flagged   label=fake
+[4/119] 33vf9wJv_lw  Rizza Islam Talks COVID Vaccine | Big Facts Podcast
+    FLAG  5/25 flagged   label=fake
+[5/119] 6HzRcPGqzvs  First Aid: Rizza Islam Explains Why Parents Should N
+    FLAG  20/24 flagged   label=fake
+[6/119] 7LoJ850ZorY  The Myth of COVID‑21 - Dr Rashid Buttar
+    FLAG  11/15 flagged   label=fake
+[7/119] 7QuTr4fIiyU  Doctor testifies on the dangerous side effects of CO
+    FLAG  2/17 flagged   label=fake
+[8/119] 8a-MTuhfw98  New flu mRNA vac, dangers
+    FLAG  3/15 flagged   label=fake
+[9/119] 9sW0OmzcmL0  The Problem With the COVID Vaccine | Robert F. Kenne
+    FLAG  12/14 flagged   label=fake
+[10/119] EcCyZwjHs9M  &#39;COVID Vaccine was not a vaccine, it was…&#39;: 
+    FLAG  9/18 flagged   label=fake
+[11/119] F-LD9pvPXQE  Did The COVID Shot Affect Fertility?
+    FLAG  1/3 flagged   label=fake
+[12/119] Fu8lEbQXSKM  The Truth About Excess Deaths Since COVID Vaxx Is Mi
+    ok    0/10 flagged   label=fake
+[13/119] HFdOuBJ6aac  ‘PATHOLOGICAL LIAR’: Fauci blasted over EXPLOSIVE di
+    FLAG  11/19 flagged   label=fake
+[14/119] I06-UcSG8Tk  RFK Jr. on Young Turks: Vaccine Crossfire
+    FLAG  6/25 flagged   label=fake
+[15/119] IUIBYfAgoCk  The COVID Vaccine DNA Bombshell They Tried to Hide |
+    FLAG  18/25 flagged   label=fake
+[16/119] JxIkndSVRDI  Shocking Findings: Could COVID-19 Vaccines Impact Fe
+    FLAG  3/7 flagged   label=fake
+[17/119] NtuMf0F9SlI  mRNA Vaccines Install the Genetic Code for Lethal Sp
+    FLAG  25/25 flagged   label=fake
+[18/119] OqSbJ8TxOx8  COVID-19 vaccine caused blood clots: Doctor testimon
+    FLAG  22/25 flagged   label=fake
+[19/119] P0lymSkLbTs  Covid vaccine adverse reactions
+    FLAG  1/5 flagged   label=fake
+[20/119] PMDcOTWEEcI  The Coronavirus Agenda: What The Mainstream Media Do
+    FLAG  22/25 flagged   label=fake
+[21/119] SE78ocLgStc  &#39;See for yourself!&#39; | Neil Oliver uncovers A
+    FLAG  8/25 flagged   label=fake
+[22/119] StUZ5b0-HUs  Truth About COVID Vaccines And Lockdown. #shorts #co
+    FLAG  2/6 flagged   label=fake
+[23/119] UjvwoteSlTI  All MRNA vaccines risky
+    FLAG  25/25 flagged   label=fake
+[24/119] XXG_9Wm_dOE  &#39;COVID vaccine has worst side effects ever&#39;:
+    retry: model did not return JSON: {"claims": [{"phrase": "The COVID shots have negative efficacy after six months.", "stance": 
+    FLAG  24/25 flagged   label=fake
+[25/119] Y6_jn0DzXHI  The Secret Element in the Covid Vaccine: What They W
+    FLAG  18/25 flagged   label=fake
+[26/119] Z6qlcRGzh-Q  Senate investigates what health officials knew about
+    retry: model did not return JSON: {"claims": [
+    {"phrase": "VARES has existed for about 30 years", "stance": "asserting", "v
+    retry: model did not return JSON: {"claims": [
+    {"phrase": "VARES has existed for about 30 years", "stance": "asserting", "v
+    ok    0/1 flagged   label=fake
+[27/119] ZRrCYM3LsYM  Doctor Explains: MRNA Vaccine Issues
+    ok    0/25 flagged   label=fake
+[28/119] _BNyKPuAPD0  Exposing COVID-19 Vaccine Reactions | Are Side Effec
+    ok    0/25 flagged   label=fake
+[29/119] _SJ3GWZq0jI  &#39;CANCER OCCURRED near injection sites...&#39;: B
+    FLAG  5/6 flagged   label=fake
+[30/119] cIGTf5qO5as  When will we Learn the TRUTH about COVID Vaccines?
+    FLAG  1/25 flagged   label=fake
+[31/119] cV4jUXBWpvA  The SCARY TRUTH about COVID Vaccines
+    FLAG  24/25 flagged   label=fake
+[32/119] giS6CiT1qTE  Study reveals new heart health concerns from COVID v
+    retry: model did not return JSON: {"claims": [
+    {"phrase": "heart inflammation risks tied to the vaccines maybe far greater 
+    FLAG  10/10 flagged   label=fake
+[33/119] kda_j6EyAg8  Vaccines and fertility
+    FLAG  10/13 flagged   label=fake
+[34/119] n9yZ-TKtHQY  COVID-19 Conspiracy: The Truth About the Pandemic
+    retry: model did not return JSON: {"claims": [
+    {"phrase": "the world was informed, that we were going to have an accident o
+    FLAG  3/7 flagged   label=fake
+[35/119] rNUwvh4VxlM  The Dark Truth about COVID-19!! | JRE
+    FLAG  6/10 flagged   label=fake
+[36/119] rpm4ED9XY90  Uncover the Shocking Truth About COVID-19 Vaccines!
+    FLAG  1/1 flagged   label=fake
+[37/119] s2yiZpNhDH4  The Consequences of Ignoring Myocarditis Risks From 
+    FLAG  17/25 flagged   label=fake
+[38/119] tnpl7F1eTD8  New SHOCKING Side Effect of the COVID Vaccine!
+    FLAG  6/25 flagged   label=fake
+[39/119] u1MIKNhPz24  Dr. Peter McCullough on the Most Serious Side Effect
+    FLAG  25/25 flagged   label=fake
+[40/119] v0EyE70YT-c  FDA approves new mRNA vaccine, despite risks.
+    ok    0/25 flagged   label=fake
+[41/119] ydkMwOp2Fhk  THIS Is How They Covered Up The COVID Vaxx’s DEADLY 
+    FLAG  20/25 flagged   label=fake
+[42/119] zOHocfVy1n0  The Hidden Truth About COVID Vaccines 2025 10 14
+    FLAG  20/25 flagged   label=fake
+[43/119] -Vcm7bUocSg  &#39;COVID Arm&#39; Pfizer And Moderna Vaccine Side 
+    FLAG  1/8 flagged   label=not 
+[44/119] 2S2v45_NSYs  Why It’s Impossible To Put Tracking Microchips In Co
+    ok    0/25 flagged   label=not 
+[45/119] 2eSHjV9a-OI  Debunking COVID Microchip Conspiracy Theory #shorts
+    ok    0/5 flagged   label=not 
+[46/119] 2z8O-48h7J4  Does the COVID-19 vaccine impact fertility?
+    FLAG  1/5 flagged   label=not 
+[47/119] 3kaNMVfmmvg  MYTH: COVID-19 Vaccines Cause Infertility or Miscarr
+    ok    0/7 flagged   label=not 
+[48/119] 68QzzWGc4mI  mRNA COVID Shots Cause Myocarditis
+    ok    0/25 flagged   label=not 
+[49/119] 6cTDgwsdwZc  Covid-19: There is no microchip in the coronavirus v
+    FLAG  1/11 flagged   label=not 
+[50/119] 7DlcRSvuvnw  How do mRNA COVID-19 vaccines work?
+    FLAG  1/13 flagged   label=not 
+[51/119] 8nD6Q9X0SFw  How COVID-19 mRNA Vaccines Work
+    FLAG  1/6 flagged   label=not 
+[52/119] BByJrQkInyU  #5: COVID-19 &amp; Fertility Part 2: The Effect of I
+    ok    0/15 flagged   label=not 
+[53/119] BGdqLP4DSlA  OB/GYN Fact-Checks Infertility &amp; COVID-19 Vaccin
+    ok    0/5 flagged   label=not 
+[54/119] Bf5ij1qISJM  What are the COVID vaccine side effects?
+    FLAG  1/8 flagged   label=not 
+[55/119] Cg6QJNKC38s  FDA approves Moderna&#39;s mRNA flu vaccine after in
+    ok    0/6 flagged   label=not 
+[56/119] CztIknqTNpY  Side effects of the Pfizer COVID19 vaccine
+    ok    0/6 flagged   label=not 
+[57/119] DjMqylDmbP8  HHS compiling list of injuries eligible for automati
+    ok    0/24 flagged   label=not 
+[58/119] Djlk3A8mEQI  The Truth Behind the New COVID-19 Vaccines - Explain
+    FLAG  9/25 flagged   label=not 
+[59/119] F6NKbQzo4aE  Vaccine side effects are actually a good thing
+    FLAG  1/25 flagged   label=not 
+[60/119] FXRsR0qsViU  A closer look at reported COVID-19 vaccine side effe
+    ok    0/6 flagged   label=not 
+[61/119] H0F-YvUQEGY  Trust Index: Do the COVID-19 vaccines cause infertil
+    FLAG  1/9 flagged   label=not 
+[62/119] HgINkAsQLi4  #AskAuntyCarol: Is there a microchip in the vaccine?
+    ok    0/2 flagged   label=not 
+[63/119] I3kd5SyYHEE  Myocarditis and coronavirus vaccines: Explaining the
+    FLAG  1/20 flagged   label=not 
+[64/119] Ii0dg77pW64  COVID Vaccine &amp; Fertility
+    ok    0/6 flagged   label=not 
+[65/119] K8F_L-fM350  Does the COVID-19 Vaccine Affect Fertility?
+    ok    0/6 flagged   label=not 
+[66/119] L7pTGNob0N4  Debunking the COVID-19 Vaccine Microchip Conspiracy:
+    ok    0/8 flagged   label=not 
+[67/119] LM4ZzTpPAAQ  COVID-19 Vaccine Myth #1: The COVID-19 vaccine has m
+    ok    0/9 flagged   label=not 
+[68/119] LzkCvK8nayI  Does the COVID Vaccine Have a Microchip? The Viral H
+    FLAG  6/25 flagged   label=not 
+[69/119] MnEArHUiVXI  When Should You Get the New COVID Vaccine?
+    ok    0/7 flagged   label=not 
+[70/119] MniP4EtW7xI  Men&#39;s Fertility And Covid Vaccines Here Is The E
+    ok    0/15 flagged   label=not 
+[71/119] MrmiEBmeumA  New details on Pfizer COVID-19 vaccine side effects
+    ok    0/7 flagged   label=not 
+[72/119] P711tS7eJK0  Can the mRNA COVID vaccines change our DNA?
+    ok    0/5 flagged   label=not 
+[73/119] PIcqomL17YA  The Moderna mRNA Vaccine &amp; Immune System Side Ef
+    ok    0/12 flagged   label=not 
+[74/119] PfBD1HeNkFE  VERIFY: TikTok video showing pet microchip scanner i
+    ok    0/4 flagged   label=not 
+[75/119] PjtHeNnQvxI  Microchip vaccines? What to say to someone who says 
+    ok    0/8 flagged   label=not 
+[76/119] QJ5k7AIiST8  Does the COVID Vaccine Cause Infertility? Is it Safe
+    ok    0/4 flagged   label=not 
+[77/119] Qe5_86qCNRo  Which mRNA Vaccine Poses a Lower Risk for Myocarditi
+    retry: model did not return JSON: {"claims": [
+    {"phrase": "A small number of individuals who receive an mRNA vaccine will d
+    FLAG  1/12 flagged   label=not 
+[78/119] Qf0JSP7VtgU  Doctor Explains Rare Covid-19 Vaccine Side Effects i
+    retry: model did not return JSON: {"claims": [
+    {"phrase": "an advisory panel for the CDC is investigating reports of heart 
+    ok    0/25 flagged   label=not 
+[79/119] RUr25jr-970  Will the COVID Vaccine Leave You with a Microchip?
+    ok    0/5 flagged   label=not 
+[80/119] TDLu5BJzaAE  COVID-19 vaccine: the $12 billion gamble
+    retry: model did not return JSON: {"claims": [
+    {"phrase": "we are actively manufacturing in this facility right now some of
+    FLAG  1/9 flagged   label=not 
+[81/119] Ts0E-v3zya0  Does COVID-19 vaccine cause infertility?
+    FLAG  1/7 flagged   label=not 
+[82/119] UMGAO3SEz2Q  Andrew Huberman on mRNA Vaccines | Real Time with Bi
+    ok    0/10 flagged   label=not 
+[83/119] VOl2-xI76tI  The Pregnant Doc Telling the Truth About COVID-19 | 
+    FLAG  1/14 flagged   label=not 
+[84/119] YiLHB8F0hFI  I heard the vaccines contain a microchip in them. Is
+    ok    0/1 flagged   label=not 
+[85/119] YqFa-eglI60  Here&#39;s what to know about the new mRNA flu vacci
+    ok    0/7 flagged   label=not 
+[86/119] ZHx_DdSip78  The Truth About Covid Vaccines!
+    ok    0/12 flagged   label=not 
+[87/119] ZfPpHkXSTPk  Largest Covid Vaccine Study Yet Finds Links to Healt
+    FLAG  1/7 flagged   label=not 
+[88/119] ajc_ip-IbdQ  Microchip Implant Tells Covid Vaccine Status
+    FLAG  2/3 flagged   label=not 
+[89/119] b3-BCUmEYg0  Will the COVID-19 Vaccine Cause Infertility?
+    FLAG  1/6 flagged   label=not 
+[90/119] c6tJDyIT0x4  Does the vaccine contain a microchip that can be use
+    FLAG  1/5 flagged   label=not 
+[91/119] cGF0D2poGyA  Looking into adverse effects of the COVID-19 vaccine
+    ok    0/14 flagged   label=not 
+[92/119] cnYae-4FN7c  Wellstar COVID Myth Busters: The Vaccine Contains a 
+    FLAG  1/4 flagged   label=not 
+[93/119] fy3oJpuFzaI  The Truth About My Anti-Vax Debate
+    FLAG  3/25 flagged   label=not 
+[94/119] gQfeAj5w-yc  UM Research Debunks Nicki Minaj COVID Vaccine Infert
+    ok    0/5 flagged   label=not 
+[95/119] gReF5xOBrzI  For mRNA Vaccines, COVID Was Just the Beginning
+    ok    0/23 flagged   label=not 
+[96/119] gcExM22XkYs  False links between COVID vaccine and infertility ra
+    ok    0/7 flagged   label=not 
+[97/119] hEOO5Qzc8cQ  Can COVID 19 vaccines cause infertility?
+    ok    0/7 flagged   label=not 
+[98/119] im3otpqYAiQ  Covid Vaccine Study Finds Links to Health Conditions
+    ok    0/6 flagged   label=not 
+[99/119] imxaAhjCSDw  COVID Vaccine Conspiracy: Microchips, Wheelchairs, a
+    FLAG  4/9 flagged   label=not 
+[100/119] j6Sn07fQeYM  Latest research on vaccine side effects, immune reac
+    ok    0/25 flagged   label=not 
+[101/119] jqD7rV2vYx4  Can the COVID-19 Vaccine Make You Infertile?
+    ok    0/8 flagged   label=not 
+[102/119] l2POvDQu96c  COVID VACCINE - Does it cause INFERTILITY?
+    FLAG  1/25 flagged   label=not 
+[103/119] le5ZWyKvvMI  #ListenToTheExperts - Is there a microchip in the va
+    ok    0/1 flagged   label=not 
+[104/119] m4Kzi2UxI5E  Side Effects Of The Pfizer Vaccine For COVID-19 Expl
+    ok    0/11 flagged   label=not 
+[105/119] mdwVaPBpks0  Scientists Are Developing Injectable Microchips... B
+    ok    0/25 flagged   label=not 
+[106/119] mkZ1MabMEZw  Covid Vaccine Side Effects + VAERS
+    ok    0/5 flagged   label=not 
+[107/119] nucCr7Sywgc  Second COVID Vaccine Shot Side Effects
+    ok    0/11 flagged   label=not 
+[108/119] oMXGGmBfkf8  RNA Vaccines (mRNA Vaccine) - Basis of Pfizer and Mo
+    ok    0/14 flagged   label=not 
+[109/119] oNkvEvdVJcg  COVID-19 Vaccine FAQs: Microchip... a third limb... 
+    ok    0/11 flagged   label=not 
+[110/119] ryZzJTL429k  What Are Long-Term Effects of the COVID Vaccine? A D
+    ok    0/8 flagged   label=not 
+[111/119] t-vspgpkiKs  Could the COVID-19 vaccine cause infertility? | Veri
+    ok    0/17 flagged   label=not 
+[112/119] tUS2fIaDp_Q  4. COVID-19 Vaccines and Side Effects for Women (Upd
+    ok    0/4 flagged   label=not 
+[113/119] tvrDH67EyRA  The Truth About COVID-19 Vaccines ft. Dr. Seema Yasm
+    ok    0/25 flagged   label=not 
+[114/119] veAv-xJ-bY4  mRNA Vaccine Safety - Micheal Fletcher, MD
+    FLAG  1/10 flagged   label=not 
+[115/119] xE3KrtoDeRE  COVID Vaccine SIDE EFFECTS are Finally Kicking in...
+    FLAG  6/7 flagged   label=not 
+[116/119] xYLapZC2RrY  VERIFY: Are there RFID chips in vaccines?
+    ok    0/10 flagged   label=not 
+[117/119] xmJXYT5IMdQ  mRNA vaccines much safer than getting COVID-19: revi
+    FLAG  1/10 flagged   label=not 
+[118/119] z8FA7rTFbEY  Study shows COVID 19 vaccines do not affect male fer
+    ok    0/3 flagged   label=not 
+[119/119] zg-Sh7gYXxk  How do the Covid vaccines affect male fertility?
+    ok    0/5 flagged   label=not 
+
+finished in 140.7 min
+
+run: 2026-11-13T00:02:39Z  commit 6c822ff  web=none  condition=parametric
+     dataset=test  prompt=production
+     model=gemma-4-12b gamma=0.3 chunk=55/35 grammar=True
+     corpus=2488 passages
+
+scored 119 video(s)
+
+                  predicted
+                fake    not
+  label fake      37      5
+  label not       26     51
+
+  whole transcript: 1589 claims over 119 videos; model's own fake_news disagrees with the claim verdicts on 11 video(s); 33 truncated at the claim cap
+
+  precision 0.587   recall 0.881   F1 0.705   accuracy 0.739
+
+  windows answered on web evidence: 0
+
+  false negatives (5):
+    Fu8lEbQXSKM  [medium] excess_deaths
+    Z6qlcRGzh-Q  [high] vaers_coverup
+    ZRrCYM3LsYM  [medium] myocarditis+underreporting
+    _BNyKPuAPD0  [medium] post_vaccine_syndrome
+    v0EyE70YT-c  [medium] mrna_flu_vaccine_risk_benefit
+
+  false positives (26):
+    -Vcm7bUocSg  1/8 windows flagged
+    2z8O-48h7J4  1/5 windows flagged
+    6cTDgwsdwZc  1/11 windows flagged
+    7DlcRSvuvnw  1/13 windows flagged
+    8nD6Q9X0SFw  1/6 windows flagged
+    Bf5ij1qISJM  1/8 windows flagged
+    Djlk3A8mEQI  9/25 windows flagged
+    F6NKbQzo4aE  1/25 windows flagged
+    H0F-YvUQEGY  1/9 windows flagged
+    I3kd5SyYHEE  1/20 windows flagged
+    LzkCvK8nayI  6/25 windows flagged
+    Qe5_86qCNRo  1/12 windows flagged
+    TDLu5BJzaAE  1/9 windows flagged
+    Ts0E-v3zya0  1/7 windows flagged
+    VOl2-xI76tI  1/14 windows flagged
+    ZfPpHkXSTPk  1/7 windows flagged
+    ajc_ip-IbdQ  2/3 windows flagged
+    b3-BCUmEYg0  1/6 windows flagged
+    c6tJDyIT0x4  1/5 windows flagged
+    cnYae-4FN7c  1/4 windows flagged
+    fy3oJpuFzaI  3/25 windows flagged
+    imxaAhjCSDw  4/9 windows flagged
+    l2POvDQu96c  1/25 windows flagged
+    veAv-xJ-bY4  1/10 windows flagged
+    xE3KrtoDeRE  6/7 windows flagged
+    xmJXYT5IMdQ  1/10 windows flagged
+
+summary written to data/results/v3/test_run_gemma-4-12b_parametric_whole_tc_summary.txt
+=== 2026-11-12 23:23:19 smoke  tavily
+web cache: cleared 15 entry(ies)
+
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gemma-4-12b-it-Q4_K_M.gguf
+  output constr. : GBNF grammar, enforced during sampling (llama.cpp)
+  model          : gemma-4-12b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos   : 119 labelled with usable transcripts
+  web fallback   : tavily
+                   probe OK -> https://pmc.ncbi.nlm.nih.gov/articles/PMC8539830
+  web cache      : on, 0 entry(ies) — a non-empty cache means some evidence is replayed, not refetched
+  claim windows  : ~1588 (~12.5 h at 28.4 s/window on CPU)
+
+all checks passed
+
+condition: rag   dataset: test   prompt: production
+0 video(s) to run, 3 already done
+
+
+finished in 0.0 min
+
+run: 2026-11-12T23:04:10Z  commit 7117db7  web=tavily  condition=rag
+     dataset=test  prompt=production
+     model=gemma-4-12b gamma=0.3 chunk=55/35 grammar=True
+     corpus=2488 passages
+
+scored 3 video(s)
+
+                  predicted
+                fake    not
+  label fake       3      0
+  label not        0      0
+
+  whole transcript: 57 claims over 3 videos; model's own fake_news disagrees with the claim verdicts on 0 video(s); 1 truncated at the claim cap
+
+  precision 1.000   recall 1.000   F1 1.000   accuracy 1.000
+
+  windows answered on web evidence: 15
+
+summary written to data/results/smoke/test_run_gemma-4-12b_tavily_whole_tc_summary.txt
+3 videos, 57 windows, verdicts: {'FAKE_NEWS': 10, 'NOT_FAKE_NEWS_WEB': 6, 'NOT_FAKE_NEWS': 12, 'NO_EVIDENCE': 24, 'FAKE_NEWS_WEB': 4, 'ERROR': 1}
+1 video(s) with ERROR windows
+  2MrNkagJIwY: claim missing from the model's judgements
+15 web searches, 0 returned nothing
+=== smoke test of tavily has ERROR windows; fix the cause, then
+    .venv/bin/python tests/check_run.py data/results/smoke/test_run_gemma-4-12b_tavily_whole_tc.json --drop-errors   and re-run this script
