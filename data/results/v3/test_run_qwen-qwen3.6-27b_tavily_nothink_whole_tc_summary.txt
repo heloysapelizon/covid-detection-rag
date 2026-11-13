@@ -1,0 +1,38 @@
+run: 2026-11-10T23:23:44Z  commit 8d63ff6  web=tavily  condition=rag
+     dataset=test  prompt=production
+     model=qwen/qwen3.6-27b gamma=0.3 chunk=55/35 grammar=False
+     corpus=2488 passages
+
+scored 119 video(s)
+
+                  predicted
+                fake    not
+  label fake      31     11
+  label not        6     71
+
+  whole transcript: 1947 claims over 119 videos; model's own fake_news disagrees with the claim verdicts on 0 video(s); 12 truncated at the claim cap
+
+  precision 0.838   recall 0.738   F1 0.785   accuracy 0.857
+
+  windows answered on web evidence: 596
+
+  false negatives (11):
+    21hkEfN3UmA  [high] vaccine_passport_nazi_comparison
+    8a-MTuhfw98  [medium] mrna_flu_vaccine_risk_benefit
+    F-LD9pvPXQE  [medium] infertility
+    PMDcOTWEEcI  [high] plandemic+gates+no_virus
+    SE78ocLgStc  [high] pfizer_documents_coverup
+    Z6qlcRGzh-Q  [high] vaers_coverup
+    ZRrCYM3LsYM  [medium] myocarditis+underreporting
+    _BNyKPuAPD0  [medium] post_vaccine_syndrome
+    _SJ3GWZq0jI  [medium] cancer
+    u1MIKNhPz24  [high] vaccine_deaths+myocarditis
+    v0EyE70YT-c  [medium] mrna_flu_vaccine_risk_benefit
+
+  false positives (6):
+    Djlk3A8mEQI  3/19 windows flagged
+    ZHx_DdSip78  1/10 windows flagged
+    imxaAhjCSDw  1/6 windows flagged
+    j6Sn07fQeYM  1/25 windows flagged
+    xE3KrtoDeRE  2/25 windows flagged
+    xmJXYT5IMdQ  1/14 windows flagged

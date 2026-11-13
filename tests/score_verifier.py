@@ -11,10 +11,17 @@ level, against the labels stored in the run files:
   video-AND     both arms flagged the video, possibly on different windows
   window-AND    some window was flagged by BOTH arms. The stricter reading:
                 the evidence confirmed the same claim the model proposed.
+  evidence-veto a parametric flag stands unless the evidence arm explicitly
+                CLEARED the same window (NOT_FAKE_NEWS / NOT_FAKE_NEWS_WEB).
+                Evidence that is silent (NO_EVIDENCE) leaves the flag in place,
+                so recall stays near the parametric arm's while evidence removes
+                the flags it can actually speak to (docs/evidence-veto.md).
 
-This is an agreement rule over two existing runs, not a generate-then-verify
-pipeline: the evidence arm never sees the parametric flag. Its recall is
-bounded by the parametric arm's, so it can only trade recall for precision.
+These are rules over two existing runs, not a generate-then-verify pipeline:
+the evidence arm never sees the parametric flag.
+
+Whole-transcript runs (--whole) have claims, not windows, and the two arms
+extract different claims, so only the video-level rows are printed for them.
 """
 from __future__ import annotations
 
@@ -30,8 +37,15 @@ def load(path: Path) -> tuple[dict, dict]:
     return payload.get("run") or {}, payload["videos"]
 
 
+CLEARED = {"NOT_FAKE_NEWS", "NOT_FAKE_NEWS_WEB"}
+
+
 def flagged_windows(video: dict) -> set[int]:
     return {r["window"] for r in video["results"] if r["verdict"] in FLAG}
+
+
+def cleared_windows(video: dict) -> set[int]:
+    return {r["window"] for r in video["results"] if r["verdict"] in CLEARED}
 
 
 def metrics(pred: dict[str, bool], label: dict[str, bool]) -> str:
@@ -52,6 +66,10 @@ def main() -> int:
         return 2
     pm, par = load(Path(args[0]))
     rm, rag = load(Path(args[1]))
+    if "--overlap-veto" in sys.argv and any(
+            (m.get("settings") or {}).get("WHOLE_TRANSCRIPT") for m in (pm, rm)):
+        raise SystemExit("--overlap-veto needs overlapping windows; whole-transcript "
+                         "runs have claims, so it does not apply")
     if "--overlap-veto" in sys.argv:
         sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
         from rag.pipeline import overlap_veto
@@ -81,11 +99,18 @@ def main() -> int:
         "rag": {v: bool(flagged_windows(rag[v])) for v in common},
         "video-AND": {v: bool(flagged_windows(par[v]))
                       and bool(flagged_windows(rag[v])) for v in common},
-        "window-AND": {v: bool(flagged_windows(par[v]) & flagged_windows(rag[v]))
-                       for v in common},
     }
+    whole = any((m.get("settings") or {}).get("WHOLE_TRANSCRIPT") for m in (pm, rm))
+    if whole:
+        print("  (whole-transcript runs: rows are claims, not windows; only the "
+              "video-level rows apply)\n")
+    else:
+        preds["window-AND"] = {v: bool(flagged_windows(par[v]) & flagged_windows(rag[v]))
+                               for v in common}
+        preds["evidence-veto"] = {v: bool(flagged_windows(par[v]) - cleared_windows(rag[v]))
+                                  for v in common}
     for name, pred in preds.items():
-        print(f"  {name:11} {metrics(pred, label)}")
+        print(f"  {name:13} {metrics(pred, label)}")
     return 0
 
 

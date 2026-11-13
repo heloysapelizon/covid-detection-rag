@@ -1,0 +1,6 @@
+model=qwen/qwen3.6-27b  dataset=test  prompt=production  videos=119 (parametric 119, rag 119)
+
+  parametric  TP  39  FP  10  FN   3   P 0.796  R 0.929  F1 0.857
+  rag         TP  31  FP   6  FN  11   P 0.838  R 0.738  F1 0.785
+  video-AND   TP  29  FP   5  FN  13   P 0.853  R 0.690  F1 0.763
+  window-AND  TP  28  FP   2  FN  14   P 0.933  R 0.667  F1 0.778

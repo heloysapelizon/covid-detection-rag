@@ -12,3 +12,4 @@ data/evidence/pdf/
 
 # Web-search cache: archived per run as data/results/<version>/web_cache_*.tar.gz
 data/web_cache/
+data/web_cache_*/

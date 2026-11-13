@@ -217,7 +217,11 @@ def search(query: str, max_results: int = 4, fetch_fn=None) -> list[dict]:
 # written, not now. `retrieved_at` carries the original timestamp precisely so
 # that is visible in the results, and a measurement run clears the cache first
 # (`--clear-cache`) so its evidence is fetched fresh.
-CACHE_DIR = PROJECT_ROOT / "data" / "web_cache"
+# WEB_CACHE_DIR gives a run its own cache, so two runs searching the web at the
+# same time (e.g. two models in parallel) cannot clear each other's evidence
+# with --clear-cache. Default: the shared data/web_cache/.
+CACHE_DIR = Path(os.environ["WEB_CACHE_DIR"]).resolve() if os.environ.get(
+    "WEB_CACHE_DIR") else PROJECT_ROOT / "data" / "web_cache"
 CACHE_ENABLED = os.environ.get("WEB_CACHE", "1") not in ("0", "false", "False")
 
 

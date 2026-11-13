@@ -1,0 +1,23 @@
+=== 2026-11-10 22:59:00 preflight  model=stub/model  server=llamacpp  reasoning=default
+PY tests/run_experiment.py --check --web tavily
+=== 2026-11-10 22:59:00 smoke  parametric
+PY tests/run_experiment.py --condition parametric --limit 3 --out data/results/smoke/test_run_stub-model_parametric.json
+PY tests/check_run.py data/results/smoke/test_run_stub-model_parametric.json
+0 video(s) with ERROR windows
+=== 2026-11-10 22:59:00 full   parametric  -> data/results/v1/test_run_stub-model_parametric.json
+PY tests/run_experiment.py --condition parametric --out data/results/v1/test_run_stub-model_parametric.json
+=== 2026-11-10 22:59:00 score  parametric with overlap veto
+PY tests/run_experiment.py --score --overlap-veto --out data/results/v1/test_run_stub-model_parametric.json
+=== 2026-11-10 22:59:00 smoke  tavily
+PY tests/run_experiment.py --web tavily --clear-cache --limit 3 --out data/results/smoke/test_run_stub-model_tavily.json
+PY tests/check_run.py data/results/smoke/test_run_stub-model_tavily.json
+0 video(s) with ERROR windows
+=== 2026-11-10 22:59:00 full   tavily  -> data/results/v1/test_run_stub-model_tavily.json
+PY tests/run_experiment.py --web tavily --out data/results/v1/test_run_stub-model_tavily.json
+=== 2026-11-10 22:59:00 score  tavily with overlap veto
+PY tests/run_experiment.py --score --overlap-veto --out data/results/v1/test_run_stub-model_tavily.json
+=== 2026-11-10 22:59:00 verifier
+PY tests/score_verifier.py data/results/v1/test_run_stub-model_parametric.json data/results/v1/test_run_stub-model_tavily.json
+
+PY tests/score_verifier.py data/results/v1/test_run_stub-model_parametric.json data/results/v1/test_run_stub-model_tavily.json --overlap-veto
+=== 2026-11-10 22:59:00 done

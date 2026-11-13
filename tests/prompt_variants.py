@@ -444,13 +444,15 @@ PROMPT_PAIRS["rules_v2"] = {
 }
 
 
-# rules_v2 is the production prompt (rag/llm.py) since 2026-11-09. Checked here
-# so the variant and production cannot drift apart unnoticed: if rag/llm.py is
-# edited, this fails until the variant is updated to match (or renamed).
+# Production (rag/llm.py) is v0 again: the v1 prompts, restored 2026-11-11 when
+# the v2 protocol (rules_v2 + time check) was dropped from the reported results
+# after it scored worse than v1 on the test set (docs/evidence-veto.md,
+# "v2: tested, not reported"). Checked here so production and the reported
+# prompts cannot drift apart unnoticed.
 from rag.llm import (  # noqa: E402
     PARAMETRIC_PROMPT as _PROD_PAR,
     SYSTEM_PROMPT as _PROD_RAG,
 )
 
-assert (PROMPT_PAIRS["rules_v2"]["rag"], PROMPT_PAIRS["rules_v2"]["parametric"]) \
-    == (_PROD_RAG, _PROD_PAR), "rag/llm.py prompts differ from rules_v2"
+assert (V0_RAG, V0_PARAMETRIC) == (_PROD_RAG, _PROD_PAR), \
+    "rag/llm.py prompts differ from v0 (the reported v1 prompts)"

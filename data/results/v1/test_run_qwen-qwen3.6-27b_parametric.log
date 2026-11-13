@@ -122,3 +122,432 @@ condition: parametric
 [6/96] _SJ3GWZq0jI  &#39;CANCER OCCURRED near injection sites...&#39;: B
     FLAG  9/14 flagged   label=fake
 [7/96] cIGTf5qO5as  When will we Learn the TRUTH about COVID Vaccines?
+preflight:
+  model server   : OK   https://openrouter.ai/api/v1 — qwen/qwen3.6-27b offered, key valid (credit: 90.47 of 100 left)
+  output constr. : json_schema, provider-validated (OpenRouter)
+  NOTE           : remote backend — transcript text leaves this machine
+  model          : qwen/qwen3.6-27b at https://openrouter.ai/api/v1
+  evidence index : OK   2488 passages
+  test videos    : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric
+90 video(s) to run, 29 already done
+
+[1/90] cIGTf5qO5as  When will we Learn the TRUTH about COVID Vaccines?
+    FLAG  14/24 flagged   label=fake
+[2/90] cV4jUXBWpvA  The SCARY TRUTH about COVID Vaccines
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+preflight:
+  model server   : OK   https://openrouter.ai/api/v1 — qwen/qwen3.6-27b offered, key valid (credit: 49.98 of 50 left)
+  output constr. : json_schema, provider-validated (OpenRouter)
+  NOTE           : remote backend — transcript text leaves this machine
+  model          : qwen/qwen3.6-27b at https://openrouter.ai/api/v1
+  evidence index : OK   2488 passages
+  test videos    : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric
+89 video(s) to run, 30 already done
+
+[1/89] cV4jUXBWpvA  The SCARY TRUTH about COVID Vaccines
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    ok    0/18 flagged   label=fake
+[2/89] giS6CiT1qTE  Study reveals new heart health concerns from COVID v
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    ok    0/8 flagged   label=fake
+[3/89] kda_j6EyAg8  Vaccines and fertility
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+    retry: HTTPError: 402 Client Error: Payment Required for url: https://openrouter.ai/api/v1/chat/completions
+# --- 2026-11-10 09:42:43 restarted cleanly after a duplicate launch was stopped (its lines removed) ---
+preflight:
+  model server   : OK   https://openrouter.ai/api/v1 — qwen/qwen3.6-27b offered, key valid (credit: 49.71 of 50 left)
+  output constr. : json_schema, provider-validated (OpenRouter)
+  NOTE           : remote backend — transcript text leaves this machine
+  model          : qwen/qwen3.6-27b at https://openrouter.ai/api/v1
+  evidence index : OK   2488 passages
+  test videos    : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric
+89 video(s) to run, 30 already done
+
+[1/89] cV4jUXBWpvA  The SCARY TRUTH about COVID Vaccines
+    FLAG  18/18 flagged   label=fake
+[2/89] giS6CiT1qTE  Study reveals new heart health concerns from COVID v
+    FLAG  6/8 flagged   label=fake
+[3/89] kda_j6EyAg8  Vaccines and fertility
+    FLAG  34/45 flagged   label=fake
+[4/89] n9yZ-TKtHQY  COVID-19 Conspiracy: The Truth About the Pandemic
+    FLAG  3/3 flagged   label=fake
+[5/89] rNUwvh4VxlM  The Dark Truth about COVID-19!! | JRE
+    FLAG  12/18 flagged   label=fake
+[6/89] rpm4ED9XY90  Uncover the Shocking Truth About COVID-19 Vaccines!
+    FLAG  1/1 flagged   label=fake
+[7/89] s2yiZpNhDH4  The Consequences of Ignoring Myocarditis Risks From 
+    FLAG  2/2 flagged   label=fake
+[8/89] tnpl7F1eTD8  New SHOCKING Side Effect of the COVID Vaccine!
+    FLAG  27/30 flagged   label=fake
+[9/89] u1MIKNhPz24  Dr. Peter McCullough on the Most Serious Side Effect
+Traceback (most recent call last):
+  File "/Users/heloysapelizon/Desktop/TCC-v1/tests/run_experiment.py", line 415, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/Users/heloysapelizon/Desktop/TCC-v1/tests/run_experiment.py", line 408, in main
+    run(args.web, args.limit, out, args.condition)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/heloysapelizon/Desktop/TCC-v1/tests/run_experiment.py", line 243, in run
+    results = check_transcript_parametric(video["transcript"])
+  File "/Users/heloysapelizon/Desktop/TCC-v1/rag/pipeline.py", line 275, in check_transcript_parametric
+    verdict = adjudicate_parametric(claim)
+  File "/Users/heloysapelizon/Desktop/TCC-v1/rag/llm.py", line 635, in adjudicate_parametric
+    if parsed.get(key):
+       ^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+# --- 2026-11-10 10:59:27 resumed after fixing the str-JSON crash in rag/llm.py _extract_json ---
+preflight:
+  model server   : OK   https://openrouter.ai/api/v1 — qwen/qwen3.6-27b offered, key valid (credit: 48.01 of 50 left)
+  output constr. : json_schema, provider-validated (OpenRouter)
+  NOTE           : remote backend — transcript text leaves this machine
+  model          : qwen/qwen3.6-27b at https://openrouter.ai/api/v1
+  evidence index : OK   2488 passages
+  test videos    : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric
+81 video(s) to run, 38 already done
+
+[1/81] u1MIKNhPz24  Dr. Peter McCullough on the Most Serious Side Effect
+    FLAG  23/26 flagged   label=fake
+[2/81] v0EyE70YT-c  FDA approves new mRNA vaccine, despite risks.
+    FLAG  16/32 flagged   label=fake
+[3/81] ydkMwOp2Fhk  THIS Is How They Covered Up The COVID Vaxx’s DEADLY 
+    FLAG  111/119 flagged   label=fake
+[4/81] zOHocfVy1n0  The Hidden Truth About COVID Vaccines 2025 10 14
+    FLAG  3/3 flagged   label=fake
+[5/81] -Vcm7bUocSg  &#39;COVID Arm&#39; Pfizer And Moderna Vaccine Side 
+    ok    0/8 flagged   label=not 
+[6/81] 2S2v45_NSYs  Why It’s Impossible To Put Tracking Microchips In Co
+    ok    0/39 flagged   label=not 
+[7/81] 2eSHjV9a-OI  Debunking COVID Microchip Conspiracy Theory #shorts
+    ok    0/1 flagged   label=not 
+[8/81] 2z8O-48h7J4  Does the COVID-19 vaccine impact fertility?
+    ok    0/1 flagged   label=not 
+[9/81] 3kaNMVfmmvg  MYTH: COVID-19 Vaccines Cause Infertility or Miscarr
+    ok    0/1 flagged   label=not 
+[10/81] 68QzzWGc4mI  mRNA COVID Shots Cause Myocarditis
+    retry: model did not return JSON: ">{\n  \"stance\": \"asserting\",\n  \"verdict\": \"FAKE_NEWS\",\n  \"claim\": \"at five mont
+    FLAG  3/33 flagged   label=not 
+[11/81] 6cTDgwsdwZc  Covid-19: There is no microchip in the coronavirus v
+    ok    0/4 flagged   label=not 
+[12/81] 7DlcRSvuvnw  How do mRNA COVID-19 vaccines work?
+    ok    0/4 flagged   label=not 
+[13/81] 8nD6Q9X0SFw  How COVID-19 mRNA Vaccines Work
+    ok    0/3 flagged   label=not 
+[14/81] BByJrQkInyU  #5: COVID-19 &amp; Fertility Part 2: The Effect of I
+    FLAG  4/63 flagged   label=not 
+[15/81] BGdqLP4DSlA  OB/GYN Fact-Checks Infertility &amp; COVID-19 Vaccin
+    ok    0/7 flagged   label=not 
+[16/81] Bf5ij1qISJM  What are the COVID vaccine side effects?
+    ok    0/2 flagged   label=not 
+[17/81] Cg6QJNKC38s  FDA approves Moderna&#39;s mRNA flu vaccine after in
+    ok    0/3 flagged   label=not 
+[18/81] CztIknqTNpY  Side effects of the Pfizer COVID19 vaccine
+    ok    0/4 flagged   label=not 
+[19/81] DjMqylDmbP8  HHS compiling list of injuries eligible for automati
+    FLAG  1/10 flagged   label=not 
+[20/81] Djlk3A8mEQI  The Truth Behind the New COVID-19 Vaccines - Explain
+    FLAG  5/12 flagged   label=not 
+[21/81] F6NKbQzo4aE  Vaccine side effects are actually a good thing
+    FLAG  2/17 flagged   label=not 
+[22/81] FXRsR0qsViU  A closer look at reported COVID-19 vaccine side effe
+    ok    0/4 flagged   label=not 
+[23/81] H0F-YvUQEGY  Trust Index: Do the COVID-19 vaccines cause infertil
+    ok    0/4 flagged   label=not 
+[24/81] HgINkAsQLi4  #AskAuntyCarol: Is there a microchip in the vaccine?
+    ok    0/1 flagged   label=not 
+[25/81] I3kd5SyYHEE  Myocarditis and coronavirus vaccines: Explaining the
+    ok    0/6 flagged   label=not 
+[26/81] Ii0dg77pW64  COVID Vaccine &amp; Fertility
+    ok    0/2 flagged   label=not 
+[27/81] K8F_L-fM350  Does the COVID-19 Vaccine Affect Fertility?
+    ok    0/7 flagged   label=not 
+[28/81] L7pTGNob0N4  Debunking the COVID-19 Vaccine Microchip Conspiracy:
+    ok    0/2 flagged   label=not 
+[29/81] LM4ZzTpPAAQ  COVID-19 Vaccine Myth #1: The COVID-19 vaccine has m
+    ok    0/3 flagged   label=not 
+[30/81] LzkCvK8nayI  Does the COVID Vaccine Have a Microchip? The Viral H
+    ok    0/2 flagged   label=not 
+[31/81] MnEArHUiVXI  When Should You Get the New COVID Vaccine?
+    FLAG  2/4 flagged   label=not 
+[32/81] MniP4EtW7xI  Men&#39;s Fertility And Covid Vaccines Here Is The E
+    ok    0/10 flagged   label=not 
+[33/81] MrmiEBmeumA  New details on Pfizer COVID-19 vaccine side effects
+    ok    0/7 flagged   label=not 
+[34/81] P711tS7eJK0  Can the mRNA COVID vaccines change our DNA?
+    ok    0/8 flagged   label=not 
+[35/81] PIcqomL17YA  The Moderna mRNA Vaccine &amp; Immune System Side Ef
+    FLAG  3/17 flagged   label=not 
+[36/81] PfBD1HeNkFE  VERIFY: TikTok video showing pet microchip scanner i
+    ok    0/3 flagged   label=not 
+[37/81] PjtHeNnQvxI  Microchip vaccines? What to say to someone who says 
+    ok    0/2 flagged   label=not 
+[38/81] QJ5k7AIiST8  Does the COVID Vaccine Cause Infertility? Is it Safe
+    ok    0/7 flagged   label=not 
+[39/81] Qe5_86qCNRo  Which mRNA Vaccine Poses a Lower Risk for Myocarditi
+    ok    0/11 flagged   label=not 
+[40/81] Qf0JSP7VtgU  Doctor Explains Rare Covid-19 Vaccine Side Effects i
+    FLAG  1/10 flagged   label=not 
+[41/81] RUr25jr-970  Will the COVID Vaccine Leave You with a Microchip?
+    ok    0/1 flagged   label=not 
+[42/81] TDLu5BJzaAE  COVID-19 vaccine: the $12 billion gamble
+    ok    0/5 flagged   label=not 
+[43/81] Ts0E-v3zya0  Does COVID-19 vaccine cause infertility?
+    ok    0/2 flagged   label=not 
+[44/81] UMGAO3SEz2Q  Andrew Huberman on mRNA Vaccines | Real Time with Bi
+    FLAG  1/8 flagged   label=not 
+[45/81] VOl2-xI76tI  The Pregnant Doc Telling the Truth About COVID-19 | 
+    FLAG  2/13 flagged   label=not 
+[46/81] YiLHB8F0hFI  I heard the vaccines contain a microchip in them. Is
+    ok    0/2 flagged   label=not 
+[47/81] YqFa-eglI60  Here&#39;s what to know about the new mRNA flu vacci
+    FLAG  1/6 flagged   label=not 
+[48/81] ZHx_DdSip78  The Truth About Covid Vaccines!
+    FLAG  2/4 flagged   label=not 
+[49/81] ZfPpHkXSTPk  Largest Covid Vaccine Study Yet Finds Links to Healt
+    ok    0/2 flagged   label=not 
+[50/81] ajc_ip-IbdQ  Microchip Implant Tells Covid Vaccine Status
+    FLAG  1/1 flagged   label=not 
+[51/81] b3-BCUmEYg0  Will the COVID-19 Vaccine Cause Infertility?
+    ok    0/1 flagged   label=not 
+[52/81] c6tJDyIT0x4  Does the vaccine contain a microchip that can be use
+    ok    0/1 flagged   label=not 
+[53/81] cGF0D2poGyA  Looking into adverse effects of the COVID-19 vaccine
+    FLAG  1/14 flagged   label=not 
+[54/81] cnYae-4FN7c  Wellstar COVID Myth Busters: The Vaccine Contains a 
+    ok    0/1 flagged   label=not 
+[55/81] fy3oJpuFzaI  The Truth About My Anti-Vax Debate
+    FLAG  10/34 flagged   label=not 
+[56/81] gQfeAj5w-yc  UM Research Debunks Nicki Minaj COVID Vaccine Infert
+    ok    0/1 flagged   label=not 
+[57/81] gReF5xOBrzI  For mRNA Vaccines, COVID Was Just the Beginning
+    retry: ConnectionError: HTTPSConnectionPool(host='openrouter.ai', port=443): Read timed out.
+    ok    0/33 flagged   label=not 
+[58/81] gcExM22XkYs  False links between COVID vaccine and infertility ra
+    ok    0/4 flagged   label=not 
+[59/81] hEOO5Qzc8cQ  Can COVID 19 vaccines cause infertility?
+    ok    0/2 flagged   label=not 
+[60/81] im3otpqYAiQ  Covid Vaccine Study Finds Links to Health Conditions
+    ok    0/4 flagged   label=not 
+[61/81] imxaAhjCSDw  COVID Vaccine Conspiracy: Microchips, Wheelchairs, a
+    FLAG  1/1 flagged   label=not 
+[62/81] j6Sn07fQeYM  Latest research on vaccine side effects, immune reac
+    FLAG  1/24 flagged   label=not 
+[63/81] jqD7rV2vYx4  Can the COVID-19 Vaccine Make You Infertile?
+    ok    0/10 flagged   label=not 
+[64/81] l2POvDQu96c  COVID VACCINE - Does it cause INFERTILITY?
+    ok    0/17 flagged   label=not 
+[65/81] le5ZWyKvvMI  #ListenToTheExperts - Is there a microchip in the va
+    ok    0/1 flagged   label=not 
+[66/81] m4Kzi2UxI5E  Side Effects Of The Pfizer Vaccine For COVID-19 Expl
+    ok    0/10 flagged   label=not 
+[67/81] mdwVaPBpks0  Scientists Are Developing Injectable Microchips... B
+    ok    0/25 flagged   label=not 
+[68/81] mkZ1MabMEZw  Covid Vaccine Side Effects + VAERS
+    FLAG  1/3 flagged   label=not 
+[69/81] nucCr7Sywgc  Second COVID Vaccine Shot Side Effects
+    ok    0/18 flagged   label=not 
+[70/81] oMXGGmBfkf8  RNA Vaccines (mRNA Vaccine) - Basis of Pfizer and Mo

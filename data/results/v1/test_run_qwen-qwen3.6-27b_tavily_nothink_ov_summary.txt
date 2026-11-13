@@ -1,0 +1,41 @@
+(re-scored with overlap veto)
+run: 2026-11-10T21:30:14Z  commit 36c481d  web=tavily  condition=rag
+     dataset=test  prompt=unrecorded
+     model=qwen/qwen3.6-27b gamma=0.3 chunk=55/35 grammar=False
+     corpus=2488 passages
+
+scored 119 video(s)
+
+                  predicted
+                fake    not
+  label fake      41      1
+  label not       20     57
+
+  precision 0.672   recall 0.976   F1 0.796   accuracy 0.824
+
+  windows answered on web evidence: 875
+
+  false negatives (1):
+    F-LD9pvPXQE  [medium] infertility
+
+  false positives (20):
+    68QzzWGc4mI  6/33 windows flagged
+    BByJrQkInyU  4/63 windows flagged
+    DjMqylDmbP8  1/10 windows flagged
+    Djlk3A8mEQI  4/12 windows flagged
+    FXRsR0qsViU  1/4 windows flagged
+    MnEArHUiVXI  2/4 windows flagged
+    PIcqomL17YA  2/17 windows flagged
+    UMGAO3SEz2Q  3/8 windows flagged
+    VOl2-xI76tI  6/13 windows flagged
+    YqFa-eglI60  2/6 windows flagged
+    ZHx_DdSip78  2/4 windows flagged
+    cGF0D2poGyA  2/14 windows flagged
+    fy3oJpuFzaI  10/34 windows flagged
+    imxaAhjCSDw  1/1 windows flagged
+    j6Sn07fQeYM  2/24 windows flagged
+    nucCr7Sywgc  1/18 windows flagged
+    ryZzJTL429k  1/20 windows flagged
+    tvrDH67EyRA  4/37 windows flagged
+    xE3KrtoDeRE  40/74 windows flagged
+    xmJXYT5IMdQ  2/4 windows flagged

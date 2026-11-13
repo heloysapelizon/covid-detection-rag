@@ -1,5 +1,11 @@
 # Evidence as a verifier
 
+> **Superseded.** The reported way of combining the two arms is the evidence
+> veto (docs/evidence-veto.md): a parametric flag stands unless the evidence
+> cleared that window. This document is kept as the record of how the question
+> was first approached; its figures use the base prompt on dev and the
+> pre-existing v1 runs on test.
+
 How retrieved evidence earns its place in this pipeline. Measured on the
 development set; the test-set figures quoted below come from runs that already
 existed when this framing was proposed, and are reported as the observation that
@@ -165,13 +171,9 @@ It is deterministic and post-hoc, so any finished run can be re-scored with it
   after seeing the 120b test runs. Dev confirms it on separate videos; the
   remaining test-set runs (Gemma, gpt-oss-20b, Qwen) should be scored with the
   rule fixed in advance.
-- **Prompts in flux.** These figures use the base prompt (frozen in
-  tests/prompt_variants.py, `--prompt base`). The production prompt in
-  rag/llm.py is now rules_v2, which targets the evidence arm's own errors, and
-  test runs also use the time check (rag/temporal.py). rules_v2 was promoted
-  before its dev round finished; if it works, the evidence arm alone should
-  begin to beat the parametric arm, and this document should be updated with
-  its figures.
+- **v2 dropped.** The rules_v2 prompt and the time check were tried as v2 and
+  scored worse than v1 on the test set; v2 is not reported (docs/evidence-veto.md).
+  The production prompts are the v1 prompts again.
 
 ## Reproducing
 

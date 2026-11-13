@@ -395,6 +395,12 @@ def score(out: Path, summary_path: Path | None = None,
         builtins.print(text, **kwargs)
     payload = json.loads(out.read_text(encoding="utf-8"))
     done = payload.get("videos", payload)   # tolerate the pre-metadata shape
+    if overlap_veto and ((payload.get("run") or {}).get("settings") or {}).get(
+            "WHOLE_TRANSCRIPT"):
+        import builtins
+        builtins.print("--overlap-veto needs overlapping windows; this is a "
+                       "whole-transcript run (claims), so it does not apply")
+        return
     if overlap_veto:
         # Re-score a finished run under the overlap veto: deterministic and
         # post-hoc, so it needs no model calls. The file is not rewritten.

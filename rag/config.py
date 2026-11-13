@@ -9,12 +9,13 @@ DATA_DIR = PROJECT_ROOT / "data" / "youtube"
 EVIDENCE_DIR = PROJECT_ROOT / "data" / "evidence"
 
 # Experiment results, grouped by protocol version (data/results/README.md):
-#   v1     first test round: earlier prompts, no time check, evidence arm only
-#   v2     current protocol: rules_v2 prompts, time check, both arms, verifier
+#   v1     the reported windowed protocol: v1 prompts, no time check
+#   v2     dropped protocol (rules_v2 + time check, tested, not reported) and dev runs
+#   v3     whole-transcript protocol (rag/whole.py)
 #   smoke  short checks (--limit N), kept apart so they never count as a run
 # New runs go to RESULTS_VERSION; set it to write elsewhere (e.g. v3).
 RESULTS_ROOT = PROJECT_ROOT / "data" / "results"
-RESULTS_VERSION = os.environ.get("RESULTS_VERSION", "v2")
+RESULTS_VERSION = os.environ.get("RESULTS_VERSION", "v1")
 RESULTS_DIR = RESULTS_ROOT / RESULTS_VERSION
 SMOKE_DIR = RESULTS_ROOT / "smoke"
 INDEX_DIR = PROJECT_ROOT / "data" / "index"

@@ -1,0 +1,6 @@
+model=openai/gpt-oss-120b  dataset=test  prompt=production  videos=119 (parametric 119, rag 119)
+
+  parametric  TP  41  FP  26  FN   1   P 0.612  R 0.976  F1 0.752
+  rag         TP  37  FP  53  FN   5   P 0.411  R 0.881  F1 0.561
+  video-AND   TP  37  FP  21  FN   5   P 0.638  R 0.881  F1 0.740
+  window-AND  TP  29  FP  11  FN  13   P 0.725  R 0.690  F1 0.707

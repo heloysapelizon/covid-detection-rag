@@ -72,3 +72,31 @@ condition: parametric   dataset: test   prompt: production
 [29/119] _SJ3GWZq0jI  &#39;CANCER OCCURRED near injection sites...&#39;: B
     FLAG  6/14 flagged   label=fake
 [30/119] cIGTf5qO5as  When will we Learn the TRUTH about COVID Vaccines?
+    FLAG  13/24 flagged   label=fake
+[31/119] cV4jUXBWpvA  The SCARY TRUTH about COVID Vaccines
+    FLAG  14/18 flagged   label=fake
+[32/119] giS6CiT1qTE  Study reveals new heart health concerns from COVID v
+    FLAG  7/8 flagged   label=fake
+[33/119] kda_j6EyAg8  Vaccines and fertility
+    FLAG  30/45 flagged   label=fake
+[34/119] n9yZ-TKtHQY  COVID-19 Conspiracy: The Truth About the Pandemic
+    FLAG  3/3 flagged   label=fake
+[35/119] rNUwvh4VxlM  The Dark Truth about COVID-19!! | JRE
+    FLAG  10/18 flagged   label=fake
+[36/119] rpm4ED9XY90  Uncover the Shocking Truth About COVID-19 Vaccines!
+    FLAG  1/1 flagged   label=fake
+[37/119] s2yiZpNhDH4  The Consequences of Ignoring Myocarditis Risks From 
+    FLAG  2/2 flagged   label=fake
+[38/119] tnpl7F1eTD8  New SHOCKING Side Effect of the COVID Vaccine!
+    FLAG  22/30 flagged   label=fake
+[39/119] u1MIKNhPz24  Dr. Peter McCullough on the Most Serious Side Effect
+    FLAG  24/26 flagged   label=fake
+[40/119] v0EyE70YT-c  FDA approves new mRNA vaccine, despite risks.
+    FLAG  11/32 flagged   label=fake
+[41/119] ydkMwOp2Fhk  THIS Is How They Covered Up The COVID Vaxx’s DEADLY 
+    FLAG  108/119 flagged   label=fake
+[42/119] zOHocfVy1n0  The Hidden Truth About COVID Vaccines 2025 10 14
+    FLAG  3/3 flagged   label=fake
+[43/119] -Vcm7bUocSg  &#39;COVID Arm&#39; Pfizer And Moderna Vaccine Side 
+    ok    0/8 flagged   label=not 
+[44/119] 2S2v45_NSYs  Why It’s Impossible To Put Tracking Microchips In Co

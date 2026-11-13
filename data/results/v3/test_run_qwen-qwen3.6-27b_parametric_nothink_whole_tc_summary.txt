@@ -1,0 +1,34 @@
+run: 2026-11-10T22:38:55Z  commit 8d63ff6  web=none  condition=parametric
+     dataset=test  prompt=production
+     model=qwen/qwen3.6-27b gamma=0.3 chunk=55/35 grammar=False
+     corpus=2488 passages
+
+scored 119 video(s)
+
+                  predicted
+                fake    not
+  label fake      39      3
+  label not       10     67
+
+  whole transcript: 1111 claims over 119 videos; model's own fake_news disagrees with the claim verdicts on 0 video(s); 0 truncated at the claim cap
+
+  precision 0.796   recall 0.929   F1 0.857   accuracy 0.891
+
+  windows answered on web evidence: 0
+
+  false negatives (3):
+    F-LD9pvPXQE  [medium] infertility
+    Fu8lEbQXSKM  [medium] excess_deaths
+    I06-UcSG8Tk  [medium] transmission_claims+liability
+
+  false positives (10):
+    68QzzWGc4mI  3/25 windows flagged
+    DjMqylDmbP8  2/9 windows flagged
+    Djlk3A8mEQI  3/6 windows flagged
+    YqFa-eglI60  2/17 windows flagged
+    ZHx_DdSip78  4/7 windows flagged
+    ajc_ip-IbdQ  2/2 windows flagged
+    fy3oJpuFzaI  1/15 windows flagged
+    imxaAhjCSDw  2/3 windows flagged
+    xE3KrtoDeRE  10/10 windows flagged
+    xmJXYT5IMdQ  1/10 windows flagged

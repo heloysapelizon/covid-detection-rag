@@ -1,17 +1,17 @@
-=== 2026-11-10 19:01:39 preflight  model=stub/model  server=llamacpp  reasoning=default
+=== 2026-11-10 22:59:00 preflight  model=stub/model  server=llamacpp  reasoning=default
 PY tests/run_experiment.py --check --web tavily
-=== 2026-11-10 19:01:39 smoke  parametric
+=== 2026-11-10 22:59:00 smoke  parametric
 PY tests/run_experiment.py --condition parametric --whole --time-check --limit 3 --out data/results/smoke/test_run_stub-model_parametric_whole_tc.json
 PY tests/check_run.py data/results/smoke/test_run_stub-model_parametric_whole_tc.json
 0 video(s) with ERROR windows
-=== 2026-11-10 19:01:39 full   parametric  -> data/results/v3/test_run_stub-model_parametric_whole_tc.json
+=== 2026-11-10 22:59:00 full   parametric  -> data/results/v3/test_run_stub-model_parametric_whole_tc.json
 PY tests/run_experiment.py --condition parametric --whole --time-check --out data/results/v3/test_run_stub-model_parametric_whole_tc.json
-=== 2026-11-10 19:01:39 smoke  tavily
+=== 2026-11-10 22:59:00 smoke  tavily
 PY tests/run_experiment.py --web tavily --whole --time-check --clear-cache --limit 3 --out data/results/smoke/test_run_stub-model_tavily_whole_tc.json
 PY tests/check_run.py data/results/smoke/test_run_stub-model_tavily_whole_tc.json
 0 video(s) with ERROR windows
-=== 2026-11-10 19:01:39 full   tavily  -> data/results/v3/test_run_stub-model_tavily_whole_tc.json
+=== 2026-11-10 22:59:00 full   tavily  -> data/results/v3/test_run_stub-model_tavily_whole_tc.json
 PY tests/run_experiment.py --web tavily --whole --time-check --out data/results/v3/test_run_stub-model_tavily_whole_tc.json
-=== 2026-11-10 19:01:39 verifier
+=== 2026-11-10 22:59:00 verifier
 PY tests/score_verifier.py data/results/v3/test_run_stub-model_parametric_whole_tc.json data/results/v3/test_run_stub-model_tavily_whole_tc.json
-=== 2026-11-10 19:01:39 done
+=== 2026-11-10 22:59:00 done

@@ -1,0 +1,45 @@
+preflight:
+  model server   : OK   https://openrouter.ai/api/v1 — qwen/qwen3.6-27b offered, key valid (credit: 39.81 of 50 left)
+  output constr. : json_schema, provider-validated (OpenRouter)
+  NOTE           : remote backend — transcript text leaves this machine
+  model          : qwen/qwen3.6-27b at https://openrouter.ai/api/v1
+  evidence index : OK   2488 passages
+  test videos    : 119 labelled with usable transcripts
+  web fallback   : tavily
+                   probe OK -> https://www.who.int/teams/immunization-vaccines-and-
+  web cache      : on, 203 entry(ies) — a non-empty cache means some evidence is replayed, not refetched
+  claim windows  : ~1588 (~12.5 h at 28.4 s/window on CPU)
+
+all checks passed
+
+condition: rag
+3 video(s) to run, 0 already done
+
+[1/3] 0-3aELGEIUY  What We Know Now About True Benefits and Dangers of 
+W1110 18:30:17.603000 48988 torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 7579.05it/s]
+    FLAG  13/21 flagged   label=fake
+[2/3] 21hkEfN3UmA  The Covid vaccine passports with Dr. Joe Mercola
+    FLAG  2/4 flagged   label=fake
+[3/3] 2MrNkagJIwY  Pfizer Scientist tell the Truth about COVID and the 
+    FLAG  10/17 flagged   label=fake
+
+finished in 5.9 min
+
+run: 2026-11-10T21:30:14Z  commit 36c481d  web=tavily  condition=rag
+     model=qwen/qwen3.6-27b gamma=0.3 chunk=55/35 grammar=False
+     corpus=2488 passages
+
+scored 3 video(s)
+
+                  predicted
+                fake    not
+  label fake       3      0
+  label not        0      0
+
+  precision 1.000   recall 1.000   F1 1.000   accuracy 1.000
+
+  windows answered on web evidence: 25
+
+summary written to /Users/heloysapelizon/Desktop/TCC-v1/data/results/test_run_qwen-qwen3.6-27b_tavily_nothink_summary.txt

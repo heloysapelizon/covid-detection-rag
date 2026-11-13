@@ -1,0 +1,79 @@
+run: 2026-11-10T23:14:25Z  commit 8d63ff6  web=tavily  condition=rag
+     dataset=test  prompt=production
+     model=openai/gpt-oss-120b gamma=0.3 chunk=55/35 grammar=False
+     corpus=2488 passages
+
+scored 119 video(s)
+
+                  predicted
+                fake    not
+  label fake      37      5
+  label not       53     24
+
+  whole transcript: 1930 claims over 119 videos; model's own fake_news disagrees with the claim verdicts on 0 video(s); 2 truncated at the claim cap
+
+  precision 0.411   recall 0.881   F1 0.561   accuracy 0.513
+
+  windows answered on web evidence: 624
+
+  false negatives (5):
+    F-LD9pvPXQE  [medium] infertility
+    P0lymSkLbTs  [high] adverse_events_vaers
+    _BNyKPuAPD0  [medium] post_vaccine_syndrome
+    s2yiZpNhDH4  [medium] myocarditis+efficacy
+    u1MIKNhPz24  [high] vaccine_deaths+myocarditis
+
+  false positives (53):
+    2S2v45_NSYs  4/25 windows flagged
+    2eSHjV9a-OI  2/8 windows flagged
+    2z8O-48h7J4  1/5 windows flagged
+    3kaNMVfmmvg  1/10 windows flagged
+    6cTDgwsdwZc  1/17 windows flagged
+    BByJrQkInyU  2/25 windows flagged
+    BGdqLP4DSlA  5/19 windows flagged
+    Bf5ij1qISJM  7/12 windows flagged
+    Cg6QJNKC38s  5/15 windows flagged
+    DjMqylDmbP8  5/17 windows flagged
+    Djlk3A8mEQI  8/16 windows flagged
+    F6NKbQzo4aE  2/24 windows flagged
+    H0F-YvUQEGY  2/10 windows flagged
+    I3kd5SyYHEE  6/17 windows flagged
+    K8F_L-fM350  6/17 windows flagged
+    MnEArHUiVXI  1/11 windows flagged
+    MniP4EtW7xI  2/25 windows flagged
+    MrmiEBmeumA  11/25 windows flagged
+    P711tS7eJK0  3/18 windows flagged
+    PIcqomL17YA  2/24 windows flagged
+    QJ5k7AIiST8  1/11 windows flagged
+    Qe5_86qCNRo  14/16 windows flagged
+    RUr25jr-970  3/8 windows flagged
+    TDLu5BJzaAE  2/10 windows flagged
+    UMGAO3SEz2Q  2/17 windows flagged
+    VOl2-xI76tI  2/23 windows flagged
+    YiLHB8F0hFI  1/9 windows flagged
+    YqFa-eglI60  1/17 windows flagged
+    ZHx_DdSip78  2/10 windows flagged
+    ZfPpHkXSTPk  2/9 windows flagged
+    b3-BCUmEYg0  2/6 windows flagged
+    c6tJDyIT0x4  2/8 windows flagged
+    cGF0D2poGyA  1/24 windows flagged
+    fy3oJpuFzaI  3/25 windows flagged
+    gReF5xOBrzI  1/25 windows flagged
+    hEOO5Qzc8cQ  1/9 windows flagged
+    im3otpqYAiQ  2/11 windows flagged
+    imxaAhjCSDw  2/8 windows flagged
+    jqD7rV2vYx4  4/18 windows flagged
+    l2POvDQu96c  2/20 windows flagged
+    m4Kzi2UxI5E  6/25 windows flagged
+    mkZ1MabMEZw  1/15 windows flagged
+    nucCr7Sywgc  1/25 windows flagged
+    oNkvEvdVJcg  1/13 windows flagged
+    ryZzJTL429k  2/20 windows flagged
+    t-vspgpkiKs  2/16 windows flagged
+    tvrDH67EyRA  1/25 windows flagged
+    veAv-xJ-bY4  4/11 windows flagged
+    xE3KrtoDeRE  3/25 windows flagged
+    xmJXYT5IMdQ  8/18 windows flagged
+    zg-Sh7gYXxk  1/7 windows flagged
+    68QzzWGc4mI  10/25 windows flagged
+    j6Sn07fQeYM  3/25 windows flagged

@@ -446,16 +446,20 @@ Each model runs the same protocol, `scripts/run_test_model.sh`:
 1. preflight;
 2. **both arms**, parametric (`--condition parametric`) and evidence
    (`--web tavily`), each smoke-tested on 3 videos and then run in full;
-3. both arms with **`--time-check`**: the claim and every passage carry their
-   dates into the prompt, windows with time-bound wording ("so far", "not yet")
-   get a TIME CHECK note, and a time-bound flag resting on later evidence is
-   overridden (`rag/temporal.py`);
-4. each arm re-scored with the **overlap veto** (`--score --overlap-veto`): a
+3. each arm re-scored with the **overlap veto** (`--score --overlap-veto`): a
    flag is withdrawn when an overlapping window cleared the same words. It is
    applied at scoring time, so the results keep the raw verdicts and both
    figures can be reported;
-5. the **verifier** scored, raw and with the veto: a window counts only when
-   both arms flagged it (`tests/score_verifier.py`, docs/evidence-as-verifier.md).
+4. both arms scored together (`tests/score_verifier.py`), raw and with the
+   overlap veto. The reported combination is the **evidence veto**: a
+   parametric flag stands unless the evidence arm cleared the same window
+   (docs/evidence-veto.md). The verifier (both arms must flag) is printed
+   beside it.
+
+This is the **v1 protocol**, the one reported. The v2 protocol (the `rules_v2`
+prompt plus `--time-check`) was tested on gpt-oss-120b and scored worse, so it is
+not reported; docs/evidence-veto.md records by how much. `WHOLE=1` runs the
+whole-transcript protocol instead (v3, `rag/whole.py`, data/results/README.md).
 
 **The test set always runs the production prompts in `rag/llm.py`.** Prompt
 variants are compared on the development set only
@@ -504,26 +508,26 @@ filename both come from it: left at its default, two local runs would be
 recorded as `qwen2.5:14b` and the second would silently resume from the first.
 `unset LLM_SERVER` before a local run, or it will keep pointing at OpenRouter.
 
-Results are grouped by protocol version (`data/results/README.md`): full runs
-go to `data/results/v2/` (set `RESULTS_VERSION` for another), smoke tests to
-`data/results/smoke/`, and the first test round is kept in `data/results/v1/`.
-The smoke test no longer seeds the full run: each full run is one complete
-measurement of all 119 videos.
+Results are grouped by protocol version (`data/results/README.md`): windowed
+runs go to `data/results/v1/`, whole-transcript runs to `data/results/v3/`,
+smoke tests to `data/results/smoke/`. `data/results/v2/` holds the dropped v2
+protocol and the development-set runs. Each full run is one complete
+measurement of all 119 videos; the smoke test does not seed it.
 
-Each model writes its own files in `data/results/v2/`, so the runs cannot
-overwrite one another:
+Each model writes its own files in `data/results/v1/`, so the runs cannot
+overwrite one another (with `LLM_REASONING=off` every name gains `_nothink`):
 
 | file | holds |
 |---|---|
-| `test_run_<model>_parametric_tc.json` | parametric arm, every window of every video |
-| `test_run_<model>_tavily_tc.json` | evidence arm, same |
-| `..._tc_summary.txt` / `..._tc_ov_summary.txt` | scored without / with the overlap veto |
-| `..._tc.log` | the console narrative of the full run |
-| `test_run_<model>_verifier_tc.txt` | the verifier, raw and with the veto |
-| `protocol_<model>_tc.log` | everything `run_test_model.sh` printed |
+| `test_run_<model>_parametric.json` | parametric arm, every window of every video |
+| `test_run_<model>_tavily.json` | evidence arm, same |
+| `..._summary.txt` / `..._ov_summary.txt` | scored without / with the overlap veto |
+| `..._parametric.log`, `..._tavily.log` | the console narrative of each full run |
+| `test_run_<model>_verifier.txt` | both arms together: verifier and evidence veto, raw and with the overlap veto |
+| `protocol_<model>.log` | everything `run_test_model.sh` printed |
 
-The first round (`data/results/v1/`, no `_tc`) is kept for comparison and is
-never resumed by these commands; re-score it with `--score --out <file>`.
+A run that already has a complete file is not redone: the script resumes it,
+finds nothing left, and re-scores it.
 
 **Budget.** At the measured trigger rate (35-40% of windows) the 119-video run
 costs roughly 560-650 Tavily credits of the free tier's 1,000, so it fits in one
@@ -623,25 +627,25 @@ finds the file the same way a run names it, so **the same `LLAMA_MODEL` and
 ```bash
 # re-score one model's web run
 LLM_SERVER=openrouter LLAMA_MODEL=qwen/qwen3.6-27b \
-    python tests/run_experiment.py --score --web tavily --time-check
+    python tests/run_experiment.py --score --web tavily
 
 # or point at the file directly, which needs no environment at all
 python tests/run_experiment.py --score \
-    --out data/results/v2/test_run_qwen-qwen3.6-27b_tavily_tc.json
+    --out data/results/v1/test_run_qwen-qwen3.6-27b_tavily_nothink.json
 
 # the same, with the overlap veto (writes ..._ov_summary.txt; results untouched)
 python tests/run_experiment.py --score --overlap-veto \
-    --out data/results/v2/test_run_qwen-qwen3.6-27b_tavily_tc.json
+    --out data/results/v1/test_run_qwen-qwen3.6-27b_tavily_nothink.json
 
-# the verifier: both arms of one model, raw and with the veto
-R=data/results/v2/test_run_qwen-qwen3.6-27b
-python tests/score_verifier.py ${R}_parametric_tc.json ${R}_tavily_tc.json
-python tests/score_verifier.py ${R}_parametric_tc.json ${R}_tavily_tc.json --overlap-veto
+# both arms of one model: verifier and evidence veto, raw and with the overlap veto
+R=data/results/v1/test_run_qwen-qwen3.6-27b
+python tests/score_verifier.py ${R}_parametric_nothink.json ${R}_tavily_nothink.json
+python tests/score_verifier.py ${R}_parametric_nothink.json ${R}_tavily_nothink.json --overlap-veto
 ```
 
 `scripts/run_test_model.sh` runs all of these at the end; the commands are for
-re-scoring by hand. Report the parametric arm, the evidence arm and the verifier
-for every model, each raw and with the veto (docs/evidence-as-verifier.md).
+re-scoring by hand. Report the parametric arm, the evidence arm and the evidence
+veto for every model, each raw and with the overlap veto (docs/evidence-veto.md).
 
 `--out` is the safer form when comparing models: it cannot silently score the
 wrong file because `LLAMA_MODEL` was left over from a previous run.

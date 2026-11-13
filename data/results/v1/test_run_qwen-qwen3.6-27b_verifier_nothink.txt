@@ -1,0 +1,16 @@
+model=qwen/qwen3.6-27b  dataset=test  prompt=None  videos=119 (parametric 119, rag 119)
+
+  parametric    TP  41  FP  22  FN   1   P 0.651  R 0.976  F1 0.781
+  rag           TP  41  FP  27  FN   1   P 0.603  R 0.976  F1 0.745
+  video-AND     TP  41  FP  20  FN   1   P 0.672  R 0.976  F1 0.796
+  window-AND    TP  41  FP  19  FN   1   P 0.683  R 0.976  F1 0.804
+  evidence-veto TP  41  FP  21  FN   1   P 0.661  R 0.976  F1 0.788
+
+(both runs re-scored with overlap veto)
+model=qwen/qwen3.6-27b  dataset=test  prompt=None  videos=119 (parametric 119, rag 119)
+
+  parametric    TP  41  FP  16  FN   1   P 0.719  R 0.976  F1 0.828
+  rag           TP  41  FP  20  FN   1   P 0.672  R 0.976  F1 0.796
+  video-AND     TP  41  FP  13  FN   1   P 0.759  R 0.976  F1 0.854
+  window-AND    TP  41  FP  11  FN   1   P 0.788  R 0.976  F1 0.872
+  evidence-veto TP  41  FP  12  FN   1   P 0.774  R 0.976  F1 0.863

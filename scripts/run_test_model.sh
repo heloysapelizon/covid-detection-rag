@@ -8,9 +8,15 @@
 # Steps, in order:
 #   1. preflight (server, index, test set, Tavily probe)
 #   2. per arm (parametric, then evidence with the Tavily fallback):
-#        smoke test on 3 videos, then the full run, both with --time-check
+#        smoke test on 3 videos, then the full run
 #   3. re-score each arm with the overlap veto (post-hoc, no model calls)
-#   4. score the verifier (both arms must flag the same window), raw and vetoed
+#   4. score both arms together, raw and vetoed: the verifier (both must flag
+#      the same window) and the evidence veto (a parametric flag stands unless
+#      the evidence cleared that window; docs/evidence-veto.md)
+#
+# The default (windowed) protocol is v1: the production prompts (the v1
+# prompts), no time check, results in data/results/v1/. The v2 protocol
+# (rules_v2 + --time-check) was tested and dropped; see docs/evidence-veto.md.
 #
 # Prompts: the test set always runs the production prompts in rag/llm.py. Prompt
 # variants are compared on dev only (--dataset dev --prompt NAME); the winner is
@@ -29,7 +35,7 @@
 #
 # Where things go (data/results/README.md):
 #   data/results/$RESULTS_VERSION/   full runs, scores, verifier, this script's log
-#                                    (RESULTS_VERSION defaults to v2)
+#                                    (v1 for windowed runs, v3 for WHOLE=1)
 #   data/results/smoke/              the 3-video smoke tests, kept apart so the
 #                                    full run is one complete measurement
 set -euo pipefail   # pipefail: a crashed run piped into tee must stop the script
@@ -43,8 +49,9 @@ if [[ ${WHOLE:-0} == 1 ]]; then
   export RESULTS_VERSION=${RESULTS_VERSION:-v3}
   FEATURES=(--whole --time-check); MODE=_whole_tc
 else
-  export RESULTS_VERSION=${RESULTS_VERSION:-v2}
-  FEATURES=(--time-check); MODE=_tc
+  export RESULTS_VERSION=${RESULTS_VERSION:-v1}
+  # v1 protocol: no extra flags, v1 filenames (test_run_<model>_<arm>.json).
+  FEATURES=(); MODE=""
 fi
 RESULTS=data/results/$RESULTS_VERSION
 SMOKE=data/results/smoke
@@ -75,7 +82,7 @@ for arm in parametric tavily; do
   fresh=()
   [[ $arm == tavily && ! -f $out ]] && fresh=(--clear-cache)
   echo "=== $(date '+%F %T') smoke  $arm"
-  $PY tests/run_experiment.py "${args[@]}" "${FEATURES[@]}" ${fresh[@]+"${fresh[@]}"} \
+  $PY tests/run_experiment.py "${args[@]}" ${FEATURES[@]+"${FEATURES[@]}"} ${fresh[@]+"${fresh[@]}"} \
     --limit 3 --out "$smoke_out"
   # A window that errors is saved inside a finished video and never retried, so
   # stop here rather than carry a broken backend into a multi-hour run.
@@ -90,9 +97,9 @@ for arm in parametric tavily; do
     exit 1
   fi
   echo "=== $(date '+%F %T') full   $arm  -> $out"
-  $PY tests/run_experiment.py "${args[@]}" "${FEATURES[@]}" --out "$out" 2>&1 \
+  $PY tests/run_experiment.py "${args[@]}" ${FEATURES[@]+"${FEATURES[@]}"} --out "$out" 2>&1 \
     | tee -a "${R}_${arm}${TAG}${MODE}.log"
-  if [[ $MODE == _tc ]]; then
+  if [[ $MODE != _whole_tc ]]; then
     echo "=== $(date '+%F %T') score  $arm with overlap veto"
     $PY tests/run_experiment.py --score --overlap-veto --out "$out"
   fi
@@ -101,7 +108,7 @@ done
 echo "=== $(date '+%F %T') verifier"
 {
   $PY tests/score_verifier.py "${R}_parametric${TAG}${MODE}.json" "${R}_tavily${TAG}${MODE}.json"
-  if [[ $MODE == _tc ]]; then
+  if [[ $MODE != _whole_tc ]]; then
     echo
     $PY tests/score_verifier.py "${R}_parametric${TAG}${MODE}.json" "${R}_tavily${TAG}${MODE}.json" --overlap-veto
   fi
