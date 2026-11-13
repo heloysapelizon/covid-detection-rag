@@ -1,0 +1,17 @@
+run: 2026-11-12T00:58:33Z  commit 7117db7  web=none  condition=parametric
+     dataset=test  prompt=production
+     model=gpt-oss-20b gamma=0.3 chunk=55/35 grammar=False
+     corpus=2488 passages
+
+scored 3 video(s)
+
+                  predicted
+                fake    not
+  label fake       3      0
+  label not        0      0
+
+  whole transcript: 30 claims over 3 videos; model's own fake_news disagrees with the claim verdicts on 0 video(s); 0 truncated at the claim cap
+
+  precision 1.000   recall 1.000   F1 1.000   accuracy 1.000
+
+  windows answered on web evidence: 0

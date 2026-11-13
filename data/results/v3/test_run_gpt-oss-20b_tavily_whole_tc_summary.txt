@@ -1,0 +1,65 @@
+run: 2026-11-12T05:19:11Z  commit 7117db7  web=tavily  condition=rag
+     dataset=test  prompt=production
+     model=gpt-oss-20b gamma=0.3 chunk=55/35 grammar=False
+     corpus=2488 passages
+
+scored 119 video(s)
+
+                  predicted
+                fake    not
+  label fake      29     13
+  label not       31     46
+
+  whole transcript: 1960 claims over 119 videos; model's own fake_news disagrees with the claim verdicts on 0 video(s); 25 truncated at the claim cap
+
+  precision 0.483   recall 0.690   F1 0.569   accuracy 0.630
+
+  windows answered on web evidence: 444
+
+  false negatives (13):
+    33vf9wJv_lw  [high] shedding+detox_product
+    F-LD9pvPXQE  [medium] infertility
+    Fu8lEbQXSKM  [medium] excess_deaths
+    I06-UcSG8Tk  [medium] transmission_claims+liability
+    OqSbJ8TxOx8  [high] blood_clots
+    P0lymSkLbTs  [high] adverse_events_vaers
+    SE78ocLgStc  [high] pfizer_documents_coverup
+    Z6qlcRGzh-Q  [high] vaers_coverup
+    ZRrCYM3LsYM  [medium] myocarditis+underreporting
+    _BNyKPuAPD0  [medium] post_vaccine_syndrome
+    n9yZ-TKtHQY  [high] plandemic_bioweapon
+    s2yiZpNhDH4  [medium] myocarditis+efficacy
+    zOHocfVy1n0  [high] neuropsychiatric_harm
+
+  false positives (31):
+    -Vcm7bUocSg  1/22 windows flagged
+    2S2v45_NSYs  2/25 windows flagged
+    2z8O-48h7J4  1/3 windows flagged
+    BByJrQkInyU  2/25 windows flagged
+    BGdqLP4DSlA  4/18 windows flagged
+    Djlk3A8mEQI  4/16 windows flagged
+    H0F-YvUQEGY  1/15 windows flagged
+    K8F_L-fM350  3/18 windows flagged
+    LM4ZzTpPAAQ  1/12 windows flagged
+    MnEArHUiVXI  1/10 windows flagged
+    MniP4EtW7xI  1/25 windows flagged
+    MrmiEBmeumA  1/23 windows flagged
+    PIcqomL17YA  1/18 windows flagged
+    Qf0JSP7VtgU  1/19 windows flagged
+    RUr25jr-970  1/9 windows flagged
+    TDLu5BJzaAE  1/15 windows flagged
+    YiLHB8F0hFI  2/5 windows flagged
+    YqFa-eglI60  1/23 windows flagged
+    ZHx_DdSip78  2/12 windows flagged
+    fy3oJpuFzaI  3/20 windows flagged
+    gcExM22XkYs  1/13 windows flagged
+    hEOO5Qzc8cQ  1/8 windows flagged
+    imxaAhjCSDw  2/5 windows flagged
+    j6Sn07fQeYM  1/25 windows flagged
+    jqD7rV2vYx4  1/19 windows flagged
+    l2POvDQu96c  7/25 windows flagged
+    ryZzJTL429k  2/18 windows flagged
+    veAv-xJ-bY4  1/8 windows flagged
+    xE3KrtoDeRE  8/24 windows flagged
+    xmJXYT5IMdQ  1/18 windows flagged
+    z8FA7rTFbEY  1/5 windows flagged

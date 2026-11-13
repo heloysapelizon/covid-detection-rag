@@ -1,0 +1,6 @@
+model=gpt-oss-20b  dataset=test  prompt=production  videos=119 (parametric 119, rag 119)
+
+  parametric  TP  40  FP  24  FN   2   P 0.625  R 0.952  F1 0.755
+  rag         TP  29  FP  31  FN  13   P 0.483  R 0.690  F1 0.569
+  video-AND   TP  29  FP  15  FN  13   P 0.659  R 0.690  F1 0.674
+  window-AND  TP  23  FP   5  FN  19   P 0.821  R 0.548  F1 0.657

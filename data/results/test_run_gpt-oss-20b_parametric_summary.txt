@@ -1,0 +1,14 @@
+run: 2026-11-09T15:01:52Z  commit 36c481d  web=none  condition=parametric
+     model=gpt-oss-20b gamma=0.3 chunk=55/35 grammar=False
+     corpus=2488 passages
+
+scored 3 video(s)
+
+                  predicted
+                fake    not
+  label fake       3      0
+  label not        0      0
+
+  precision 1.000   recall 1.000   F1 1.000   accuracy 1.000
+
+  windows answered on web evidence: 0

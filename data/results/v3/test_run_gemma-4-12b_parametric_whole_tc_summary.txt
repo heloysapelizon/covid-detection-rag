@@ -1,0 +1,52 @@
+run: 2026-11-13T00:02:39Z  commit 6c822ff  web=none  condition=parametric
+     dataset=test  prompt=production
+     model=gemma-4-12b gamma=0.3 chunk=55/35 grammar=True
+     corpus=2488 passages
+
+scored 119 video(s)
+
+                  predicted
+                fake    not
+  label fake      37      5
+  label not       26     51
+
+  whole transcript: 1589 claims over 119 videos; model's own fake_news disagrees with the claim verdicts on 11 video(s); 33 truncated at the claim cap
+
+  precision 0.587   recall 0.881   F1 0.705   accuracy 0.739
+
+  windows answered on web evidence: 0
+
+  false negatives (5):
+    Fu8lEbQXSKM  [medium] excess_deaths
+    Z6qlcRGzh-Q  [high] vaers_coverup
+    ZRrCYM3LsYM  [medium] myocarditis+underreporting
+    _BNyKPuAPD0  [medium] post_vaccine_syndrome
+    v0EyE70YT-c  [medium] mrna_flu_vaccine_risk_benefit
+
+  false positives (26):
+    -Vcm7bUocSg  1/8 windows flagged
+    2z8O-48h7J4  1/5 windows flagged
+    6cTDgwsdwZc  1/11 windows flagged
+    7DlcRSvuvnw  1/13 windows flagged
+    8nD6Q9X0SFw  1/6 windows flagged
+    Bf5ij1qISJM  1/8 windows flagged
+    Djlk3A8mEQI  9/25 windows flagged
+    F6NKbQzo4aE  1/25 windows flagged
+    H0F-YvUQEGY  1/9 windows flagged
+    I3kd5SyYHEE  1/20 windows flagged
+    LzkCvK8nayI  6/25 windows flagged
+    Qe5_86qCNRo  1/12 windows flagged
+    TDLu5BJzaAE  1/9 windows flagged
+    Ts0E-v3zya0  1/7 windows flagged
+    VOl2-xI76tI  1/14 windows flagged
+    ZfPpHkXSTPk  1/7 windows flagged
+    ajc_ip-IbdQ  2/3 windows flagged
+    b3-BCUmEYg0  1/6 windows flagged
+    c6tJDyIT0x4  1/5 windows flagged
+    cnYae-4FN7c  1/4 windows flagged
+    fy3oJpuFzaI  3/25 windows flagged
+    imxaAhjCSDw  4/9 windows flagged
+    l2POvDQu96c  1/25 windows flagged
+    veAv-xJ-bY4  1/10 windows flagged
+    xE3KrtoDeRE  6/7 windows flagged
+    xmJXYT5IMdQ  1/10 windows flagged

@@ -1,0 +1,127 @@
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gemma-4-12b-it-Q4_K_M.gguf
+  output constr. : GBNF grammar, enforced during sampling (llama.cpp)
+  model          : gemma-4-12b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos   : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric   dataset: test   prompt: production
+119 video(s) to run, 0 already done
+
+[1/119] 0-3aELGEIUY  What We Know Now About True Benefits and Dangers of 
+    FLAG  8/9 flagged   label=fake
+[2/119] 21hkEfN3UmA  The Covid vaccine passports with Dr. Joe Mercola
+    FLAG  3/25 flagged   label=fake
+[3/119] 2MrNkagJIwY  Pfizer Scientist tell the Truth about COVID and the 
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    ok    0/1 flagged   label=fake
+[4/119] 33vf9wJv_lw  Rizza Islam Talks COVID Vaccine | Big Facts Podcast
+    FLAG  5/25 flagged   label=fake
+[5/119] 6HzRcPGqzvs  First Aid: Rizza Islam Explains Why Parents Should N
+    FLAG  20/24 flagged   label=fake
+[6/119] 7LoJ850ZorY  The Myth of COVID‑21 - Dr Rashid Buttar
+    FLAG  11/15 flagged   label=fake
+[7/119] 7QuTr4fIiyU  Doctor testifies on the dangerous side effects of CO
+    FLAG  2/17 flagged   label=fake
+[8/119] 8a-MTuhfw98  New flu mRNA vac, dangers
+    FLAG  3/15 flagged   label=fake
+[9/119] 9sW0OmzcmL0  The Problem With the COVID Vaccine | Robert F. Kenne
+    FLAG  12/14 flagged   label=fake
+[10/119] EcCyZwjHs9M  &#39;COVID Vaccine was not a vaccine, it was…&#39;: 
+    FLAG  9/18 flagged   label=fake
+[11/119] F-LD9pvPXQE  Did The COVID Shot Affect Fertility?
+    FLAG  1/3 flagged   label=fake
+[12/119] Fu8lEbQXSKM  The Truth About Excess Deaths Since COVID Vaxx Is Mi
+    ok    0/10 flagged   label=fake
+[13/119] HFdOuBJ6aac  ‘PATHOLOGICAL LIAR’: Fauci blasted over EXPLOSIVE di
+    retry: model did not return JSON: {"claims": [
+    {"phrase": "COVID-19 vaccines were safe and effective", "stance": "asserting
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    ok    0/1 flagged   label=fake
+[14/119] I06-UcSG8Tk  RFK Jr. on Young Turks: Vaccine Crossfire
+    retry: model did not return JSON: {"claims": [
+    {"phrase": "No vaccine is safe and effective for everyone.", "stance": "asse
+    FLAG  7/25 flagged   label=fake
+[15/119] IUIBYfAgoCk  The COVID Vaccine DNA Bombshell They Tried to Hide |
+    FLAG  18/25 flagged   label=fake
+[16/119] JxIkndSVRDI  Shocking Findings: Could COVID-19 Vaccines Impact Fe
+    FLAG  3/7 flagged   label=fake
+[17/119] NtuMf0F9SlI  mRNA Vaccines Install the Genetic Code for Lethal Sp
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    ok    0/1 flagged   label=fake
+[18/119] OqSbJ8TxOx8  COVID-19 vaccine caused blood clots: Doctor testimon
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    ok    0/1 flagged   label=fake
+[19/119] P0lymSkLbTs  Covid vaccine adverse reactions
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: model did not return JSON: {"claims": [
+    {"phrase": "The amount of adverse reactions being tolerated from the mRNA va
+    retry: model did not return JSON: {"claims": [
+    {"phrase": "The amount of adverse reactions being tolerated from the mRNA va
+    ok    0/1 flagged   label=fake
+[20/119] PMDcOTWEEcI  The Coronavirus Agenda: What The Mainstream Media Do
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    ok    0/1 flagged   label=fake
+[21/119] SE78ocLgStc  &#39;See for yourself!&#39; | Neil Oliver uncovers A
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    FLAG  7/25 flagged   label=fake
+[22/119] StUZ5b0-HUs  Truth About COVID Vaccines And Lockdown. #shorts #co
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    ok    0/1 flagged   label=fake
+[23/119] UjvwoteSlTI  All MRNA vaccines risky
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    ok    0/1 flagged   label=fake
+[24/119] XXG_9Wm_dOE  &#39;COVID vaccine has worst side effects ever&#39;:
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    ok    0/1 flagged   label=fake
+[25/119] Y6_jn0DzXHI  The Secret Element in the Covid Vaccine: What They W
+    FLAG  18/25 flagged   label=fake
+[26/119] Z6qlcRGzh-Q  Senate investigates what health officials knew about
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)
+    retry: ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=1200)

@@ -1,0 +1,100 @@
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gpt-oss-20b-MXFP4.gguf
+  output constr. : json_schema, provider-validated (OpenRouter)
+  model          : gpt-oss-20b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos    : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gpt-oss-20b-MXFP4.gguf
+  output constr. : json_schema, provider-validated (OpenRouter)
+  model          : gpt-oss-20b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos    : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric
+3 video(s) to run, 0 already done
+
+[1/3] 0-3aELGEIUY  What We Know Now About True Benefits and Dangers of 
+    FLAG  11/21 flagged   label=fake
+[2/3] 21hkEfN3UmA  The Covid vaccine passports with Dr. Joe Mercola
+    FLAG  4/4 flagged   label=fake
+[3/3] 2MrNkagJIwY  Pfizer Scientist tell the Truth about COVID and the 
+    FLAG  8/17 flagged   label=fake
+
+finished in 8.8 min
+
+run: 2026-11-09T15:01:52Z  commit 36c481d  web=none  condition=parametric
+     model=gpt-oss-20b gamma=0.3 chunk=55/35 grammar=False
+     corpus=2488 passages
+
+scored 3 video(s)
+
+                  predicted
+                fake    not
+  label fake       3      0
+  label not        0      0
+
+  precision 1.000   recall 1.000   F1 1.000   accuracy 1.000
+
+  windows answered on web evidence: 0
+
+summary written to /home/davint-workstation/ANTIGO/Heloysa/covid-detection-rag/data/results/test_run_gpt-oss-20b_parametric_summary.txt
+3 videos, 42 windows, verdicts: {'UNVERIFIABLE': 13, 'NOT_FAKE_NEWS': 6, 'FAKE_NEWS': 23}
+0 video(s) with ERROR windows
+12.6 s/window (valid for a non-resumed run)
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gpt-oss-20b-MXFP4.gguf
+  output constr. : json_schema, provider-validated (OpenRouter)
+  model          : gpt-oss-20b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos    : 119 labelled with usable transcripts
+  web fallback   : none  (corpus only)
+  claim windows  : ~1588 (~9.3 h at 21.0 s/window on CPU)
+
+all checks passed
+
+condition: parametric
+116 video(s) to run, 3 already done
+
+[1/116] 33vf9wJv_lw  Rizza Islam Talks COVID Vaccine | Big Facts Podcast
+    FLAG  9/15 flagged   label=fake
+[2/116] 6HzRcPGqzvs  First Aid: Rizza Islam Explains Why Parents Should N
+    FLAG  42/65 flagged   label=fake
+[3/116] 7LoJ850ZorY  The Myth of COVID‑21 - Dr Rashid Buttar
+    FLAG  8/18 flagged   label=fake
+[4/116] 7QuTr4fIiyU  Doctor testifies on the dangerous side effects of CO
+    FLAG  8/12 flagged   label=fake
+[5/116] 8a-MTuhfw98  New flu mRNA vac, dangers
+    FLAG  10/17 flagged   label=fake
+[6/116] 9sW0OmzcmL0  The Problem With the COVID Vaccine | Robert F. Kenne
+    FLAG  14/21 flagged   label=fake
+[7/116] EcCyZwjHs9M  &#39;COVID Vaccine was not a vaccine, it was…&#39;: 
+    FLAG  20/24 flagged   label=fake
+[8/116] F-LD9pvPXQE  Did The COVID Shot Affect Fertility?
+    ok    0/1 flagged   label=fake
+[9/116] Fu8lEbQXSKM  The Truth About Excess Deaths Since COVID Vaxx Is Mi
+    FLAG  3/13 flagged   label=fake
+[10/116] HFdOuBJ6aac  ‘PATHOLOGICAL LIAR’: Fauci blasted over EXPLOSIVE di
+    FLAG  9/10 flagged   label=fake
+[11/116] I06-UcSG8Tk  RFK Jr. on Young Turks: Vaccine Crossfire
+    FLAG  18/39 flagged   label=fake
+[12/116] IUIBYfAgoCk  The COVID Vaccine DNA Bombshell They Tried to Hide |
+    retry: model did not return JSON: {"stance":"asserting","verdict":"UNVERIFIABLE","claim":"","reason":"The speaker asserts that 
+    FLAG  19/21 flagged   label=fake
+[13/116] JxIkndSVRDI  Shocking Findings: Could COVID-19 Vaccines Impact Fe
+    FLAG  2/2 flagged   label=fake
+[14/116] NtuMf0F9SlI  mRNA Vaccines Install the Genetic Code for Lethal Sp
+    FLAG  24/28 flagged   label=fake
+[15/116] OqSbJ8TxOx8  COVID-19 vaccine caused blood clots: Doctor testimon
+    FLAG  4/6 flagged   label=fake
+[16/116] P0lymSkLbTs  Covid vaccine adverse reactions
+    FLAG  1/1 flagged   label=fake
+[17/116] PMDcOTWEEcI  The Coronavirus Agenda: What The Mainstream Media Do

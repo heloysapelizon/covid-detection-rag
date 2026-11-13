@@ -1,0 +1,57 @@
+run: 2026-11-09T11:45:06Z  commit 36c481d  web=none  condition=parametric
+     model=gemma-4-12b gamma=0.3 chunk=55/35 grammar=True
+     corpus=2488 passages
+
+scored 119 video(s)
+
+                  predicted
+                fake    not
+  label fake      41      1
+  label not       38     39
+
+  precision 0.519   recall 0.976   F1 0.678   accuracy 0.672
+
+  windows answered on web evidence: 0
+
+  false negatives (1):
+    F-LD9pvPXQE  [medium] infertility
+
+  false positives (38):
+    -Vcm7bUocSg  3/8 windows flagged
+    2S2v45_NSYs  8/39 windows flagged
+    68QzzWGc4mI  15/33 windows flagged
+    BByJrQkInyU  13/63 windows flagged
+    DjMqylDmbP8  5/10 windows flagged
+    Djlk3A8mEQI  4/12 windows flagged
+    F6NKbQzo4aE  2/17 windows flagged
+    FXRsR0qsViU  1/4 windows flagged
+    I3kd5SyYHEE  1/6 windows flagged
+    LM4ZzTpPAAQ  1/3 windows flagged
+    MnEArHUiVXI  1/4 windows flagged
+    MrmiEBmeumA  1/7 windows flagged
+    PIcqomL17YA  8/17 windows flagged
+    Qe5_86qCNRo  4/11 windows flagged
+    Qf0JSP7VtgU  3/10 windows flagged
+    TDLu5BJzaAE  1/5 windows flagged
+    UMGAO3SEz2Q  2/8 windows flagged
+    VOl2-xI76tI  10/13 windows flagged
+    YiLHB8F0hFI  1/2 windows flagged
+    YqFa-eglI60  2/6 windows flagged
+    ZHx_DdSip78  3/4 windows flagged
+    ZfPpHkXSTPk  1/2 windows flagged
+    ajc_ip-IbdQ  1/1 windows flagged
+    cGF0D2poGyA  6/14 windows flagged
+    fy3oJpuFzaI  14/34 windows flagged
+    gcExM22XkYs  2/4 windows flagged
+    im3otpqYAiQ  3/4 windows flagged
+    imxaAhjCSDw  1/1 windows flagged
+    j6Sn07fQeYM  5/24 windows flagged
+    jqD7rV2vYx4  1/10 windows flagged
+    l2POvDQu96c  1/17 windows flagged
+    mkZ1MabMEZw  2/3 windows flagged
+    nucCr7Sywgc  1/18 windows flagged
+    ryZzJTL429k  2/20 windows flagged
+    tvrDH67EyRA  2/37 windows flagged
+    veAv-xJ-bY4  1/3 windows flagged
+    xE3KrtoDeRE  66/74 windows flagged
+    xmJXYT5IMdQ  2/4 windows flagged
