@@ -2,13 +2,55 @@ run: 2026-11-09T15:01:52Z  commit 36c481d  web=none  condition=parametric
      model=gpt-oss-20b gamma=0.3 chunk=55/35 grammar=False
      corpus=2488 passages
 
-scored 3 video(s)
+scored 119 video(s)
 
                   predicted
                 fake    not
-  label fake       3      0
-  label not        0      0
+  label fake      41      1
+  label not       37     40
 
-  precision 1.000   recall 1.000   F1 1.000   accuracy 1.000
+  precision 0.526   recall 0.976   F1 0.683   accuracy 0.681
 
   windows answered on web evidence: 0
+
+  false negatives (1):
+    F-LD9pvPXQE  [medium] infertility
+
+  false positives (37):
+    -Vcm7bUocSg  1/8 windows flagged
+    2S2v45_NSYs  15/39 windows flagged
+    2eSHjV9a-OI  1/1 windows flagged
+    68QzzWGc4mI  6/33 windows flagged
+    BByJrQkInyU  7/63 windows flagged
+    Cg6QJNKC38s  1/3 windows flagged
+    DjMqylDmbP8  2/10 windows flagged
+    Djlk3A8mEQI  4/12 windows flagged
+    F6NKbQzo4aE  3/17 windows flagged
+    FXRsR0qsViU  1/4 windows flagged
+    K8F_L-fM350  2/7 windows flagged
+    LzkCvK8nayI  1/2 windows flagged
+    MnEArHUiVXI  2/4 windows flagged
+    MniP4EtW7xI  2/10 windows flagged
+    PIcqomL17YA  5/17 windows flagged
+    Qe5_86qCNRo  2/11 windows flagged
+    UMGAO3SEz2Q  1/8 windows flagged
+    YiLHB8F0hFI  2/2 windows flagged
+    YqFa-eglI60  2/6 windows flagged
+    ZHx_DdSip78  2/4 windows flagged
+    ajc_ip-IbdQ  1/1 windows flagged
+    cGF0D2poGyA  2/14 windows flagged
+    fy3oJpuFzaI  10/34 windows flagged
+    gReF5xOBrzI  1/33 windows flagged
+    hEOO5Qzc8cQ  1/2 windows flagged
+    imxaAhjCSDw  1/1 windows flagged
+    j6Sn07fQeYM  1/24 windows flagged
+    jqD7rV2vYx4  1/10 windows flagged
+    l2POvDQu96c  1/17 windows flagged
+    mdwVaPBpks0  3/25 windows flagged
+    mkZ1MabMEZw  2/3 windows flagged
+    nucCr7Sywgc  1/18 windows flagged
+    ryZzJTL429k  3/20 windows flagged
+    tvrDH67EyRA  5/37 windows flagged
+    xE3KrtoDeRE  48/74 windows flagged
+    xmJXYT5IMdQ  2/4 windows flagged
+    zg-Sh7gYXxk  1/1 windows flagged
