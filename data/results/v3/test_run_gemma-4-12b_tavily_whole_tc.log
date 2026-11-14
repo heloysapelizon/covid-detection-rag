@@ -1,0 +1,167 @@
+web cache: cleared 0 entry(ies)
+
+preflight:
+  model server   : OK   http://localhost:8080 — models: /home/davint-workstation/ANTIGO/Heloysa/models/gemma-4-12b-it-Q4_K_M.gguf
+  output constr. : GBNF grammar, enforced during sampling (llama.cpp)
+  model          : gemma-4-12b at http://localhost:8080
+  evidence index : OK   2488 passages
+  test videos   : 119 labelled with usable transcripts
+  web fallback   : tavily
+                   probe OK -> https://pmc.ncbi.nlm.nih.gov/articles/PMC8539830
+  web cache      : on, 0 entry(ies) — a non-empty cache means some evidence is replayed, not refetched
+  claim windows  : ~1588 (~12.5 h at 28.4 s/window on CPU)
+
+all checks passed
+
+condition: rag   dataset: test   prompt: production
+119 video(s) to run, 0 already done
+
+[1/119] 0-3aELGEIUY  What We Know Now About True Benefits and Dangers of 
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 9159.42it/s]
+    retry: model did not return JSON: *   Passage: "the UK government is probably the only government in the world that's published
+    FLAG  10/13 flagged   label=fake
+[2/119] 21hkEfN3UmA  The Covid vaccine passports with Dr. Joe Mercola
+    retry: model did not return JSON: The user wants a search query based on the provided passage: "They played a large role in thi
+    retry: model did not return JSON: The user wants a search query based on the provided passage: "They played a large role in thi
+    ok    0/19 flagged   label=fake
+[3/119] 2MrNkagJIwY  Pfizer Scientist tell the Truth about COVID and the 
+    retry: model did not return JSON: The user wants me to convert a transcribed speech passage into a web search query for fact-ch
+    retry: model did not return JSON: The user wants me to convert a transcribed speech passage into a web search query for fact-ch
+    FLAG  3/25 flagged   label=fake
+[4/119] 33vf9wJv_lw  Rizza Islam Talks COVID Vaccine | Big Facts Podcast
+    retry: model did not return JSON: The user wants a search query based on the passage: "I need a formula that helps to resolve o
+    retry: model did not return JSON: The user wants a search query based on the passage: "I need a formula that helps to resolve o
+    FLAG  6/13 flagged   label=fake
+[5/119] 6HzRcPGqzvs  First Aid: Rizza Islam Explains Why Parents Should N
+    FLAG  4/25 flagged   label=fake
+[6/119] 7LoJ850ZorY  The Myth of COVID‑21 - Dr Rashid Buttar
+    retry: model did not return JSON: The user wants a search query based on the passage: "And then it was released whether intenti
+    retry: model did not return JSON: The user wants a search query based on the passage: "And then it was released whether intenti
+    FLAG  8/25 flagged   label=fake
+[7/119] 7QuTr4fIiyU  Doctor testifies on the dangerous side effects of CO
+    FLAG  2/25 flagged   label=fake
+[8/119] 8a-MTuhfw98  New flu mRNA vac, dangers
+    FLAG  6/23 flagged   label=fake
+[9/119] 9sW0OmzcmL0  The Problem With the COVID Vaccine | Robert F. Kenne
+    retry: model did not return JSON: The user wants a search query based on the passage: "the testing protocols that they're using
+    retry: model did not return JSON: The user wants a search query based on the passage: "the testing protocols that they're using
+    FLAG  13/25 flagged   label=fake
+[10/119] EcCyZwjHs9M  &#39;COVID Vaccine was not a vaccine, it was…&#39;: 
+    FLAG  9/25 flagged   label=fake
+[11/119] F-LD9pvPXQE  Did The COVID Shot Affect Fertility?
+    retry: model did not return JSON: The passage "They were ignored, they were gaslit, they were told, you don't know what you're 
+    retry: model did not return JSON: The passage "They were ignored, they were gaslit, they were told, you don't know what you're 
+    retry: model did not return JSON: The user wants a search query based on the passage: "now, a couple of years later, I think pe
+    retry: model did not return JSON: The user wants a search query based on the passage: "now, a couple of years later, I think pe
+    ok    0/7 flagged   label=fake
+[12/119] Fu8lEbQXSKM  The Truth About Excess Deaths Since COVID Vaxx Is Mi
+    retry: model did not return JSON: The user wants a search query based on the passage "the data's getting harder and harder to g
+    retry: model did not return JSON: The user wants a search query based on the passage: "they just stopped it up, no idea why".
+
+
+    retry: model did not return JSON: The user wants a search query based on the passage: "they just stopped it up, no idea why".
+
+
+    retry: model did not return JSON: *   Passage: "there are spikes when there's world wars or the spikes when there's major pande
+    retry: model did not return JSON: *   Passage: "there are spikes when there's world wars or the spikes when there's major pande
+    FLAG  3/19 flagged   label=fake
+[13/119] HFdOuBJ6aac  ‘PATHOLOGICAL LIAR’: Fauci blasted over EXPLOSIVE di
+    FLAG  5/25 flagged   label=fake
+[14/119] I06-UcSG8Tk  RFK Jr. on Young Turks: Vaccine Crossfire
+    FLAG  5/25 flagged   label=fake
+[15/119] IUIBYfAgoCk  The COVID Vaccine DNA Bombshell They Tried to Hide |
+    FLAG  16/25 flagged   label=fake
+[16/119] JxIkndSVRDI  Shocking Findings: Could COVID-19 Vaccines Impact Fe
+    FLAG  5/7 flagged   label=fake
+[17/119] NtuMf0F9SlI  mRNA Vaccines Install the Genetic Code for Lethal Sp
+    FLAG  12/25 flagged   label=fake
+[18/119] OqSbJ8TxOx8  COVID-19 vaccine caused blood clots: Doctor testimon
+    retry: model did not return JSON: The user wants a search query based on the passage "those were signals that were really downp
+    retry: model did not return JSON: The user wants a search query based on the passage "those were signals that were really downp
+    ok    0/15 flagged   label=fake
+[19/119] P0lymSkLbTs  Covid vaccine adverse reactions
+    FLAG  2/9 flagged   label=fake
+[20/119] PMDcOTWEEcI  The Coronavirus Agenda: What The Mainstream Media Do
+    FLAG  7/25 flagged   label=fake
+[21/119] SE78ocLgStc  &#39;See for yourself!&#39; | Neil Oliver uncovers A
+    FLAG  7/24 flagged   label=fake
+[22/119] StUZ5b0-HUs  Truth About COVID Vaccines And Lockdown. #shorts #co
+    retry: model did not return JSON: {"judgements": [
+    {"claim": 1, "addresses": "yes", "stance": "asserting", "verdict": "FAKE
+    retry: model did not return JSON: The user wants a search query based on the passage: "You can compare them to their immediate 
+    retry: model did not return JSON: The user wants a search query based on the passage: "You can compare them to their immediate 
+    FLAG  6/15 flagged   label=fake
+[23/119] UjvwoteSlTI  All MRNA vaccines risky
+    retry: model did not return JSON: The user wants a search query based on the passage: "They still are able to identify it [afte
+    retry: model did not return JSON: The user wants a search query based on the passage: "They still are able to identify it [afte
+    FLAG  7/25 flagged   label=fake
+[24/119] XXG_9Wm_dOE  &#39;COVID vaccine has worst side effects ever&#39;:
+    retry: model did not return JSON: The user wants a search query based on the passage "It could be a net negative".
+The passage 
+    retry: model did not return JSON: The user wants a search query based on the passage "that's, I would call that propaganda".
+
+T
+    retry: model did not return JSON: The user wants a search query based on the passage "that's, I would call that propaganda".
+
+T
+    FLAG  6/25 flagged   label=fake
+[25/119] Y6_jn0DzXHI  The Secret Element in the Covid Vaccine: What They W
+    FLAG  10/25 flagged   label=fake
+[26/119] Z6qlcRGzh-Q  Senate investigates what health officials knew about
+    retry: model did not return JSON: *   Passage: "always protect your rights and make sure that you keep track of government maki
+    retry: model did not return JSON: *   Passage: "always protect your rights and make sure that you keep track of government maki
+    FLAG  16/22 flagged   label=fake
+[27/119] ZRrCYM3LsYM  Doctor Explains: MRNA Vaccine Issues
+    retry: model did not return JSON: The user wants a search query based on the passage "there's lots of things we don't know abou
+    retry: model did not return JSON: The user wants a search query based on the passage: "there's lots of things we don't know abo
+    retry: model did not return JSON: The user wants a search query based on the passage: "they're actually being systemically abso
+    retry: model did not return JSON: The user wants a search query based on the passage: "they're actually being systemically abso
+    ok    0/25 flagged   label=fake
+[28/119] _BNyKPuAPD0  Exposing COVID-19 Vaccine Reactions | Are Side Effec
+    ok    0/25 flagged   label=fake
+[29/119] _SJ3GWZq0jI  &#39;CANCER OCCURRED near injection sites...&#39;: B
+    FLAG  11/22 flagged   label=fake
+[30/119] cIGTf5qO5as  When will we Learn the TRUTH about COVID Vaccines?
+    FLAG  7/22 flagged   label=fake
+[31/119] cV4jUXBWpvA  The SCARY TRUTH about COVID Vaccines
+    retry: model did not return JSON: The user wants a search query based on the passage: "this is actually a far less certain than
+    retry: model did not return JSON: The user wants a search query based on the passage: "this is actually a far less certain than
+    retry: model did not return JSON: The user wants a search query based on the passage: "it's a more radical intervention than we
+    retry: model did not return JSON: The user wants a search query based on the passage: "it's a more radical intervention than we
+    retry: model did not return JSON: The passage "we are now seeing the grudging acceptance that that's what's happened" is a subj
+    retry: model did not return JSON: The passage "we are now seeing the grudging acceptance that that's what's happened" is a subj
+    FLAG  13/19 flagged   label=fake
+[32/119] giS6CiT1qTE  Study reveals new heart health concerns from COVID v
+    FLAG  3/23 flagged   label=fake
+[33/119] kda_j6EyAg8  Vaccines and fertility
+    ok    0/25 flagged   label=fake
+[34/119] n9yZ-TKtHQY  COVID-19 Conspiracy: The Truth About the Pandemic
+    retry: model did not return JSON: The user wants a search query based on the provided passage: "We need to use that hype to our
+    retry: model did not return JSON: The user wants a search query based on the provided passage: "We need to use that hype to our
+    FLAG  7/12 flagged   label=fake
+[35/119] rNUwvh4VxlM  The Dark Truth about COVID-19!! | JRE
+    retry: model did not return JSON: The user wants a search query based on the passage "that was a lie from the beginning". Howev
+    retry: model did not return JSON: The user wants a search query based on the passage "that was a lie from the beginning". Howev
+    FLAG  5/11 flagged   label=fake
+[36/119] rpm4ED9XY90  Uncover the Shocking Truth About COVID-19 Vaccines!
+    FLAG  4/5 flagged   label=fake
+[37/119] s2yiZpNhDH4  The Consequences of Ignoring Myocarditis Risks From 
+    retry: model did not return JSON: The user provided a passage: "they haven't". This is a fragment and does not contain a factua
+    retry: model did not return JSON: The user provided a passage: "they haven't". This is a fragment and does not contain a factua
+    retry: model did not return JSON: The user wants a search query based on the passage: "They don't acknowledge that there's a pr
+    retry: model did not return JSON: The user wants a search query based on the passage: "They don't acknowledge that there's a pr
+    FLAG  5/10 flagged   label=fake
+[38/119] tnpl7F1eTD8  New SHOCKING Side Effect of the COVID Vaccine!
+    retry: model did not return JSON: The user wants a search query based on the passage: "it was discovered to be more harmful tha
+    retry: model did not return JSON: The user wants a search query based on the passage: "it was discovered to be more harmful tha
+    FLAG  6/25 flagged   label=fake
+[39/119] u1MIKNhPz24  Dr. Peter McCullough on the Most Serious Side Effect
+    FLAG  13/25 flagged   label=fake
+[40/119] v0EyE70YT-c  FDA approves new mRNA vaccine, despite risks.
+    retry: model did not return JSON: The user wants a search query based on the passage: "we're expecting it to be available in th
+    retry: model did not return JSON: The user wants a search query based on the passage: "we're expecting it to be available in th
+    ok    0/25 flagged   label=fake
+[41/119] ydkMwOp2Fhk  THIS Is How They Covered Up The COVID Vaxx’s DEADLY 
+    retry: model did not return JSON: The user wants a search query based on the passage "doctors by and large aren't admitting thi
+    retry: model did not return JSON: The user wants a search query based on the passage "doctors by and large aren't admitting thi

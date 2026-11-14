@@ -1,0 +1,51 @@
+=== waiting for other runs ter 10 nov 2026 19:17:55 -03
+=== GPU free ter 10 nov 2026 19:17:55 -03
+=== gemma-4-12b: '-ngl 48' did not fit
+=== gemma-4-12b: server up, 32k ctx, '-ngl 42', VRAM 7165 MiB
+=== gemma-4-12b: protocol start ter 10 nov 2026 19:21:11 -03
+=== waiting for other runs qua 11 nov 2026 17:44:10 -03
+=== GPU free qua 11 nov 2026 17:44:10 -03
+=== gemma-4-12b: '-ngl 48' did not fit
+=== gemma-4-12b: server up, 32k ctx, '-ngl 42', VRAM 7187 MiB
+=== gemma-4-12b: protocol start qua 11 nov 2026 17:47:26 -03
+=== waiting for other runs qua 11 nov 2026 18:52:55 -03
+=== GPU free qua 11 nov 2026 18:52:55 -03
+=== gemma-4-12b: '-ngl 48' did not fit
+=== gemma-4-12b: server up, 32k ctx, '-ngl 42', VRAM 7166 MiB
+=== gemma-4-12b: protocol start qua 11 nov 2026 18:56:11 -03
+=== gpt-oss-20b queued, waiting for the Gemma queue qua 11 nov 2026 20:34:33 -03
+=== gemma-4-12b: protocol exit 1 qua 11 nov 2026 21:58:21 -03
+=== gpt-oss-20b: server up, 32k ctx, '-ngl 99 --n-cpu-moe 12', VRAM 7333 MiB
+=== gpt-oss-20b: protocol start qua 11 nov 2026 21:58:31 -03
+=== gpt-oss-20b: protocol exit 0 qui 12 nov 2026 12:25:56 -03
+=== queue done qui 12 nov 2026 12:26:01 -03
+=== GPU free for gpt-oss-20b qui 12 nov 2026 12:26:05 -03
+=== gpt-oss-20b: server up, 32k ctx, '-ngl 99 --n-cpu-moe 12', VRAM 7333 MiB
+=== gpt-oss-20b: protocol start qui 12 nov 2026 12:26:15 -03
+=== gpt-oss-20b: protocol exit 0 qui 12 nov 2026 12:26:19 -03
+=== gpt-oss-20b queue done qui 12 nov 2026 12:26:24 -03
+=== waiting for other runs qui 12 nov 2026 20:00:51 -03
+=== GPU free qui 12 nov 2026 20:00:51 -03
+=== gemma-4-12b: '-ngl 48' did not fit
+=== gemma-4-12b: server up, 32k ctx, '-ngl 42', VRAM 7182 MiB
+=== gemma-4-12b: protocol start qui 12 nov 2026 20:04:07 -03
+=== parametric rerun queued qui 12 nov 2026 20:24:42 -03
+=== gemma-4-12b: protocol exit 1 qui 12 nov 2026 20:49:07 -03
+=== gpt-oss-20b: server up, 32k ctx, '-ngl 99 --n-cpu-moe 12', VRAM 7335 MiB
+=== gpt-oss-20b: protocol start qui 12 nov 2026 20:49:17 -03
+=== gpt-oss-20b: protocol exit 0 qui 12 nov 2026 20:49:21 -03
+=== queue done qui 12 nov 2026 20:49:26 -03
+renamed 'data/results/v3/test_run_gemma-4-12b_parametric_whole_tc.json' -> 'data/results/v3/test_run_gemma-4-12b_parametric_whole_tc_mixed-grammar.json'
+renamed 'data/results/smoke/test_run_gemma-4-12b_parametric_whole_tc.json' -> 'data/results/smoke/test_run_gemma-4-12b_parametric_whole_tc_mixed-grammar.json'
+=== parametric rerun: starting the Gemma queue qui 12 nov 2026 20:49:43 -03
+=== waiting for other runs qui 12 nov 2026 20:49:43 -03
+=== GPU free qui 12 nov 2026 20:49:43 -03
+=== gemma-4-12b: '-ngl 48' did not fit
+=== gemma-4-12b: server up, 32k ctx, '-ngl 42', VRAM 7075 MiB
+=== gemma-4-12b: protocol start qui 12 nov 2026 20:52:59 -03
+=== gemma-4-12b: protocol exit 1 qui 12 nov 2026 23:23:22 -03
+=== gpt-oss-20b: server up, 32k ctx, '-ngl 99 --n-cpu-moe 12', VRAM 7335 MiB
+=== gpt-oss-20b: protocol start qui 12 nov 2026 23:23:32 -03
+=== gpt-oss-20b: protocol exit 0 qui 12 nov 2026 23:23:34 -03
+=== queue done qui 12 nov 2026 23:23:39 -03
+=== gemma RAG: full run sex 13 nov 2026 12:42:45 -03
