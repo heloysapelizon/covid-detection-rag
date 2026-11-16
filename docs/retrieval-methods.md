@@ -5,7 +5,7 @@ companion files cover chunk size (docs/chunking-experiments.md), topic routing
 (docs/routing-experiments.md) and adjudication (docs/adjudication-experiments.md).
 
 Implementation: `rag/lexical.py` (BM25 + rank fusion),
-`tests/retrieval_compare.py` (this comparison).
+`experiments/retrieval_compare.py` (this comparison).
 
 ## The question
 
@@ -133,7 +133,7 @@ On the full label set α=0.9 improves mean rank from 17.2 to **15.8 with top-4
 unchanged at 19/33**. That looks like a free gain, and reporting it as one would
 have been a mistake.
 
-Against the dev/test split (tests/split.py):
+Against the dev/test split (experiments/split.py):
 
 ```
             dev                       test

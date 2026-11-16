@@ -1,817 +1,347 @@
 # COVID-19 vaccine misinformation detection
 
-A two-stage pipeline that builds a dataset of YouTube videos making claims about
-COVID-19 vaccines, and transcribes their spoken audio — the input for a downstream
-fact-checking stage.
+A pipeline that collects YouTube videos about COVID-19 vaccines, transcribes
+their audio, and flags claims that a vetted evidence corpus contradicts. A
+locally served language model adjudicates each claim against retrieved
+evidence; the result is scored against hand-labelled videos that were never
+used to tune anything.
 
-## Intent
-
-The pipeline **gathers candidates; it does not judge them.** Collection casts a
-wide, neutral net over videos that discuss COVID-19 vaccines, and transcription
-turns their audio into text. Deciding which claims are false is the job of a later
-stage (`rag/`), working from the transcripts this produces.
-
-That separation is deliberate, and it is what makes the method defensible: you
-assemble a dataset and then classify it, rather than pre-judging creators or
-cherry-picking videos to fit a conclusion.
-
-Two other choices follow from the same reasoning:
-
-- **The official YouTube Data API v3, never HTML scraping.** Scraping violates
-  YouTube's Terms of Service, breaks whenever the markup changes, and gets IPs
-  blocked. The API is free within a 10,000 unit/day quota, returns structured data,
-  and is citable in a methods section.
-- **Whisper on the audio, not YouTube captions.** Most videos here have captions
-  disabled, and caption scraping is increasingly blocked. Transcribing the audio
-  means coverage depends only on a video being downloadable.
-
-## Pipeline
+## How it works
 
 ```
-collect  ──►  covid_vaccine_videos.json  ──►  transcribe
-                                                   │
-                       covid_vaccine_videos_transcribed.json
-                                                   │
-                                                   ▼
-                    rag  ◄──  data/index/  ◄──  data/evidence/
-                     │         (vectors)        (vetted PDFs)
-                     ▼
-         verdict + false phrase + debunking evidence
+collect ──► transcribe ──► rag ──► experiments
+  │             │           │          │
+  YouTube       Whisper     retrieval  held-out test set,
+  Data API      audio       + LLM      scored against labels
+                            ▲
+                 data/evidence (PDFs) ──► data/index (vectors)
 ```
 
-### `collect/` — build the dataset
-
-Searches the Data API for the topic queries in `collect/config.py`, optionally adds
-a curated list of links, then completes and filters the results.
-
-```bash
-python -m collect                                              # search queries
-python -m collect --links disinformation_dozen.txt              # search + link list
-python -m collect --links disinformation_dozen.txt --no-search  # link list only
-```
-
-Every candidate is completed with a `videos.list` pass, which returns untruncated
-descriptions plus statistics and duration — `search.list` alone gives none of those.
-It costs 1 quota unit per 50 videos, against the 100 each search already spends.
-
-Filters applied before saving:
-
-| Filter | Rule |
-|---|---|
-| Duplicates | First occurrence wins, preserving original query provenance |
-| Over 1 hour | Dropped; unknown durations are kept and counted separately |
-
-Language is **not** filtered here. YouTube's `defaultAudioLanguage` is self-reported
-by uploaders and often missing or wrong, so filtering on it would discard real
-English videos. `transcribe` decides from the audio instead, which is authoritative.
-
-### `transcribe/` — add the spoken text
-
-Downloads each video's audio, transcribes it with faster-whisper, and writes a copy
-of the dataset with transcripts appended.
-
-```bash
-python -m transcribe covid_vaccine_videos     # or any dataset name
-python -m transcribe --list                   # show available datasets
-python -m transcribe covid_vaccine_videos --limit 5
-python -m transcribe covid_vaccine_videos --summary-only   # rebuild output, no work
-```
-
-Non-English audio is detected and dropped here, before inference — so a Portuguese
-video costs a detection pass, not a full transcription.
-
-**This takes hours.** Roughly 6x realtime with the `small` model on an M2 Pro.
-Progress is checkpointed after every video, so an interrupted run resumes where it
-stopped; audio is deleted immediately after each video, keeping disk use flat.
-
-### `rag/` — flag false claims against evidence
-
-Retrieves evidence from a vectorized corpus and asks a **locally served** model
-whether a transcript claim asserts something that evidence contradicts. Each flag
-returns the false phrase and the passage that debunks it.
-
-#### Running the model server
-
-Generation runs locally. Either server works — they expose the same
-OpenAI-compatible `/v1/chat/completions` endpoint — but the defaults in
-`rag/config.py` point at Ollama:
-
-**Ollama** (what this project uses):
-
-```bash
-brew install ollama           # once
-ollama serve                  # leave running in its own terminal
-ollama pull qwen2.5:14b       # once, ~9 GB
-```
-
-Keep `ollama serve` in a terminal you can see. Started in the background it
-detaches from its parent, and then the only way to stop it is by PID.
-
-```bash
-ollama stop qwen2.5:14b   # unload the model, free ~9 GB, leave the server up
-pkill ollama              # stop the server entirely
-ollama ps                 # what is currently loaded
-```
-
-The model also unloads itself after about five minutes idle, so doing nothing is
-a valid way to reclaim the memory.
-
-**llama.cpp** (alternative):
-
-```bash
-llama-server -m model.gguf -c 8192 --port 8080
-```
-
-If you use it, set `LLAMA_URL = "http://localhost:8080"` and `USE_GRAMMAR = True`
-in `rag/config.py`. The grammar is worth having: llama.cpp enforces it during
-sampling, so a malformed verdict cannot be generated. Ollama ignores `grammar`
-and only guarantees valid JSON of any shape, which is why a large evidence block
-can make it drop the required fields.
-
-#### Running the pipeline
-
-```bash
-python -m rag --build-index        # extract + embed data/evidence/pdf/ -> data/index/
-python -m rag --check-server       # confirm the server is reachable
-python -m rag --list               # videos with usable transcripts
-python -m rag Y6_jn0DzXHI          # fact-check one video
-python -m rag Y6_jn0DzXHI --json out.json
-```
-
-Expect roughly 15 s per claim window on `qwen2.5:14b`, so a 1,700-word
-transcript (~24 windows) takes about 6 minutes.
-
-Evidence is built from the PDFs in `data/evidence/pdf/` (gitignored — only
-licence-cleared documents go there). `python -m rag --build-manifest` resolves
-each one's DOI and publisher via Crossref into `data/evidence/sources.json`;
-`--build-index` then extracts passages and embeds them. Which document covers
-which topic is declared by hand in `rag/manifest.py` — that is editorial
-judgement and cannot be derived.
-
-Retrieval is exact cosine similarity over a persisted matrix (the corpus is a few
-thousand passages, so there is no approximate-NN index to go stale). Claims are
-routed to the topics they resemble before ranking, with a confidence gate and a
-fallthrough to broader scopes; see `docs/routing-experiments.md`.
-
-A verdict is one of `FAKE_NEWS`, `NOT_FAKE_NEWS`, `NO_EVIDENCE` or `ERROR`, and
-the model must answer `addresses` — does the evidence discuss this claim at all —
-*before* it may give a verdict. That ordering is the fix for the dominant failure
-mode, where the model treated absence of evidence as contradiction
-(`docs/adjudication-experiments.md`).
-
-**Why an LLM and not keyword matching:** the dataset contains both misinformation and
-debunking of the *same* myths, often in near-identical vocabulary. Keyword retrieval
-finds the topic but cannot tell "vaccines cause infertility" from "vaccines do not
-cause infertility" — Whisper output is unpunctuated, so negation scope is not
-recoverable by pattern matching. Deciding stance is the model's job.
-
-**Stance is the bottleneck, and model size matters.** `tests/stance_eval.py` scores a
-model on minimal unambiguous pairs — one sentence each, half asserting a myth and
-half denying the same myth:
-
-```bash
-python tests/stance_eval.py              # the configured model
-python tests/stance_eval.py qwen2.5:14b  # compare another
-```
-
-| Model | Clean pairs | Whole videos |
+| stage | package | does |
 |---|---|---|
-| `qwen2.5:7b` | 9/12 (denials 3/6) | — |
-| `qwen2.5:14b` | 11/12 (denials 5/6) | **2/5** |
-| MNLI cross-encoder (70 MB) | 7/8 (denials 4/4) | — |
+| 1 | `collect/` | Searches the YouTube Data API for the configured queries, completes each hit with full metadata, dedupes and drops videos over an hour. Never scrapes. |
+| 2 | `transcribe/` | Downloads each video's audio and transcribes it with faster-whisper. Drops non-English audio after language detection, checkpoints after every video. |
+| 3 | `rag/` | Splits a transcript into overlapping claim windows, retrieves corpus passages for each, and asks the model whether the evidence addresses the claim and, only then, whether it contradicts it. Claims the corpus cannot answer can fall back to a web search. |
+| 4 | `experiments/` | Defines the test/dev split, runs the pipeline over it, and scores it. Every parameter in `rag/config.py` was chosen on the dev set. |
 
-The failure is one-directional: models key on *topic*, so **debunking content gets
-flagged as misinformation** — the worst possible error here, since it inverts the
-result on the fact-checking videos this dataset is full of.
+The pipeline gathers candidates and classifies them afterwards. Collection is
+deliberately neutral so that the dataset is assembled before anything is judged.
 
-Two findings worth carrying forward:
+## Repository layout
 
-A 70 MB trained entailment classifier beats a 7B generative model, because
-entailment is a classification task with no instruction for safety training to
-override. Asked about cats and printers the 7B model reasons about stance correctly;
-asked about vaccines it answers "is this true?" instead, and reports the statement
-is false. Even reframed as pure grammatical polarity, it labels "The mRNA vaccine
-permanently alters your DNA" — which contains no negation at all — as negative.
-
-**Clean-sentence scores overstate real performance.** `qwen2.5:14b` goes from 11/12
-on minimal pairs to 2/5 on whole videos, flagging a journalist's question ("Will it
-cause females to be sterile?") and a doctor's description ("a belief that they were
-going to implant microchips"). Real speech quotes and describes myths constantly;
-constructed pairs contain no reported speech, so they miss the dominant failure mode.
-
-Treat retrieval as sound and the verdict as a *candidate* needing review. The
-pipeline guards what it can — a reported stance of `denying` or `neutral` overrides
-a FAKE_NEWS verdict — but that only helps when the model reports stance honestly,
-and `qwen2.5:14b` reports `asserting` on nearly everything.
-
-Everything runs on your machine: embeddings via sentence-transformers, generation via
-llama.cpp. No transcript leaves the host.
-
-### `tests/` — evaluation and the dev/test split
-
-Nothing here is tuned on the test videos. `tests/datasets.py` is the authority on
-which videos belong to which split:
-
-```bash
-python tests/datasets.py          # split sizes and a leakage check
+```
+collect/         stage 1: config  models  filters  data  api  collector  main
+transcribe/      stage 2: config  audio  whisper  data  transcriber  main
+rag/             stage 3: config  corpus  manifest  router  index  lexical  llm
+                          websearch  temporal  pipeline  whole  main
+experiments/     evaluation harness: split, runner, scoring, sweeps, probes
+scripts/         run_test_model.sh (the protocol); workstation/ (GPU box drivers)
+data/            youtube/  evidence/  index/  labels/  results/
+docs/            what was measured and what it decided
+notebooks/       the original exploratory notebooks, superseded by the packages
+LICENSE          MIT, for the code;  LICENSE-DATA.md: terms of every data file
+CITATION.cff     citation metadata for the repository and the thesis
 ```
 
-Collecting and preparing a development set:
+`experiments/`, `scripts/` and `data/` each have their own README.
+
+The three pipeline packages share one layering, grouped by external dependency
+so a failure stays contained and each layer works without the ones above it:
+
+| layer | depends on |
+|---|---|
+| `config`, `models` | nothing |
+| `filters`, `router`, `temporal` | pure logic, no I/O |
+| `data`, `corpus`, `manifest` | stdlib and pandas; every write is atomic |
+| `api`, `audio`, `whisper`, `index`, `llm`, `websearch` | the external boundary: network, yt-dlp, ffmpeg, Whisper, the model server |
+| `collector`, `transcriber`, `pipeline`, `whole` | the layers above; owns the order of work |
+| `main` | argument parsing and exit codes |
+
+Dependencies point one way. Public names are re-exported lazily (PEP 562), so
+importing one module does not pull in the heavy dependencies of its siblings.
+The only cross-package import is `is_usable` from `transcribe.config`, which
+decides which transcripts enter an experiment and therefore has a single
+definition.
+
+## Setup
+
+Python 3.10 or newer. `ffmpeg` is needed only to transcribe; the experiment
+uses the committed transcripts.
 
 ```bash
-python -m collect --name covid_vaccine_videos_dev2 \
-    --exclude data/youtube/exclude_dev2.json     # keeps test + earlier dev out
-
-# two groups: mirror repeats the v1 queries (tuning), uncovered targets
-# narratives the corpus does not cover (web-fallback testing only)
-python tests/select_dev.py --group mirror    --n 50 --write
-python tests/select_dev.py --group uncovered --n 21 --write
-
-python -m transcribe covid_vaccine_videos_dev2_mirror_selected
-python -m transcribe covid_vaccine_videos_dev2_uncovered_selected
-```
-
-`--exclude` matters: the dev queries overlap the original ones in subject matter,
-so without it YouTube returns the same videos and test material leaks into tuning.
-Dev transcription is capped at 12 minutes per video (`TRANSCRIBE_MAX_S`), which
-leaves most of the set untouched and cuts inference by about a fifth; pass
-`--max-transcribe 0` for whole videos, which is how the test set was transcribed.
-
-The sweeps:
-
-```bash
-python tests/chunk_eval.py --make-labels \
-    --dataset covid_vaccine_videos_dev2_mirror_selected \
-    --labels tests/chunk_eval_labels_dev2.json    # propose windows to label
-
-python tests/chunk_eval.py --labels tests/chunk_eval_labels_dev2.json --limit 100
-python tests/route_eval.py  --labels tests/chunk_eval_labels_dev2.json
-python tests/retrieval_compare.py --tune          # dense vs BM25 vs hybrid
-python tests/gate_probe.py                        # relevance gate, needs the server
-```
-
-A proposed window needs two things filled in by hand: `topic` (which corpus topic
-a claim in it belongs to, or `general`) and `relevant_evidence` (verbatim phrases
-from the passage that answers it). Phrases rather than passage ids, so labels
-survive re-chunking. Check that every phrase appears verbatim in the corpus before
-scoring — one that does not is a permanent miss and silently depresses recall.
-
-## Running the full experiment
-
-The final run fact-checks the 119 labelled test videos and scores the result
-against `data/labels/ground_truth.json`. No parameter was chosen by looking at
-these videos — every threshold was derived on separate development collections
-(`docs/dev-sets.md`), which is what makes the figure meaningful.
-
-Four models are compared across two deployment kinds
-(`docs/model-backends.md`):
-
-| | model | served by | `LLAMA_MODEL` |
-|---|---|---|---|
-| local | Gemma 4 12B | llama.cpp (default) | your GGUF / Ollama tag |
-| local | gpt-oss-20b | llama.cpp (default) | your GGUF / Ollama tag |
-| remote | Qwen3.6-27B | OpenRouter | `qwen/qwen3.6-27b` |
-| remote | gpt-oss-120b | OpenRouter | `openai/gpt-oss-120b` |
-
-`LLM_SERVER` selects the backend — `llamacpp` (default), `ollama`, or
-`openrouter`. Each enforces the six-field verdict contract differently (GBNF
-grammar, `json_object`, `json_schema`), so **figures from different backends are
-not interchangeable**; the run metadata records which was used, and the default
-results filename includes the model name so runs cannot overwrite one another.
-
-On the remote path transcript text leaves the machine, which the local path
-avoids. Preflight prints a warning on every remote run.
-
-### 1. Install
-
-```bash
-git clone <this repo> && cd TCC
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 brew install ffmpeg          # or apt install ffmpeg
 ```
 
-`ffmpeg` is only needed if you re-transcribe. The experiment uses the committed
-transcripts, so a run-only machine can skip it.
+Keys go in `.env` at the project root (gitignored) or in the environment:
 
-### 2. Build the evidence index
+| key | needed for |
+|---|---|
+| `YOUTUBE_API_KEY` | `collect`. Free: create a project in the Google Cloud Console and enable YouTube Data API v3 |
+| `TAVILY_API_KEY` | the `--web tavily` fallback. The free tier covers one full test run |
+| `OPENROUTER_API_KEY` | the two remote models |
 
-The source PDFs are gitignored (licence terms), but the extracted passages are
-committed, so the index rebuilds from those alone:
+## Usage
 
-```bash
-python -m rag --build-index --no-extract
-```
-
-`--no-extract` skips the PDF reading step. Without it the command still works —
-missing PDFs are skipped rather than fatal — but it prints a list of every
-missing file, which on a clone is all 21 of them and looks like an error.
-
-Expect `Indexed 2488 evidence passage(s)`. If it reports a different number, the corpus
-has changed and the documented parameter values were measured against a
-different one.
-
-### 3-4. Start the model
-
-One command per model. **Run one at a time** — all three backends talk to the
-same `LLAMA_URL`, so two servers on port 8080 would conflict, and the four runs
-are sequential anyway.
-
-#### Local: gpt-oss-20b (llama.cpp)
+### 1. Collect
 
 ```bash
-llama-server -hf ggml-org/gpt-oss-20b-GGUF:MXFP4 \
-    -c 8192 --port 8080 --host 127.0.0.1 --jinja
+python -m collect                                   # the queries in collect/config.py
+python -m collect --links links.txt --no-search     # a curated list instead
+python -m collect --name my_dev --exclude data/youtube/exclude_dev2.json
 ```
 
-`-hf` downloads and caches on first use (~12 GB). `ggml-org` is the llama.cpp
-team's own repo, and **MXFP4 is gpt-oss's native 4-bit format** — the model was
-trained in it, so this is not a lossy requantization the way a community
-`Q4_K_M` conversion would be.
+`--exclude` keeps already-seen videos out of a new collection, so dev material
+cannot overlap the test set. Language is not filtered here: YouTube's language
+field is self-reported and often wrong, so `transcribe` decides from the audio.
 
-`--jinja` is **required here**: gpt-oss uses the harmony response format, and
-without its own chat template the reasoning preamble leaks into the content and
-breaks JSON parsing.
-
-#### Local: Gemma 4 12B (llama.cpp)
+### 2. Transcribe
 
 ```bash
-llama-server -hf google/gemma-4-12B-it-qat-q4_0-gguf \
-    -c 8192 --port 8080 --host 127.0.0.1
+python -m transcribe --list
+python -m transcribe covid_vaccine_videos
+python -m transcribe covid_vaccine_videos --limit 5
+python -m transcribe covid_vaccine_videos --max-transcribe 0    # whole videos
 ```
 
-~7 GB. This is Google's **QAT** (quantization-aware trained) release, which
-holds quality at 4 bits far better than post-hoc quantization — the right choice
-when the model itself is what you are measuring. The repo also ships an
-`mmproj-*` file for vision; it is not needed, this pipeline passes only text.
+Roughly 6x realtime with the `small` model on an M2 Pro. An interrupted run
+resumes from its checkpoint. Dev sets are capped at 12 minutes per video;
+the test set was transcribed whole.
 
-#### Remote: Qwen3.6-27B and gpt-oss-120b (OpenRouter)
+### 3. Fact-check
 
-No server to start. Set the key once:
+The model is served locally through an OpenAI-compatible endpoint. llama.cpp is
+the default because it enforces the verdict grammar during sampling, so a
+malformed verdict cannot be generated.
 
 ```bash
-echo 'OPENROUTER_API_KEY=sk-or-v1-...' >> .env     # .env is gitignored
+# gpt-oss-20b (needs --jinja: its reasoning preamble otherwise leaks into the output)
+llama-server -hf ggml-org/gpt-oss-20b-GGUF:MXFP4 -c 8192 --port 8080 --host 127.0.0.1 --jinja
+
+# Gemma 4 12B
+llama-server -hf google/gemma-4-12B-it-qat-q4_0-gguf -c 8192 --port 8080 --host 127.0.0.1
 ```
 
-Then select the model per run (see step 7).
+`-c 8192` matters: the prompt carries up to eleven passages and a smaller
+context silently truncates them. On a GPU add `-ngl 99`.
 
-#### Notes that apply to both local models
-
-`-c 8192` matters: the prompt carries up to ~11 evidence passages, and a smaller
-context silently truncates the evidence block. **On GPU** add `-ngl 99` to
-offload all layers; this is typically an order of magnitude faster than CPU.
-
-Keep the server in its own terminal.
-
-**gpt-oss is a reasoning model** — it emits chain-of-thought before its answer.
-Verify this on the step-7 smoke test rather than discovering it at hour four: if
-verdicts come back as `ERROR`, the GBNF grammar is fighting the reasoning trace,
-and `--jinja` (above) or a lower reasoning effort is the fix. Reasoning tokens
-also make it slower per window than 20B suggests, so trust the preflight
-estimate on your own machine over the table below.
-
-Measured on CPU (M2 Pro, qwen2.5:14b Q4_K_M) over 42-window smoke tests:
-
-| run | s/window | 1,588 windows |
+| variable | default | meaning |
 |---|---|---|
-| corpus only | 21.0 | ~9.3 h |
-| with web fallback | 28.4 | ~12.5 h |
+| `LLM_SERVER` | `llamacpp` | `ollama` or `openrouter` to switch backend; each sets its own URL and output constraint |
+| `LLAMA_URL` | per backend | the server, if not on the default host and port |
+| `LLAMA_MODEL` | `qwen2.5:14b` | **set it explicitly**: llama-server ignores it, but it names the results files and is written into run metadata |
+| `LLM_CONSTRAINT` | per backend | `grammar`, `json_schema` or `json_object`, to override the backend's default |
+| `LLM_REASONING` | model default | `off`, `low`, `medium` or `high`; `off` adds `_nothink` to every output name |
+| `LLM_TIMEOUT_S` | 300 (600 remote) | per-request timeout |
+| `RESULTS_VERSION` | `v1` | which `data/results/` folder a run writes to |
+| `WEB_SEARCH_BACKEND` | `duckduckgo` | fallback backend when `--web` is not given |
 
-The web fallback is slower because the ~40% of windows that trigger it pay a
-search round-trip plus a second adjudication. A remote run is bounded by rate
-limits rather than hours of local compute.
-
-Figures in `docs/` were all measured on `qwen2.5:14b` via Ollama. A different
-model needs the stance and gate behaviour re-checked, since those are the
-failure modes the prompt is built around
-(`docs/adjudication-experiments.md`).
-
-### 5. Point the pipeline at it
+Then:
 
 ```bash
+python -m rag --build-manifest             # resolve DOIs into data/evidence/sources.json
+python -m rag --build-index --no-extract   # embed the committed passages -> data/index/
 python -m rag --check-server
+python -m rag --list                       # videos with usable transcripts
+python -m rag Y6_jn0DzXHI                  # fact-check one video
+python -m rag Y6_jn0DzXHI --web tavily --json out.json
 ```
 
-llama.cpp is the default, so this already targets `localhost:8080` with the GBNF
-grammar enabled and Ollama's JSON mode off. Override individually if needed:
+`--build-index` should report 2488 passages. A different number means the
+corpus changed and the documented parameter values were measured against a
+different one. Which document covers which topic is declared by hand in
+`rag/manifest.py`; that is editorial judgement and is not derived.
+
+A verdict is `FAKE_NEWS`, `NOT_FAKE_NEWS`, `NO_EVIDENCE` or `ERROR`. The model
+must say whether the evidence addresses the claim before it may give a verdict;
+that ordering fixed the dominant failure, where absence of evidence was read as
+contradiction. A flag also needs the speaker to be asserting the claim rather
+than quoting or denying it. Web-sourced verdicts are suffixed `_WEB` and counted
+separately, because that evidence has not been through the corpus's licence and
+authorship screening.
+
+### 4. Evaluate
 
 ```bash
-export LLAMA_URL=http://10.0.0.5:8080     # a server on another host
-export LLAMA_MODEL=whatever-you-loaded    # llama-server ignores this
-export LLM_TIMEOUT_S=600                  # slower hardware
+python experiments/datasets.py                 # split sizes and a leakage check
+python experiments/run_experiment.py --check   # preflight: server, index, labels, web, time estimate
 ```
 
-**Why the grammar matters here.** llama.cpp enforces a GBNF grammar during
-sampling, so a response missing a required field cannot be generated. Ollama only
-guarantees valid JSON of any shape, and at larger evidence blocks it was observed
-dropping the required keys entirely (`docs/adjudication-experiments.md`). The
-llama.cpp path is the more reliable one, and it is the default.
-
-**Every figure in `docs/` was measured on Ollama**, on a development machine
-where llama-server was not set up. The grammar path is therefore unexercised,
-which is why step 7 starts with a smoke test rather than the full run.
-
-### 6. Preflight
+The protocol for one model is `scripts/run_test_model.sh`: preflight, then for
+each arm a 3-video smoke test and the full run, then the scores. The four
+reported models:
 
 ```bash
-python tests/run_experiment.py --check
+unset LLM_SERVER; export LLAMA_MODEL=gpt-oss-20b LLM_CONSTRAINT=json_schema; scripts/run_test_model.sh
+unset LLM_SERVER LLM_CONSTRAINT; export LLAMA_MODEL=gemma-4-12b;              scripts/run_test_model.sh
+export LLM_SERVER=openrouter LLAMA_MODEL=qwen/qwen3.6-27b LLM_REASONING=off;  scripts/run_test_model.sh
+export LLM_SERVER=openrouter LLAMA_MODEL=openai/gpt-oss-120b;                 scripts/run_test_model.sh
 ```
 
-Verifies the server, the index size, the test-set count and the web backend, and
-estimates the run time. It exits non-zero and says what is wrong rather than
-starting a multi-hour run that will fail.
+Local models run one at a time on port 8080. The script resumes an interrupted
+run, and a run that is already complete is only re-scored. `WHOLE=1` runs the
+whole-transcript protocol (v3) instead of the windowed one (v1).
 
-Expect:
-
-```
-  model server   : OK   http://localhost:8080 — models: ...
-  grammar mode   : GBNF (llama.cpp)
-  evidence index : OK   2488 passages
-  test videos    : 119 labelled with usable transcripts
-  claim windows  : ~1588
-```
-
-### 7. Smoke-test, then run
-
-**Smoke-test each model before its full run.** Every figure in `docs/` was
-measured on Ollama with JSON mode and no web, so for all four models here both
-the output constraint and the fallback are untested paths. `--limit 3` costs
-minutes and is the only check that the chain works end to end.
+Each arm is scored on its own, raw and with the overlap veto, and both arms are
+scored together as the evidence veto: a parametric flag stands unless the
+evidence arm cleared the same window. To re-score by hand:
 
 ```bash
+python experiments/run_experiment.py --score --out data/results/v1/test_run_<model>_tavily.json
+python experiments/run_experiment.py --score --overlap-veto --out data/results/v1/test_run_<model>_tavily.json
+python experiments/score_verifier.py data/results/v1/test_run_<model>_parametric.json \
+                                     data/results/v1/test_run_<model>_tavily.json --overlap-veto
 ```
 
-Each model runs the same protocol, `scripts/run_test_model.sh`:
+A video is predicted fake when any of its windows is flagged. Results are
+grouped by protocol in `data/results/` (see its README); every run records its
+full configuration, git commit and timing in a `run` block, so a figure can
+always be attributed to the settings that produced it.
 
-1. preflight;
-2. **both arms**, parametric (`--condition parametric`) and evidence
-   (`--web tavily`), each smoke-tested on 3 videos and then run in full;
-3. each arm re-scored with the **overlap veto** (`--score --overlap-veto`): a
-   flag is withdrawn when an overlapping window cleared the same words. It is
-   applied at scoring time, so the results keep the raw verdicts and both
-   figures can be reported;
-4. both arms scored together (`tests/score_verifier.py`), raw and with the
-   overlap veto. The reported combination is the **evidence veto**: a
-   parametric flag stands unless the evidence arm cleared the same window
-   (docs/evidence-veto.md). The verifier (both arms must flag) is printed
-   beside it.
+The test set always runs the production prompts in `rag/llm.py`. Prompt
+variants are compared on the dev set only (`--dataset dev --prompt NAME`).
 
-This is the **v1 protocol**, the one reported. The v2 protocol (the `rules_v2`
-prompt plus `--time-check`) was tested on gpt-oss-120b and scored worse, so it is
-not reported; docs/evidence-veto.md records by how much. `WHOLE=1` runs the
-whole-transcript protocol instead (v3, `rag/whole.py`, data/results/README.md).
+### Reproducing the tables
 
-**The test set always runs the production prompts in `rag/llm.py`.** Prompt
-variants are compared on the development set only
-(`--dataset dev --prompt NAME`, see `tests/prompt_variants.py`), and the winner
-is copied into `rag/llm.py` before any test run. Never pass `--prompt` with the
-test set.
+Every reported figure is computed from result files that are in the
+repository, so no model needs to run. The reported v1 files are, per model,
+`data/results/v1/test_run_<model>_parametric.json` and `..._tavily.json`, with
+`<model>` one of `gemma-4-12b`, `gpt-oss-20b`, `openai-gpt-oss-120b` and
+`qwen-qwen3.6-27b` (the Qwen files carry a `_nothink` suffix). The v3 files are
+the `_whole_tc` ones in `data/results/v3/`.
 
-#### 1. gpt-oss-20b — local, llama.cpp
+| table | script | input |
+|---|---|---|
+| per-arm precision, recall, F1 and accuracy, raw and with the overlap veto | `experiments/run_experiment.py --score [--overlap-veto] --out FILE` | one result file; writes `*_summary.txt` / `*_ov_summary.txt` beside it |
+| verifier and evidence veto per model | `experiments/score_verifier.py PARAM RAG [--overlap-veto]` | the two arms of one model |
+| window- and claim-level precision bounds | `experiments/window_metrics.py FILE...` | any v1 result files |
+| off-claim flag audit | `experiments/offclaim_sample.py` with `data/labels/offclaim_key.json` | the v1 result files |
+| reference classifiers (all-positive, date and provenance rules, TF-IDF + LR) | `experiments/baselines.py` | the eight v1 files above, read from `data/results/v1/` |
+| whole-transcript protocol | `experiments/score_verifier.py` on the `_whole_tc` pair; read the `video-AND` row | `data/results/v3/` |
+| dev-set prompt comparison | `experiments/score_prompt_ab.py data/results/v1/prompt_ab_dev.json` | the prompt A/B run |
+
+For example, the four-model verifier table:
 
 ```bash
-unset LLM_SERVER
-export LLAMA_MODEL=gpt-oss-20b LLM_CONSTRAINT=json_schema   # label only; llama-server serves its GGUF
-scripts/run_test_model.sh
+for m in gemma-4-12b gpt-oss-20b openai-gpt-oss-120b; do
+  python experiments/score_verifier.py data/results/v1/test_run_${m}_parametric.json \
+                                       data/results/v1/test_run_${m}_tavily.json --overlap-veto
+done
+python experiments/score_verifier.py data/results/v1/test_run_qwen-qwen3.6-27b_parametric_nothink.json \
+                                     data/results/v1/test_run_qwen-qwen3.6-27b_tavily_nothink.json --overlap-veto
 ```
 
-#### 2. Gemma 4 12B — local, llama.cpp
+`data/results/README.md` says which files are reported and which are kept only
+for the record. The thesis itself: *link to the deposited PDF goes here*.
 
-```bash
-unset LLM_SERVER LLM_CONSTRAINT
-export LLAMA_MODEL=gemma-4-12b
-scripts/run_test_model.sh
-```
+## Design decisions
 
-#### 3. Qwen3.6-27B — remote, OpenRouter
-
-```bash
-export LLM_SERVER=openrouter LLAMA_MODEL=qwen/qwen3.6-27b
-scripts/run_test_model.sh
-```
-
-#### 4. gpt-oss-120b — remote, OpenRouter
-
-```bash
-export LLM_SERVER=openrouter LLAMA_MODEL=openai/gpt-oss-120b
-scripts/run_test_model.sh
-```
-
-The script resumes: after an interruption, run it again and it continues the
-unfinished arm and re-scores the rest. Set `PY=` to use another interpreter
-than `.venv/bin/python`. The two remote models can run at the same time, in
-separate shells.
-
-**Always pass `LLAMA_MODEL` explicitly.** llama-server ignores it and serves
-whatever GGUF it was started with, but the run metadata and the default results
-filename both come from it: left at its default, two local runs would be
-recorded as `qwen2.5:14b` and the second would silently resume from the first.
-`unset LLM_SERVER` before a local run, or it will keep pointing at OpenRouter.
-
-Results are grouped by protocol version (`data/results/README.md`): windowed
-runs go to `data/results/v1/`, whole-transcript runs to `data/results/v3/`,
-smoke tests to `data/results/smoke/`. `data/results/v2/` holds the dropped v2
-protocol and the development-set runs. Each full run is one complete
-measurement of all 119 videos; the smoke test does not seed it.
-
-Each model writes its own files in `data/results/v1/`, so the runs cannot
-overwrite one another (with `LLM_REASONING=off` every name gains `_nothink`):
-
-| file | holds |
-|---|---|
-| `test_run_<model>_parametric.json` | parametric arm, every window of every video |
-| `test_run_<model>_tavily.json` | evidence arm, same |
-| `..._summary.txt` / `..._ov_summary.txt` | scored without / with the overlap veto |
-| `..._parametric.log`, `..._tavily.log` | the console narrative of each full run |
-| `test_run_<model>_verifier.txt` | both arms together: verifier and evidence veto, raw and with the overlap veto |
-| `protocol_<model>.log` | everything `run_test_model.sh` printed |
-
-A run that already has a complete file is not redone: the script resumes it,
-finds nothing left, and re-scores it.
-
-**Budget.** At the measured trigger rate (35-40% of windows) the 119-video run
-costs roughly 560-650 Tavily credits of the free tier's 1,000, so it fits in one
-pass with margin. A resumed run costs less: repeated queries are served from the
-cache for 0 credits.
-
-**Expect ~9.3 h for the parametric arm and ~12.5 h for the evidence arm** at the rates measured
-on this project's CPU. A GPU with `-ngl 99` is typically an order of magnitude
-faster, so check the preflight estimate on the actual machine rather than
-trusting these numbers.
-
-The script `tee`s each full run because the per-video progress lines are the only record of the
-order videos were processed in and of any transient server error that a resumed
-run would otherwise hide.
-
-The smoke test takes 12-17 minutes on CPU (longer with `--web`) and prints a
-scored confusion matrix for those 3 videos, so it verifies the whole chain —
-adjudication, the flag/label join, and scoring — not just that the server
-answers.
-
-Its confusion matrix is **not** a quality signal: all three videos are labelled
-fake, so nothing there tests false positives. Treat a 1.000 as "the chain runs",
-and read the flagged phrases themselves — the web-fallback smoke test produced a
-true positive on an irrelevant phrase, which the video-level metric could not
-show (docs/web-search.md).
-
-Checkpointed after every video, so an interrupted run resumes where it stopped
-and nothing is recomputed.
-
-The `run` block records the configuration that produced the results — model,
-every parameter in `rag/config.py`, grammar mode, corpus size, web backend, git
-commit, timestamp and wall-clock minutes. **Diagnosis later depends on this**: a
-confusion matrix with no record of `ROUTE_GAMMA` or `CHUNK_WORDS` cannot be
-attributed to a configuration, and the parameters have changed several times
-during development. If the configuration changes between an interrupted run and
-its resume, the run prints a warning naming each changed value rather than
-silently mixing them.
-
-To include the web fallback for claims the corpus cannot address:
-
-```bash
-python tests/run_experiment.py --web duckduckgo
-python tests/run_experiment.py --web tavily     # needs TAVILY_API_KEY
-```
-
-**OpenRouter setup** (for the two remote models). Create a key at
-openrouter.ai and put it in the environment or the project `.env` — both are
-read:
-
-```bash
-export OPENROUTER_API_KEY=sk-or-v1-...
-
-LLM_SERVER=openrouter LLAMA_MODEL=qwen/qwen3.6-27b \
-    python tests/run_experiment.py --check
-```
-
-Preflight calls the authenticated `/key` endpoint and reports remaining credit,
-and fails if the key is rejected or the model id is not offered — `/models` is
-public, so reaching it proves nothing about the key. Both failures were verified
-deliberately. The whole four-model comparison costs a few dollars
-(`docs/model-backends.md`); a remote run is limited by rate limits rather than
-the ~9.3 h of local CPU.
-
-**Tavily setup.** Sign up at tavily.com and copy the key from the dashboard; the
-free Researcher tier is 1,000 credits a month with no card. Put it in the
-environment or in the project `.env` — both are read:
-
-```bash
-export TAVILY_API_KEY=tvly-...
-```
-
-Nothing to install: the REST endpoint is called with `requests`. At the measured
-trigger rate (~35% of windows) a 24-window video costs about 8 credits, so the
-free tier covers roughly 125 videos — enough for the 119-video test set in one
-pass.
-
-Preflight probes whichever backend is selected and **fails if it returns
-nothing**, so a missing key is caught before the run rather than producing a
-silently corpus-only result:
-
-```
-  web fallback   : duckduckgo
-                   probe OK -> https://www.cdc.gov/covid/hcp/vaccine-considerations
-```
-
-Web-sourced verdicts are labelled `FAKE_NEWS_WEB` / `NOT_FAKE_NEWS_WEB` and
-counted separately, because the evidence behind them has not been through the
-corpus's licence, DOI and authorship screening.
-
-### 8. Score
-
-Scoring runs automatically at the end of every run. `--score` re-scores saved
-results without re-running the model, and rewrites the summary file — but it
-finds the file the same way a run names it, so **the same `LLAMA_MODEL` and
-`--web` must be set**:
-
-```bash
-# re-score one model's web run
-LLM_SERVER=openrouter LLAMA_MODEL=qwen/qwen3.6-27b \
-    python tests/run_experiment.py --score --web tavily
-
-# or point at the file directly, which needs no environment at all
-python tests/run_experiment.py --score \
-    --out data/results/v1/test_run_qwen-qwen3.6-27b_tavily_nothink.json
-
-# the same, with the overlap veto (writes ..._ov_summary.txt; results untouched)
-python tests/run_experiment.py --score --overlap-veto \
-    --out data/results/v1/test_run_qwen-qwen3.6-27b_tavily_nothink.json
-
-# both arms of one model: verifier and evidence veto, raw and with the overlap veto
-R=data/results/v1/test_run_qwen-qwen3.6-27b
-python tests/score_verifier.py ${R}_parametric_nothink.json ${R}_tavily_nothink.json
-python tests/score_verifier.py ${R}_parametric_nothink.json ${R}_tavily_nothink.json --overlap-veto
-```
-
-`scripts/run_test_model.sh` runs all of these at the end; the commands are for
-re-scoring by hand. Report the parametric arm, the evidence arm and the evidence
-veto for every model, each raw and with the overlap veto (docs/evidence-veto.md).
-
-`--out` is the safer form when comparing models: it cannot silently score the
-wrong file because `LLAMA_MODEL` was left over from a previous run.
-
-Prints (and writes to `..._summary.txt`) the run's configuration line, the
-confusion matrix, precision, recall, F1 and accuracy, plus every false
-negative with its narrative and confidence and every false positive with its flag
-count — which is what you need to read the result rather than just report it.
-
-**A video is predicted fake news if any of its windows is flagged.** The labels
-are per video and the pipeline decides per window, so the join rule is stated in
-`tests/run_experiment.py` rather than chosen after seeing the numbers.
-
-### Troubleshooting
-
-| Symptom | Cause |
-|---|---|
-| `ConnectionError: cannot reach` | server not started, or it is on the other port — the default expects llama.cpp on 8080, `LLM_SERVER=ollama` expects 11434 |
-| `unrecognised verdict '' in ['REJECT']` | grammar disabled with a large evidence block — you are on Ollama; unset `LLM_SERVER` to use llama.cpp |
-| `Index is stale: N passages no longer exist` | passages changed since the index was built; re-run `--build-index` |
-| every verdict `NO_EVIDENCE` | index empty or wrong corpus — check `--build-index` reported 2488 |
-| run much slower than estimated | no GPU offload; add `-ngl 99` to `llama-server`. gpt-oss is also a reasoning model, so it spends tokens before answering |
-| `OPENROUTER_API_KEY not set` | no key in the environment or `.env`; see step 3-4 |
-| `API key rejected (HTTP 401)` | key wrong or the account has no credit |
-| `'<model>' is not offered by the provider` | wrong `LLAMA_MODEL` id — check it against openrouter.ai/models |
-| every verdict `ERROR` on gpt-oss | the grammar is fighting the reasoning trace; make sure `--jinja` is passed to `llama-server` |
-| results from two models in one file | `LLAMA_MODEL` left at its default, so both runs resolved to the same filename; set it explicitly per run |
-| `does not look like an experiment results file` | `--out` points at prompt A/B output; use `tests/score_prompt_ab.py` for that |
-
-## Layout
-
-```
-collect/        config  models  filters  data  api  collector  main
-transcribe/     config  audio  whisper  data  transcriber  main
-rag/            config  corpus  manifest  router  index  lexical  llm
-                websearch  pipeline  main
-tests/          evaluation harnesses and the dev/test split
-docs/           what was measured, and what it decided
-data/youtube/   datasets, checkpoints, link lists
-data/evidence/  pdf/ (gitignored), passages/ (committed), sources.json
-data/index/     persisted evidence vectors (rebuildable)
-data/labels/    hand-annotated ground truth for the test videos
-```
-
-All three packages follow the same layering, grouped by external dependency so a
-failure stays contained and each layer works without the ones above it:
-
-| Layer | Depends on |
-|---|---|
-| `config`, `models` | nothing |
-| `filters` | pure logic, no I/O |
-| `data` | stdlib + pandas; every write is atomic |
-| `api` / `audio`, `whisper` / `index`, `llm` | the external boundary — network, yt-dlp, ffmpeg, Whisper, llama.cpp |
-| `collector` / `transcriber` / `pipeline` | the layers above; owns the order of work |
-| `main` | argument parsing and exit codes |
-
-Dependencies point one way only. Public names are re-exported lazily (PEP 562), so
-importing a submodule does not pull in the heavy dependencies of its siblings.
-
-## Setup
-
-Requires Python 3.10+, `ffmpeg`, and a YouTube Data API key.
-
-```bash
-brew install ffmpeg
-pip install -r requirements.txt
-```
-
-Put the key in `.env` at the project root (free — create one in the
-[Google Cloud Console](https://console.cloud.google.com/), enable "YouTube Data
-API v3", then create an API key):
-
-```
-YOUTUBE_API_KEY=...
-```
-
-## Data files
-
-| File | What it is |
-|---|---|
-| `covid_vaccine_videos.json` / `.csv` | the v1 dataset — 143 videos, metadata only |
-| `covid_vaccine_videos_transcribed.json` / `.csv` | the same records plus `transcript`, `transcript_status`, `detected_language`, `audio_duration_s` |
-| `covid_vaccine_videos_dev2_mirror_more.json` | mirror candidate pool — 135 videos from the six v1 queries |
-| `covid_vaccine_videos_dev2_mirror_selected.json` | 50 of those; the tuning set |
-| `covid_vaccine_videos_dev2_uncovered.json` | 158 videos on narratives the corpus does not cover |
-| `covid_vaccine_videos_dev2_uncovered_selected.json` | 21 of those; web-fallback testing only |
-| `exclude_dev2.json` | 376 ids used by the test set and the retired first dev set |
-| `transcripts_checkpoint.json` | per-video progress; what makes a run resumable |
-| `data/labels/ground_truth.json` / `.csv` | hand-annotated true/false labels for the 124 v1 videos |
-| `tests/chunk_eval_labels.json` | v1 windows — topic + evidence phrases, kept because they are the only labelled windows for the test videos |
-| `tests/chunk_eval_labels_dev2.json` | dev windows; what the sweeps tune on |
-| `disinformation_dozen.txt` | curated link list, one URL or video id per line |
-
-Collection and transcription each overwrite their own output in place; the
-checkpoint is what accumulates, so the transcribed file is always a fresh
-projection of it.
+- **YouTube Data API, not scraping.** Scraping breaks with the markup, gets IPs
+  blocked and violates the Terms of Service. The API is free within quota and
+  citable.
+- **Whisper on the audio, not captions.** Most of these videos have captions
+  disabled. Coverage then depends only on a video being downloadable.
+- **An LLM, not keyword matching.** The dataset holds misinformation and
+  debunking of the same myths in near-identical vocabulary, and Whisper output
+  is unpunctuated, so negation scope cannot be recovered by pattern matching.
+- **Stance is the hard part.** Models key on topic and flag debunking content
+  as misinformation. The prompt asks for stance explicitly and a `denying` or
+  `neutral` stance overrides a flag; `docs/adjudication-experiments.md` records
+  how far that holds.
+- **Nothing is tuned on the test videos.** The 119 labelled v1 videos are held
+  out; every threshold comes from separate dev collections (`docs/dev-sets.md`).
+  A parameter gets a value only when the dev set discriminates between values,
+  and otherwise the value that makes it inert.
+- **Everything runs on the host** with the local backends. Only the two
+  OpenRouter models send transcript text off the machine, and preflight warns
+  on every remote run.
 
 ## Status
 
-**Data.** 143 videos collected, 124 with usable transcripts, all 124 hand-annotated
-for true/false (`data/labels/ground_truth.json`): 43 flagged as asserting something
-false, 81 not. Two further collections serve as development sets — see
-docs/dev-sets.md.
+| | |
+|---|---|
+| Test set | 119 videos with usable transcripts, hand-labelled: 42 asserting something false, 77 not |
+| Dev sets | 44 transcribed videos mirroring the v1 queries (tuning), 19 on narratives the corpus does not cover (web fallback only) |
+| Corpus | 21 licence-cleared, DOI-resolved documents, 2,488 passages |
+| Retrieval | exact cosine over MiniLM embeddings, 55-word chunks, topic routing with a confidence gate; BM25 and hybrid were tested and rejected |
+| Models | Gemma 4 12B and gpt-oss-20b via llama.cpp; Qwen3.6-27B and gpt-oss-120b via OpenRouter |
+| Protocols | v1 windowed (reported), v2 with the time check (tested, scored worse, dropped), v3 whole-transcript |
 
-**Splits.** `tests/datasets.py` reports them; collection and selection are in
-docs/dev-sets.md. The 119 usable v1 videos are the held-out test set and have
-never been used to choose a setting. Tuning uses a separate collection whose
-queries mirror the v1 ones, so figures transfer; a third group targets narratives
-the corpus does not cover and is used only to exercise the web fallback. The
-separation exists because 45 of the v1 videos had been used to pick seven
-hyperparameters, so any figure over them partly measured that tuning.
+Open:
 
-**Evidence corpus.** 21 documents, 2,488 passages, all licence-cleared and
-DOI-resolved. One paper was withdrawn on authorship grounds
-(`docs/corpus-inclusion.md`), which is now an explicit inclusion criterion.
+- The web fallback has no ground truth. Its verdicts are reported separately
+  from the corpus figures.
+- Three retrieval parameters are inert for want of evidence, not because they
+  are known to be unnecessary; settling them needs windows whose evidence is
+  genuinely absent from the corpus.
+- The 55-word chunk size wins clearly only on specific claims; on broad ones
+  chunk size barely matters.
 
-**Retrieval.** Every parameter re-derived on development data
-(`docs/routing-experiments.md`):
+## Data and ethics
 
-| Parameter | Value | Basis |
-|---|---|---|
-| `CHUNK_WORDS` / `CHUNK_STRIDE` | 55 / 35 | never beaten; wins clearly on specific claims |
-| `ROUTE_GAMMA` | 0.30 | recall collapses by 0.60; general claims unaffected |
-| `TOPIC_RANK_BONUS` | 0.03 | mid-plateau; breaks vocabulary ties toward the topic |
-| `SCOPE_ANSWERED_SIMILARITY` | = `MIN_SIMILARITY` | inert — no dev basis |
-| `RELATIVE_CUTOFF` | 0 | inert — no dev basis |
-| `FLAG_MIN_SIMILARITY` | 0 | every floor removed only correct flags |
+The videos are public YouTube uploads found through the official Data API with
+neutral topic queries; no creator was targeted, and the dataset contains
+misinformation and debunking of the same myths alike. The transcripts are
+machine-generated from the audio and are redistributed here so that the
+experiment can be reproduced exactly: the windowed result files repeat that
+text in 140-word windows, and every scoring script reads the transcripts. The
+spoken content remains the creators' copyright and is not relicensed. Every
+record keeps its video and channel id, so a creator can identify their material
+and request its removal; `experiments/redact_text.py` strips the window text
+from the result files and restores it from re-transcribed audio, so a copy
+without transcripts stays scoreable.
 
-The rule applied: a parameter gets a value when the development set
-discriminates between values, and otherwise the value that makes it inert.
-Three did not discriminate and were disabled rather than guessed.
+The pages retrieved by the web fallback are not redistributed. Only an index of
+queries, URLs and retrieval times is kept per run
+(`data/results/<version>/web_cache_index_*.json`).
 
-General documents are carried by every routing tier rather than withheld from
-narrow scopes, with vocabulary dilution handled by the rank bonus. BM25 and
-hybrid fusion were tested and rejected — the queries are 140-word transcript
-windows, the shape BM25 handles worst (`docs/retrieval-methods.md`).
+## Licence
 
-**Adjudication.** The relevance gate fixed the dominant failure, where the model
-treated absence of evidence as contradiction: a graphene-oxide video went from 9 of
-11 windows flagged to 0, with the model reaching NO_EVIDENCE itself rather than
-being overridden.
+Code is MIT (`LICENSE`). Labels are CC BY 4.0. The evidence passages keep the
+licence of the document they were extracted from, three of which are
+non-commercial, so the corpus as a whole is not relicensed. Transcripts are for
+research use only. `LICENSE-DATA.md` lists the terms of every data file,
+including the licence of each corpus document.
 
-**Web fallback.** Triggers on the adjudicated verdict — NO_EVIDENCE, or
-`addresses: "no"` — plus an asserting stance, not on an empty retrieval. The
-earlier condition was close to unreachable: over 2,488 passages sharing a vaccine
-vocabulary something almost always clears the floor, so only 1.8% of windows
-retrieved nothing even in a collection made for uncovered narratives
-(`docs/web-search.md`).
+## Citation and releases
 
-### Open
+`CITATION.cff` holds the citation metadata GitHub shows under "Cite this
+repository"; fill in the Zenodo DOI and the thesis details once they exist.
+The commit matching the submitted thesis is tagged `v1.0`, and the thesis cites
+that tag (and the Zenodo DOI minted from it). Later fixes become `v1.1` and so
+on; `v1.0` is never moved.
 
-- **No batch run over the full dataset, and no precision figure for the
-  verdicts.** The labels exist and the test set is clean; the end-to-end run
-  against it has not been made. This is the next step.
-- **Three parameters are inert for want of evidence**, not because they are
-  known to be unnecessary. `SCOPE_ANSWERED_SIMILARITY` and `RELATIVE_CUTOFF`
-  govern what happens when a narrow scope fails, and the development sets rarely
-  put the system in that state — 1.8% of windows. Settling them needs windows
-  whose evidence is genuinely absent from the corpus.
-- **The web fallback has no ground truth.** 13 of the 43 flagged test videos
-  concern narratives the corpus cannot answer, so the fallback matters for them,
-  but its verdicts are unlabelled and reported separately from the corpus
-  figures.
-- **Chunk size rests on weaker evidence than it did.** 55w is never beaten, but
-  on broad general-claim windows the chunk size barely matters; the clear win is
-  only on specific claims (`docs/chunking-experiments.md`).
+```bash
+git tag -a v1.0 -m "Version submitted with the thesis" <commit>
+git push origin v1.0
+```
 
-The two notebooks in the root (`video_collection.ipynb`, `transcribe.ipynb`) are the
-original exploratory versions, superseded by these packages.
+## Documentation
+
+| doc | covers |
+|---|---|
+| `docs/corpus-inclusion.md` | what gets into the reference corpus, and why one paper was withdrawn |
+| `docs/chunking-experiments.md` | chunk size and stride |
+| `docs/retrieval-methods.md` | dense versus BM25 versus hybrid |
+| `docs/routing-experiments.md` | topic routing, the confidence gate and the rank bonus |
+| `docs/adjudication-experiments.md` | the relevance gate, stance, and the verdict contract |
+| `docs/prompt-experiments.md` | the prompt A/B on the dev set |
+| `docs/web-search.md` | the web fallback: trigger, backends, caching |
+| `docs/dev-sets.md` | how the dev collections were built and kept clean of the test set |
+| `docs/model-backends.md` | llama.cpp, Ollama and OpenRouter, and the four-model comparison |
+| `docs/evidence-as-verifier.md`, `docs/evidence-veto.md` | combining the parametric and evidence arms |
+| `docs/code-cleanup.md` | the dead-code audit before the final experiment |
+
+## Troubleshooting
+
+| symptom | cause |
+|---|---|
+| `ConnectionError: cannot reach` | no server, or the wrong port: llama.cpp is expected on 8080, Ollama on 11434 |
+| every verdict `ERROR` on gpt-oss | the grammar is fighting the reasoning trace; start `llama-server` with `--jinja` |
+| `unrecognised verdict ''` | grammar off with a large evidence block; you are on Ollama, unset `LLM_SERVER` |
+| every verdict `NO_EVIDENCE` | index empty or wrong corpus; `--build-index` should report 2488 |
+| `Index is stale` | passages changed since the index was built; rebuild it |
+| results from two models in one file | `LLAMA_MODEL` left at its default; set it per run |
+| `OPENROUTER_API_KEY not set` / `HTTP 401` | key missing, wrong, or the account has no credit |
+| run much slower than the estimate | no GPU offload; add `-ngl 99`. Reasoning models also spend tokens before answering |

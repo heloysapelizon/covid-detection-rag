@@ -1,24 +1,4 @@
-"""Local model client: ask a locally served model to adjudicate one claim.
-
-Two servers are supported, both exposing an OpenAI-compatible
-/v1/chat/completions endpoint, so this stays a plain HTTP boundary — no SDK, no
-cloud. `LLM_SERVER` selects which (see rag/config.py):
-
-    llama-server -m model.gguf -c 8192 --port 8080    # default
-    ollama serve                                      # LLM_SERVER=ollama
-
-**The two differ in how the output is constrained, which matters when reading
-any measurement.** On llama.cpp the GBNF grammar is enforced during sampling, so
-a malformed verdict cannot be generated. On Ollama the grammar is ignored and
-`response_format: json_object` is requested instead, which asks rather than
-enforces — a field can come back missing or misnamed, and the response is parsed
-defensively for that reason.
-
-llama.cpp is the default because it is what the reported experiment runs on.
-Ollama is for development only — and every figure recorded in docs/ so far was
-measured there, which is why the grammar path is still unexercised. The run
-metadata records `USE_GRAMMAR` for each run so the two are never conflated.
-"""
+"""Local model client: ask a locally served model to adjudicate one claim."""
 from __future__ import annotations
 
 import json
@@ -42,11 +22,6 @@ from .config import (
     USE_JSON_SCHEMA,
 )
 
-# Constrains output to exactly the fields the pipeline consumes. llama.cpp enforces
-# this during sampling, so malformed JSON cannot be produced in the first place.
-# `addresses` comes first so relevance is decided before the verdict: the field
-# order is the reasoning order for a left-to-right decoder, which is the whole
-# mechanism of the gate.
 VERDICT_GRAMMAR = r'''
 root   ::= "{" ws "\"addresses\":" ws yesno "," ws "\"stance\":" ws stance "," ws "\"verdict\":" ws verdict "," ws "\"claim\":" ws string "," ws "\"evidence_id\":" ws string "," ws "\"reason\":" ws string ws "}"
 yesno   ::= "\"yes\"" | "\"no\""
@@ -57,12 +32,6 @@ char   ::= [^"\\] | "\\" ["\\/bfnrt]
 ws     ::= [ \t\n]*
 '''
 
-# The same six-field contract as VERDICT_GRAMMAR, expressed as a JSON schema for
-# providers that validate schemas (OpenRouter). `required` lists the fields in
-# the same order and `additionalProperties: false` forbids extras, so a response
-# that omits or renames a field is rejected rather than parsed into a default.
-# Keep this in step with VERDICT_GRAMMAR: they encode one contract in two
-# dialects, and a backend-dependent contract would make verdicts incomparable.
 VERDICT_SCHEMA = {
     "name": "verdict",
     "strict": True,
@@ -116,12 +85,7 @@ SYSTEM_PROMPT = (
 
 
 def health(url: str = LLAMA_URL, timeout: float = 5.0) -> tuple[bool, str]:
-    """Check whether the configured model server is reachable.
-
-    For a remote provider this also verifies the API key, because a key missing
-    at request time would otherwise surface as a per-window ERROR hours into a
-    run rather than at preflight.
-    """
+    """Check whether the configured model server is reachable."""
     base = url.rstrip("/")
     models_url = (f"{base}/models" if base.endswith("/v1")
                   else f"{base}/v1/models")
@@ -139,9 +103,6 @@ def health(url: str = LLAMA_URL, timeout: float = 5.0) -> tuple[bool, str]:
         data = r.json().get("data") or []
         names = [m.get("id", "?") for m in data] if data else []
         if IS_REMOTE:
-            # /models is public, so reaching it proves nothing about the key.
-            # Check credit instead: that endpoint is authenticated, so it fails
-            # here rather than per-window hours into a run.
             if LLAMA_MODEL not in names:
                 return False, (f"{LLAMA_MODEL!r} is not offered by the "
                                f"provider ({len(names)} models listed)")
@@ -166,12 +127,7 @@ def health(url: str = LLAMA_URL, timeout: float = 5.0) -> tuple[bool, str]:
 
 def build_prompt(claim: str, passages: list[dict], claim_date=None,
                  dated: bool = False) -> str:
-    """Render retrieved evidence and the claim into one user message.
-
-    With `dated` (TIME_CHECK on) every passage shows a date or "undated", the
-    claim shows its publish date, and a TIME CHECK note is appended when the
-    window contains time-bound wording. Without it the message is unchanged.
-    """
+    """Render retrieved evidence and the claim into one user message."""
     from .temporal import time_note
     lines = ["EVIDENCE:"]
     for p in passages:
@@ -192,21 +148,9 @@ def build_prompt(claim: str, passages: list[dict], claim_date=None,
 
 
 def _extract_json(text: str) -> dict | None:
-    """Pull the first JSON object out of a response, tolerating stray prose.
-
-    Only a dict is ever returned. Qwen3.6-27B was observed sending the object
-    JSON-encoded as a string ('"{\\"stance\\": ...}"', sometimes after stray
-    characters), which json.loads turns into a str and every caller then
-    crashed on (`'str' object has no attribute 'get'`, 2026-11-10). Such a
-    reply is unwrapped; anything that is still not an object returns None, so
-    the caller retries it like any other reply without JSON. A reply that is
-    already a JSON object takes exactly the path it always did.
-    """
-    # strict=False: a GBNF string (char ::= [^"\\] | ...) admits a raw newline,
-    # which strict JSON rejects; such a reply is grammar-valid and must parse
-    # (observed: gemma-4-12b, whole-transcript mode, 2026-11-11).
+    """Pull the first JSON object out of a response, tolerating stray prose."""
     def as_dict(value):
-        if isinstance(value, str):          # an object encoded as a string
+        if isinstance(value, str):
             try:
                 value = json.loads(value, strict=False)
             except json.JSONDecodeError:
@@ -222,7 +166,7 @@ def _extract_json(text: str) -> dict | None:
     m = re.search(r"\{.*\}", text, re.S)
     if m:
         chunk = m.group(0)
-        for candidate in (chunk, chunk.replace('\\"', '"')):   # escaped quotes
+        for candidate in (chunk, chunk.replace('\\"', '"')):
             try:
                 found = as_dict(json.loads(candidate, strict=False))
             except json.JSONDecodeError:
@@ -233,12 +177,7 @@ def _extract_json(text: str) -> dict | None:
 
 
 def _api_key_from_env(name: str = "OPENROUTER_API_KEY") -> str | None:
-    """Read an API key from the environment, falling back to the project .env.
-
-    Only `collect/` calls load_dotenv, so a key placed in .env would otherwise be
-    invisible here — and a remote backend that fails for a missing key looks
-    identical to one that found no evidence.
-    """
+    """Read an API key from the environment, falling back to the project .env."""
     key = os.environ.get(name)
     if key:
         return key.strip()
@@ -253,11 +192,7 @@ def _api_key_from_env(name: str = "OPENROUTER_API_KEY") -> str | None:
 
 
 def _endpoint(url: str) -> str:
-    """Chat-completions URL for a base that may or may not already end in /v1.
-
-    llama.cpp and Ollama are given a bare host, OpenRouter a base path that
-    already includes /v1; appending unconditionally would produce /v1/v1.
-    """
+    """Chat-completions URL for a base that may or may not already end in /v1."""
     base = url.rstrip("/")
     return (f"{base}/chat/completions" if base.endswith("/v1")
             else f"{base}/v1/chat/completions")
@@ -291,14 +226,8 @@ def _chat_once(
     elif use_json_mode:
         payload["response_format"] = {"type": "json_object"}
     if IS_REMOTE:
-        # OpenRouter may route a request to any provider serving the model, and a
-        # provider that does not support response_format ignores it silently, so
-        # the schema guarantee would hold on some windows and not others. This
-        # restricts routing to providers that honour every parameter sent.
         payload["provider"] = {"require_parameters": True}
     if LLM_REASONING:
-        # Sent only when set, so the default request is byte-identical to
-        # every earlier run.
         payload["reasoning"] = ({"enabled": False} if LLM_REASONING == "off"
                                 else {"effort": LLM_REASONING})
 
@@ -315,7 +244,6 @@ def _chat_once(
                           timeout=REQUEST_TIMEOUT_S)
         r.raise_for_status()
         body = r.json()
-        # A provider may return an error object with HTTP 200.
         if "error" in body and "choices" not in body:
             err = body["error"]
             msg = err.get("message", str(err)) if isinstance(err, dict) else str(err)
@@ -354,24 +282,12 @@ def build_query(
     use_json_mode: bool = USE_JSON_MODE,
     max_words: int = 12,
 ) -> str:
-    """Reduce a claim window to a web search query.
-
-    A claim window is ~140 words of unpunctuated speech. Passing it to a search
-    engine returns nothing — measured: the full window raises "No results found"
-    while a 12-word version of the same claim returns three. Truncation is not a
-    reliable substitute (12 words worked, 20 failed, 30 worked on the same
-    window), because what matters is whether the text reads as a query, not its
-    length.
-
-    Falls back to the first `max_words` words if the model call fails, so a
-    search is still attempted rather than silently skipped.
-    """
+    """Reduce a claim window to a web search query."""
     parsed, _ = _chat(QUERY_PROMPT, f'PASSAGE:\n"{claim}"',
                       url, model, False, None, use_json_mode)
     query = str((parsed or {}).get("query", "")).strip()
     if not query:
         query = " ".join(claim.split()[:max_words])
-    # Guard against a model that ignores the limit and echoes the window.
     return " ".join(query.split()[:max_words])
 
 
@@ -385,23 +301,12 @@ def adjudicate(
     system_prompt: str | None = None,
     claim_date=None,
 ) -> dict:
-    """Ask the local model to classify one claim against retrieved evidence.
-
-    Returns {verdict, claim, evidence_id, reason}, with verdict one of
-    FAKE_NEWS / NOT_FAKE_NEWS / NO_EVIDENCE / ERROR.
-
-    `system_prompt` overrides SYSTEM_PROMPT. It exists so a prompt variant can be
-    measured against the current one on identical retrieval without editing this
-    module; the pipeline never passes it.
-    """
+    """Ask the local model to classify one claim against retrieved evidence."""
     if not passages:
         return {"verdict": "NO_EVIDENCE", "addresses": "no", "stance": "",
                 "claim": "", "evidence_id": "",
                 "reason": "No evidence passage passed the similarity threshold."}
 
-    # One HTTP path for every backend (_chat applies the grammar, the schema or
-    # json_object, and the auth header for a remote provider), so a change to
-    # the transport cannot apply to one caller and not the other.
     parsed, err = _chat(
         system_prompt or SYSTEM_PROMPT,
         build_prompt(claim, passages, claim_date, dated=_time_check()),
@@ -415,8 +320,6 @@ def adjudicate(
         return {"verdict": "ERROR", "addresses": "", "stance": "",
                 "claim": "", "evidence_id": "", "reason": err}
 
-    # Models sometimes rename the key despite instructions; accept the common
-    # synonyms rather than discarding an otherwise valid judgment.
     verdict = ""
     for key in ("verdict", "decision", "label", "classification", "result"):
         if parsed.get(key):
@@ -429,14 +332,6 @@ def adjudicate(
     stance = str(parsed.get("stance", "")).lower().strip()
     addresses = str(parsed.get("addresses", "")).lower().strip()
 
-    # Enforce the relevance gate rather than trusting the model to honour it.
-    # Measured failure: on 9 of 11 windows of an uncovered narrative the model
-    # returned FAKE_NEWS while its own reason read "not mentioned or supported by
-    # the evidence provided" — it treated absence of evidence as contradiction.
-    # The verdicts happened to be true, but a system whose method claim is
-    # evidence-grounded detection cannot assert what its evidence does not
-    # license: an unsupported true answer is indistinguishable from an
-    # unsupported false one.
     if addresses == "no" and verdict in {"FAKE_NEWS", "NOT_FAKE_NEWS"}:
         return {
             "verdict": "NO_EVIDENCE",
@@ -448,9 +343,6 @@ def adjudicate(
                        f"{verdict}. {parsed.get('reason', '')}"),
         }
 
-    # A flag also needs evidence strong enough to ground it. Backstop only — the
-    # gate above is the real defence, since similarity does not separate covered
-    # from uncovered claims (see FLAG_MIN_SIMILARITY in config).
     top_sim = max((p.get("similarity") or 0.0 for p in passages), default=0.0)
     if verdict == "FAKE_NEWS" and top_sim < FLAG_MIN_SIMILARITY:
         return {
@@ -464,9 +356,6 @@ def adjudicate(
                        f"grounding a flag. {parsed.get('reason', '')}"),
         }
 
-    # Guard the rule rather than trusting the model to apply it: a speaker who is
-    # denying or merely describing the myth is not spreading it, whatever verdict
-    # the model picked. Topic overlap is the dominant failure mode here.
     if verdict == "FAKE_NEWS" and stance in {"denying", "neutral"}:
         return {
             "verdict": "NOT_FAKE_NEWS",
@@ -493,22 +382,13 @@ def adjudicate(
 
 
 def _time_check() -> bool:
-    # Read at call time so the experiment runner can switch it per run.
     from . import config
     return config.TIME_CHECK
 
 
-# Retries. A reply with no JSON is re-asked: gpt-oss occasionally ends after its
-# reasoning with empty content, and the same window succeeds when replayed
-# (measured on the gpt-oss-20b smoke test, 1 of 42 windows). Transport errors are
-# retried after a wait so a model server that crashed and is restarting does not
-# turn the rest of a run into ERROR rows, which the checkpoint would then save as
-# finished videos. Each retry is printed so the run log records it.
 _RETRY_NO_JSON = 2
 _RETRY_TRANSPORT = 6
 _RETRY_WAIT_S = 20
-# SSLError added 2026-11-10: a dropped TLS connection to OpenRouter was saved as
-# an ERROR window instead of being retried (its message starts "SSLError").
 _TRANSPORT_ERRORS = ("ConnectionError", "HTTPError", "ReadTimeout",
                      "ConnectTimeout", "Timeout", "ChunkedEncodingError",
                      "SSLError")
@@ -533,11 +413,6 @@ def _chat(*args, **kwargs) -> tuple[dict | None, str]:
         print(f"    retry: {err[:120]}", file=sys.stderr, flush=True)
 
 
-# Full request and response of every reply that carried no JSON, so a failure can
-# be diagnosed from what the server actually returned (finish_reason, usage,
-# reasoning text) rather than from a replay that may not reproduce it. Written
-# only on failure. The request holds no credentials: the API key travels in the
-# Authorization header, which is not logged.
 FAILURE_DIR = RESULTS_DIR
 
 
@@ -555,18 +430,6 @@ def _log_failure(payload: dict, body: dict) -> None:
         pass
 
 
-
-# --- Parametric-only condition ---------------------------------------------
-# The baseline the RAG conditions are compared against: the same claim window,
-# the same model, backend and output-constraint mechanism, the same stance guard
-# and the same video-level aggregation, but NO evidence. The model judges from
-# its own (parametric) knowledge. What has to differ, and only that:
-#   - no `addresses` / `evidence_id`: there is no evidence to be relevant or cited;
-#   - NO_EVIDENCE becomes UNVERIFIABLE: abstention when the model's own knowledge
-#     cannot settle the claim, reported separately like NO_EVIDENCE.
-# The wording follows SYSTEM_PROMPT line for line wherever evidence is not
-# involved, so a difference in results is attributable to the evidence, not to a
-# rewritten instruction.
 PARAMETRIC_PROMPT = (
     'You are a fact-checking classifier. You are given a CLAIM transcribed from a video. No evidence is provided: judge it from your own knowledge of the scientific and public-health consensus.\n'
     '\n'
@@ -604,7 +467,6 @@ char   ::= [^"\\] | "\\" ["\\/bfnrt]
 ws     ::= [ \t\n]*
 """
 
-# Same contract as PARAMETRIC_GRAMMAR, as a JSON schema (see VERDICT_SCHEMA).
 PARAMETRIC_SCHEMA = {
     "name": "verdict_parametric",
     "strict": True,
@@ -632,15 +494,9 @@ def adjudicate_parametric(
     use_json_mode: bool = USE_JSON_MODE,
     claim_date=None,
 ) -> dict:
-    """Classify one claim window from the model's own knowledge, no evidence.
-
-    Returns the same keys as adjudicate(), with addresses and evidence_id empty
-    and verdict one of FAKE_NEWS / NOT_FAKE_NEWS / UNVERIFIABLE / ERROR.
-    """
+    """Classify one claim window from the model's own knowledge, no evidence."""
     user = f'CLAIM (transcribed speech):\n"{claim}"'
     if _time_check():
-        # Same dates and note as the evidence arm; there is no evidence to
-        # date, so no guard — the instruction is all the parametric arm gets.
         from .temporal import time_note
         when = claim_date.isoformat() if claim_date else "date unknown"
         user = f'CLAIM (transcribed speech, published {when}):\n"{claim}"'
@@ -672,8 +528,6 @@ def adjudicate_parametric(
 
     stance = str(parsed.get("stance", "")).lower().strip()
 
-    # The same stance guard as adjudicate(): a speaker denying or merely
-    # describing the myth is not spreading it, whatever verdict was picked.
     if verdict == "FAKE_NEWS" and stance in {"denying", "neutral"}:
         return {
             "verdict": "NOT_FAKE_NEWS", "addresses": "", "stance": stance,

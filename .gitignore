@@ -10,6 +10,11 @@ data/evidence/pdf/
 # macOS
 .DS_Store
 
-# Web-search cache: archived per run as data/results/<version>/web_cache_*.tar.gz
+# Web-search cache: page text of third-party sites, never committed. Per run,
+# only an index of queries and URLs is kept (experiments/web_cache_index.py).
 data/web_cache/
 data/web_cache_*/
+data/results/**/web_cache_*.tar.gz
+
+# Jupyter
+notebooks/.ipynb_checkpoints/

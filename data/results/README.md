@@ -14,15 +14,16 @@ as the evidence veto (docs/evidence-veto.md).
 |---|---|
 | `test_run_<model>_{parametric,tavily}.*` | both arms; `_nothink` = reasoning off (Qwen3.6-27B) |
 | `test_run_<model>_verifier*.txt` | both arms together: verifier and evidence veto |
-| `*.json.bak` | backups written by `tests/check_run.py --drop-errors` |
-| `web_cache_after_<model>_tavily.tar.gz` | the web evidence each run used |
+| `*.json.bak` | backups written by `experiments/check_run.py --drop-errors` |
+| `web_cache_index_after_<model>_tavily.json` | the queries, URLs and retrieval times of the web evidence each run used (no page text; `experiments/web_cache_index.py`) |
 | `server_*.log` | llama-server logs from the workstation runs |
 | `llm_failures_*.jsonl` | raw requests and responses that carried no JSON |
 | `prompt_ab_dev.json` | the earlier prompt A/B (docs/prompt-experiments.md) |
 
-Not every model has both arms yet: gpt-oss-20b and Gemma 4 12B have only the
-evidence arm; Qwen3.6-27B with thinking on has partial runs (`_parametric`,
-`_tavily`), with thinking off both arms are complete (`_nothink`).
+All four models have both arms. The verifier file exists for gpt-oss-120b and
+Qwen3.6-27B (`_nothink`); for Gemma 4 12B and gpt-oss-20b it has not been
+produced yet. Qwen3.6-27B with thinking on has only partial runs (`_parametric`,
+`_tavily`); the complete Qwen runs are the `_nothink` ones.
 
 ## v2/ — dropped protocol (tested, not reported) and development runs
 
@@ -37,7 +38,7 @@ is not compared.
 | `test_run_<model>_{parametric,tavily}*_tc.*` | v2 test-set runs (`_nothink` = reasoning off) |
 | `test_run_<model>_verifier_tc.txt`, `protocol_<model>*_tc.log` | their scores and logs |
 | `dev_run_*` | the development-set runs: prompt variants (`_base`, `_rules`, `_stance_first`, `_rules_v2`), `_tc` = time check. The base-prompt runs are the dev evidence for the evidence veto |
-| `web_cache_before_v2_test_runs.tar.gz` | the web cache as it stood before the v2 test runs |
+| `web_cache_index_before_v2_*.json` | the queries and URLs in the web cache as it stood before the v2 test runs |
 | `llm_failures_*.jsonl`, `server_*.log` | as in v1, for these runs |
 
 ## v3/ — whole-transcript protocol
@@ -57,6 +58,11 @@ and the verifier is read at video level (`video-AND`).
 | `test_run_<model>_{parametric,tavily}_whole_tc.*` | test-set runs; `model_fake_news` per video = the model's own true/false |
 | `test_run_<model>_verifier_whole_tc.txt` | the verifier (read the `video-AND` row) |
 | `protocol_<model>_whole_tc.log` | everything the protocol script printed |
+| `queue_v3_whole.log` | the workstation queue that launched these runs |
+
+The Gemma 4 12B evidence arm was stopped before completion
+(`_incomplete-stopped-20261113`); the other three models have both arms and a
+verifier file.
 
 ## smoke/ — short checks
 

@@ -1,12 +1,5 @@
-"""
-    python -m transcribe covid_vaccine_videos
-    python -m transcribe covid_vaccine_videos.json
-    python -m transcribe data/youtube/disinformation_dozen.json
-    python -m transcribe covid_vaccine_videos --resegment   # add timed segments to old results
-
-Progress is checkpointed after every video, so re-running the same dataset resumes where it stopped.
-
-"""
+"""Transcribe a collected dataset; progress is checkpointed after every video,
+so re-running the same dataset resumes where it stopped."""
 from __future__ import annotations
 
 import argparse
@@ -79,7 +72,6 @@ def main(argv: list[str] | None = None) -> int:
     print(f"Checkpoint: {checkpoint_file}  ({len(results)} done)")
 
     if not args.summary_only:
-        # Only the transcribing path needs ffmpeg; --summary-only must not fail on it.
         if not ffmpeg_available():
             print("error: ffmpeg not found on PATH — install it with: brew install ffmpeg",
                   file=sys.stderr)

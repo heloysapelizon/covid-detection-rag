@@ -36,7 +36,7 @@ This document explains why, and where the evidence does pay off.
 ### 1. The video metric hides what evidence does per window
 
 A video is predicted fake news when **any** of its windows is flagged
-(tests/run_experiment.py). Counted per window instead, the arms differ sharply:
+(experiments/run_experiment.py). Counted per window instead, the arms differ sharply:
 
 ```
   flagged windows          in fake videos   in not-fake videos
@@ -64,7 +64,7 @@ Window by window, across all 383 windows:
 Of the evidence arm's flags in not-fake videos, 20 are its own (the parametric
 arm did not flag that window): 11 on corpus evidence, 9 on web evidence. Read
 individually, they are of two kinds (the dev videos behind each are listed in
-the `rules_v2` section of tests/prompt_variants.py):
+the `rules_v2` section of experiments/prompt_variants.py):
 
 - **evidence about a different thing** passes the relevance gate. A Pfizer
   efficacy figure is "contradicted" by Moderna's; an mRNA flu vaccine's result
@@ -122,7 +122,7 @@ The observation that prompted the framing, on the pre-existing test runs
 ### What the verifier is, precisely
 
 It is an agreement rule over two runs of the same model, prompt and dataset
-(tests/score_verifier.py): a video is predicted fake when at least one window
+(experiments/score_verifier.py): a video is predicted fake when at least one window
 is flagged by both. The evidence arm never sees the parametric verdict. That is
 weaker than RARR, where the generated claim itself is sent to retrieval, and the
 difference should be stated wherever the reference is cited.
@@ -146,7 +146,7 @@ where an abstention usually means the neighbour retrieved different evidence,
 not that it read the words differently.
 
 It is deterministic and post-hoc, so any finished run can be re-scored with it
-(`--score --overlap-veto`, and `tests/score_verifier.py --overlap-veto`).
+(`--score --overlap-veto`, and `experiments/score_verifier.py --overlap-veto`).
 
 ## How to report it
 
@@ -180,12 +180,12 @@ It is deterministic and post-hoc, so any finished run can be re-scored with it
 ```bash
 export LLM_SERVER=openrouter LLAMA_MODEL=openai/gpt-oss-120b
 PY=.venv/bin/python
-$PY tests/run_experiment.py --dataset dev --prompt base --condition parametric
-$PY tests/run_experiment.py --dataset dev --prompt base --web tavily
+$PY experiments/run_experiment.py --dataset dev --prompt base --condition parametric
+$PY experiments/run_experiment.py --dataset dev --prompt base --web tavily
 
 R=data/results/v2/dev_run_openai-gpt-oss-120b
-$PY tests/score_verifier.py ${R}_parametric_base.json ${R}_tavily_base.json
-$PY tests/score_verifier.py ${R}_parametric_base.json ${R}_tavily_base.json --overlap-veto
+$PY experiments/score_verifier.py ${R}_parametric_base.json ${R}_tavily_base.json
+$PY experiments/score_verifier.py ${R}_parametric_base.json ${R}_tavily_base.json --overlap-veto
 ```
 
 "Verifier" in this document is the `window-AND` row of that output. Its

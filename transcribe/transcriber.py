@@ -21,15 +21,7 @@ def run(
     resegment: bool = False,
     max_transcribe_s: int = TRANSCRIBE_MAX_S,
 ) -> dict:
-    """Transcribe every dataset video absent from `results`.
-
-    Checkpoints after each video and deletes each audio file immediately, so disk
-    use stays flat and an interrupt loses at most one video's work. Returns the
-    updated results dict (also mutated in place).
-
-    With resegment, videos already transcribed before segments were stored
-    (status "ok" but no "segments") are processed again.
-    """
+    """Transcribe every dataset video absent from `results`."""
     def pending(vid: str) -> bool:
         r = results.get(vid)
         if r is None:
@@ -59,10 +51,6 @@ def run(
             print(f"    -> {dl_status}")
         else:
             text, status, meta, segments = transcribe_audio(model, wav)
-            # A capped download must not be reported as a complete transcript.
-            # transcribe_audio returns its own "ok", which would otherwise
-            # overwrite the "ok_capped (...)" note and lose the record that this
-            # transcript covers only the first part of the video.
             if status == "ok" and dl_status.startswith("ok_capped"):
                 status = dl_status
             results[vid] = {

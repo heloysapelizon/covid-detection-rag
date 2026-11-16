@@ -1,17 +1,4 @@
-"""Command-line entry point.
-
-    python -m rag --build-index                 # vectorize the evidence (once)
-    python -m rag --check-server                # is llama-server reachable?
-    python -m rag Y6_jn0DzXHI                   # fact-check one video
-    python -m rag Y6_jn0DzXHI --json out.json   # also save full results
-    python -m rag --list                        # videos with usable transcripts
-
-Requires a local model server. `LLM_SERVER` selects which; llama.cpp is the
-default and is what the reported experiment runs on:
-
-    llama-server -m model.gguf -c 8192 --port 8080    # default
-    LLM_SERVER=ollama ollama serve                    # development only
-"""
+"""Command-line entry point."""
 from __future__ import annotations
 
 import argparse
@@ -28,8 +15,6 @@ from .config import (
     MIN_SIMILARITY,
     TOP_K,
 )
-# Single definition, so the rule deciding which transcripts enter an experiment
-# cannot drift between the pipeline and the evaluation scripts.
 from transcribe.config import is_usable  # noqa: E402
 
 from .index import EvidenceIndex, build
@@ -39,22 +24,14 @@ from .websearch import get_backend
 
 
 def _start_hint() -> str:
-    """How to start whichever server this run is configured against.
-
-    Printed on a health-check failure. Either server may be configured, so an
-    unconditional hint would send the reader to the wrong process.
-    """
+    """How to start whichever server this run is configured against."""
     if os.environ.get("LLM_SERVER", "").lower() == "ollama" or "11434" in LLAMA_URL:
         return "  ollama serve"
     return "  llama-server -m model.gguf -c 8192 --port 8080"
 
 
 def load_transcripts() -> dict[str, dict]:
-    """Return {video_id: record} for videos that have a usable transcript.
-
-    Prefers the transcribed dataset; falls back to the checkpoint joined with the
-    collected metadata, so this works mid-transcription too.
-    """
+    """Return {video_id: record} for videos that have a usable transcript."""
     transcribed = DATA_DIR / f"{DATASET_NAME}.json"
     if transcribed.exists():
         records = json.loads(transcribed.read_text(encoding="utf-8"))
@@ -189,8 +166,6 @@ def main(argv: list[str] | None = None) -> int:
         transcript = " ".join(windows[0].split()) if len(windows) == 1 \
             else " ".join(w.split()[:45] for w in windows)
 
-    # Web fallback is opt-in: without --web the run is corpus-only and a claim
-    # the corpus cannot address stays NO_EVIDENCE.
     try:
         web_fetch_fn = get_backend(args.web)
     except ValueError as e:

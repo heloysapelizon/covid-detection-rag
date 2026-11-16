@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# v3 whole-transcript protocol for gpt-oss-20b (local llama.cpp), queued behind the Gemma queue.
+# v3 whole-transcript protocol for gpt-oss-20b, queued behind the Gemma queue.
 MAIN=~/ANTIGO/Heloysa/covid-detection-rag; cd "$MAIN"
 M=~/ANTIGO/Heloysa/models
 LOG=$MAIN/data/results/queue_v3_whole.log
 : "${TAVILY_API_KEY:?TAVILY_API_KEY not set}"
 
 echo "=== gpt-oss-20b queued, waiting for the Gemma queue $(date)" | tee -a "$LOG"
-while pgrep -f "queue_v3_whole.sh|scripts/run_test_model.sh|tests/run_experiment.py" >/dev/null; do sleep 60; done
+while pgrep -f "queue_v3_whole.sh|scripts/run_test_model.sh|experiments/run_experiment.py" >/dev/null; do sleep 60; done
 echo "=== GPU free for gpt-oss-20b $(date)" | tee -a "$LOG"
 
 export CUDA_VISIBLE_DEVICES="" WHOLE=1 LLM_TIMEOUT_S=1200
@@ -15,8 +15,7 @@ export LLAMA_MODEL=gpt-oss-20b LLM_CONSTRAINT=json_schema
 
 stop_server() { tmux kill-window -t heloysa-tcc:server 2>/dev/null
   pkill -f "ANTIGO/Heloysa/run_server"; pkill -f "ANTIGO/Heloysa/models"; sleep 5; }
-try_server() {                     # offload candidates, first that loads with <= 7600 MiB wins
-  for off in "$@"; do
+try_server() {  for off in "$@"; do
     stop_server
     tmux new-window -d -t heloysa-tcc -n server -e MODEL_FILE="$M/gpt-oss-20b-MXFP4.gguf" \
       -e EXTRA="-n 12288" -e OFFLOAD="$off" -e SERVER_TAG="gpt-oss-20b" ~/ANTIGO/Heloysa/run_server_whole.sh

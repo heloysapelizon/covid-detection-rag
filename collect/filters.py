@@ -27,7 +27,7 @@ def drop_long(
     unknown = 0
     for r in records:
         d = r.get("duration_s")
-        if not d: # None or 0 (live streams report P0D)
+        if not d:
             unknown += 1
             kept.append(r)
         elif d > max_duration_s:

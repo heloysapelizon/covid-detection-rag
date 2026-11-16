@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-# Workstation launcher for gemma-4-12b: waits for llama-server, blocks sleep, then
-# runs the full test protocol (scripts/run_test_model.sh): both arms with
-# --time-check, the overlap-veto scores and the verifier.
+# Waits for llama-server, then runs scripts/run_test_model.sh for gemma-4-12b.
 cd ~/ANTIGO/Heloysa/covid-detection-rag
 export PATH="$HOME/.local/bin:$PATH"
 source .venv/bin/activate
@@ -17,7 +15,6 @@ systemd-inhibit --what=sleep:idle --why=test true 2>/dev/null \
   && INHIBIT="systemd-inhibit --what=sleep:idle --why=Heloysa-TCC-run" \
   || echo "=== WARNING: systemd-inhibit denied, sleep not blocked"
 
-# The protocol writes its own log: data/results/v2/protocol_<model>_tc.log
 $INHIBIT scripts/run_test_model.sh
 echo "=== protocol finished $(date) (exit $?)"
 exec bash

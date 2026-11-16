@@ -1,33 +1,10 @@
-"""Whisper transcription pipeline for the COVID-19 vaccine video dataset.
-
-Modules are grouped by what they depend on, so a failure or a slow import stays
-contained and each layer can be used without the ones above it:
-
-    config       settings and paths — no dependencies
-    data         all disk I/O: datasets in, checkpoints both ways, results out
-                 (stdlib + pandas; every write is atomic)
-    audio        yt-dlp + ffmpeg: YouTube video id -> 16kHz mono WAV
-    whisper      faster-whisper: load a model, turn a WAV into text
-    transcriber  the per-video loop and the run report
-    main         argument parsing and exit codes
-
-Dependencies point one way only: main -> transcriber -> {audio, whisper, data} ->
-config. Nothing imports the layer above it.
-
-Names are re-exported lazily (PEP 562), so `from transcribe.data import
-load_dataset` does not pull in yt-dlp or faster-whisper. Import the submodule you
-need directly to keep it that way.
-
-Run it with:
-
-    python -m transcribe covid_vaccine_videos
-"""
+"""Whisper transcription pipeline for the COVID-19 vaccine video dataset."""
 from __future__ import annotations
 
 import importlib
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:  # for type checkers and editors only; no runtime import
+if TYPE_CHECKING:
     from .audio import download_audio, ffmpeg_available
     from .main import main
     from .transcriber import print_summary, run
@@ -43,7 +20,6 @@ if TYPE_CHECKING:  # for type checkers and editors only; no runtime import
         save_enriched,
     )
 
-# public name -> module that defines it
 _EXPORTS = {
     "download_audio": "audio",
     "ffmpeg_available": "audio",

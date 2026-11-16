@@ -1,0 +1,45 @@
+# Citation metadata. GitHub reads this file to show "Cite this repository".
+# Before tagging v1.0: fill in the Zenodo DOI (both places), the release date,
+# and the thesis details under preferred-citation.
+cff-version: 1.2.0
+message: "If you use this software or its data, please cite it as below."
+type: software
+title: "covid-detection-rag: COVID-19 vaccine misinformation detection in YouTube videos with retrieval-augmented adjudication"
+authors:
+  - family-names: Pelizon
+    given-names: Heloysa
+    email: h.pelizon@edu.pucrs.br
+    affiliation: "Pontifícia Universidade Católica do Rio Grande do Sul (PUCRS)"
+repository-code: "https://github.com/heloysapelizon/covid-detection-rag"
+license: MIT
+version: 1.0.0
+date-released: "2026-11-16"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.XXXXXXX"
+    description: "Zenodo archive of the v1.0 release (fill in after deposit)"
+keywords:
+  - misinformation detection
+  - fact-checking
+  - retrieval-augmented generation
+  - COVID-19 vaccines
+  - YouTube
+  - speech transcription
+abstract: >-
+  A pipeline that collects YouTube videos about COVID-19 vaccines through the
+  official Data API, transcribes their audio with faster-whisper, and flags
+  claims that a vetted evidence corpus contradicts, using a locally served
+  language model to adjudicate each claim against retrieved passages. Includes
+  the hand-labelled test set, the development sets, the evidence passages and
+  every experiment result reported in the thesis.
+preferred-citation:
+  type: thesis
+  title: "TITLE OF THE THESIS"
+  authors:
+    - family-names: Pelizon
+      given-names: Heloysa
+  institution:
+    name: "Pontifícia Universidade Católica do Rio Grande do Sul (PUCRS)"
+  thesis-type: "Undergraduate thesis (Trabalho de Conclusão de Curso)"
+  year: 2026
+  url: "URL OF THE DEPOSITED PDF"

@@ -1,8 +1,4 @@
-""" gathers call of YouTube Data API v3
-
-    search.list  100 units per call (up to 50 results)
-    videos.list    1 unit per call  (up to 50 ids)
-"""
+"""gathers call of YouTube Data API v3"""
 from __future__ import annotations
 
 import os
@@ -30,8 +26,6 @@ __all__ = [
     "search_videos",
 ]
 
-# PT1H2M3S / PT4M13S / PT45S — every component is optional, and the whole time
-# section is too: live streams report "P0D" with no "T" part at all.
 _DURATION_RE = re.compile(
     r"^P(?:(?P<days>\d+)D)?"
     r"(?:T(?:(?P<hours>\d+)H)?(?:(?P<minutes>\d+)M)?(?:(?P<seconds>\d+)S)?)?$"
@@ -39,10 +33,7 @@ _DURATION_RE = re.compile(
 
 
 def parse_duration(iso: str | None) -> int | None:
-    """Seconds from an ISO 8601 duration like "PT1H2M3S". None if unparseable.
-
-    Live streams report "P0D", which yields 0 — callers treat that as unknown.
-    """
+    """Seconds from an ISO 8601 duration like "PT1H2M3S". None if unparseable."""
     if not iso:
         return None
     m = _DURATION_RE.match(iso)
@@ -58,10 +49,7 @@ def parse_duration(iso: str | None) -> int | None:
 
 
 def build_client(api_key: str | None = None):
-    """Return an authenticated YouTube client.
-
-    Reads YOUTUBE_API_KEY from .env in the project root unless a key is passed.
-    """
+    """Return an authenticated YouTube client."""
     if api_key is None:
         load_dotenv(PROJECT_ROOT / ".env")
         api_key = os.getenv("YOUTUBE_API_KEY")
@@ -79,11 +67,7 @@ def search_videos(
     query: str,
     max_results: int = MAX_RESULTS_PER_QUERY,
 ) -> list[Video]:
-    """Return candidate videos for one query. Costs 100 quota units.
-
-    search.list returns truncated descriptions (~140 chars) and no statistics or
-    duration; fetch_videos_by_id fills those in.
-    """
+    """Return candidate videos for one query. Costs 100 quota units."""
     params = {
         "q": query,
         "part": "snippet",
@@ -116,14 +100,7 @@ def fetch_videos_by_id(
     video_ids: list[str],
     query: str,
 ) -> tuple[list[Video], list[str]]:
-    """Fetch full metadata for explicit video ids. 1 quota unit per 50 ids.
-
-    Returns (videos, missing_ids). Unlike search.list this returns untruncated
-    descriptions plus statistics and duration, so it is both the link-list path
-    and the way search results get completed.
-
-    `query` is stored as each record's provenance.
-    """
+    """Fetch full metadata for explicit video ids. 1 quota unit per 50 ids."""
     if not video_ids:
         return [], []
 

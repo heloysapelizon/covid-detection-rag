@@ -125,7 +125,7 @@ Only gpt-oss-120b completed v2. Qwen3.6-27B was stopped partway (43 of 119
 videos, parametric arm only) and is not compared.
 
 The v2 files stay in data/results/v2/ for the record. The production prompts in
-rag/llm.py are the v1 prompts again (`v0` in tests/prompt_variants.py), and the
+rag/llm.py are the v1 prompts again (`v0` in experiments/prompt_variants.py), and the
 windowed protocol in scripts/run_test_model.sh is the v1 protocol.
 
 ## Reproducing
@@ -133,8 +133,8 @@ windowed protocol in scripts/run_test_model.sh is the v1 protocol.
 ```bash
 PY=.venv/bin/python
 R=data/results/v1/test_run_openai-gpt-oss-120b
-$PY tests/score_verifier.py ${R}_parametric.json ${R}_tavily.json                  # raw
-$PY tests/score_verifier.py ${R}_parametric.json ${R}_tavily.json --overlap-veto   # as reported
+$PY experiments/score_verifier.py ${R}_parametric.json ${R}_tavily.json                  # raw
+$PY experiments/score_verifier.py ${R}_parametric.json ${R}_tavily.json --overlap-veto   # as reported
 ```
 
 The `evidence-veto` row is the rule above. `window-AND` is the verifier.

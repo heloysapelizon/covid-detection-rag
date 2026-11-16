@@ -1,8 +1,4 @@
-"""orchestration: gather candidates, complete their metadata, filter, report.
-
-every candidate is completed with a videos.list pass. That is also what makes the duration filter possible, and it costs
-1 quota unit per 50 videos against the 100 units each search already spent.
-"""
+"""orchestration: gather candidates, complete their metadata, filter, report."""
 from __future__ import annotations
 
 import json
@@ -17,11 +13,7 @@ from .api import HttpError, fetch_videos_by_id, search_videos
 
 
 def gather_from_search(client, queries: list[str] = SEARCH_QUERIES) -> dict[str, str]:
-    """Search every query, returning {video_id: query} for the first match.
-
-    First-wins keeps a video's original provenance when it matches several queries.
-    A failing query is reported and skipped rather than ending the run.
-    """
+    """Search every query, returning {video_id: query} for the first match."""
     provenance: dict[str, str] = {}
     for q in queries:
         try:
@@ -45,12 +37,7 @@ def gather_from_links(links_file: Path) -> dict[str, str]:
 
 
 def load_excluded_ids(path: Path) -> set[str]:
-    """Video ids to keep out of a collection run.
-
-    Accepts either a ground-truth label file (an object with an `items` list) or
-    a plain JSON list of ids. Returns an empty set when the file is absent, so a
-    run without exclusions still works.
-    """
+    """Video ids to keep out of a collection run."""
     if not path or not path.exists():
         return set()
     data = json.loads(path.read_text(encoding="utf-8"))
@@ -69,14 +56,7 @@ def collect(
     max_duration_s: int = MAX_DURATION_S,
     exclude_ids: set[str] | None = None,
 ) -> list[dict]:
-    """Build and save a filtered dataset. Returns the saved records.
-
-    `exclude_ids` drops candidates before metadata is fetched. This is what keeps
-    a second collection run from leaking the held-out test videos into a dev set:
-    the v2 queries overlap the v1 ones in subject matter, so YouTube returns many
-    of the same videos, and without this they would silently reappear in the set
-    used for tuning.
-    """
+    """Build and save a filtered dataset. Returns the saved records."""
     provenance: dict[str, str] = {}
 
     if queries:

@@ -302,7 +302,7 @@ only how its output becomes tiers), so γ=0.52 still stands.
 
 ### Gate probe, measured against a live server (2026-11-01)
 
-`tests/gate_probe.py`, `qwen2.5:14b` at temperature 0, corpus 2361 passages,
+`experiments/gate_probe.py`, `qwen2.5:14b` at temperature 0, corpus 2361 passages,
 with the relevance gate, flag floor and sub-γ topic tier all in place.
 
 | case | tier | top_sim | addresses | verdict |

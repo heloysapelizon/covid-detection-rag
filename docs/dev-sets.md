@@ -1,8 +1,8 @@
 # Development sets
 
 How the tuning data was collected and selected, and why the first attempt was
-replaced. The split itself is reported by `tests/datasets.py`; the selection is
-reproduced by `tests/select_dev.py`.
+replaced. The split itself is reported by `experiments/datasets.py`; the selection is
+reproduced by `experiments/select_dev.py`.
 
 ## Why development sets exist here
 
@@ -77,7 +77,7 @@ list, not through any query aimed at them:
 ```
 
 The raw collection returned **39 mirror against 158 uncovered**, which is why the
-groups are separated in code (`tests/select_dev.py --group`) rather than by
+groups are separated in code (`experiments/select_dev.py --group`) rather than by
 convention: pooling them would let the unrepresentative half dominate every
 retrieval figure.
 
@@ -96,7 +96,7 @@ non-English audio and a download error. At that rate 50 yields ~45 usable.
 
 ## Selection criteria
 
-`tests/select_dev.py` balances on the axes that affect what can be measured.
+`experiments/select_dev.py` balances on the axes that affect what can be measured.
 Selection is deterministic — candidates are ordered by SHA-1 of their video id
 within each query bucket, so re-running gives the same subset with no stored seed
 and no sensitivity to input order.
@@ -162,7 +162,7 @@ docstring described never fired.
 
 The transcription worked; the output did not appear. Transcripts were written to
 the shared checkpoint while `build_enriched` looked only for ids in the named
-dataset, so the run produced no `_transcribed.json` and `tests/datasets.py`
+dataset, so the run produced no `_transcribed.json` and `experiments/datasets.py`
 reported zero. The shared checkpoint had accumulated 143 v1 + 44 dev1 + 27
 mirror entries.
 
@@ -179,8 +179,8 @@ python -m collect --name covid_vaccine_videos_dev2 \
     --exclude data/youtube/exclude_dev2.json
 
 # split the combined pull into its two groups
-python tests/select_dev.py --group mirror    --n 50 --write
-python tests/select_dev.py --group uncovered --n 21 --write
+python experiments/select_dev.py --group mirror    --n 50 --write
+python experiments/select_dev.py --group uncovered --n 21 --write
 
 # transcribe (capped at TRANSCRIBE_MAX_S; pass --max-transcribe 0 for whole videos)
 python -m transcribe covid_vaccine_videos_dev2_mirror_selected
@@ -304,7 +304,7 @@ Six are excluded through a per-item `exclude` field:
 ```
 
 The id-based leak check passed all four duplicates: they are the same
-syndicated segments re-uploaded by other stations. `tests/datasets.py` now also
+syndicated segments re-uploaded by other stations. `experiments/datasets.py` now also
 reports transcript overlap with test (8-word shingles, threshold 0.4), so a
 future duplicate shows up as `DUP` rather than silently entering tuning.
 

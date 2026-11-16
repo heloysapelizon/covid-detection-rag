@@ -344,7 +344,7 @@ made per candidate window, so the fallback path is now cheaper than before. That
 two-pass stance function (`read_stance`/`STANCE_PROMPT` in `rag/llm.py`) became
 dead once `stance` was folded into the single adjudication call, and was removed
 on 2026-11-05 — asked in isolation it scored 6/12 against one-pass
-adjudication's 9/12, a finding recorded in `tests/stance_eval.py`.
+adjudication's 9/12, a finding recorded in `experiments/stance_eval.py`.
 
 When the trigger fires and the web returns results, the claim is
 **re-adjudicated against the web evidence** and the verdict relabelled
@@ -625,8 +625,8 @@ what makes the experiment valid.
 So the cache is **on by default and cleared before a measurement run**:
 
 ```bash
-python tests/run_experiment.py --web duckduckgo --clear-cache   # fresh evidence
-python tests/run_experiment.py --web duckduckgo                 # replays cache
+python experiments/run_experiment.py --web duckduckgo --clear-cache   # fresh evidence
+python experiments/run_experiment.py --web duckduckgo                 # replays cache
 ```
 
 Implementation notes that keep the bias visible rather than hidden:

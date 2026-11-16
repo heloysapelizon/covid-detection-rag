@@ -1,9 +1,4 @@
-"""Orchestration: segment a transcript, retrieve evidence, adjudicate, report.
-
-For each claim window: retrieve the nearest evidence passages, ask the local model
-whether the claim asserts something they contradict, and for anything flagged,
-attach the passage text that debunks it.
-"""
+"""Orchestration: segment a transcript, retrieve evidence, adjudicate, report."""
 from __future__ import annotations
 
 import textwrap
@@ -20,10 +15,6 @@ from .websearch import (
     should_search,
 )
 
-# Verdicts reached on web evidence rather than corpus evidence. Kept distinct so
-# they can never be summed into the corpus figures: every corpus passage is
-# licence-vetted, DOI-resolved and authorship-screened, and a web page is none of
-# those. See docs/adjudication-experiments.md.
 _WEB_VERDICTS = {"FAKE_NEWS": "FAKE_NEWS_WEB",
                  "NOT_FAKE_NEWS": "NOT_FAKE_NEWS_WEB"}
 
@@ -33,12 +24,7 @@ def segment_claims(
     window: int = CLAIM_WINDOW_WORDS,
     stride: int = CLAIM_STRIDE_WORDS,
 ) -> list[str]:
-    """Split a transcript into overlapping word windows.
-
-    Whisper output is largely unpunctuated, so sentence splitting is unreliable.
-    Overlapping windows mean a claim spanning a boundary still appears whole in at
-    least one window.
-    """
+    """Split a transcript into overlapping word windows."""
     words = transcript.split()
     if len(words) <= window:
         return [" ".join(words)] if words else []
@@ -57,13 +43,7 @@ def check_transcript(
     web_fetch_fn=None,
     published: str | None = None,
 ) -> list[dict]:
-    """Fact-check one transcript. Returns one result per claim window.
-
-    Each result carries the window text, what was retrieved, the model's verdict,
-    and — when flagged — the evidence passage that debunks it.
-
-    `published` (the video's publish date) dates the claim for the time check.
-    """
+    """Fact-check one transcript. Returns one result per claim window."""
     from .temporal import parse_date
     claim_date = parse_date(published)
     claims = segment_claims(transcript)
@@ -75,21 +55,11 @@ def check_transcript(
     for n, claim in enumerate(claims, 1):
         passages = index.search(claim, top_k=top_k, min_similarity=min_similarity)
         if config.TIME_CHECK:
-            # Passages carry no date of their own; the document's is in the
-            # manifest. Copied so the index's own dicts are not mutated.
             passages = [{**p, "updated": (sources.get(p.get("source_file", ""))
                                           or {}).get("updated", "")}
                         for p in passages]
         verdict = adjudicate(claim, passages, claim_date=claim_date)
 
-        # Web fallback, decided on the ADJUDICATED verdict rather than on an
-        # empty retrieval: the corpus almost always returns something, so
-        # "retrieval found nothing" never fires, while the relevance gate does
-        # correctly report that nothing addresses the claim. Adjudication has
-        # already run, so this costs no extra model call.
-        #
-        # Inert without a fetch function, so a run with no web access behaves
-        # exactly as before.
         origin = "corpus"
         web_why = ""
         if web_fetch_fn is not None:
@@ -100,41 +70,26 @@ def check_transcript(
                 stance=verdict.get("stance"),
             )
             if go:
-                # The claim window cannot be used as a search query directly: a
-                # 140-word unpunctuated passage returns nothing. build_query
-                # reduces it to the query a fact-checker would type.
                 query = build_query(claim)
                 web = rank_by_authority(
                     web_search(query, max_results=top_k, fetch_fn=web_fetch_fn)
                 )
                 web_why = f'{web_why}; query="{query}"'
                 if web:
-                    # Re-adjudicate against the web evidence. The corpus verdict
-                    # is discarded: it was NO_EVIDENCE by construction, which is
-                    # what sent us here.
                     passages = web
                     origin = "web"
                     verdict = adjudicate(claim, passages, claim_date=claim_date)
-                    # Relabel so a web-sourced verdict is never mistaken for a
-                    # corpus one. NO_EVIDENCE and ERROR keep their names: they
-                    # assert nothing, so there is no provenance to qualify.
                     verdict["verdict"] = _WEB_VERDICTS.get(verdict["verdict"],
                                                            verdict["verdict"])
                 if verbose:
                     print(f"  [{n}/{len(claims)}] web fallback: "
                           f"{len(web)} result(s) for \"{query}\"")
 
-        # Resolve the passage the model cited, so the debunking text travels with
-        # the flag. Fall back to the best-scoring passage if the id is unusable.
         cited = next(
             (p for p in passages if p["id"] == verdict.get("evidence_id")),
             passages[0] if passages else None,
         )
 
-        # Citation details live once in sources.json, keyed by source_file, rather
-        # than on every passage. Resolved here so a flag still cites the publisher
-        # of record. A web passage has no manifest entry — its source_file is a
-        # URL — so it carries its own publisher and url instead.
         doc = (sources.get(cited.get("source_file", ""))
                if cited and origin == "corpus" else None)
 
@@ -142,10 +97,6 @@ def check_transcript(
             "window": n,
             "claim_text": claim,
             "verdict": verdict["verdict"],
-            # Whether the model judged the evidence to address the claim at all.
-            # Recorded because it is the field that distinguishes "the evidence
-            # refutes this" from "the evidence is silent on this" — without it a
-            # NO_EVIDENCE row cannot be audited after the fact.
             "addresses": verdict.get("addresses", ""),
             "stance": verdict.get("stance", ""),
             "flagged_phrase": verdict.get("claim", ""),
@@ -163,8 +114,6 @@ def check_transcript(
             ),
             "similarity": cited.get("similarity") if cited else None,
             "retrieved_ids": [p["id"] for p in passages],
-            # Provenance of the evidence behind this verdict: "corpus" or "web".
-            # Reporting and metrics must split on this, never pool it.
             "evidence_origin": origin,
             "retrieved_at": cited.get("retrieved_at", "") if cited else "",
             "web_decision": web_why,
@@ -188,20 +137,7 @@ def _grams(text: str, k: int = 6) -> set[str]:
 
 
 def overlap_veto(results: list[dict]) -> list[dict]:
-    """Withdraw a flag that an overlapping window explicitly cleared.
-
-    Windows overlap by half, so the flagged words of window i normally also
-    appear in a neighbour, read with different surrounding context. If any
-    window containing them (matched on shared 6-word shingles) returned
-    NOT_FAKE_NEWS, the flag becomes NOT_FAKE_NEWS: the typical case is a myth
-    quoted at the edge of one window and rebutted in the next. Abstentions do
-    not veto — in the evidence arm they usually mean the neighbour retrieved
-    different evidence, not that it read the words differently (measured on
-    dev: letting them veto cost recall, letting only clearances veto did not).
-
-    Pure and deterministic; the original verdict is kept as `verdict_raw`.
-    Applied after the run so it never feeds back into adjudication.
-    """
+    """Withdraw a flag that an overlapping window explicitly cleared."""
     shingles = [_grams(r.get("claim_text", "")) for r in results]
     out = []
     for i, r in enumerate(results):
@@ -224,9 +160,6 @@ def overlap_veto(results: list[dict]) -> list[dict]:
 def print_report(results: list[dict], meta: dict | None = None) -> None:
     """Print the flagged claims with the evidence that refutes each."""
     flagged = [r for r in results if r["verdict"] == "FAKE_NEWS"]
-    # Reported separately, never pooled with the corpus flags: the evidence
-    # behind them has not been through the corpus's licence, DOI and authorship
-    # screening (docs/corpus-inclusion.md).
     flagged_web = [r for r in results if r["verdict"] == "FAKE_NEWS_WEB"]
     errors = [r for r in results if r["verdict"] == "ERROR"]
 
@@ -241,11 +174,6 @@ def print_report(results: list[dict], meta: dict | None = None) -> None:
         counts[r["verdict"]] = counts.get(r["verdict"], 0) + 1
     print("verdicts: " + "  ".join(f"{k}={v}" for k, v in sorted(counts.items())))
 
-    # Every web-sourced verdict is named here, not only the flags. A
-    # NOT_FAKE_NEWS_WEB otherwise appears as a bare count, leaving the reader
-    # unable to tell that a claim was cleared on a web page rather than on the
-    # vetted corpus — and the whole provenance design rests on that being
-    # visible.
     web = [r for r in results if r.get("evidence_origin") == "web"]
     if web:
         print(f"\n{len(web)} window(s) answered on WEB evidence, not the "
@@ -303,9 +231,6 @@ def _print_flags(flagged: list[dict]) -> None:
         if r["evidence_url"]:
             print(f"          {r['evidence_url']}")
         if r.get("evidence_origin") == "web":
-            # Authority is a ranking signal, not a filter, so a cited web
-            # passage may come from any domain. Saying which it is lets the
-            # reader weigh the citation instead of having to look it up.
             tier = ("recognised authority domain"
                     if is_authority(r["evidence_url"]) else "NOT an authority "
                     "domain — weigh accordingly")
@@ -317,15 +242,10 @@ def _print_flags(flagged: list[dict]) -> None:
         print()
 
 
-
 def check_transcript_parametric(transcript: str, verbose: bool = False,
                                 published: str | None = None) -> list[dict]:
-    """Parametric-only condition: the same claim windows, adjudicated without
-    retrieval (rag.llm.adjudicate_parametric).
-
-    Rows carry the same keys as check_transcript(), with every evidence field
-    empty and evidence_origin "none", so the same scoring code reads both.
-    """
+    """Parametric-only condition: the same claim windows, adjudicated without retrieval
+    (rag.llm.adjudicate_parametric)."""
     from .temporal import parse_date
     claim_date = parse_date(published)
     claims = segment_claims(transcript)

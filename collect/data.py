@@ -1,12 +1,4 @@
-"""All filesystem I/O: link lists in, datasets out.
-
-Grouped by concern — reading and writing under DATA_DIR — and by one reliability
-rule: every write goes to a temp file and is then moved into place, so an interrupt
-can never leave a half-written dataset.
-
-Depends only on the standard library and pandas, so it imports fast and can be used
-without an API key or network access.
-"""
+"""All filesystem I/O: link lists in, datasets out."""
 from __future__ import annotations
 
 import json
@@ -19,7 +11,6 @@ import pandas as pd
 from .config import DATA_DIR, DATASET_NAME
 from .models import Video
 
-# watch?v=, youtu.be/, /shorts/, /embed/, /live/, or a bare id.
 _ID_PATTERNS = [
     re.compile(r"(?:youtube\.com/watch\?(?:.*&)?v=)([A-Za-z0-9_-]{11})"),
     re.compile(r"(?:youtu\.be/)([A-Za-z0-9_-]{11})"),
@@ -27,7 +18,6 @@ _ID_PATTERNS = [
     re.compile(r"^([A-Za-z0-9_-]{11})$"),
 ]
 
-# write helpers
 def _write_json(path: Path, payload) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(path.suffix + ".tmp")
@@ -44,11 +34,7 @@ def _write_csv(path: Path, rows: list[dict]) -> None:
 
 
 def parse_links_file(path: Path) -> tuple[list[str], list[str]]:
-    """Read a .txt of one link (or bare id) per line.
-
-    Returns (video_ids, unrecognised_lines). Blank lines and #-comments are
-    ignored, inline comments stripped, ids deduplicated in file order.
-    """
+    """Read a .txt of one link (or bare id) per line."""
     if not path.exists():
         raise FileNotFoundError(f"No links file at {path}")
 
@@ -70,11 +56,6 @@ def parse_links_file(path: Path) -> tuple[list[str], list[str]]:
         else:
             bad.append(raw.strip())
     return ids, bad
-
-
-# --------------------------------------------------------------------------
-# Datasets (read + write)
-# --------------------------------------------------------------------------
 
 
 def dataset_paths(name: str = DATASET_NAME, out_dir: Path = DATA_DIR) -> tuple[Path, Path]:

@@ -26,3 +26,7 @@ requests==2.34.2
 
 # both — dataset handling and CSV output
 pandas==2.3.3
+
+# experiments — the reference classifiers in experiments/baselines.py
+scikit-learn==1.9.1
+scipy==1.18.1

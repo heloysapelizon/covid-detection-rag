@@ -1,10 +1,4 @@
-"""Everything that touches faster-whisper: loading a model and using it.
-
-Model loading and transcription live together because they share one dependency
-and are never used apart — a model exists only to be transcribed with, and
-transcription is meaningless without one. Isolating them here means the rest of
-the package imports without pulling in the inference stack.
-"""
+"""Everything that touches faster-whisper: loading a model and using it."""
 from __future__ import annotations
 
 import time
@@ -27,11 +21,7 @@ def load_model(
     compute_type: str = COMPUTE_TYPE,
     verbose: bool = True,
 ) -> WhisperModel:
-    """Load a faster-whisper model.
-
-    The first load of a given size downloads its weights (~460 MB for "small")
-    into ~/.cache/huggingface; later loads read that cache.
-    """
+    """Load a faster-whisper model."""
     t0 = time.time()
     model = WhisperModel(model_size, device=device, compute_type=compute_type)
     if verbose:
@@ -45,17 +35,7 @@ def transcribe_audio(
     wav_path: Path,
     word_timestamps: bool = WORD_TIMESTAMPS,
 ) -> tuple[str, str, dict, list[dict]]:
-    """Transcribe one WAV file.
-
-    Returns (text, status, meta, segments). segments is a list of
-    {"start", "end", "text"} in seconds (plus "words" when word_timestamps is set),
-    preserving where each passage is spoken so a flagged claim can be traced back
-    to the video. text is the segments joined, kept for convenience. meta carries the detected language and
-    probability for auditing which videos were dropped and why.
-
-    Language is detected before transcription, so non-target audio costs a
-    detection pass rather than full inference.
-    """
+    """Transcribe one WAV file."""
     try:
         segments, info = model.transcribe(
             str(wav_path),
@@ -70,14 +50,11 @@ def transcribe_audio(
             "duration_s": round(info.duration, 1),
         }
 
-        # The dataset is English-only: anything else is dropped here rather than
-        # transcribed, so non-English audio costs only a detection pass.
         if info.language != "en":
             return "", f"skipped_language ({info.language})", meta, []
         if info.language_probability < LANG_PROBABILITY_MIN:
             return "", f"skipped_language_uncertain ({info.language_probability:.2f})", meta, []
 
-        # segments is a generator; consuming it is what actually runs inference.
         out: list[dict] = []
         for seg in segments:
             piece = seg.text.strip()

@@ -1,39 +1,10 @@
-"""RAG fact-checking pipeline for the COVID-19 vaccine video dataset.
-
-Takes a transcript from `transcribe`, retrieves evidence from a vectorized corpus of
-public-health sources, and asks a locally served llama.cpp model whether any claim
-asserts something that evidence contradicts. Each flag carries the false phrase and
-the passage that debunks it.
-
-Modules are grouped by what they depend on, so a failure or a slow import stays
-contained and each layer can be used without the ones above it:
-
-    config     settings, paths and server URL — no dependencies
-    index      embed and query the evidence corpus (sentence-transformers, numpy)
-    llm        the llama.cpp HTTP boundary — one claim in, a verdict out
-    pipeline   segment, retrieve, adjudicate, report
-    main       argument parsing and exit codes
-
-Dependencies point one way only: main -> pipeline -> {index, llm} -> config.
-
-Names are re-exported lazily (PEP 562), so `from rag.index import build` does not
-import requests, and `from rag.llm import health` does not load an embedding model.
-
-Everything runs locally: no data leaves the machine.
-
-Usage:
-
-    llama-server -m model.gguf -c 8192 --port 8080   # in another terminal
-                                                     # (LLM_SERVER=ollama for dev)
-    python -m rag --build-index
-    python -m rag <video_id>
-"""
+"""RAG fact-checking pipeline for the COVID-19 vaccine video dataset."""
 from __future__ import annotations
 
 import importlib
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:  # for type checkers and editors only; no runtime import
+if TYPE_CHECKING:
     from .index import EvidenceIndex, build, load_evidence
     from .llm import adjudicate, build_prompt, health
     from .main import main

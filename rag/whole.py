@@ -1,68 +1,16 @@
-"""Whole-transcript adjudication: one judgement per video instead of per window.
-
-The windowed pipeline (rag/pipeline.py) asks about 14 questions per video and
-joins them with "any window flagged => video flagged". Measured on dev and test,
-that join turns one nitpick in a long explainer into a false positive, and a
-myth quoted in one window and rebutted in the next into a flag. Here the model
-reads the whole transcript, finds the claims itself and judges each with the
-whole context in view.
-
-    parametric   1 call:  claims + stance + verdict + debunking evidence, from the
-                 model's own knowledge.
-    rag          call 1:  the claims and their stance, no judgement.
-                 retrieval: corpus passages for each claim.
-                 call 2:  every claim judged against its own passages.
-                 web:     claims the corpus cannot address are searched (Tavily)
-                          and judged again on that evidence, as in the windowed
-                          pipeline (verdicts relabelled *_WEB).
-
-The flagging instructions are the v1 ones (tests/prompt_variants.py V0_*),
-verbatim wherever they do not refer to a single window, so this condition
-differs from v1 in the unit of judgement, not in what counts as fake news.
-
-With TIME_CHECK on (--time-check, rag/temporal.py) the transcript carries the
-video's publish date and every corpus passage its document date (web passages
-are marked undated), and a transcript with time-bound wording ("so far", "not
-yet") gets a TIME CHECK note. Unlike the windowed pipeline there is NO
-deterministic time guard here: the model sees the dates and decides. The
-windowed guard overrode a time-bound flag whenever its evidence was dated after
-the video; that is a rule about the evidence, not a judgement about the claim,
-and with the whole transcript in view the model can weigh it itself.
-
-The same guards as rag/llm.py apply per claim: FAKE_NEWS needs stance
-"asserting"; in the rag arm a claim the evidence does not address is
-NO_EVIDENCE, and a flag needs evidence above FLAG_MIN_SIMILARITY.
-
-The video is predicted fake when at least one claim survives as a flag. The
-model's own `fake_news` answer is recorded beside it (`model_fake_news`) so a
-disagreement is visible rather than silently resolved.
-
-Rows are written in the same shape as windowed results ("window" is the claim's
-index), so tests/check_run.py and the scoring in tests/run_experiment.py read
-them unchanged. Window-level tools do not apply: claims are not windows, and the
-two arms extract different claims, so only video-level agreement (video-AND in
-tests/score_verifier.py) is meaningful for the verifier.
-"""
+"""Whole-transcript adjudication: one judgement per video instead of per window."""
 from __future__ import annotations
 
 from .config import FLAG_MIN_SIMILARITY, USE_GRAMMAR, USE_JSON_MODE, USE_JSON_SCHEMA
 from .llm import _chat, build_query
 from .websearch import rank_by_authority, search as web_search
 
-# Evidence per claim. Kept small (no neighbour expansion) because every claim's
-# passages share one prompt with the whole transcript.
 PASSAGES_PER_CLAIM = 3
-MAX_CLAIMS = 25            # a transcript yielding more is truncated, and the row says so
-# Web searches per video. The windowed v1 runs searched on ~40% of ~14 windows,
-# about 6 per video; capped at the same so Tavily cost and the share of
-# web-grounded verdicts stay comparable. Claims are taken in the model's order
-# (most important first).
+MAX_CLAIMS = 25
 MAX_WEB_CLAIMS = 6
 
 _FLAGS = {"FAKE_NEWS", "FAKE_NEWS_WEB"}
 
-# --- v1 rules, shared ----------------------------------------------------------
-# Verbatim from the v1 prompts, with "the CLAIM" made "a claim".
 _STANCE_RULES = (
     "Key distinction: a speaker who DENIES a myth (\"vaccines do not cause "
     'infertility") is NOT_FAKE_NEWS. A speaker who ASSERTS it is FAKE_NEWS.\n\n'
@@ -177,7 +125,6 @@ WHOLE_JUDGE_PROMPT = (
     "that contradicts the claim; otherwise an empty string\n"
     '  "fake_news"  - true if at least one claim is FAKE_NEWS, otherwise false\n\n'
     "Example:\n"
-    # The three v1 examples (fake, debunk, no evidence), as one reply.
     '{"judgements": [{"claim": 1, "addresses": "yes", "stance": "asserting", '
     '"verdict": "FAKE_NEWS", "evidence_id": "CDC-MAGNETIC", "evidence": "The CDC '
     'states vaccines are free from metals."}, {"claim": 2, "addresses": "yes", '
@@ -188,7 +135,6 @@ WHOLE_JUDGE_PROMPT = (
     "JSON only."
 )
 
-# --- output contracts ------------------------------------------------------------
 _STR = {"type": "string"}
 _STANCE = {"type": "string", "enum": ["asserting", "denying", "neutral"]}
 
@@ -224,11 +170,7 @@ JUDGE_SCHEMA = _schema(
     ["claim", "addresses", "stance", "verdict", "evidence_id", "evidence"],
     "judgements", True)
 
-# GBNF equivalents for llama.cpp, in the same field order.
 _GBNF_COMMON = r'''
-# Bounded on purpose (2026-11-11): unbounded ws let gemma-4-12b pad a reply with
-# newlines until the token cap, and an unbounded array let it list 86 claims
-# against an instruction of at most MAX_CLAIMS. {0,24} = MAX_CLAIMS - 1 more items.
 stance ::= "\"asserting\"" | "\"denying\"" | "\"neutral\""
 bool   ::= "true" | "false"
 int    ::= [0-9]+
@@ -267,7 +209,6 @@ def _transcript_block(transcript: str, claim_date, parametric: bool) -> str:
     block = f'TRANSCRIPT (published {when}):\n"{transcript}"'
     note = time_note(transcript, claim_date, parametric=parametric)
     if note:
-        # time_note speaks of "the CLAIM"; here the wording is in the transcript.
         block += "\n\n" + note.replace("the CLAIM contains", "the TRANSCRIPT contains")
     return block
 
@@ -334,7 +275,6 @@ def check_video_parametric(transcript: str, published: str | None = None) -> dic
         if verdict not in {"FAKE_NEWS", "NOT_FAKE_NEWS", "UNVERIFIABLE"}:
             verdict, reason = "ERROR", f"unrecognised verdict {verdict!r}"
         elif verdict == "FAKE_NEWS" and stance != "asserting":
-            # The v1 stance guard (rag/llm.py adjudicate_parametric).
             verdict, reason = "NOT_FAKE_NEWS", (f"Overridden: FAKE_NEWS with stance "
                                                 f"{stance!r}. {reason}")
         rows.append(_row(n, str(c.get("phrase", "")), verdict, stance=stance,
@@ -407,7 +347,6 @@ def check_video_rag(transcript: str, index, web_fetch_fn=None,
     from .temporal import parse_date
     claim_date = parse_date(published)
     sources = document_sources()
-    # Extraction does not judge truth, so it gets the plain transcript.
     parsed, err = _call(WHOLE_EXTRACT_PROMPT, f'TRANSCRIPT:\n"{transcript}"',
                         EXTRACT_GRAMMAR, EXTRACT_SCHEMA)
     claims = _claims(parsed, "claims")
@@ -417,13 +356,11 @@ def check_video_rag(transcript: str, index, web_fetch_fn=None,
               for c in claims if str(c.get("phrase", "")).strip()]
     if not claims:
         return {"rows": [], "model_fake_news": False, "claims": 0, "truncated": False}
-    truncated = len(parsed.get("claims") or []) >= MAX_CLAIMS  # at the cap
+    truncated = len(parsed.get("claims") or []) >= MAX_CLAIMS
 
     passages = {n: index.search(c["phrase"], top_k=PASSAGES_PER_CLAIM, expand=0)
                 for n, c in enumerate(claims, 1)}
     if _time_on():
-        # Passages carry no date; the document's is in the manifest. Copied so
-        # the index's own dicts are not mutated.
         passages = {n: [{**p, "updated": (sources.get(p.get("source_file", "")) or {})
                          .get("updated", "")} for p in ps]
                     for n, ps in passages.items()}
@@ -435,8 +372,6 @@ def check_video_rag(transcript: str, index, web_fetch_fn=None,
     final = {n: _guarded(judged.get(n), passages[n]) for n in passages}
     web_why = {n: "" for n in passages}
 
-    # Web fallback for asserted claims the corpus could not address, as in the
-    # windowed pipeline: the trigger is the adjudicated verdict, not retrieval.
     if web_fetch_fn is not None:
         retry = [n for n, (v, a, s, _) in sorted(final.items())
                  if v == "NO_EVIDENCE" and s == "asserting"][:MAX_WEB_CLAIMS]
@@ -452,8 +387,6 @@ def check_video_rag(transcript: str, index, web_fetch_fn=None,
             sub = [claims[n - 1] for n in web]
             sub_passages = {i: web[n] for i, n in enumerate(web, 1)}
             rejudged, web_flag, _ = _judge(transcript, sub, sub_passages, claim_date)
-            # The model's own answer covers both calls: a claim it flags on web
-            # evidence is part of its verdict on the video.
             if web_flag is True:
                 model_flag = True
             for i, n in enumerate(web, 1):

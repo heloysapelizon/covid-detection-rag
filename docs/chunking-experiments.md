@@ -32,7 +32,7 @@ one.
 are already claim-sized. Research papers have argumentative paragraphs, so the
 result may not transfer.
 
-**Setup.** `tests/chunk_eval.py`. One paper indexed alone, so no other document
+**Setup.** `experiments/chunk_eval.py`. One paper indexed alone, so no other document
 competes: *Female Infertility and COVID-19 Vaccines* (NCBI Bookshelf, 10 pages,
 3,948 words). Queried with 7 items — 5 real transcript windows from the dataset
 (3 asserting the myth, 2 debunking it) and 2 mechanism queries.
@@ -222,7 +222,7 @@ mechanism any future elimination loop would use.
   passages *this author judged* to be the finding.
 - Only the infertility topic is covered. Myocarditis, blood clots, shedding and
   natural immunity are untested.
-- Exp. 1 and 2 are reproducible via `python tests/chunk_eval.py` (Exp. 1 only; the
+- Exp. 1 and 2 are reproducible via `python experiments/chunk_eval.py` (Exp. 1 only; the
   CDC comparison and Exps. 3–5 were run inline and are recorded here as output).
 
 ---

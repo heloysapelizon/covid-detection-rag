@@ -1,16 +1,4 @@
-"""Turn reference PDFs into retrievable passages.
-
-One generic path for every PDF, whatever its shape: extract text, drop sections
-that are clearly bibliographic or procedural, chunk the rest into overlapping
-windows. No assumptions about a particular publisher's layout or document type, so
-a new source needs no new code.
-
-Only the extracted passages are stored (data/evidence/passages/, one JSONL per
-source, committed). The PDFs themselves stay out of the repository, so no copy of a
-copyrighted document is redistributed and the corpus is still reproducible.
-
-Depends on pymupdf; no network, no model.
-"""
+"""Turn reference PDFs into retrievable passages."""
 from __future__ import annotations
 
 import json
@@ -25,11 +13,6 @@ from .config import (
     PDF_DIR,
 )
 
-# Headings whose own section is skipped: administrative matter that is never the
-# evidence. Only this section is dropped, because these appear in front matter as
-# well as at the end — an open-access paper carries its licence statement up top,
-# and truncating there discarded whole papers (a 6,335-word CC BY article yielded
-# 65 words before this was split from _END_SECTIONS).
 _DROP_SECTIONS = (
     "acknowledgement", "acknowledgment", "author contributions",
     "conflict of interest", "conflicts of interest", "competing interests",
@@ -38,14 +21,10 @@ _DROP_SECTIONS = (
     "publisher's note", "supplementary", "appendix",
 )
 
-# Headings after which NOTHING is evidence: a reference list runs to the end of
-# the document, and anything following it is boilerplate. Everything from here on
-# is discarded.
 _END_SECTIONS = (
     "references", "bibliography", "literature cited", "works cited",
 )
 
-# A heading line: short, starts with a capital or a number, no trailing period.
 _HEADING_RE = re.compile(
     r"^\s*(?:\d+\.?\d*\.?\s+)?([A-Z][A-Za-z0-9 \-–&',/()]{2,60})\s*:?\s*$"
 )
@@ -53,9 +32,7 @@ _HEADING_RE = re.compile(
 
 def _normalise(text: str) -> str:
     """Repair the artefacts PDF text extraction leaves behind."""
-    # Words split across a line break by hyphenation.
     text = re.sub(r"(\w)-\n(\w)", r"\1\2", text)
-    # Single newlines inside a paragraph become spaces; blank lines stay.
     text = re.sub(r"(?<!\n)\n(?!\n)", " ", text)
     text = re.sub(r"[ \t]{2,}", " ", text)
     return text.strip()
@@ -74,13 +51,7 @@ def is_end(heading: str) -> bool:
 
 
 def split_sections(raw: str) -> list[tuple[str, str]]:
-    """Split raw text into (heading, body) pairs at every heading-shaped line.
-
-    Splitting on any heading, not a known list of them, keeps this independent of
-    document type: a paper's "Discussion", an FAQ's question line and a guidance
-    note's numbered clause all become section boundaries. Text before the first
-    heading is returned under "".
-    """
+    """Split raw text into (heading, body) pairs at every heading-shaped line."""
     sections: list[tuple[str, list[str]]] = [("", [])]
     for line in raw.splitlines():
         m = _HEADING_RE.match(line)
@@ -93,16 +64,7 @@ def split_sections(raw: str) -> list[tuple[str, str]]:
 
 def chunk(text: str, words: int = CHUNK_WORDS, stride: int = CHUNK_STRIDE,
           tail_min: int = 40) -> list[str]:
-    """Split text into overlapping word windows.
-
-    Overlap means a finding spanning a boundary still appears whole somewhere.
-
-    Chunks are deliberately small. A large chunk spanning several unrelated
-    statements embeds as their average and then matches no query well: at 220
-    words, "does the vaccine change your DNA" retrieved a passage about fertility,
-    while at 55 words it retrieves the DNA answer itself (0.74 vs 0.59). One claim
-    per passage is what makes retrieval sharp.
-    """
+    """Split text into overlapping word windows."""
     w = text.split()
     if len(w) <= words:
         return [" ".join(w)] if w else []
@@ -110,12 +72,6 @@ def chunk(text: str, words: int = CHUNK_WORDS, stride: int = CHUNK_STRIDE,
         " ".join(w[i:i + words])
         for i in range(0, max(1, len(w) - words + stride), stride)
     ]
-    # Fold a short final remainder into the preceding window rather than leaving
-    # it to be dropped by the min_words filter. Because the stride is shorter
-    # than the window, the last piece is usually a remainder, and its final words
-    # appear in no other piece — so dropping it silently truncated the end of
-    # 190 sections (5,826 words), including reported adverse-event findings.
-    # Overlap does not rescue them: those words exist only in that last window.
     if len(pieces) > 1 and len(pieces[-1].split()) < tail_min:
         pieces.pop()
         pieces[-1] = " ".join(w[(len(pieces) - 1) * stride:])
@@ -128,15 +84,7 @@ def extract_pdf(
     meta: dict,
     min_words: int = 40,
 ) -> list[dict]:
-    """Extract section-filtered, chunked passages from one PDF.
-
-    Every passage carries its section heading, so a noisy hit stays auditable and
-    the retrieved text can be traced back to where it came from.
-
-    Administrative sections (copyright, funding, conflicts) are skipped wherever
-    they appear; the reference list ends extraction, since nothing after it is
-    evidence.
-    """
+    """Extract section-filtered, chunked passages from one PDF."""
     import pymupdf
 
     doc = pymupdf.open(pdf_path)
@@ -145,9 +93,6 @@ def extract_pdf(
     doc.close()
 
     passages: list[dict] = []
-    # A heading can repeat within one document ("Sample Collection" appears twice
-    # in the ICH guidance), so the id carries which occurrence this is. Without it
-    # two sections generate the same ids and anything keyed on id loses passages.
     seen_headings: dict[str, int] = {}
 
     for heading, body in split_sections(raw):
@@ -167,9 +112,6 @@ def extract_pdf(
         for i, piece in enumerate(chunk(body)):
             if len(piece.split()) < min_words:
                 continue
-            # Only what retrieval and citation need. Per-document facts — title,
-            # publisher URL, date — live once in sources.json and are resolved by
-            # source_file, not repeated on every passage.
             passages.append({
                 "id": f"{pdf_path.stem}#{key}{suffix}:{i}".replace(" ", "_"),
                 "topic": topic,
@@ -178,9 +120,6 @@ def extract_pdf(
                 "publisher": meta.get("publisher", ""),
                 "source_file": pdf_path.name,
                 "pages": n_pages,
-                # Position within this document, so retrieval can pull the
-                # neighbouring chunks and show the model the surrounding argument
-                # rather than a fragment cut off mid-finding.
                 "ordinal": len(passages),
             })
     return passages
@@ -199,19 +138,12 @@ def build_passages(
     out_dir: Path = PASSAGE_DIR,
     verbose: bool = True,
 ) -> int:
-    """Extract every manifest PDF present on disk into data/evidence/passages/.
-
-    Missing PDFs are reported and skipped, so a partial download still yields a
-    usable corpus. Returns the number of passages written.
-    """
+    """Extract every manifest PDF present on disk into data/evidence/passages/."""
     manifest = load_manifest()
     out_dir.mkdir(parents=True, exist_ok=True)
 
     total = 0
     missing: list[str] = []
-    # Topic documents, then the general-purpose ones. A general document is
-    # tagged topic="general": it is searched for every claim, so pinning it to one
-    # topic would be wrong.
     groups = [(t, spec["files"]) for t, spec in manifest["topics"].items()]
     groups.append(("general", manifest.get("general_files", [])))
 

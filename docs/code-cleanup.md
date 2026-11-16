@@ -31,7 +31,7 @@ is actually pointed at.
 |---|---|
 | `FALLBACK_ROUNDS` (`rag/config.py`) | Never wired into `pipeline.py` — its own comment said "read by nothing". It was held for the web-search tier, which was instead keyed on the adjudicated verdict. |
 | `ROUTE_MIN_SIMILARITY` (`rag/config.py`) | A deprecated alias for `ROUTE_FLOOR` with no remaining callers. |
-| `read_stance` + `STANCE_PROMPT` (`rag/llm.py`, 60 lines) | The two-pass stance approach, dead once `stance` was folded into the single adjudication call. Asked in isolation it scored 6/12 against one-pass adjudication's 9/12 — the finding is kept in `tests/stance_eval.py`, only the code is gone. |
+| `read_stance` + `STANCE_PROMPT` (`rag/llm.py`, 60 lines) | The two-pass stance approach, dead once `stance` was folded into the single adjudication call. Asked in isolation it scored 6/12 against one-pass adjudication's 9/12 — the finding is kept in `experiments/stance_eval.py`, only the code is gone. |
 | `_WEB_SUFFIX` (`rag/pipeline.py`) | Superseded by the `_WEB_VERDICTS` mapping. |
 
 `rag/llm.py` went 411 → 350 lines, `rag/config.py` 178 → 170.
@@ -52,13 +52,13 @@ parameterised configuration, not dead code.
 ## `is_usable` was duplicated four times
 
 Byte-identical copies in `transcribe/config.py`, `rag/main.py`,
-`tests/datasets.py` and `tests/chunk_eval.py`, each with a docstring noting it
+`experiments/datasets.py` and `experiments/chunk_eval.py`, each with a docstring noting it
 mirrored the others. This function decides **which transcripts enter an
 experiment**, so drift between copies would silently change the dataset.
 
 Now one definition, in `transcribe/config.py` — the module that writes the
 status strings it interprets. The cost is a new dependency from `rag/` and
-`tests/` onto `transcribe/`; it is acceptable because `transcribe/config.py`
+`experiments/` onto `transcribe/`; it is acceptable because `transcribe/config.py`
 imports only the standard library and `transcribe/__init__.py` loads lazily, so
 nothing heavy is pulled in. It was the only cross-package import in `rag/`, and
 was taken as a considered trade rather than by accident.
@@ -76,7 +76,7 @@ docs/web-search.md.
 Preflight reported 17.7 s/window, taken from the 3-video smoke test — which
 included a short video. The median over windows from five different test videos
 is **21.0 s**, making the corpus-only run ~9.3 h rather than 7.8 h, and the
-Tavily run ~12.5 h. Corrected in `tests/run_experiment.py` and README.
+Tavily run ~12.5 h. Corrected in `experiments/run_experiment.py` and README.
 
 ## Not changed
 

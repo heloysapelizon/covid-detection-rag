@@ -1,8 +1,4 @@
-"""The Video record.
-
-Its field order is the dataset's column order, and `transcribe` reads these names,
-so changing them changes the dataset contract.
-"""
+"""The Video record."""
 from __future__ import annotations
 
 from dataclasses import dataclass

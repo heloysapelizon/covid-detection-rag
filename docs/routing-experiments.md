@@ -69,7 +69,7 @@ microchips, DNA and shedding too, and many of its windows make no claim at all
 what a given 140-word window *says*.
 
 Ground truth therefore has to be per-window and hand-assigned. The `topic` field
-in [`tests/chunk_eval_labels.json`](../tests/chunk_eval_labels.json) holds it,
+in [`data/labels/windows/chunk_eval_labels.json`](../data/labels/windows/chunk_eval_labels.json) holds it,
 alongside the `relevant_evidence` labels the chunking evaluation uses — same
 windows, two labels. Valid values: the six topic names, or `general` for a window
 that makes no topical claim or spans several.
@@ -81,7 +81,7 @@ that makes no topical claim or spans several.
 **Why.** Before labelling, see how the router behaves on 13 real windows and which
 confidence signal looks usable.
 
-**Setup.** `tests/chunk_eval_labels.json` windows, routed with no threshold.
+**Setup.** `data/labels/windows/chunk_eval_labels.json` windows, routed with no threshold.
 
 ```
 gcExM22XkYs w1  top=infertility      abs=0.756 margin=0.050

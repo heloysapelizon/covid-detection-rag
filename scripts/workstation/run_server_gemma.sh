@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-# CTX sets the context size (default 8192, as the windowed runs used).
-# Whole-transcript runs (WHOLE=1) need CTX=32768: the transcript and every
-# claim's evidence share one prompt, up to ~22k tokens on the test set.
+# CTX sets the context size: 8192 for windowed runs, 32768 for WHOLE=1 runs.
 cd ~/ANTIGO/Heloysa/covid-detection-rag
 unset CUDA_VISIBLE_DEVICES
 export LD_LIBRARY_PATH="$HOME/ANTIGO/Heloysa/llama.cpp/build/bin:$LD_LIBRARY_PATH"

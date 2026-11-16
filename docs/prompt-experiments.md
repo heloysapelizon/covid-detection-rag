@@ -134,7 +134,7 @@ windows it does not, where a flag is unsupported. A prompt that simply answers
 
 Cases are drawn from both dev groups (mirror + topic, 165 windows), ordered
 deterministically by SHA-1 of `video_id#window` and spread round-robin across
-topics, matching the selection discipline in `tests/select_dev.py`.
+topics, matching the selection discipline in `experiments/select_dev.py`.
 
 **Identical retrieval.** Retrieval runs once per case and both prompts receive
 the same passages, so every difference is attributable to the prompt. The
@@ -625,24 +625,24 @@ produced identically.
 
 ```bash
 # regenerate the case set from the dev labels (deterministic)
-python tests/select_prompt_cases.py 20 tests/prompt_cases.json
+python experiments/select_prompt_cases.py 20 data/labels/windows/prompt_cases.json
 
 # run both prompts over identical retrieval, checkpointed per case
-python tests/prompt_ab.py tests/prompt_cases.json data/results/v1/prompt_ab_dev.json
+python experiments/prompt_ab.py data/labels/windows/prompt_cases.json data/results/v1/prompt_ab_dev.json
 
 # score
-python tests/score_prompt_ab.py data/results/v1/prompt_ab_dev.json
+python experiments/score_prompt_ab.py data/results/v1/prompt_ab_dev.json
 ```
 
 Files:
 
 | path | holds |
 |---|---|
-| `tests/prompt_variants.py` | the candidate prompt(s) under test |
-| `tests/select_prompt_cases.py` | stratified, deterministic case selection |
-| `tests/prompt_ab.py` | runs each prompt over identical retrieval |
-| `tests/score_prompt_ab.py` | metrics + the disagreement listing |
-| `tests/prompt_cases.json` | the 40-case set (35 were completed) |
+| `experiments/prompt_variants.py` | the candidate prompt(s) under test |
+| `experiments/select_prompt_cases.py` | stratified, deterministic case selection |
+| `experiments/prompt_ab.py` | runs each prompt over identical retrieval |
+| `experiments/score_prompt_ab.py` | metrics + the disagreement listing |
+| `data/labels/windows/prompt_cases.json` | the 40-case set (35 were completed) |
 | `data/results/v1/prompt_ab_dev.json` | every input and output from this run |
 
 `adjudicate()` takes an optional `system_prompt` argument for this purpose. The

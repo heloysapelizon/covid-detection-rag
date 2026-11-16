@@ -1,33 +1,9 @@
-"""Time-bound statements: dates for the claim and its evidence, and the guard.
-
-Speech such as "so far we haven't seen any major side effects" is a statement
-about what was known when it was said. Judged against evidence published years
-later it reads as false — measured on the dev set, where a December 2020
-interview was flagged with later myocarditis evidence. The model is not told
-when anything was said or published, so it cannot make that distinction.
-
-Three deterministic pieces, so the behaviour does not rest on the model noticing:
-
-  1. Dates. The claim carries the video's publish date; each corpus passage
-     carries its document's date from the manifest; web passages are marked
-     undated (Tavily returns no reliable publication date).
-  2. Detection. TIME_MARKERS finds time-bound wording in the claim window. Only
-     then is a TIME CHECK note added to the prompt, so windows without such
-     wording see exactly the prompt they saw before.
-  3. Guard. A FAKE_NEWS whose flagged words are themselves time-bound, resting
-     on evidence dated after the claim, is overridden to NO_EVIDENCE: evidence
-     from later cannot show that a statement about "so far" was false when made.
-     Undated evidence is not overridden, since nothing can be concluded.
-
-Off unless TIME_CHECK is set (rag/config.py), so earlier runs stay reproducible.
-"""
+"""Time-bound statements: dates for the claim and its evidence, and the guard."""
 from __future__ import annotations
 
 import re
 from datetime import date
 
-# Wording that ties a statement to the moment it was made. Deliberately narrow:
-# bare "now" and "still" are too common in speech to mean anything here.
 TIME_MARKERS = re.compile(
     r"\b("
     r"so far|thus far|to date|as of (?:now|today|yet|this|right now)|"

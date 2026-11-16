@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# llama-server for the v3 whole-transcript runs: 32k context.
-# The caller sets MODEL_FILE, OFFLOAD (GPU split), EXTRA (model flags), SERVER_TAG.
+# llama-server with a 32k context; the caller sets MODEL_FILE, OFFLOAD, EXTRA and SERVER_TAG.
 cd ~/ANTIGO/Heloysa/covid-detection-rag
 unset CUDA_VISIBLE_DEVICES
 export LD_LIBRARY_PATH="$HOME/ANTIGO/Heloysa/llama.cpp/build/bin:/usr/local/cuda-12.3/lib64:$LD_LIBRARY_PATH"

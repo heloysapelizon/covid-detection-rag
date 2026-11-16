@@ -73,14 +73,14 @@ will drift; re-check before quoting them.
 # remote
 export OPENROUTER_API_KEY=sk-or-v1-...      # or put it in .env
 LLM_SERVER=openrouter LLAMA_MODEL=qwen/qwen3.6-27b \
-    python tests/run_experiment.py --check
+    python experiments/run_experiment.py --check
 
 # local (llama.cpp is the default, no variable needed)
 llama-server -m gemma-4-12b.gguf -c 8192 --port 8080
-python tests/run_experiment.py --check
+python experiments/run_experiment.py --check
 
 # local via Ollama, for development
-LLM_SERVER=ollama LLAMA_MODEL=gpt-oss:20b python tests/run_experiment.py --check
+LLM_SERVER=ollama LLAMA_MODEL=gpt-oss:20b python experiments/run_experiment.py --check
 ```
 
 Preflight fails before a run starts if the key is rejected or the model id is not

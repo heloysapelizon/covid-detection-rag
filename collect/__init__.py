@@ -1,12 +1,10 @@
-"""YouTube collection pipeline for the COVID-19 vaccine video dataset.
-    python -m collect
-"""
+"""YouTube collection pipeline for the COVID-19 vaccine video dataset (python -m collect)."""
 from __future__ import annotations
 
 import importlib
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:  # for type checkers and editors only; no runtime import
+if TYPE_CHECKING:
     from .collector import collect, gather_from_links, gather_from_search, print_summary
     from .data import (
         dataset_paths,
@@ -20,7 +18,6 @@ if TYPE_CHECKING:  # for type checkers and editors only; no runtime import
     from .models import Video
     from .api import build_client, fetch_videos_by_id, parse_duration, search_videos
 
-# public name -> module that defines it
 _EXPORTS = {
     "Video": "models",
     "apply_all": "filters",

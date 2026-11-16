@@ -1,16 +1,4 @@
-"""Command-line entry point.
-
-    python -m collect                          # search the configured queries
-    python -m collect --links disinformation_dozen.txt
-    python -m collect --links disinformation_dozen.txt --no-search
-    python -m collect --name my_dataset --max-duration 1800
-    python -m collect --name covid_vaccine_videos_dev2 \
-        --exclude data/youtube/exclude_dev2.json
-
-Writes data/youtube/<name>.json and .csv — the dataset `transcribe` reads.
-
-Argument parsing and exit codes only; the work lives in collector.
-"""
+"""Command-line entry point."""
 from __future__ import annotations
 
 import argparse

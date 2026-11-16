@@ -1,24 +1,4 @@
-"""Route a claim to the topics worth searching, and decide which are general.
-
-Retrieval over the whole corpus lets an unrelated document outrank the right one:
-once the ICH shedding paper contributed 74 of 90 passages, a claim about vaccine
-magnetism retrieved ICH study-design text instead of the CDC's answer. Narrowing
-the scope before ranking removes that competition.
-
-Two decisions, both derived from the corpus rather than declared:
-
-  Routing — each topic's `addresses` text in sources.json is embedded once; a
-  claim is routed to every topic it resembles above a threshold. Soft, so a claim
-  touching two narratives searches both.
-
-  Generality — a document whose passages spread across many topics is general and
-  always stays in scope. Measured as Shannon entropy over the topic its passages
-  most resemble. Observed: the CDC myths sheet 1.88 across 5 topics (8 distinct
-  myths), the ICH guidance 1.31, the single-subject infertility review 0.79.
-  Nothing is hardcoded as general; a document earns the flag by covering ground.
-
-Depends on sentence-transformers and numpy; no network, no LLM.
-"""
+"""Route a claim to the topics worth searching, and decide which are general."""
 from __future__ import annotations
 
 import json
@@ -60,11 +40,7 @@ def general_files(evidence_dir: Path = EVIDENCE_DIR) -> set[str]:
 
 
 def topic_entropy(labels: list[str]) -> float:
-    """Shannon entropy (bits) of a topic assignment — how spread out it is.
-
-    0 means every passage resembles one topic; higher means the document ranges
-    across several.
-    """
+    """Shannon entropy (bits) of a topic assignment — how spread out it is."""
     if not labels:
         return 0.0
     n = len(labels)
@@ -79,15 +55,7 @@ def classify_documents(
     entropy_min: float = GENERAL_ENTROPY_MIN,
     top_share_max: float = GENERAL_TOP_SHARE_MAX,
 ) -> dict[str, dict]:
-    """Decide, per source document, whether it is general or topic-specific.
-
-    Each passage is matched to the topic description it most resembles. A document
-    is general when its passages spread widely — high entropy AND no single topic
-    dominating — which is what distinguishes a multi-myth FAQ from a paper that
-    merely mentions neighbouring subjects.
-
-    Returns {source_file: {general, entropy, top_topic, top_share, counts}}.
-    """
+    """Decide, per source document, whether it is general or topic-specific."""
     if model is None:
         from sentence_transformers import SentenceTransformer
         model = SentenceTransformer(EMBED_MODEL)
@@ -135,15 +103,7 @@ class TopicRouter:
     @classmethod
     def build(cls, passages: list[dict], model=None,
               evidence_dir: Path = EVIDENCE_DIR) -> "TopicRouter":
-        """Embed the topic descriptions and read which documents are general.
-
-        Generality is *declared* in the manifest (`general_files`), not inferred
-        from passage statistics. A general document is searched for every claim
-        whatever it routes to, so its breadth has to be a property of what the
-        document is for — an authority myth sheet answers many narratives by
-        design. `classify_documents` remains available as a diagnostic for
-        spotting a document whose content has drifted from its declared scope.
-        """
+        """Embed the topic descriptions and read which documents are general."""
         if model is None:
             from sentence_transformers import SentenceTransformer
             model = SentenceTransformer(EMBED_MODEL)
@@ -157,15 +117,7 @@ class TopicRouter:
 
     def route(self, claim: str, min_similarity: float = ROUTE_FLOOR,
               top_n: int = ROUTE_TOP_N) -> list[tuple[str, float]]:
-        """Candidate topics for this claim, closest first.
-
-        An ordered list, not a single choice: the caller tries the first scope and
-        moves to the next topic if it yields nothing usable. Topics below
-        `min_similarity` are not candidates. An empty list means no topic resembles
-        the claim, which the caller must read as "search everything" rather than
-        "no evidence" — an obliquely phrased claim is a routing miss, not an
-        absence of evidence.
-        """
+        """Candidate topics for this claim, closest first."""
         q = self._encoder().encode([claim], normalize_embeddings=True)
         scores = (self.vectors @ q[0].T).ravel()
         order = np.argsort(-scores)[:top_n]
@@ -177,33 +129,13 @@ class TopicRouter:
 
     def scopes(self, claim: str, passages: list[dict],
                gamma: float = ROUTE_GAMMA, **kwargs) -> list[tuple[str, np.ndarray]]:
-        """Scopes to try for this claim, narrowest first, broadest last.
-
-        Returns (label, mask) pairs. The caller searches the first scope and falls
-        through to the next when the evidence it finds is not usable — the ordered
-        equivalent of the confidence gate in Sun et al. (arXiv:2609.29282), where a
-        route is accepted only when confident and otherwise widened.
-
-        Tiers:
-          "<topic>"         one per candidate at or above gamma, in descending
-            similarity, each also including the general documents — a general
-            document is in scope for every claim, so every tier carries them
-          "general"         general documents alone
-          "all"             the whole corpus, always last
-
-        Widening is never skipped. A mis-route hands the model off-topic evidence
-        and risks calling a true statement false; searching too widely only costs
-        rank competition.
-        """
+        """Scopes to try for this claim, narrowest first, broadest last."""
         routed = self.route(claim, **kwargs)
         general = np.array(
             [p.get("source_file") in self.general_docs for p in passages],
             dtype=bool,
         )
 
-        # Only topics at or above gamma lead with their own scope. Each carries
-        # the general documents: a general document is in scope for every claim
-        # by definition, so no tier withholds them.
         confident = [(n, sc) for n, sc in routed if sc >= gamma]
 
         tiers: list[tuple[str, np.ndarray]] = []
@@ -222,10 +154,7 @@ class TopicRouter:
 
     def scope_mask(self, claim: str, passages: list[dict],
                    **kwargs) -> np.ndarray:
-        """The first scope for this claim — kept for callers wanting one mask.
-
-        `scopes()` is the fuller interface; this is its first tier.
-        """
+        """The first scope for this claim — kept for callers wanting one mask."""
         tiers = self.scopes(claim, passages, **kwargs)
         return tiers[0][1]
 
