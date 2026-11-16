@@ -1,176 +1,179 @@
-# COVID-19 vaccine misinformation detection
+# Detecção de desinformação sobre vacinas contra a COVID-19
 
-A pipeline that collects YouTube videos about COVID-19 vaccines, transcribes
-their audio, and flags claims that a vetted evidence corpus contradicts. A
-locally served language model adjudicates each claim against retrieved
-evidence; the result is scored against hand-labelled videos that were never
-used to tune anything.
+Um pipeline que coleta vídeos do YouTube sobre vacinas contra a COVID-19,
+transcreve o áudio e sinaliza as afirmações contraditas por um corpus de
+evidências curado. Um modelo de linguagem servido localmente julga cada
+afirmação com base nas evidências recuperadas, e o resultado é avaliado contra
+vídeos rotulados manualmente que nunca foram usados para ajustar nada.
 
-## How it works
+## Como funciona
 
 ```
 collect ──► transcribe ──► rag ──► experiments
   │             │           │          │
-  YouTube       Whisper     retrieval  held-out test set,
-  Data API      audio       + LLM      scored against labels
+  YouTube       Whisper     retrieval  test set separado,
+  Data API      no áudio    + LLM      avaliado contra os labels
                             ▲
-                 data/evidence (PDFs) ──► data/index (vectors)
+                 data/evidence (PDFs) ──► data/index (vetores)
 ```
 
-| stage | package | does |
+| etapa | pacote | o que faz |
 |---|---|---|
-| 1 | `collect/` | Searches the YouTube Data API for the configured queries, completes each hit with full metadata, dedupes and drops videos over an hour. Never scrapes. |
-| 2 | `transcribe/` | Downloads each video's audio and transcribes it with faster-whisper. Drops non-English audio after language detection, checkpoints after every video. |
-| 3 | `rag/` | Splits a transcript into overlapping claim windows, retrieves corpus passages for each, and asks the model whether the evidence addresses the claim and, only then, whether it contradicts it. Claims the corpus cannot answer can fall back to a web search. |
-| 4 | `experiments/` | Defines the test/dev split, runs the pipeline over it, and scores it. Every parameter in `rag/config.py` was chosen on the dev set. |
+| 1 | `collect/` | Busca as queries configuradas na YouTube Data API, completa cada resultado com os metadados completos, remove duplicatas e descarta vídeos com mais de uma hora. Nunca faz scraping. |
+| 2 | `transcribe/` | Baixa o áudio de cada vídeo e o transcreve com faster-whisper. Descarta áudio que não está em inglês após a detecção de idioma e salva um checkpoint a cada vídeo. |
+| 3 | `rag/` | Divide a transcrição em janelas de afirmação sobrepostas, recupera passagens do corpus para cada uma e pergunta ao modelo se a evidência trata da afirmação e, só então, se a contradiz. Afirmações que o corpus não cobre podem recorrer a uma busca na web. |
+| 4 | `experiments/` | Define o split test/dev, executa o pipeline sobre ele e calcula as métricas. Todos os parâmetros de `rag/config.py` foram escolhidos no dev set. |
 
-The pipeline gathers candidates and classifies them afterwards. Collection is
-deliberately neutral so that the dataset is assembled before anything is judged.
+O pipeline reúne candidatos e só depois os classifica. A coleta é
+deliberadamente neutra, para que o dataset seja montado antes de qualquer
+julgamento.
 
-## Repository layout
+## Estrutura do repositório
 
 ```
-collect/         stage 1: config  models  filters  data  api  collector  main
-transcribe/      stage 2: config  audio  whisper  data  transcriber  main
-rag/             stage 3: config  corpus  manifest  router  index  lexical  llm
+collect/         etapa 1: config  models  filters  data  api  collector  main
+transcribe/      etapa 2: config  audio  whisper  data  transcriber  main
+rag/             etapa 3: config  corpus  manifest  router  index  lexical  llm
                           websearch  temporal  pipeline  whole  main
-experiments/     evaluation harness: split, runner, scoring, sweeps, probes
-scripts/         run_test_model.sh (the protocol); workstation/ (GPU box drivers)
+experiments/     harness de avaliação: split, runner, scoring, sweeps, probes
+scripts/         run_test_model.sh (o protocolo); workstation/ (drivers da máquina com GPU)
 data/            youtube/  evidence/  index/  labels/  results/
-docs/            what was measured and what it decided
-notebooks/       the original exploratory notebooks, superseded by the packages
-LICENSE          MIT, for the code;  LICENSE-DATA.md: terms of every data file
-CITATION.cff     citation metadata for the repository and the thesis
+docs/            o que foi medido e o que isso decidiu
+notebooks/       os notebooks exploratórios originais, substituídos pelos pacotes
+LICENSE          MIT, para o código;  LICENSE-DATA.md: termos de cada arquivo de dados
+CITATION.cff     metadados de citação do repositório e do TCC
 ```
 
-`experiments/`, `scripts/` and `data/` each have their own README.
+`experiments/`, `scripts/` e `data/` têm cada um o seu próprio README.
 
-The three pipeline packages share one layering, grouped by external dependency
-so a failure stays contained and each layer works without the ones above it:
+Os três pacotes do pipeline seguem a mesma divisão em camadas, agrupadas por
+dependência externa, de modo que uma falha fica contida e cada camada funciona
+sem as que estão acima dela:
 
-| layer | depends on |
+| camada | depende de |
 |---|---|
-| `config`, `models` | nothing |
-| `filters`, `router`, `temporal` | pure logic, no I/O |
-| `data`, `corpus`, `manifest` | stdlib and pandas; every write is atomic |
-| `api`, `audio`, `whisper`, `index`, `llm`, `websearch` | the external boundary: network, yt-dlp, ffmpeg, Whisper, the model server |
-| `collector`, `transcriber`, `pipeline`, `whole` | the layers above; owns the order of work |
-| `main` | argument parsing and exit codes |
+| `config`, `models` | nada |
+| `filters`, `router`, `temporal` | lógica pura, sem I/O |
+| `data`, `corpus`, `manifest` | stdlib e pandas; toda escrita é atômica |
+| `api`, `audio`, `whisper`, `index`, `llm`, `websearch` | a fronteira externa: rede, yt-dlp, ffmpeg, Whisper, o servidor do modelo |
+| `collector`, `transcriber`, `pipeline`, `whole` | as camadas acima; controla a ordem do trabalho |
+| `main` | parsing de argumentos e exit codes |
 
-Dependencies point one way. Public names are re-exported lazily (PEP 562), so
-importing one module does not pull in the heavy dependencies of its siblings.
-The only cross-package import is `is_usable` from `transcribe.config`, which
-decides which transcripts enter an experiment and therefore has a single
-definition.
+As dependências apontam em um só sentido. Os nomes públicos são reexportados
+de forma lazy (PEP 562), então importar um módulo não carrega as dependências
+pesadas dos módulos vizinhos. O único import entre pacotes é `is_usable`, de
+`transcribe.config`: ele decide quais transcrições entram em um experimento e,
+por isso, tem uma definição única.
 
-## Setup
+## Instalação
 
-Python 3.10 or newer. `ffmpeg` is needed only to transcribe; the experiment
-uses the committed transcripts.
+Python 3.10 ou superior. O `ffmpeg` só é necessário para transcrever; o
+experimento usa as transcrições já versionadas no repositório.
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-brew install ffmpeg          # or apt install ffmpeg
+brew install ffmpeg          # ou apt install ffmpeg
 ```
 
-Keys go in `.env` at the project root (gitignored) or in the environment:
+As chaves ficam no `.env` na raiz do projeto (no gitignore) ou no ambiente:
 
-| key | needed for |
+| chave | usada para |
 |---|---|
-| `YOUTUBE_API_KEY` | `collect`. Free: create a project in the Google Cloud Console and enable YouTube Data API v3 |
-| `TAVILY_API_KEY` | the `--web tavily` fallback. The free tier covers one full test run |
-| `OPENROUTER_API_KEY` | the two remote models |
+| `YOUTUBE_API_KEY` | `collect`. Gratuita: crie um projeto no Google Cloud Console e ative a YouTube Data API v3 |
+| `TAVILY_API_KEY` | o fallback `--web tavily`. O free tier cobre uma execução completa do test set |
+| `OPENROUTER_API_KEY` | os dois modelos remotos |
 
-## Usage
+## Uso
 
-### 1. Collect
+### 1. Coletar
 
 ```bash
-python -m collect                                   # the queries in collect/config.py
-python -m collect --links links.txt --no-search     # a curated list instead
+python -m collect                                   # as queries de collect/config.py
+python -m collect --links links.txt --no-search     # uma lista curada no lugar das buscas
 python -m collect --name my_dev --exclude data/youtube/exclude_dev2.json
 ```
 
-`--exclude` keeps already-seen videos out of a new collection, so dev material
-cannot overlap the test set. Language is not filtered here: YouTube's language
-field is self-reported and often wrong, so `transcribe` decides from the audio.
+`--exclude` mantém vídeos já vistos fora de uma nova coleta, para que o
+material de dev não se sobreponha ao test set. O idioma não é filtrado aqui: o
+campo de idioma do YouTube é autodeclarado e muitas vezes está errado, então
+quem decide é o `transcribe`, a partir do áudio.
 
-### 2. Transcribe
+### 2. Transcrever
 
 ```bash
 python -m transcribe --list
 python -m transcribe covid_vaccine_videos
 python -m transcribe covid_vaccine_videos --limit 5
-python -m transcribe covid_vaccine_videos --max-transcribe 0    # whole videos
+python -m transcribe covid_vaccine_videos --max-transcribe 0    # vídeos inteiros
 ```
 
-Roughly 6x realtime with the `small` model on an M2 Pro. An interrupted run
-resumes from its checkpoint. Dev sets are capped at 12 minutes per video;
-the test set was transcribed whole.
+Cerca de 6x o tempo real com o modelo `small` em um M2 Pro. Uma execução
+interrompida retoma a partir do checkpoint. Os dev sets são limitados a 12
+minutos por vídeo; o test set foi transcrito na íntegra.
 
-### 3. Fact-check
+### 3. Checar os fatos
 
-The model is served locally through an OpenAI-compatible endpoint. llama.cpp is
-the default because it enforces the verdict grammar during sampling, so a
-malformed verdict cannot be generated.
+O modelo é servido localmente por um endpoint compatível com a API da OpenAI.
+O llama.cpp é o padrão porque impõe a gramática do veredito durante o
+sampling, de modo que um veredito malformado não pode ser gerado.
 
 ```bash
-# gpt-oss-20b (needs --jinja: its reasoning preamble otherwise leaks into the output)
+# gpt-oss-20b (exige --jinja: sem ele, o preâmbulo de reasoning vaza para a saída)
 llama-server -hf ggml-org/gpt-oss-20b-GGUF:MXFP4 -c 8192 --port 8080 --host 127.0.0.1 --jinja
 
 # Gemma 4 12B
 llama-server -hf google/gemma-4-12B-it-qat-q4_0-gguf -c 8192 --port 8080 --host 127.0.0.1
 ```
 
-`-c 8192` matters: the prompt carries up to eleven passages and a smaller
-context silently truncates them. On a GPU add `-ngl 99`.
+O `-c 8192` importa: o prompt leva até onze passagens, e um contexto menor as
+trunca silenciosamente. Em GPU, acrescente `-ngl 99`.
 
-| variable | default | meaning |
+| variável | padrão | significado |
 |---|---|---|
-| `LLM_SERVER` | `llamacpp` | `ollama` or `openrouter` to switch backend; each sets its own URL and output constraint |
-| `LLAMA_URL` | per backend | the server, if not on the default host and port |
-| `LLAMA_MODEL` | `qwen2.5:14b` | **set it explicitly**: llama-server ignores it, but it names the results files and is written into run metadata |
-| `LLM_CONSTRAINT` | per backend | `grammar`, `json_schema` or `json_object`, to override the backend's default |
-| `LLM_REASONING` | model default | `off`, `low`, `medium` or `high`; `off` adds `_nothink` to every output name |
-| `LLM_TIMEOUT_S` | 300 (600 remote) | per-request timeout |
-| `RESULTS_VERSION` | `v1` | which `data/results/` folder a run writes to |
-| `WEB_SEARCH_BACKEND` | `duckduckgo` | fallback backend when `--web` is not given |
+| `LLM_SERVER` | `llamacpp` | `ollama` ou `openrouter` para trocar de backend; cada um define sua URL e sua restrição de saída |
+| `LLAMA_URL` | conforme o backend | o servidor, se não estiver no host e na porta padrão |
+| `LLAMA_MODEL` | `qwen2.5:14b` | **defina explicitamente**: o llama-server o ignora, mas é ele que dá nome aos arquivos de resultado e fica registrado nos metadados da execução |
+| `LLM_CONSTRAINT` | conforme o backend | `grammar`, `json_schema` ou `json_object`, para sobrescrever o padrão do backend |
+| `LLM_REASONING` | padrão do modelo | `off`, `low`, `medium` ou `high`; `off` acrescenta `_nothink` ao nome de cada saída |
+| `LLM_TIMEOUT_S` | 300 (600 no remoto) | timeout por requisição |
+| `RESULTS_VERSION` | `v1` | em qual pasta de `data/results/` a execução grava |
+| `WEB_SEARCH_BACKEND` | `duckduckgo` | backend do fallback quando `--web` não é informado |
 
-Then:
+Em seguida:
 
 ```bash
-python -m rag --build-manifest             # resolve DOIs into data/evidence/sources.json
-python -m rag --build-index --no-extract   # embed the committed passages -> data/index/
+python -m rag --build-manifest             # resolve os DOIs em data/evidence/sources.json
+python -m rag --build-index --no-extract   # gera os embeddings das passagens versionadas -> data/index/
 python -m rag --check-server
-python -m rag --list                       # videos with usable transcripts
-python -m rag Y6_jn0DzXHI                  # fact-check one video
+python -m rag --list                       # vídeos com transcrições utilizáveis
+python -m rag Y6_jn0DzXHI                  # checa um vídeo
 python -m rag Y6_jn0DzXHI --web tavily --json out.json
 ```
 
-`--build-index` should report 2488 passages. A different number means the
-corpus changed and the documented parameter values were measured against a
-different one. Which document covers which topic is declared by hand in
-`rag/manifest.py`; that is editorial judgement and is not derived.
+O `--build-index` deve reportar 2488 passagens. Um número diferente significa
+que o corpus mudou e que os valores de parâmetros documentados foram medidos
+sobre outro corpus. Qual documento cobre qual tópico é declarado à mão em
+`rag/manifest.py`; trata-se de uma decisão editorial, não de algo derivado.
 
-A verdict is `FAKE_NEWS`, `NOT_FAKE_NEWS`, `NO_EVIDENCE` or `ERROR`. The model
-must say whether the evidence addresses the claim before it may give a verdict;
-that ordering fixed the dominant failure, where absence of evidence was read as
-contradiction. A flag also needs the speaker to be asserting the claim rather
-than quoting or denying it. Web-sourced verdicts are suffixed `_WEB` and counted
-separately, because that evidence has not been through the corpus's licence and
-authorship screening.
+Um veredito é `FAKE_NEWS`, `NOT_FAKE_NEWS`, `NO_EVIDENCE` ou `ERROR`. O modelo
+precisa dizer se a evidência trata da afirmação antes de poder dar um
+veredito; essa ordem corrigiu a falha dominante, em que a ausência de evidência
+era lida como contradição. Uma sinalização também exige que o falante esteja
+afirmando aquilo, e não citando ou negando. Vereditos baseados na web recebem
+o sufixo `_WEB` e são contados à parte, porque essa evidência não passou pela
+triagem de licença e autoria do corpus.
 
-### 4. Evaluate
+### 4. Avaliar
 
 ```bash
-python experiments/datasets.py                 # split sizes and a leakage check
-python experiments/run_experiment.py --check   # preflight: server, index, labels, web, time estimate
+python experiments/datasets.py                 # tamanho dos splits e checagem de leakage
+python experiments/run_experiment.py --check   # preflight: servidor, índice, labels, web, estimativa de tempo
 ```
 
-The protocol for one model is `scripts/run_test_model.sh`: preflight, then for
-each arm a 3-video smoke test and the full run, then the scores. The four
-reported models:
+O protocolo de um modelo é o `scripts/run_test_model.sh`: preflight, depois,
+para cada braço, um smoke test com 3 vídeos e a execução completa, e por fim as
+métricas. Os quatro modelos reportados:
 
 ```bash
 unset LLM_SERVER; export LLAMA_MODEL=gpt-oss-20b LLM_CONSTRAINT=json_schema; scripts/run_test_model.sh
@@ -179,13 +182,15 @@ export LLM_SERVER=openrouter LLAMA_MODEL=qwen/qwen3.6-27b LLM_REASONING=off;  sc
 export LLM_SERVER=openrouter LLAMA_MODEL=openai/gpt-oss-120b;                 scripts/run_test_model.sh
 ```
 
-Local models run one at a time on port 8080. The script resumes an interrupted
-run, and a run that is already complete is only re-scored. `WHOLE=1` runs the
-whole-transcript protocol (v3) instead of the windowed one (v1).
+Os modelos locais rodam um de cada vez na porta 8080. O script retoma uma
+execução interrompida, e uma execução já completa é apenas reavaliada. Com
+`WHOLE=1`, roda o protocolo de transcrição inteira (v3) em vez do protocolo
+por janelas (v1).
 
-Each arm is scored on its own, raw and with the overlap veto, and both arms are
-scored together as the evidence veto: a parametric flag stands unless the
-evidence arm cleared the same window. To re-score by hand:
+Cada braço é avaliado isoladamente, sem e com o overlap veto, e os dois braços
+são avaliados juntos como evidence veto: uma sinalização paramétrica se mantém,
+a menos que o braço com evidência tenha liberado a mesma janela. Para
+reavaliar manualmente:
 
 ```bash
 python experiments/run_experiment.py --score --out data/results/v1/test_run_<model>_tavily.json
@@ -194,34 +199,36 @@ python experiments/score_verifier.py data/results/v1/test_run_<model>_parametric
                                      data/results/v1/test_run_<model>_tavily.json --overlap-veto
 ```
 
-A video is predicted fake when any of its windows is flagged. Results are
-grouped by protocol in `data/results/` (see its README); every run records its
-full configuration, git commit and timing in a `run` block, so a figure can
-always be attributed to the settings that produced it.
+Um vídeo é predito como fake quando qualquer uma de suas janelas é sinalizada.
+Os resultados ficam agrupados por protocolo em `data/results/` (veja o README
+de lá); cada execução registra a configuração completa, o commit do git e o
+tempo em um bloco `run`, de modo que qualquer número pode ser atribuído às
+configurações que o produziram.
 
-The test set always runs the production prompts in `rag/llm.py`. Prompt
-variants are compared on the dev set only (`--dataset dev --prompt NAME`).
+O test set sempre roda os prompts de produção de `rag/llm.py`. Variantes de
+prompt são comparadas apenas no dev set (`--dataset dev --prompt NAME`).
 
-### Reproducing the tables
+### Reproduzindo as tabelas
 
-Every reported figure is computed from result files that are in the
-repository, so no model needs to run. The reported v1 files are, per model,
-`data/results/v1/test_run_<model>_parametric.json` and `..._tavily.json`, with
-`<model>` one of `gemma-4-12b`, `gpt-oss-20b`, `openai-gpt-oss-120b` and
-`qwen-qwen3.6-27b` (the Qwen files carry a `_nothink` suffix). The v3 files are
-the `_whole_tc` ones in `data/results/v3/`.
+Todos os números reportados são calculados a partir de arquivos de resultado
+que estão no repositório, então nenhum modelo precisa ser executado. Os
+arquivos v1 reportados são, por modelo,
+`data/results/v1/test_run_<model>_parametric.json` e `..._tavily.json`, com
+`<model>` sendo `gemma-4-12b`, `gpt-oss-20b`, `openai-gpt-oss-120b` ou
+`qwen-qwen3.6-27b` (os arquivos do Qwen levam o sufixo `_nothink`). Os
+arquivos v3 são os `_whole_tc` em `data/results/v3/`.
 
-| table | script | input |
+| tabela | script | entrada |
 |---|---|---|
-| per-arm precision, recall, F1 and accuracy, raw and with the overlap veto | `experiments/run_experiment.py --score [--overlap-veto] --out FILE` | one result file; writes `*_summary.txt` / `*_ov_summary.txt` beside it |
-| verifier and evidence veto per model | `experiments/score_verifier.py PARAM RAG [--overlap-veto]` | the two arms of one model |
-| window- and claim-level precision bounds | `experiments/window_metrics.py FILE...` | any v1 result files |
-| off-claim flag audit | `experiments/offclaim_sample.py` with `data/labels/offclaim_key.json` | the v1 result files |
-| reference classifiers (all-positive, date and provenance rules, TF-IDF + LR) | `experiments/baselines.py` | the eight v1 files above, read from `data/results/v1/` |
-| whole-transcript protocol | `experiments/score_verifier.py` on the `_whole_tc` pair; read the `video-AND` row | `data/results/v3/` |
-| dev-set prompt comparison | `experiments/score_prompt_ab.py data/results/v1/prompt_ab_dev.json` | the prompt A/B run |
+| precision, recall, F1 e accuracy por braço, sem e com overlap veto | `experiments/run_experiment.py --score [--overlap-veto] --out FILE` | um arquivo de resultado; grava `*_summary.txt` / `*_ov_summary.txt` ao lado |
+| verifier e evidence veto por modelo | `experiments/score_verifier.py PARAM RAG [--overlap-veto]` | os dois braços de um modelo |
+| limites de precision por janela e por afirmação | `experiments/window_metrics.py FILE...` | quaisquer arquivos de resultado v1 |
+| auditoria das sinalizações off-claim | `experiments/offclaim_sample.py` com `data/labels/offclaim_key.json` | os arquivos de resultado v1 |
+| classificadores de referência (all-positive, regras de data e de proveniência, TF-IDF + LR) | `experiments/baselines.py` | os oito arquivos v1 acima, lidos de `data/results/v1/` |
+| protocolo de transcrição inteira | `experiments/score_verifier.py` no par `_whole_tc`; leia a linha `video-AND` | `data/results/v3/` |
+| comparação de prompts no dev set | `experiments/score_prompt_ab.py data/results/v1/prompt_ab_dev.json` | a execução do A/B de prompts |
 
-For example, the four-model verifier table:
+Por exemplo, a tabela do verifier com os quatro modelos:
 
 ```bash
 for m in gemma-4-12b gpt-oss-20b openai-gpt-oss-120b; do
@@ -232,116 +239,120 @@ python experiments/score_verifier.py data/results/v1/test_run_qwen-qwen3.6-27b_p
                                      data/results/v1/test_run_qwen-qwen3.6-27b_tavily_nothink.json --overlap-veto
 ```
 
-`data/results/README.md` says which files are reported and which are kept only
-for the record. The thesis itself: *link to the deposited PDF goes here*.
+O `data/results/README.md` indica quais arquivos são reportados e quais são
+mantidos apenas como registro. O TCC: *link para o PDF depositado entra aqui*.
 
-## Design decisions
+## Decisões de projeto
 
-- **YouTube Data API, not scraping.** Scraping breaks with the markup, gets IPs
-  blocked and violates the Terms of Service. The API is free within quota and
-  citable.
-- **Whisper on the audio, not captions.** Most of these videos have captions
-  disabled. Coverage then depends only on a video being downloadable.
-- **An LLM, not keyword matching.** The dataset holds misinformation and
-  debunking of the same myths in near-identical vocabulary, and Whisper output
-  is unpunctuated, so negation scope cannot be recovered by pattern matching.
-- **Stance is the hard part.** Models key on topic and flag debunking content
-  as misinformation. The prompt asks for stance explicitly and a `denying` or
-  `neutral` stance overrides a flag; `docs/adjudication-experiments.md` records
-  how far that holds.
-- **Nothing is tuned on the test videos.** The 119 labelled v1 videos are held
-  out; every threshold comes from separate dev collections (`docs/dev-sets.md`).
-  A parameter gets a value only when the dev set discriminates between values,
-  and otherwise the value that makes it inert.
-- **Everything runs on the host** with the local backends. Only the two
-  OpenRouter models send transcript text off the machine, and preflight warns
-  on every remote run.
+- **YouTube Data API, não scraping.** O scraping quebra quando o markup muda,
+  faz IPs serem bloqueados e viola os Termos de Serviço. A API é gratuita
+  dentro da cota e pode ser citada.
+- **Whisper no áudio, não legendas.** A maioria desses vídeos está com as
+  legendas desativadas. Assim, a cobertura depende apenas de o vídeo poder ser
+  baixado.
+- **Um LLM, não keyword matching.** O dataset traz desinformação e
+  desmentidos dos mesmos mitos com vocabulário quase idêntico, e a saída do
+  Whisper não tem pontuação, então o escopo de uma negação não pode ser
+  recuperado por pattern matching.
+- **O difícil é o stance.** Os modelos se prendem ao tópico e sinalizam
+  conteúdo de desmentido como desinformação. O prompt pede o stance
+  explicitamente, e um stance `denying` ou `neutral` anula a sinalização; o
+  `docs/adjudication-experiments.md` registra até onde isso funciona.
+- **Nada é ajustado nos vídeos de teste.** Os 119 vídeos v1 rotulados ficam
+  separados; todo threshold vem de coleções de dev independentes
+  (`docs/dev-sets.md`). Um parâmetro só recebe um valor quando o dev set
+  discrimina entre valores; caso contrário, recebe o valor que o torna inerte.
+- **Tudo roda na máquina local** com os backends locais. Apenas os dois
+  modelos do OpenRouter enviam texto de transcrição para fora, e o preflight
+  emite um aviso em toda execução remota.
 
 ## Status
 
 | | |
 |---|---|
-| Test set | 119 videos with usable transcripts, hand-labelled: 42 asserting something false, 77 not |
-| Dev sets | 44 transcribed videos mirroring the v1 queries (tuning), 19 on narratives the corpus does not cover (web fallback only) |
-| Corpus | 21 licence-cleared, DOI-resolved documents, 2,488 passages |
-| Retrieval | exact cosine over MiniLM embeddings, 55-word chunks, topic routing with a confidence gate; BM25 and hybrid were tested and rejected |
-| Models | Gemma 4 12B and gpt-oss-20b via llama.cpp; Qwen3.6-27B and gpt-oss-120b via OpenRouter |
-| Protocols | v1 windowed (reported), v2 with the time check (tested, scored worse, dropped), v3 whole-transcript |
+| Test set | 119 vídeos com transcrições utilizáveis, rotulados manualmente: 42 afirmam algo falso, 77 não |
+| Dev sets | 44 vídeos transcritos que espelham as queries v1 (ajuste), 19 sobre narrativas que o corpus não cobre (apenas fallback web) |
+| Corpus | 21 documentos com licença verificada e DOI resolvido, 2.488 passagens |
+| Retrieval | cosseno exato sobre embeddings MiniLM, chunks de 55 palavras, roteamento por tópico com confidence gate; BM25 e híbrido foram testados e descartados |
+| Modelos | Gemma 4 12B e gpt-oss-20b via llama.cpp; Qwen3.6-27B e gpt-oss-120b via OpenRouter |
+| Protocolos | v1 por janelas (reportado), v2 com time check (testado, pior resultado, descartado), v3 com a transcrição inteira |
 
-Open:
+Em aberto:
 
-- The web fallback has no ground truth. Its verdicts are reported separately
-  from the corpus figures.
-- Three retrieval parameters are inert for want of evidence, not because they
-  are known to be unnecessary; settling them needs windows whose evidence is
-  genuinely absent from the corpus.
-- The 55-word chunk size wins clearly only on specific claims; on broad ones
-  chunk size barely matters.
+- O fallback web não tem ground truth. Seus vereditos são reportados
+  separadamente dos números do corpus.
+- Três parâmetros de retrieval estão inertes por falta de evidência, e não por
+  se saber que são desnecessários; definí-los exige janelas cuja evidência
+  esteja de fato ausente do corpus.
+- O chunk de 55 palavras só vence com clareza em afirmações específicas; nas
+  amplas, o tamanho do chunk quase não faz diferença.
 
-## Data and ethics
+## Dados e ética
 
-The videos are public YouTube uploads found through the official Data API with
-neutral topic queries; no creator was targeted, and the dataset contains
-misinformation and debunking of the same myths alike. The transcripts are
-machine-generated from the audio and are redistributed here so that the
-experiment can be reproduced exactly: the windowed result files repeat that
-text in 140-word windows, and every scoring script reads the transcripts. The
-spoken content remains the creators' copyright and is not relicensed. Every
-record keeps its video and channel id, so a creator can identify their material
-and request its removal; `experiments/redact_text.py` strips the window text
-from the result files and restores it from re-transcribed audio, so a copy
-without transcripts stays scoreable.
+Os vídeos são uploads públicos do YouTube encontrados pela Data API oficial
+com queries de tópico neutras; nenhum criador foi alvo específico, e o dataset
+contém tanto desinformação quanto desmentidos dos mesmos mitos. As
+transcrições são geradas automaticamente a partir do áudio e redistribuídas
+aqui para que o experimento possa ser reproduzido com exatidão: os arquivos de
+resultado por janelas repetem esse texto em janelas de 140 palavras, e todo
+script de avaliação lê as transcrições. O conteúdo falado continua sendo
+propriedade dos criadores e não é relicenciado. Cada registro mantém o id do
+vídeo e do canal, de modo que um criador pode identificar o seu material e
+pedir a remoção; o `experiments/redact_text.py` remove o texto das janelas dos
+arquivos de resultado e o restaura a partir de áudio retranscrito, então uma
+cópia sem transcrições continua podendo ser avaliada.
 
-The pages retrieved by the web fallback are not redistributed. Only an index of
-queries, URLs and retrieval times is kept per run
-(`data/results/<version>/web_cache_index_*.json`).
+As páginas recuperadas pelo fallback web não são redistribuídas. Por
+execução, guarda-se apenas um índice das queries, URLs e horários de
+recuperação (`data/results/<version>/web_cache_index_*.json`).
 
-## Licence
+## Licença
 
-Code is MIT (`LICENSE`). Labels are CC BY 4.0. The evidence passages keep the
-licence of the document they were extracted from, three of which are
-non-commercial, so the corpus as a whole is not relicensed. Transcripts are for
-research use only. `LICENSE-DATA.md` lists the terms of every data file,
-including the licence of each corpus document.
+O código é MIT (`LICENSE`). Os labels são CC BY 4.0. As passagens de
+evidência mantêm a licença do documento de onde foram extraídas, e três delas
+são não comerciais, então o corpus como um todo não é relicenciado. As
+transcrições são apenas para uso em pesquisa. O `LICENSE-DATA.md` lista os
+termos de cada arquivo de dados, incluindo a licença de cada documento do
+corpus.
 
-## Citation and releases
+## Citação e releases
 
-`CITATION.cff` holds the citation metadata GitHub shows under "Cite this
-repository"; fill in the Zenodo DOI and the thesis details once they exist.
-The commit matching the submitted thesis is tagged `v1.0`, and the thesis cites
-that tag (and the Zenodo DOI minted from it). Later fixes become `v1.1` and so
-on; `v1.0` is never moved.
+O `CITATION.cff` contém os metadados de citação que o GitHub exibe em "Cite
+this repository"; preencha o DOI do Zenodo e os dados do TCC quando existirem.
+O commit correspondente ao TCC entregue recebe a tag `v1.0`, e o TCC cita essa
+tag (e o DOI do Zenodo gerado a partir dela). Correções posteriores viram
+`v1.1` e assim por diante; a `v1.0` nunca é movida.
 
 ```bash
-git tag -a v1.0 -m "Version submitted with the thesis" <commit>
+git tag -a v1.0 -m "Versão entregue com o TCC" <commit>
 git push origin v1.0
 ```
 
-## Documentation
+## Documentação
 
-| doc | covers |
+| doc | trata de |
 |---|---|
-| `docs/corpus-inclusion.md` | what gets into the reference corpus, and why one paper was withdrawn |
-| `docs/chunking-experiments.md` | chunk size and stride |
-| `docs/retrieval-methods.md` | dense versus BM25 versus hybrid |
-| `docs/routing-experiments.md` | topic routing, the confidence gate and the rank bonus |
-| `docs/adjudication-experiments.md` | the relevance gate, stance, and the verdict contract |
-| `docs/prompt-experiments.md` | the prompt A/B on the dev set |
-| `docs/web-search.md` | the web fallback: trigger, backends, caching |
-| `docs/dev-sets.md` | how the dev collections were built and kept clean of the test set |
-| `docs/model-backends.md` | llama.cpp, Ollama and OpenRouter, and the four-model comparison |
-| `docs/evidence-as-verifier.md`, `docs/evidence-veto.md` | combining the parametric and evidence arms |
-| `docs/code-cleanup.md` | the dead-code audit before the final experiment |
+| `docs/corpus-inclusion.md` | o que entra no corpus de referência, e por que um artigo foi retirado |
+| `docs/chunking-experiments.md` | tamanho e stride dos chunks |
+| `docs/retrieval-methods.md` | dense versus BM25 versus híbrido |
+| `docs/routing-experiments.md` | roteamento por tópico, o confidence gate e o rank bonus |
+| `docs/adjudication-experiments.md` | o relevance gate, o stance e o contrato do veredito |
+| `docs/prompt-experiments.md` | o A/B de prompts no dev set |
+| `docs/web-search.md` | o fallback web: gatilho, backends, cache |
+| `docs/dev-sets.md` | como as coleções de dev foram montadas e mantidas livres do test set |
+| `docs/model-backends.md` | llama.cpp, Ollama e OpenRouter, e a comparação entre os quatro modelos |
+| `docs/evidence-as-verifier.md`, `docs/evidence-veto.md` | a combinação dos braços paramétrico e com evidência |
+| `docs/code-cleanup.md` | a auditoria de código morto antes do experimento final |
 
-## Troubleshooting
+## Solução de problemas
 
-| symptom | cause |
+| sintoma | causa |
 |---|---|
-| `ConnectionError: cannot reach` | no server, or the wrong port: llama.cpp is expected on 8080, Ollama on 11434 |
-| every verdict `ERROR` on gpt-oss | the grammar is fighting the reasoning trace; start `llama-server` with `--jinja` |
-| `unrecognised verdict ''` | grammar off with a large evidence block; you are on Ollama, unset `LLM_SERVER` |
-| every verdict `NO_EVIDENCE` | index empty or wrong corpus; `--build-index` should report 2488 |
-| `Index is stale` | passages changed since the index was built; rebuild it |
-| results from two models in one file | `LLAMA_MODEL` left at its default; set it per run |
-| `OPENROUTER_API_KEY not set` / `HTTP 401` | key missing, wrong, or the account has no credit |
-| run much slower than the estimate | no GPU offload; add `-ngl 99`. Reasoning models also spend tokens before answering |
+| `ConnectionError: cannot reach` | servidor não iniciado, ou porta errada: o llama.cpp é esperado na 8080, o Ollama na 11434 |
+| todo veredito `ERROR` no gpt-oss | a gramática está brigando com o trace de reasoning; inicie o `llama-server` com `--jinja` |
+| `unrecognised verdict ''` | gramática desligada com um bloco grande de evidências; você está no Ollama, faça `unset LLM_SERVER` |
+| todo veredito `NO_EVIDENCE` | índice vazio ou corpus errado; o `--build-index` deve reportar 2488 |
+| `Index is stale` | as passagens mudaram depois que o índice foi construído; reconstrua-o |
+| resultados de dois modelos no mesmo arquivo | `LLAMA_MODEL` ficou no padrão; defina-o a cada execução |
+| `OPENROUTER_API_KEY not set` / `HTTP 401` | chave ausente, errada, ou conta sem crédito |
+| execução muito mais lenta que a estimativa | sem offload para GPU; acrescente `-ngl 99`. Modelos de reasoning também gastam tokens antes de responder |
